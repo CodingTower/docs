@@ -1,0 +1,193 @@
+---
+title: "ZenOpus workspace"
+description: "Manage your team's projects, members, billing, and settings in one central place."
+---
+A **workspace** is the central place where you and your team build apps together in ZenOpus. Every project lives inside a workspace, and every member collaborating with you accesses projects through a workspace.
+
+Think of it as your team’s home base. It holds your projects, your people, your billing, and your settings in one place.
+
+When you sign up for ZenOpus, your first personal workspace is created automatically on the **free plan** with a 5 daily credit allowance. From there you can:
+
+- Invite others to join
+- Create projects
+- Upgrade your plan as your needs grow
+
+You can also create additional workspaces from the **workspace switcher** in the top-left corner of the dashboard.
+
+## Workspace basics
+
+These are the key rules that define how workspaces function in ZenOpus.
+
+- **Projects belong to a workspace**  
+All projects exist inside a workspace.
+- **Pricing plans are workspace-level**  
+Each workspace has its **own plan and billing**. A paid subscription applies to **one workspace only**.
+- **Credits are shared across the workspace**  
+All projects in a workspace share the workspace’s plan and credits. This applies regardless of which member sends messages.
+- **You can belong to multiple workspaces**  
+A single ZenOpus account can be a member of multiple workspaces. You can switch between them at any time.
+
+## Create a workspace
+
+Any logged-in user can create a workspace.
+
+1. Open the **workspace switcher** (top-left of the dashboard)
+1. Click **Create workspace**
+1. Enter a name (up to 50 characters)
+1. Click **Create** and set up your pricing plan
+
+## Workspace setup
+
+Workspace owners and admins can configure settings, [billing](/introduction/plans-and-credits), and security options for their workspace.
+
+### Workspace settings
+
+Workspace **owners and admins** can customize workspace settings under **Settings → Workspace**.
+
+Available settings include:
+
+| Setting | Description |
+| --- | --- |
+| Avatar | Set a workspace icon. |
+| Name | Your workspace display name (maximum 50 characters). |
+| Workspace handle | A unique handle for the workspace profile page. |
+| Default monthly member credit limit | The default monthly credit limit for all members of the workspace. Leave empty to use no limit . You can configure specific member limits from Settings → People . |
+
+To manage plans and billing, go to **Settings → Plans & credits**.
+
+### SSO and SCIM user provisioning
+
+**Just-in-time provisioning (Business and Enterprise)**  
+
+ Workspaces with [SSO](/features/business/sso) configured can enable **just-in-time provisioning**. When a user with a verified domain email logs in through the SSO provider for the first time, they are automatically added to the workspace with a configurable default role.
+
+**SCIM provisioning (Enterprise)**  
+
+ Enterprise workspaces can provision users using the [SCIM protocol](/features/business/scim). This allows your identity provider to automatically:
+
+- Create users
+- Update memberships
+- Deactivate workspace memberships
+
+## Invite people to your workspace
+
+Workspace members are the people you collaborate with on projects in a workspace.
+
+Editors and above can invite members to the workspace, either by email or by sharing an invite link.
+
+### Invite by email
+
+<Note>
+On **Enterprise plans**, you can choose to only allow **admins and owners** to invite people by email. Go to **Settings → Privacy & security → Restrict workspace invitations.**
+</Note>
+
+1. Go to **Settings → People**
+1. Click **Invite members**
+1. Enter one or more email addresses
+1. Select the role:
+    - Owner
+    - Admin
+    - Editor
+    - Viewer
+1. Click **Invite**
+
+When selecting roles:
+
+- Only **owners** can invite other owners
+- Assigning roles such as **admin or viewer** requires a **paid plan**
+
+### Invite via link
+
+<Note>
+Enterprise workspaces do not support invite links. On all other plans, admins and owners can disable invite links entirely from **Settings → Privacy & security → Invite links.**
+</Note>
+
+1. Go to **Settings → People**
+1. Click **Invite link**
+1. Choose the role:
+    - Editor
+    - Viewer (available on paid plans)
+1. Click **Create invite link**
+1. Copy the link and share it
+
+Invite links expire after **5 days** and can be regenerated or deleted at any time.
+
+- Only **one active link per role** is allowed at a time.
+- Creating a new link replaces the previous one.
+
+## Manage workspace members and invitations
+
+Go to **Settings → People** to manage workspace members.
+
+From here you can:
+
+- Add new members via email or invite link
+- Revoke an invitation
+- Change member roles
+- Remove members
+- View monthly credit usage per member
+- Set individual member credit limits
+- Perform bulk membership actions: change roles, set credit limits, or remove members
+
+Available actions depend on your role.
+
+## Join a workspace
+
+Once you have a ZenOpus account, there are several ways to join a workspace.
+
+### Email invitation or invite link
+
+A workspace owner, admin, or editor sends you an invitation by email or sends you an invite link.
+
+If **auto-accept invitations** is enabled in your personal account settings, you are added to the workspace without needing to manually accept the invites.
+
+### Find your team’s workspace
+
+If you signed up with a **work email address**, ZenOpus can automatically surface workspaces that belong to your organization. This helps you join the correct workspace without needing a direct invitation.
+
+<Note>
+This feature is available to accounts using **non-public email domains** (such as `@yourcompany.com`). Public domains like `@gmail.com` or `@hotmail.com` are not supported.
+</Note>
+
+**How to find a workspace:**
+
+1. Open the **workspace switcher** (top-left of the dashboard)
+1. Click **Find workspaces** at the bottom of the dropdown and ZenOpus will search for workspaces associated with your email domain
+1. Select the workspace you want to join
+1. Choose the role you want to request
+1. Submit your request
+
+Workspace admins and owners will be notified and can **approve or deny your access**.
+
+<Tip>
+If you do not belong to any workspace yet, this option also appears in the **No workspace** dialog shown after sign-up.
+</Tip>
+
+## Switch workspaces
+
+Open the **workspace switcher** in the top-left corner of the dashboard and click a workspace name to switch to it.
+
+## Leave a workspace
+
+You can leave a workspace from **Settings → Workspace**.
+
+<Warning>
+Owners cannot leave the workspace unless another owner exists.
+</Warning>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="How many members can one workspace have?">
+Workspaces support **unlimited members** on all plans. For Enterprise workspaces, custom member limits can optionally be set.
+</Accordion>
+<Accordion title="Can I have several workspaces?">
+Yes. However, each workspace requires its **own subscription**.
+</Accordion>
+<Accordion title="Can I switch between workspaces?">
+Yes. Go to the main dashboard and click your workspace name in the top-left corner. In the dropdown you will see the other workspaces you have access to. Select one to switch.
+</Accordion>
+<Accordion title="Can I change the workspace owner?">
+Yes. Owners can promote other members to **owner**. A workspace can have **multiple owners**.
+</Accordion>
+</AccordionGroup>

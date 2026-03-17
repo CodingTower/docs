@@ -1,0 +1,116 @@
+---
+title: "Pruebe su aplicación en un navegador"
+description: "Descubra cómo ZenOpus utiliza las pruebas del navegador para verificar su aplicación haciendo clic en botones, completando formularios, probando flujos y verificando el comportamiento en todos los tamaños de pantalla."
+---
+Las pruebas del navegador permiten a ZenOpus interactuar con su aplicación en un navegador real que se ejecuta en un entorno virtual. El agente puede hacer clic en botones, completar formularios, navegar por páginas y verificar el comportamiento real del usuario con capturas de pantalla en lugar de depender únicamente del código.
+
+Utilice pruebas de navegador para validar los flujos de usuarios, depurar problemas visuales o de comportamiento y confirmar que los cambios funcionan según lo esperado en diferentes tamaños de pantalla.
+
+## ¿Qué pueden hacer las pruebas del navegador?
+
+Cuando se ejecuta la prueba del navegador, el agente puede:
+
+- Capturar capturas de pantalla de la aplicación.
+- Haga clic en botones y enlaces
+- Complete las entradas y envíe formularios
+- Navegar entre páginas
+- Leer registros de consola y solicitudes de red
+- Detecta errores de tiempo de ejecución mientras interactúas con tu aplicación
+- Pruebe diferentes tamaños de pantalla, incluidos diseños para dispositivos móviles, tabletas y computadoras de escritorio. De forma predeterminada, utiliza el mismo tamaño que la vista previa.
+
+## Cómo funcionan las pruebas del navegador
+
+ZenOpus utiliza pruebas de navegador de forma selectiva, después de probar primero métodos de verificación más rápidos.
+
+Las pruebas del navegador pueden ejecutarse cuando:
+
+- Solicita explícitamente verificar que algo funcione. Las frases desencadenantes comunes incluyen:  
+"verificar que funciona", "asegúrate de que funciona", "probar esto", "comprobar si está funcionando"
+- Los problemas visuales o de interfaz de usuario no se pueden identificar mediante registros o inspección de código
+- Hay un cambio de característica mayor y ZenOpus se ofrece a probar el flujo y usted confirma
+
+<Tip>
+Evite pedirle a ZenOpus que *realice un cambio importante y lo pruebe* en el mismo mensaje.
+
+Si la prueba del navegador se atasca y la detiene, es posible que se pierda todo el trabajo realizado durante ese paso.
+
+Un flujo más seguro es construir primero y luego probar en un mensaje de seguimiento.
+</Tip>
+
+### donde corre
+
+El navegador se ejecuta de forma remota en un entorno virtual seguro. No es su navegador personal y no se hace cargo de su sesión local.
+
+- Las pruebas del navegador siempre se ejecutan con la vista previa del proyecto en el que estás trabajando actualmente y prueban exactamente la versión de la aplicación que estás viendo.
+- Si su aplicación utiliza autenticación, las pruebas del navegador se ejecutan con el mismo usuario de la aplicación en el que ha iniciado sesión actualmente como en la vista previa. Sea explícito si hay acciones o áreas en las que no se debe hacer clic ni activar.
+- Algunas aplicaciones ZenOpus Cloud utilizan la función [entornos de prueba y en vivo](/es/features/environments). Cuando esta función está habilitada, las pruebas del navegador se ejecutan en la vista previa del proyecto en el entorno **prueba**.
+
+### ¿Qué sucede durante una ejecución de prueba del navegador?
+
+Puede seguir el proceso de prueba en una **Vista de detalles** dedicada, donde el agente:
+
+- Muestra los pasos que está tomando, como hacer clic en botones o navegar por páginas.
+- Captura capturas de pantalla de la aplicación.
+- Muestra las URL y los resultados de las interacciones.
+- Resume lo que funcionó y lo que no.
+
+La prueba del navegador es más lenta que las acciones normales porque el agente interactúa con un navegador real y verifica los resultados.
+
+### Ejemplo: activar manualmente la prueba del navegador
+
+El siguiente ejemplo muestra cómo activar manualmente la prueba del navegador después de descubrir un problema con la página de perfil. Pídale a ZenOpus que reproduzca el problema, lo solucione y luego verifique la solución. Por ejemplo:
+
+```text
+La página falla cuando hago clic en mi perfil. Reproduzca en el navegador, corríjalo y luego verifique que su solución funcionó.
+```
+
+![Activación manual de la prueba del navegador](/images/zenopus/features/browser-testing/build-browser-testing.png)
+
+## Limitaciones
+
+- No puede interactuar con herramientas de dibujo o basadas en lienzo.
+- No puede cargar ni descargar archivos.
+- No puede realizar interacciones con el botón derecho
+- Puede realizar interacciones de arrastrar y soltar, pero son menos confiables que los clics.
+- Puede realizar acciones del portapapeles y selección de texto, pero no son confiables
+- No es confiable para evaluar detalles sutiles del diseño visual o diferencias de color.
+- Puede tener dificultades para interactuar con botones que solo contienen íconos en comparación con los botones con etiquetas de texto.
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Las pruebas del navegador se ejecutan automáticamente?">
+Sí, en algunos casos. ZenOpus puede sugerir o utilizar automáticamente pruebas del navegador cuando se necesita verificación, pero es conservador de forma predeterminada y prueba primero métodos más ligeros.
+</Accordion>
+<Accordion title="¿Cómo puedo asegurarme de que ZenOpus utilice pruebas de navegador?">
+Siempre puedes solicitar explícitamente una prueba del navegador en cualquier momento. Las frases desencadenantes comunes incluyen: "verificar que funciona", "asegurarse de que funciona", "probar esto", "comprobar si está funcionando".
+
+Por ejemplo:
+
+```text
+Utilice pruebas de navegador para verificar este flujo.
+```
+</Accordion>
+<Accordion title="¿En qué entorno se ejecutan las pruebas del navegador?">
+Las pruebas del navegador siempre se ejecutan con la vista previa del proyecto en el que estás trabajando actualmente. Prueba exactamente la versión de la aplicación que estás viendo.
+
+Si su proyecto utiliza **separación de entorno de prueba y en vivo**, las pruebas del navegador se ejecutan en la vista previa del entorno de prueba.
+</Accordion>
+<Accordion title="¿Las pruebas del navegador utilizan los permisos de mi aplicación?">
+Sí. Si su aplicación utiliza autenticación, el agente inicia sesión como el mismo usuario de la aplicación que usted actualmente y las pruebas del navegador se ejecutan con el mismo usuario de la aplicación.
+
+Sea explícito si no se debe hacer clic o activar algo.
+</Accordion>
+<Accordion title="¿Es este mi navegador real?">
+No. Las pruebas del navegador utilizan un navegador real que se ejecuta en un entorno virtual remoto. No se hace cargo de su navegador o sesión local.
+</Accordion>
+<Accordion title="¿Qué pasa si las pruebas del navegador siguen fallando en la misma acción?">
+Si el agente no logra interactuar repetidamente con el mismo elemento, esto podría deberse a limitaciones de interacción del navegador (más probablemente) o a un problema subyacente en su aplicación, como un elemento oculto, un estado roto o un diseño inesperado.
+
+Pruebe lo siguiente:
+
+1. Revise las capturas de pantalla y los registros de la ejecución de prueba en la vista Detalles
+1. Pídale a ZenOpus que haga que sea más fácil interactuar con el elemento (por ejemplo, agregando texto visible o una etiqueta de accesibilidad).
+1. Si el problema persiste, indique explícitamente al agente que evite interactuar con ese elemento.
+</Accordion>
+</AccordionGroup>

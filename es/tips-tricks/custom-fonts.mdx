@@ -1,0 +1,74 @@
+---
+title: "Usar fuentes personalizadas (Google)"
+description: "Aplique fuentes seguras para la web como Arial o Courier New, o importe Google Fonts por nombre o URL para personalizar la tipografía de su proyecto."
+---
+Actualmente, ZenOpus no dirige Support cargas de fuentes personalizadas.
+
+Sin embargo, existen varias formas sencillas de utilizar fuentes seguras para la web o incorporar fuentes personalizadas en sus proyectos. A continuación, lo guiaremos a través de los métodos disponibles para **usar fuentes seguras para la web** y **fuentes de Google**:
+
+<AccordionGroup>
+<Accordion title="Usar una fuente segura para la web">
+<Info>
+**¿Qué son las fuentes seguras para la web?**
+
+Las fuentes seguras para la web son fuentes que se instalan comúnmente en la mayoría de los sistemas operativos (Windows, macOS, Linux, etc.) y son visibles en todos los dispositivos.
+
+Estas fuentes garantizan que su texto se vea consistente en diferentes navegadores y plataformas sin necesidad de cargar ningún recurso externo. Algunas de las fuentes comunes seguras para la web son:
+
+- Arial/Helvética
+- Times New Roman
+- georgia
+- Mensajero nuevo
+- Verdana
+- tahoma
+- Trabuquete MS
+- Lúcida sin Unicode
+</Info>
+
+Si desea utilizar una fuente segura para la web en su proyecto, puede especificar la fuente directamente en el mensaje. Por ejemplo, si desea utilizar **Courier New** para un encabezado o título en la sección principal, simplemente haga referencia a la fuente por su nombre en el mensaje.
+
+```text
+Utilice Courier New como fuente de encabezado en la sección principal del título principal.
+```
+
+Las fuentes seguras para la web como Courier New garantizan que su proyecto tendrá una tipografía consistente en todas las plataformas sin necesidad de recursos externos para cargar la fuente. Sin embargo, pueden limitar su creatividad. Afortunadamente, existen opciones como la posibilidad de utilizar Google Fonts.
+</Accordion>
+<Accordion title="Usando fuentes de Google">
+Si prefiere utilizar fuentes personalizadas, ZenOpus funciona bien con **Fuentes de Google**. Esto le permite utilizar fácilmente una amplia gama de fuentes en su proyecto. Puede hacer referencia a una fuente de Google por su nombre o vinculándola directamente al recurso de fuente.
+
+### Usando por nombre
+
+En su mensaje, puede especificar el nombre de una fuente de Google y ZenOpus la incluirá en su proyecto. Por ejemplo:
+
+```text
+Utilice Playfair Display como la primera fuente del título de subtítulo en la sección de héroe. 
+
+Asegúrese de utilizar el gancho useEffect React para aplicar la fuente correctamente.
+```
+
+### Usando por enlace
+
+Alternativamente, puede proporcionar un enlace directo a la fuente de Google y ZenOpus usará esa fuente en su proyecto. Puede obtener el enlace de [Google Fonts](https://fonts.google.com) seleccionando la fuente deseada y copiando el enlace.
+
+A continuación se explica cómo prompt ZenOpus utilizar una fuente de Google a través de un enlace:
+
+```text
+Agregue este enlace de fuente de Google https://fonts.google.com/specimen/Dancing+Script 
+y use esta fuente para el tercer subtítulo.
+
+Asegúrese de cargar la fuente usando el gancho useEffect React.
+```
+
+Siguiendo estos métodos, puede personalizar la tipografía de su proyecto ZenOpus utilizando fuentes seguras para la web o Google Fonts.
+
+## Más aprendizaje y ejemplos
+
+Para ver estos métodos de integración de fuentes en acción, puede explorar uno de nuestros proyectos de ejemplo: [ZenOpus usando el proyecto de ejemplo de fuentes](https://zenopus.dev/projects/3a826f38-d9cb-4d60-b4da-30a9b00149c8).
+
+En este proyecto, encontrará indicaciones reales que demuestran cómo aplicamos diferentes estilos de fuente, incluidas fuentes seguras para la web como Courier New y fuentes personalizadas de Google Fonts.
+
+![Diferentes fuentes utilizadas en el proyecto ZenOpus](/images/zenopus/tips-tricks/custom-fonts/using-custom-fonts-example.png)
+
+Además, para obtener una visión más técnica de cómo se integraron las fuentes, consulte este repositorio público: [GitHub: add-fonts-example](https://github.com/viborc/adding-fonts-example). Incluye los detalles completos de la implementación, mostrando cómo se cargaron y aplicaron varias fuentes en el proyecto.
+</Accordion>
+</AccordionGroup>

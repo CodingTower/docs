@@ -1,0 +1,100 @@
+---
+title: "Projektübergreifende Referenzierung"
+description: "Verwenden Sie Implementierungen projektübergreifend in Ihrem Workspace wieder, einschließlich Code, Assets, Dateien und Chat-Verlauf. Behalten Sie die Konsistenz bei und vermeiden Sie die Neuerstellung derselben Funktionen."
+---
+Durch projektübergreifende Referenzierung kann ZenOpus auf Implementierungen aus anderen Projekten in Ihrem Workspace zugreifen und diese wiederverwenden.
+
+Beim Verweisen auf andere Projekte kann ZenOpus Dateistrukturen erkunden, Quellcode lesen, nach relevanten Mustern suchen, auf den zugehörigen Chat-Verlauf zugreifen und Assets wie Bilder und Schriftarten wiederverwenden oder kopieren. Dadurch kann der Agent verstehen, wie etwas erstellt wurde, und es in Ihrem aktuellen Projekt neu erstellen oder anpassen.
+
+Sie können mithilfe von `@`-Erwähnungen explizit auf ein Projekt verweisen oder einfach ZenOpus bitten, bei Bedarf ein vorhandenes Projekt zu verwenden. **Die referenzierten Projekte bleiben unverändert**.
+
+## So verweisen Sie auf andere Projekte
+
+Geben Sie im Chat `@` ein und wählen Sie ein Projekt aus, zum Beispiel:
+
+```text
+Verwenden Sie das Logo und die Farbpalette von @BrandSite.
+```
+
+Bitten Sie ZenOpus, ein vorhandenes Projekt zu verwenden, zum Beispiel:
+
+```text
+Erstellen Sie dies mit demselben Authentifizierungs-Setup wie unsere vorhandene Haupt-App.
+```
+
+Verweisen Sie in derselben Eingabeaufforderung auf mehrere Projekte. Zum Beispiel:
+
+```text
+Erstellen Sie diesen Onboarding-Flow mit dem Authentifizierungs-Setup von @MainApp
+und das Formularvalidierungsmuster von @ContactApp.
+```
+
+Die projektübergreifende Referenzierung funktioniert, wenn ZenOpus in [Agent mode](/de/features/agent-mode) und [Plan mode](/de/features/plan-mode) abgefragt wird oder wenn im **Fragentool durch Auswahl von „Andere“ geantwortet wird.**
+
+Sie können Referenzen auch direkt über das Eingabeaufforderungsfeld hinzufügen, indem Sie auf `+` klicken und **@ Referenz hinzufügen** auswählen.
+
+<Note>
+Große Dateien oder Ergebnisse werden möglicherweise abgeschnitten.
+</Note>
+
+## Worauf Sie sich beziehen können
+
+Sie können Folgendes wiederverwenden:
+
+- Komponenten und Layoutsysteme
+- Animationen und Stylingsysteme
+- Authentifizierungsflüsse und API-Integrationen
+- Funktionsimplementierungen
+- Assets wie Bilder und Schriftarten
+- Relevanter Chatverlauf für den Implementierungskontext
+
+Der gesamte Zugriff ist schreibgeschützt und auf Projekte innerhalb Ihres Workspace beschränkt.
+
+## Berechtigungen und Zugriff
+
+Die projektübergreifende Referenzierung wird durch Workspace-Grenzen und Freigabeeinstellungen eingeschränkt.
+
+- Es können nur Projekte innerhalb desselben Workspace referenziert werden. Cross-Workspace-Referenzen werden nicht unterstützt.
+- Jedes Workspace-Mitglied, einschließlich Mitarbeiter, kann auf jedes Projekt verweisen, auf das es zugreifen darf.
+- Der projektübergreifende Zugriff ist schreibgeschützt. Referenzierte Projekte können nicht geändert werden.
+
+## Deaktivieren der projektübergreifenden Freigabe
+
+Die projektübergreifende Freigabe kann auf verschiedenen Ebenen deaktiviert werden:
+
+- **Workspace Ebene:**   
+
+ Workspace-Administratoren und -Eigentümer können die projektübergreifende Freigabe für den gesamten Workspace in deaktivieren  
+
+**Workspace Einstellungen → Datenschutz und Sicherheit → Projektübergreifende Freigabe.**
+- **Projektebene:**   
+
+ Projektbearbeiter und höher können die projektübergreifende Freigabe für ein bestimmtes Projekt in deaktivieren  
+
+**Projekteinstellungen → Projektübergreifende Freigabe.**Wenn die Option auf Projektebene deaktiviert ist, kann dieses Projekt nicht auf andere Projekte verweisen, und andere Projekte können nicht auf es verweisen.
+
+Wenn einer dieser Steuerelemente den Zugriff blockiert, schlägt die Referenz fehl.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Kann ich auf Projekte aus einem anderen Workspace verweisen?">
+Nein. Die projektübergreifende Referenzierung funktioniert nur innerhalb desselben Workspace. Cross-Workspace-Referenzen werden nicht unterstützt.
+</Accordion>
+<Accordion title="Wird das Verweisen auf ein Projekt dieses verändern?">
+Nein. Der gesamte projektübergreifende Zugriff ist schreibgeschützt. Das referenzierte Projekt kann nicht geändert werden.
+</Accordion>
+<Accordion title="Können Teammitglieder auf meine eingeschränkten Projekte verweisen?">
+Nein. Projekte mit **Eingeschränkter** Sichtbarkeit können nur von ihrem Eigentümer referenziert werden. Teammitglieder können nicht auf eingeschränkte Projekte verweisen, auch nicht innerhalb desselben Workspace.
+</Accordion>
+<Accordion title="Warum kann ZenOpus nicht auf ein anderes Projekt zugreifen?">
+Wenn ZenOpus nicht auf ein Projekt zugreifen kann, überprüfen Sie Folgendes:
+
+- Stellen Sie sicher, dass die projektübergreifende Freigabe nicht auf Workspace- oder Projektebene deaktiviert wurde.
+- Stellen Sie sicher, dass sich beide Projekte im selben Workspace befinden. Der Workspace-übergreifende Zugriff wird nicht unterstützt.
+- Überprüfen Sie die Sichtbarkeit des Projekts. Projekte, die auf **Eingeschränkt** gesetzt sind, sind nur für ihren Eigentümer zugänglich.
+- Bestätigen Sie, dass Sie über die Berechtigung zum Zugriff auf das Projekt verfügen. Sie können nur Projekte referenzieren, auf die Sie Zugriff haben.
+
+Wenn einer dieser Steuerelemente den Zugriff blockiert, schlägt die Referenz fehl.
+</Accordion>
+</AccordionGroup>

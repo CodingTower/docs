@@ -1,0 +1,202 @@
+---
+title: "Bonnes pratiques de sécurité pour les applications ZenOpus"
+description: "Bonnes pratiques de codage sécurisé pour les applications ZenOpus, notamment la sécurité frontale, les fonctions Edge, la sécurité au niveau des lignes (RLS), l'authentification et la protection Workspace."
+---
+Cette page se concentre sur **comment écrire du code sécurisé pour les applications ZenOpus** et éviter les erreurs de sécurité courantes pendant le développement.
+
+Pour plus de détails sur le modèle de sécurité de ZenOpus, les analyses de sécurité et les résultats, consultez [Présentation de la sécurité](/fr/features/security), [Vue de la sécurité du projet](/fr/features/security-view) et le [Centre de sécurité Workspace](/fr/features/security-center).
+
+## Comment les applications ZenOpus sont structurées
+
+Les applications ZenOpus sont conçues avec une séparation claire des responsabilités :
+
+- **Frontend** s'exécute dans le navigateur de l'utilisateur, est toujours public et ne doit jamais être fiable
+- **Edge Functions** s'exécute côté serveur et gère la validation, l'authentification et la logique métier
+- **Base de données** utilise PostgreSQL avec sécurité au niveau des lignes (RLS) pour imposer l'accès aux données
+
+Cette séparation est le fondement du modèle de sécurité de ZenOpus. Les sections ci-dessous suivent cette structure et mettent en évidence les erreurs de sécurité courantes à chaque couche et comment les éviter.
+
+## Bases de la sécurité frontale
+
+Tout le code frontal s’exécute dans le navigateur de l’utilisateur et peut être inspecté, modifié ou contourné. Le code frontend ne devrait jamais prendre de décisions de sécurité.
+
+### Ne stockez pas de secrets dans le code frontend
+
+Les secrets stockés dans le code frontend sont visibles par les utilisateurs et doivent être considérés comme compromis.
+
+```typescript
+// ❌ Wrong: secrets exposed to anyone
+const API_KEY = "sk-1234567890abcdef";
+const STRIPE_SECRET = "sk_live_...";
+```
+
+**Au lieu** : demandez à ZenOpus d'ajouter des secrets en toute sécurité. Les secrets sont stockés dans l'infrastructure backend et accessibles uniquement à partir des fonctions Edge.
+
+**Exemples d'invites**
+
+```text
+Ajoutez une clé API pour les paiements Stripe en toute sécurité sans l'exposer dans le code frontend
+```
+
+```text
+Examinez le code frontal pour détecter les secrets exposés, les clés API ou les informations sensibles.
+```
+
+### Ne comptez pas sur la validation frontale pour la sécurité
+
+La validation frontend améliore l'expérience utilisateur mais n'offre aucune garantie de sécurité.
+
+```typescript
+// ❌ Wrong: client-side validation can be bypassed
+const validateUser = (userData) => userData.email.includes("@");
+```
+
+**Au lieu de cela** : validez et désinfectez toutes les données dans Edge Functions où les vérifications ne peuvent pas être contournées.
+
+**Traitez toujours les entrées des clients comme non fiables.** Validez les formats, appliquez les règles métier et nettoyez les entrées dans **Edge Functions** avant de traiter ou de stocker des données.
+
+**Exemples d'invites**
+
+```text
+Déplacez la logique de validation des composants React vers Edge Functions pour une meilleure sécurité
+```
+
+```text
+Identifiez la validation côté client qui doit être déplacée vers les fonctions Edge backend
+```
+
+## Sécurité du backend avec Edge Functions
+
+Les fonctions Edge forment la frontière sécurisée entre votre interface publique et vos systèmes privés. Ils s'exécutent dans un environnement côté serveur isolé où la logique sensible n'est pas accessible ni modifiable par les utilisateurs.
+
+Toute logique affectant la sécurité, l'intégrité des données ou les services externes doit s'exécuter dans Edge Functions, et non dans les composants frontaux. La centralisation de la validation et de l'autorisation garantit que chaque demande est évaluée de manière cohérente et empêche la logique critique d'atteindre le navigateur.
+
+Les fonctions Edge doivent gérer :
+
+- **Authentification et autorisation**  
+Vérifiez qui fait une demande et s’il est autorisé à effectuer l’action.
+- **Validation et nettoyage des données**  
+Traitez toutes les entrées comme non fiables et appliquez les règles métier de manière cohérente.
+- **Business logique et flux de travail**  
+Gérez les processus en plusieurs étapes tels que les inscriptions, les paiements, les approbations et les transitions d'état.
+- **Intégration avec des services externes**  
+Appelez des API tierces en toute sécurité et conservez les informations d'identification hors du navigateur.
+- **Traitement de données sensibles**  
+Traitez les données personnelles ou financières en toute sécurité, évitez de les exposer involontairement et enregistrez les événements de sécurité importants.
+
+Le maintien de cette logique côté serveur garantit que les comportements critiques n'atteignent jamais le navigateur et que chaque requête est évaluée de manière cohérente.
+
+**Exemples d'invites**
+
+```text
+Créez une fonction Edge pour l'enregistrement des utilisateurs avec des contrôles de validation et de sécurité appropriés
+```
+
+```text
+Déplacez la logique de traitement des paiements du frontend vers une fonction Edge sécurisée
+```
+
+```text
+Créez une fonction Edge pour les téléchargements de fichiers avec validation de type et de taille
+```
+
+## Sécurité de la base de données avec RLS
+
+La sécurité au niveau des lignes (RLS) contrôle qui peut lire ou modifier des lignes individuelles dans votre base de données. Il agit comme une couche finale de protection, appliquant les règles d'accès même en cas de défaillance de la logique front-end ou back-end.
+
+ZenOpus configure automatiquement les politiques RLS de base, mais vous devez les examiner et les ajuster dès le début du développement. RLS est beaucoup plus facile à modifier avant que les données réelles n'existent, et les politiques sont plus efficaces lorsqu'elles restent axées sur le contrôle d'accès plutôt que sur une logique métier complexe.
+
+### Modèles RLS courants
+
+La plupart des applications ZenOpus s'inscrivent dans un petit ensemble de modèles d'accès :
+
+- **Données personnelles** : les utilisateurs ne peuvent accéder qu'à leurs propres données
+- **Accès basé sur l'équipe** : les membres de l'équipe partagent l'accès aux données de l'équipe
+- **Contenu public avec propriété** : tout le monde peut lire, seuls les propriétaires peuvent modifier
+- **Accès basé sur l'organisation** : les utilisateurs accèdent aux données au sein de leur organisation
+
+Concevez vos tableaux et vos politiques autour de ces modèles autant que possible.
+
+### Vérifications RLS avant publication
+
+Avant de passer en direct, vérifiez :
+
+- RLS est activé sur toutes les tables sensibles
+- Les utilisateurs ne peuvent pas accéder aux données privées des autres utilisateurs
+- Les données partagées et publiques se comportent comme prévu
+- Les nouvelles tables ne manquent pas de politiques
+
+Examinez les résultats liés à RLS dans [Vue de sécurité du projet](/fr/features/security-view).
+
+**Exemples d'invites**
+
+```text
+Examinez les politiques RLS pour garantir que les utilisateurs ne peuvent accéder qu'à leurs propres données et que les données partagées sont correctement protégées.
+```
+
+```text
+Ajoutez des stratégies RLS au tableau des paramètres afin que les utilisateurs puissent accéder uniquement à leurs propres paramètres.
+```
+
+```text
+Configurez RLS pour les équipes et les projets afin que les membres de l'équipe ne voient que les projets de leur équipe
+```
+
+## Bases de la sécurité de l'authentification
+
+Toutes les décisions d'authentification doivent être prises côté serveur, et non dans le navigateur. Les contrôles d'authentification côté client peuvent être inspectés, modifiés ou contournés par les utilisateurs et ne doivent jamais être utilisés pour le contrôle d'accès.
+
+L'authentification doit être appliquée dans **Edge Functions**, où les sessions et les jetons peuvent être vérifiés de manière sécurisée et cohérente.
+
+```typescript
+// ❌ Wrong: client-side authentication checks
+const isAuthenticated = localStorage.getItem("authToken") !== null;
+if (isAuthenticated) showAdminPanel();
+```
+
+```typescript
+// ✅ Correct: server-side validation in an Edge Function
+const { user } = await supabase.auth.getUser();
+if (!user) {
+  return new Response("Unauthorized", { status: 401 });
+}
+```
+
+**Bonnes pratiques d'authentification**
+
+- Valider les jetons d'authentification et de session dans Edge Functions
+- Vérifier les rôles et les autorisations côté serveur
+- Utilisez la gestion de session intégrée pour une gestion sécurisée des jetons
+- Redirigez les utilisateurs pour qu'ils se connectent à l'expiration des sessions, mais validez toujours d'abord sur le serveur
+- Utilisez l'état d'authentification frontal uniquement pour contrôler l'interface utilisateur, jamais pour imposer l'accès
+
+## Workspace sécurité
+
+Pour les applications qui ne doivent pas être accessibles au public :
+
+- Définissez [visibilité du projet](/fr/features/project-visibility) sur **Workspace**
+- Vérifiez que l'application n'est pas [publiée](/fr/features/publish) publiquement
+- Exiger une authentification même pour les outils internes
+- Vérifier régulièrement qui a accès
+
+Pour une surveillance à l'échelle de Workspace, utilisez le [Centre de sécurité](/fr/features/security-center).
+
+## Liste de contrôle de sécurité avant la publication
+
+Avant de publier votre application, confirmez :
+
+- Aucun secret n'existe dans le code frontend
+- Toutes les validations et logiques critiques s'exécutent dans Edge Functions
+- Les politiques de sécurité au niveau des lignes (RLS) sont configurées et testées
+- L'authentification est appliquée côté serveur
+- Les applications internes ont une visibilité de Workspace
+- Tous les résultats critiques de la [Vue de sécurité](/fr/features/security-view) sont pris en compte
+- Les appels d'API externes se produisent côté serveur
+
+<Tip>
+**La sécurité est un processus continu**.
+
+Passez en revue ces pratiques chaque fois que vous ajoutez des fonctionnalités, modifiez l'authentification, modifiez l'accès aux données ou introduisez de nouvelles intégrations externes.
+
+L'examen régulier des fonctions Edge, des politiques de sécurité au niveau des lignes et des flux d'authentification permet d'éviter les régressions au fil du temps.
+</Tip>

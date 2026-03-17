@@ -1,0 +1,93 @@
+---
+title: "ZenOpus AI"
+description: "Add powerful AI features to your ZenOpus apps with ZenOpus AI. No API keys or setup required. Enable summaries, chatbots, document Q&A, translation, automation, and more."
+---
+Normally, adding AI to an app means hunting down API keys, setting up billing with providers, and wiring it all together yourself. ZenOpus AI makes it simple to quickly add powerful AI features to your app so you can start building smarter and more engaging apps right away.
+
+Some examples include:
+
+- **AI summaries** – automatically condense long text into clear takeaways
+- **AI chatbot or agent** – build conversational helpers into your app
+- **Sentiment detection** – understand user feedback at scale
+- **Document Q&A** – let users ask questions directly against your content
+- **Creative generation** – brainstorming, copy drafting, or idea expansion
+- **Multilingual translation** – serve global users seamlessly
+- **Task completion** – automate repetitive or multi-step workflows (agent functionality)
+- **Image and document analysis** -  quickly extract, summarize, and interpret key information from images and documents, turning unstructured content into actionable insights
+- **Workflow automation** -  handle repetitive tasks, making decisions, and optimizing processes to save time and reduce errors.
+
+## Enabling ZenOpus AI
+
+<Note>
+For the best experience, we recommend using ZenOpus AI with [ZenOpus Cloud](/integrations/cloud).
+</Note>
+
+By default, ZenOpus AI is enabled for your workspace and in the ZenOpus AI tool permissions. This means ZenOpus automatically adds AI functionality when requested. You can manage ZenOpus AI behavior for your projects in **Settings → Connectors → Shared connectors → ZenOpus AI → Manage permissions**.
+
+### Default AI model
+
+ZenOpus AI uses **Gemini 3 Flash** as the default model. If you want to use a different model or combination of models, you can specify your choice directly in the prompt when requesting AI functionality. For an overview of supported AI models, see [Supported AI models](/features/ai#supported-ai-models).
+
+### Permission preferences
+
+The default setting for AI integration is **Always allow**, meaning ZenOpus AI will be automatically used in your projects. You can change your preference anytime from **Settings → Connectors → Shared connectors → ZenOpus AI → Manage permissions.**
+
+Choose between:
+
+- **Always allow**: ZenOpus automatically performs the action, without asking for review or approval.
+- **Ask each time**: ZenOpus asks for your approval whenever the action is needed. For example, if you want to add a chatbot, you can:
+    - **Allow**: enable the integration for the current project.
+    - **Deny**: decline the integration for this request (you may be asked again later).
+    - **Adjust preferences**: change the default behavior for future projects (does not affect the current project).
+- **Never allow**: ZenOpus blocks the action, informs you that AI is required, and instructs you to enable ZenOpus AI.
+
+## Usage and pricing
+
+ZenOpus AI runs on a **usage-based pricing model**. This means your costs scale with how much you use and are not covered by your subscription.
+
+The cost of using ZenOpus AI is exactly the same as going directly to the LLM provider. There are no hidden fees. To verify costs, refer to the official sources linked in our list of supported AI models below.
+
+Every workspace includes **$1 of free AI usage per month** to get started. After that, users on paid plans can top up their balance, with costs depending on the underlying model you choose.
+
+<Note>
+**Temporary offering, subject to change:** Until the end of Q1 2026, every workspace gets $25 Cloud and $1 AI per month, even for users on the Free plan.
+</Note>
+
+You can track and manage your AI usage costs in **Settings → Cloud & AI balance.** For more details and examples, see [Usage-based Cloud and AI pricing](/features/cloud#usage-based-cloud-and-ai-pricing).
+
+## Supported AI models
+
+ZenOpus AI uses **Gemini 3 Flash** as its default model, but you can prompt the agent to use a different model or combination of models.
+
+| Model | Description | Best for |
+| --- | --- | --- |
+| Gemini 3 Flash (default) | A fast, efficient Gemini model optimized for responsive, general-purpose use and interactive agent workflows. Balances speed, cost, and strong reasoning for chat-centric and iterative development. | Fast interactive builds, agent workflows, and general use cases where responsiveness matters |
+| Gemini 3.1 Pro | Google’s most capable Gemini 3 model, built to improve the performance and reliability of the Gemini 3 Pro series. It delivers stronger reasoning, improved token efficiency, and more grounded, factually consistent responses. Optimized for software engineering workflows, precise tool use, and reliable multi-step execution in complex agentic tasks. Slower and premium-priced. | Agentic workflows, advanced coding, long-context understanding, multimodal reasoning, and algorithmic development |
+| Nano Banana 2 (Gemini 3.1 Flash Image) | Fast image generation and editing model built on Gemini’s latest image architecture. Combines strong visual quality with faster generation and iteration, improved subject consistency, accurate text rendering, and support for high-resolution outputs. | Rapid image generation, iterative visual editing, product mockups, marketing assets, and creative workflows requiring fast turnaround |
+| Nano Banana Pro | High-quality image generation and editing model based on Gemini 3’s image architecture, optimized for detailed visuals, text rendering in images, and multi-image composition. | Visual asset creation, high-volume image workflows, infographics, rapid prototyping of design/creative content |
+| Gemini 2.5 Pro | Smartest and most complex Gemini. High reasoning, large context, slower and most expensive. | Deep reasoning, advanced coding, research, complex multimodal tasks |
+| Gemini 2.5 Flash | A balanced Gemini model offering good reasoning performance with lower latency and cost than Pro. | Assistants, analysis, general workflows where speed + intelligence balance matters |
+| Gemini 2.5 Flash Lite | The fastest and lowest-cost Gemini option, designed for simple, high-throughput tasks with limited reasoning depth. | High-volume, lightweight tasks like classification, summarization, translation |
+| Gemini 2.5 Flash Image | Optimized for generating images. Very cheap per image, not meant for text reasoning. | Image generation, quick visual outputs |
+| GPT-5.2 | OpenAI’s latest flagship GPT-5 series model, designed for professional knowledge work, complex reasoning, and multi-step tasks, with improved code understanding and long-form coherence. | Complex reasoning, deep coding and analytical workflows, and long-context knowledge tasks |
+| GPT-5 | High-accuracy general-purpose model with strong reasoning capabilities. Higher latency and cost compared to smaller GPT-5 variants. | Accuracy-critical tasks, complex decision-making, and high-quality reasoning |
+| GPT-5 Mini | Balanced GPT-5. Cheaper and faster than GPT-5, less complex but strong general use. | Assistants, mid-complexity reasoning, business workflows |
+| GPT-5 Nano | Cheapest and fastest GPT-5. Very basic reasoning, best for quick or simple responses. | Summaries, classification, extraction, high-volume simple tasks |
+
+### Best and most cost-effective choices
+
+- **Best overall intelligence**: GPT-5.2, Gemini 3.1 Pro, and Gemini 2.5 Pro (deep reasoning, but most expensive)
+- **Best balance (speed + cost + smartness)**: Gemini 3 Flash, GPT-5 Mini, and Gemini 2.5 Flash
+- **Most cost-effective for scale**: GPT-5 Nano and Gemini 2.5 Flash Lite (simple, fast, cheapest)
+- **Best for images**: Nano Banana 2, Nano Banana Pro, and Gemini 2.5 Flash Image
+
+## Workspace rate limits
+
+To ensure reliable performance and fair access for all users, ZenOpus AI applies rate limits per workspace. These limits help maintain system stability, prevent abuse, control costs, and provide a consistent experience for everyone.
+
+If your requests exceed the allowed rate, the server returns a **429 Too Many Requests** status code, and the request will not be processed.
+
+Rate limits are more restrictive for free users, while paid plans include higher thresholds and greater flexibility.
+
+- **Free plan users**: upgrade anytime to increase your limits.
+- **Paid plan users**: contact [ZenOpus Support](https://zenopus.dev/support) if you need additional capacity.

@@ -1,0 +1,170 @@
+---
+title: "Integrazioni ZenOpus: collega strumenti, server MCP e API"
+description: "Connetti ZenOpus a strumenti esterni, server MCP e API. Aggiungi funzionalità dell'app, utilizza dati reali come contesto e integra in modo sicuro servizi di terze parti."
+---
+Le integrazioni **ZenOpus** ti consentono di connettere le tue app a **strumenti esterni, server MCP e API** per aggiungere funzionalità, utilizzare dati reali come contesto e integrare servizi di terze parti in modo sicuro.
+
+Con ZenOpus puoi integrare:
+
+- **Connettori condivisi** per aggiungere funzionalità alle app distribuite
+- **Connettori personali (server MCP)** per fornire contesto durante la creazione dell'app
+- **Qualsiasi API** per funzionalità personalizzate
+
+## ZenOpus panoramica delle integrazioni
+
+| Categoria | Scopo | Esempi |
+| --- | --- | --- |
+| Connettore condiviso | Aggiungi funzionalità e servizi esterni che l'applicazione distribuita può chiamare. Configurato una volta dagli amministratori, disponibile per tutti nel tuo Workspace. | ZenOpus Cloud, ZenOpus AI, Stripe, Shopify, Firecrawl |
+| Connettore personale (server MCP) | Collega i tuoi account personali degli strumenti per fornire contesto durante la creazione. Solo tu puoi accedere alle tue connessioni. | Lineare, Notion, Miro, qualsiasi server MCP personalizzato |
+| Qualsiasi API | Integra API personalizzate o di terze parti non integrate in ZenOpus quando l'app distribuita necessita di funzionalità personalizzate | Qualsiasi API |
+
+<Info>
+**Cos'è un'API?**  
+
+ L'API (Application Programming Interface) è un modo strutturato con cui servizi o applicazioni comunicano e condividono dati tra loro. Definisce cosa puoi chiedere, cosa riceverai in cambio e come effettuare la richiesta.
+</Info>
+
+## Connettori condivisi: aggiungi funzionalità alla tua app pubblicata
+
+I connettori condivisi sono il modo più semplice per estendere la potenza della tua app ZenOpus. Funzionano come plug-in che la tua app può chiamare ogni volta che deve eseguire un'azione o recuperare dati.
+
+I connettori condivisi sono ideali quando la tua **applicazione distribuita** deve interagire con servizi esterni per acquisire capacità operative.
+
+### Panoramica e casi d'uso
+
+- [ZenOpus Cloud](/it/integrations/cloud): fornitura di servizi backend integrati, autenticazione, database e hosting full-stack
+- [ZenOpus AI](/it/integrations/ai): potenzia la tua app con funzionalità AI avanzate
+- [ElevenLabs](/it/integrations/eleven-labs): generazione di audio e sintesi vocale
+- [Firecrawl](/it/integrations/firecrawl): scraping, scansione ed estrazione di contenuti del sito web
+- [Perplessità](/it/integrations/perplexity): rispondere a domande ed eseguire ricerche sul Web
+- [Shopify](/it/integrations/shopify): gestione delle operazioni di e-commerce
+- [Slack](/it/integrations/slack): invio di avvisi, lettura di canali e pubblicazione di aggiornamenti
+- [Stripe](/it/integrations/stripe): gestione dei pagamenti o degli abbonamenti
+- [Supabase](/it/integrations/supabase): autenticazione degli utenti e archiviazione dei dati
+- [Telegram](/it/integrations/telegram): invio di messaggi e ricezione di comandi tramite bot
+- [Twilio](/it/integrations/twilio): invio di messaggi SMS e MMS, esecuzione di chiamate vocali e aggiunta di flussi di comunicazione basati sul telefono
+    <Tip>
+    Quando hai bisogno di funzionalità backend, come autenticazione, database e archiviazione, utilizza [ZenOpus Cloud](/it/integrations/cloud), la nostra piattaforma di hosting full-stack integrata.
+    </Tip>
+
+### Caratteristiche chiave
+
+I connettori condivisi sono integrazioni di livello Workspace che forniscono funzionalità delle app riutilizzabili in tutti i progetti.
+
+- Gestito in **Impostazioni → Connettori → Connettori condivisi**
+- Configurato una volta al livello Workspace
+- Disponibile per tutti nel Workspace e riutilizzabile in tutti i progetti
+- Fornisci funzionalità funzionali che la tua app può chiamare mentre è in uso
+
+Sui piani **Business ed Enterprise**, gli amministratori e i proprietari di Workspace possono gestire la disponibilità del connettore condiviso per Workspace:
+
+- Abilita o disabilita specifici connettori condivisi utilizzando le impostazioni del connettore (icona della ruota dentata) in **Impostazioni → Connettori → Connettori condivisi**
+
+<Note>
+ZenOpus Cloud non può essere disabilitato per Workspace.
+</Note>
+
+### Connettori basati su gateway
+
+Alcuni connettori condivisi utilizzano un **gateway sicuro** tra la tua app ZenOpus e il servizio di terze parti (ad esempio Slack).
+
+Con connettori basati su gateway:
+
+- **L'autenticazione viene gestita automaticamente**Il gateway gestisce OAuth e aggiorna i token in scadenza in background, quindi una volta connessa, la tua integrazione continua a funzionare senza riautenticazione manuale.
+- **Le credenziali non vengono mai esposte nel tuo progetto**I token vengono archiviati in modo sicuro nel gateway e non sono visibili nelle impostazioni del progetto o accessibili agli amministratori Workspace. La tua app chiama semplicemente il connettore e l'autenticazione viene gestita dietro le quinte
+- **Esiste un limite di utilizzo per progetto**I connettori gateway consentono fino a **1.000 richieste al minuto per connettore per progetto**. Ogni progetto ha il proprio limite indipendente, quindi l'utilizzo in un progetto non influisce sugli altri. La maggior parte delle app non si avvicina a questa soglia, ma se stai creando automazioni a volume elevato o frequenti operazioni in background, dovresti progettare tenendo presente questo limite.
+
+Altri connettori condivisi possono utilizzare modelli di autenticazione diversi a seconda del servizio. Alcuni si connettono direttamente utilizzando le chiavi API, mentre altri sono completamente gestiti da ZenOpus. Il modello gateway viene utilizzato specificamente per i servizi basati su OAuth che richiedono la gestione sicura dei token e l'aggiornamento automatico.
+
+## Connettori personali: forniscono il contesto durante la creazione dell'app
+
+[I connettori personali (server MCP)](/it/integrations/mcp-servers) forniscono all'agente ZenOpus l'accesso ai tuoi strumenti e contenuti interni, **durante la creazione dell'app**. Forniscono il contesto in modo che l'agente possa creare app che riflettono i tuoi flussi di lavoro reali.
+
+Utilizza connettori personali quando la tua app deve essere creata utilizzando il contenuto reale su cui già fa affidamento la tua organizzazione.
+
+### Panoramica e casi d'uso
+
+- **Ampiezza:** utilizzo dell'analisi dei prodotti e del feedback per prendere decisioni informate sulle app
+- **Atlassian (Jira e Confluence):** allineamento con ticket, roadmap e documentazione
+- **Granola:** trasforma appunti di riunioni, decisioni e azioni in specifiche e attività
+- **Lineare:** importazione di problemi e specifiche per generare funzionalità
+- **Miro:** accesso alle schede e ai diagrammi Miro per generare prototipi interattivi
+- **Nozione:** riferimento a documenti e pagine per guidare il comportamento dell'app
+- **n8n:** mirroring o collegamento a flussi di lavoro di automazione esistenti
+- **Polar:** utilizzo dei dati di fatturazione, prodotti e abbonamenti per supportare le app SaaS
+- **Saninità:** accesso a contenuti e schemi CMS per creare app basate sui contenuti
+- **Server MCP personalizzati:** connessione a sistemi interni o di terze parti
+
+### Caratteristiche chiave
+
+I connettori personali ti consentono di connettere i tuoi strumenti per fornire contesto durante la creazione (non funzionalità dell'app).
+
+- Gestito in **Impostazioni → Connettori → Connettori personali**
+- Connessioni per utente, il che significa che solo tu puoi accedere e gestire le tue connessioni
+- Non condiviso con altri membri Workspace
+- Non incluso nell'app distribuita
+
+Sui piani **Business ed Enterprise**, gli amministratori e i proprietari di Workspace possono gestire la disponibilità del connettore personale per Workspace:
+
+- Abilita o disabilita tutto l'**accesso al server MCP** in **Impostazioni → Privacy e sicurezza**
+- Abilita o disabilita server MCP specifici utilizzando le impostazioni del connettore (icona della ruota dentata) in **Impostazioni → Connettori → Connettori personali**
+
+## Integra qualsiasi API con ZenOpus
+
+ZenOpus può integrarsi con **qualsiasi API esterna**, pubblica o privata, autenticata o meno. Questo è il tipo di integrazione più flessibile, poiché ti consente di introdurre funzionalità che ZenOpus non hanno in modo nativo Support.
+
+Quando chiedi a ZenOpus di integrare un'API, sceglie automaticamente l'approccio corretto:
+
+- **Se l'API non richiede autenticazione**, la tua app chiama direttamente l'API.
+- **Se l'API richiede l'autenticazione**, ZenOpus richiede di abilitare Cloud e aggiungere un segreto e crea automaticamente una funzione Edge per proteggere le credenziali sensibili.
+
+### API senza autenticazione
+
+Se un'API non richiede credenziali, non è richiesta alcuna configurazione. Chiedi semplicemente a ZenOpus di integrare l'API. Ad esempio:
+
+```text
+Integra Chuck Norris Jokes: https://api.chucknorris.io/jokes/random
+```
+
+ZenOpus rileva che non è necessaria alcuna chiave e aggiunge la funzionalità direttamente alla tua app.
+
+### API autenticate (richiede segreti)
+
+Per le API che richiedono credenziali di autenticazione o chiavi API, ZenOpus gestisce l'integrazione in modo sicuro utilizzando ZenOpus Cloud. Le credenziali vengono archiviate come segreti nel progetto cloud collegato e sono accessibili solo tramite Edge Functions, garantendo che rimangano protette.
+
+**Impostazione**
+
+1. Chiedi a ZenOpus di integrare l'API e di includere i dettagli chiave:
+    - URL degli endpoint e metodi HTTP
+    - Metodo di autenticazione (intestazione chiave API, parametro query, token bearer, OAuth)
+    - Intestazioni richieste (Tipo di contenuto, intestazioni personalizzate)
+    - Esempi di formati di richiesta e risposta (JSON, parametri, corpi)
+    - Collegamento alle specifiche OpenAPI o alla documentazione
+1. Abilita [ZenOpus Cloud](/it/integrations/cloud).
+1. Aggiungi la tua chiave API in **Cloud → Segreti.**
+
+**Ad esempio:**
+
+```text
+Integra l'API OpenWeatherMap. 
+URL di base: https://api.openweathermap.org/data/2.5. 
+Auth: chiave API passata come parametro di query appid. 
+Ho bisogno di un endpoint per recuperare il meteo attuale: GET /weather?q={city}&units=metric&appid={API_KEY}. 
+Documenti: https://openweathermap.org/current
+```
+
+ZenOpus genera l'integrazione con una funzione Edge e un widget meteo in cui gli utenti possono inserire una città e recuperare i dati meteorologici.
+
+## Domande frequenti
+
+<AccordionGroup>
+<Accordion title="Quali integrazioni offre ZenOpus Support?">
+ZenOpus supporta tre tipi di integrazioni: **connettori condivisi**, **connettori personali (server MCP)** e **qualsiasi API**. I connettori condivisi aggiungono funzionalità alle app distribuite, i connettori personali forniscono il contesto durante la creazione delle app e le integrazioni API ti consentono di connetterti a qualsiasi servizio esterno non integrato in ZenOpus.
+</Accordion>
+<Accordion title="Qual è la differenza tra connettori condivisi e connettori personali in ZenOpus?">
+I **connettori condivisi** vengono utilizzati dalle app distribuite per chiamare servizi esterni e vengono configurati una volta al livello Workspace. **I connettori personali (server MCP)** vengono utilizzati solo durante la creazione dell'app per fornire all'agente ZenOpus l'accesso ai tuoi strumenti e contenuti e non sono mai inclusi nell'app distribuita.
+</Accordion>
+<Accordion title="ZenOpus può integrarsi con qualsiasi API?">
+Sì. ZenOpus può integrarsi con **qualsiasi API esterna**, pubblica o privata. Le API senza autenticazione possono essere chiamate direttamente, mentre le API autenticate vengono integrate in modo sicuro utilizzando ZenOpus Cloud, segreti e funzioni Edge per proteggere le credenziali.
+</Accordion>
+</AccordionGroup>

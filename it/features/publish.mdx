@@ -1,0 +1,193 @@
+---
+title: "Pubblica il tuo progetto ZenOpus"
+description: "Distribuisci il tuo progetto su un URL attivo, controlla chi può accedere all'app pubblicata, configura i metadati del sito e aggiorna o annulla la pubblicazione in qualsiasi momento."
+---
+La pubblicazione trasforma il tuo progetto ZenOpus in un'app Web live distribuendo uno snapshot a un URL che puoi condividere. Viene distribuita solo la versione corrente e, a seconda del tuo piano, puoi controllare chi può accedere all'app pubblicata.
+
+<Note>
+**Visibilità del progetto vs accesso al sito web (differenza importante)**
+
+ZenOpus utilizza due impostazioni di visibilità indipendenti:
+
+- **Visibilità del progetto (accesso all'editor)** controlla chi può visualizzare e modificare il tuo progetto nell'editor, incluso il codice sorgente, i lavori in corso ed eventuali modifiche che non sono state ancora pubblicate.
+- **Accesso al sito Web (accesso tramite URL pubblicato)** controlla chi può visitare l'app pubblicata al suo URL attivo.
+
+Queste impostazioni sono indipendenti. La pubblicazione non modifica chi può accedere al tuo progetto nell'editor e la modifica della visibilità del progetto non influisce su chi può visitare l'app pubblicata.
+</Note>
+
+## Chi può pubblicare progetti?
+
+Per impostazione predefinita, gli **editor e livelli superiori** possono pubblicare progetti su tutti i piani.
+
+Nei **piani Enterprise**, gli amministratori e i proprietari possono limitare gli utenti autorizzati a pubblicare esternamente sul Web. Vai a **Workspace impostazioni → Privacy e sicurezza → Chi può pubblicare esternamente** e seleziona:
+
+- Amministratori e proprietari
+- Solo proprietari
+
+## Pubblicazione interna ed esterna e controllo degli accessi al sito web
+
+Le opzioni di pubblicazione e il controllo dell'accesso al sito Web dipendono dal tuo piano.
+
+### piani Free e Pro
+
+**Chiunque abbia il collegamento** può visitare la tua app pubblicata. Ciò significa che pubblichi esternamente al Web. **L'accesso al sito web** non può essere limitato su questi piani, quindi assicurati di essere pronto per la condivisione prima di pubblicare
+
+### Business e piani Enterprise
+
+Puoi scegliere chi può accedere alla tua app pubblicata:
+
+- **Workspace**: solo i membri Workspace autenticati possono visitare l'app pubblicata, il che significa che pubblichi internamente su Workspace. Una volta selezionata, l'etichetta del pulsante di pubblicazione cambia in **Pubblica su Workspace**.
+- **Chiunque**: chiunque abbia il collegamento può visitare la tua app pubblicata, il che significa che pubblichi **esternamente sul Web**.
+
+Ciò ti consente di:
+
+- Crea e condividi app interne che rimangono private sul tuo Workspace
+- Previeni la pubblicazione esterna accidentale
+- Support governance e conformità per i dati sensibili
+
+Gli amministratori e i proprietari di Workspace possono anche impostare un criterio di **accesso al sito Web predefinito** per tutti i progetti pubblicati in Impostazioni **Workspace → Privacy e sicurezza → Accesso al sito Web predefinito**.
+
+Puoi sostituire l'impostazione predefinita Workspace per i singoli progetti nella **modalità Pubblica** scegliendo **chi può visitare l'URL**. Se invariato, il progetto eredita il valore predefinito Workspace.
+
+## Come pubblicare il tuo progetto
+
+Per pubblicare, attenersi alla seguente procedura:
+
+<Steps>
+<Step title="Apri il tuo progetto e vai alla modalità Pubblica">
+Nel tuo progetto, fai clic sull'icona **Pubblica** nell'angolo in alto a destra. Esamina e configura le impostazioni di pubblicazione come spiegato di seguito.
+</Step>
+<Step title="Configurare l'indirizzo del sito web (URL pubblicato)">
+- Inserisci il tuo URL preferito o lascia il campo di input vuoto per ZenOpus per generare automaticamente un URL. Per impostazione predefinita, la tua app è pubblicata su `[published-url].zenopus.app`
+- Una volta pubblicato, puoi aggiungere un [dominio personalizzato](/it/features/custom-domain) (disponibile sui piani a pagamento).
+</Step>
+<Step title="Configura i permessi di accesso al sito web">
+A seconda del tuo piano, puoi controllare **chi può visitare l'URL**:
+
+- **Chiunque**: chiunque abbia il collegamento può visitare l'URL dell'app pubblicata (accesso al sito Web pubblico)
+- **Workspace** (piani Business e Enterprise): solo i membri Workspace autenticati possono visitare l'URL dell'app pubblicata (accesso al sito Web privato).
+</Step>
+<Step title="Configurare le informazioni del sito web (metadati per SEO e anteprima social)">
+ZenOpus fornisce i **metadati del sito**, ma puoi personalizzare il modo in cui il tuo sito viene visualizzato nelle schede del browser, nei risultati di ricerca e nelle anteprime dei collegamenti.
+
+- **Icona e titolo**: l'icona del sito (**favicon**) e il **titolo del sito** mostrati nelle schede del browser, nei risultati di ricerca e nelle anteprime dei collegamenti.
+    - Fare clic sull'icona per caricarne una nuova.
+    - Fare clic sul testo del titolo per aggiornarlo.
+- **Descrizione**: la **meta descrizione** utilizzata nei risultati di ricerca e nelle anteprime dei collegamenti.
+    - Clicca sul testo per aggiornarlo.
+- **Immagine di condivisione social**: l'immagine di condivisione social (**Immagine OG**) mostrata quando il collegamento del tuo sito web viene condiviso, ad esempio, sui social media e sulle app di messaggistica.
+    - Fare clic per caricare un'immagine o scegliere di generarne una (il titolo e la descrizione devono essere compilati per essere generati). Per impostazione predefinita, viene utilizzato uno screenshot dell'app.
+
+Consulta [Implementare le best practice SEO e GEO](/it/tips-tricks/seo-geo) per ulteriori informazioni sull'ottimizzazione delle tue app ZenOpus per motori di ricerca, anteprime sui social media e sistemi di intelligenza artificiale.
+</Step>
+<Step title="Controlla la sicurezza prima della pubblicazione">
+Fai clic su **Verifica sicurezza** per verificare le vulnerabilità.
+
+Esegui sempre un controllo di sicurezza prima della pubblicazione per evitare:
+
+- Fughe di dati
+- Accesso non autorizzato
+- Esposizione di informazioni sensibili
+
+Per ulteriori informazioni, consulta [Panoramica sulla sicurezza](/it/features/security) e [Vista sicurezza del progetto](/it/features/security-view).
+</Step>
+<Step title="Pubblica il tuo progetto">
+Quando sei pronto, fai clic su **Pubblica**. Una volta completata la distribuzione, riceverai un popup con il collegamento pubblicato.
+
+Dopo aver pubblicato il tuo progetto, puoi continuare a iterare su di esso. Per inviare aggiornamenti in un secondo momento, fai clic su **Pubblica → Aggiorna**.
+</Step>
+</Steps>
+
+Una volta pubblicata, puoi aggiornare la tua app live in qualsiasi momento, modificare l'indirizzo del sito web (URL pubblicato) o connettere un [dominio personalizzato](/it/features/custom-domain) per un'esperienza raffinata e in linea con il marchio.
+
+## Come funziona la pubblicazione in ZenOpus
+
+Ogni volta che pubblichi, ZenOpus distribuisce un'istantanea del tuo progetto su un URL attivo. Viene distribuita solo la versione corrente e le modifiche future non vengono pubblicate automaticamente.
+
+- Le modifiche non vengono pubblicate e rese pubbliche automaticamente.
+- Per implementare nuove modifiche, fare clic su **Pubblica → Aggiorna**.
+
+Se non vedi le modifiche recenti sul tuo sito live, devi ripubblicarlo.
+
+## Come annullare la pubblicazione del tuo progetto
+
+Per rimuovere la tua app live, vai su **Impostazioni progetto → Annulla pubblicazione progetto → Annulla pubblicazione**
+
+Una volta inedito:
+
+- L'URL attivo diventa inaccessibile
+- Il tuo progetto rimane nell'editor
+
+## Domande frequenti
+
+<AccordionGroup>
+<Accordion title="La pubblicazione espone il mio progetto e il mio codice?">
+No. La pubblicazione rende l'app disponibile solo presso l'URL pubblicato. Non garantisce a nessuno l'accesso al tuo progetto nell'editor o al codice del progetto e non rende il tuo progetto automaticamente remixabile.
+
+L'accesso all'editor, al codice e alle modifiche non pubblicate è sempre controllato da [visibilità del progetto](/it/features/project-visibility). Solo i progetti con visibilità pubblica possono essere visualizzati o remixati da chiunque.
+</Accordion>
+<Accordion title="Come interagiscono la visibilità del progetto e l'accesso al sito web?">
+La visibilità del progetto e l'accesso al sito web sono **impostazioni indipendenti**. Puoi combinarli in diversi modi a seconda delle tue esigenze.
+
+- La **Visibilità del progetto** controlla chi può accedere al **progetto nell'editor**, incluso il codice e il lavoro in corso.
+- L'**Accesso al sito web** controlla chi può visitare l'**app pubblicata** tramite il suo URL attivo.
+
+Di seguito sono riportate le configurazioni comuni:
+
+1. **App del team interno****Risultato:** solo i membri Workspace possono visualizzare e modificare il progetto nell'editor e visitare l'app pubblicata.
+    - Visibilità del progetto: Workspace
+    - Accesso al sito web: Workspace
+1. **Lavoro privato in corso, app pubblica****Risultato:** solo tu puoi visualizzare e modificare il progetto nell'editor, ma chiunque abbia il collegamento può visitare l'app pubblicata.
+    - Visibilità del progetto: limitata
+    - Accesso al sito web: chiunque
+1. **App condivisa pubblicamente, creata in team****Risultato:** solo i membri Workspace possono visualizzare e modificare il progetto nell'editor, ma chiunque abbia il collegamento può visitare l'app pubblicata.
+    - Visibilità del progetto: Workspace
+    - Accesso al sito web: chiunque
+1. **Collaborazione aperta****Risultato:** chiunque può visualizzare e remixare il progetto nell'editor e chiunque abbia il collegamento può visitare l'app pubblicata.
+    - Visibilità del progetto: Pubblico
+    - Accesso al sito web: chiunque
+1. **Prototipo privato condiviso internamente****Risultato:** solo tu puoi visualizzare e modificare il progetto nell'editor e solo i membri Workspace possono visitare l'app pubblicata.
+    - Visibilità del progetto: limitata
+    - Accesso al sito web: Workspace
+
+<Note>
+**Promemoria chiave:** la pubblicazione non cambia chi può accedere al tuo progetto nell'editor e la visibilità del progetto non influisce su chi può visitare l'app pubblicata.
+</Note>
+</Accordion>
+<Accordion title="Posso limitare chi può accedere alla mia app pubblicata?">
+Sì, sui piani Business ed Enterprise puoi limitare chi può accedere alla tua app pubblicata.
+
+Scegli l'accesso **Workspace** per pubblicare internamente in modo che **solo i membri Workspace autenticati** possano visitare l'app pubblicata.
+</Accordion>
+<Accordion title="Perché non vedo le mie ultime modifiche sul sito live?">
+La pubblicazione distribuisce uno snapshot. Le modifiche non vengono automaticamente inviate alla tua app live.
+
+Per pubblicare gli aggiornamenti, fare clic su **Pubblica**, quindi su **Aggiorna**.
+</Accordion>
+<Accordion title="Come posso modificare i metadati del mio sito come favicon, titolo del sito, meta descrizione o immagine OG?">
+Sì, in qualsiasi momento puoi personalizzare il modo in cui il tuo sito viene visualizzato nelle schede del browser, nei risultati di ricerca e nelle anteprime dei collegamenti.
+
+Per impostazione predefinita, ZenOpus genera metadati del sito, aggiunge un logo ZenOpus come favicon e uno screenshot della tua app come immagine Open Graph (OG).
+
+Per modificarlo, fai clic su **Pubblica** e rivedi e configura le **informazioni sul sito web**:
+
+- **Icona e titolo**: l'icona del sito (favicon) e il titolo della pagina visualizzati nelle schede del browser, nei risultati di ricerca e nelle anteprime dei collegamenti. Fare clic sull'icona per caricarne una nuova. Fare clic sul testo del titolo della pagina per aggiornarlo.
+- **Descrizione**: la meta descrizione utilizzata nei risultati di ricerca e nelle anteprime dei collegamenti. Clicca sul testo per aggiornarlo.
+- **Condividi immagine**: l'immagine di condivisione social (immagine OG) mostrata quando il collegamento al tuo sito web viene condiviso, ad esempio, sui social media e sulle app di messaggistica. Fare clic per caricare un'immagine.
+
+Consulta [Implementare le best practice SEO e GEO](/it/tips-tricks/seo-geo) per ulteriori informazioni sull'ottimizzazione delle tue app ZenOpus per motori di ricerca, anteprime sui social media e sistemi di intelligenza artificiale.
+</Accordion>
+<Accordion title="Come posso modificare l'URL pubblicato (indirizzo del sito Web)?">
+Sì. Puoi modificare il **sottodominio URL** del tuo progetto, che costituisce l'indirizzo del tuo sito web [zenopus.app](http://zenopus.app) in due modi:
+
+1. Fai clic su **Pubblica**, modifica il tuo sottodominio e fai clic su **Aggiorna**.
+1. Vai a **Impostazioni progetto → Modifica sottodominio URL**, cambia il sottodominio e fai clic su **Aggiorna sottodominio URL**.
+
+Tieni presente che la ridenominazione del progetto non modifica l'URL del progetto, ma cambia solo il nome visualizzato del progetto.
+
+Sui piani a pagamento, puoi anche aggiungere un [dominio personalizzato](/it/features/custom-domain).
+</Accordion>
+<Accordion title="Perché non riesco a pubblicare il mio progetto ZenOpus?">
+Gli errori di pubblicazione sono generalmente causati da problemi di build nella versione corrente. Chiedi all'agente ZenOpus di indagare e di aiutarti a risolvere il problema.
+</Accordion>
+</AccordionGroup>

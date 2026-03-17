@@ -1,0 +1,98 @@
+---
+title: "Build safely with Test and Live environments (Beta)"
+description: "Safely separate test and production environments in ZenOpus Cloud. Build in Test, publish intentionally to Live, and prevent accidental changes to production data."
+---
+<Note>
+Available for Cloud projects and **free during Beta**. Pricing will be decided at a later point.
+</Note>
+
+Test and Live environments let you separate **development** from **production data** while working in [ZenOpus Cloud](/integrations/cloud) projects.
+
+- **Test**: Your development environment. ZenOpus always builds in Test when Test and Live environments are enabled.
+- **Live**: Your production environment. This is what real users interact with. Only updated when you explicitly publish.
+
+This gives you a safe way to:
+
+- Experiment with new features and schema changes
+- Test integrations, workflows, and edge functions
+- Avoid unintended changes to production data
+
+By isolating development work in Test and publishing intentionally, you keep Live stable while continuing to iterate quickly.
+
+## Prerequisites
+
+- The project must use **ZenOpus Cloud**.
+- You must **publish at least once** to create a **Live database** before enabling Test.
+
+## How it works
+
+When you enable Test and Live environments, ZenOpus creates a **Test database** alongside your **Live (production) database**.
+
+The following is **copied from Live to Test only once, on setup**:
+
+- Database schema
+- Database data
+- Cloud configuration
+
+This is the only time data or Cloud configuration is copied between environments.
+
+After that:
+
+- ZenOpus **always builds in Test, never in Live**
+- While building in Test, ZenOpus can reference context from Live to help debug issues, but never modifies Live data
+- Test and Live environments evolve independently
+- Application code and database schema are synced through publishing
+- Database data and cloud configuration are never shared, reset, or overwritten
+- Publishing syncs structure, not content
+
+**Publishing updates how your app works**. When you publish, ZenOpus syncs your application code and database structure from Test to Live (never the other way around) so your production app behaves the same way.
+
+<Note>
+Before each publish, ZenOpus automatically creates a backup of your **Live database**. This ensures you can recover production data if something unexpected happens during or after publishing. Contact support if you need help restoring a backup.
+</Note>
+
+**Publishing does not change what data exists or how your Cloud instance is configured**. Each environment permanently owns its own data and settings.
+
+| Application component | Description | Synced on publish and shared between environments? |
+| --- | --- | --- |
+| Application code | Your app’s logic (frontend, backend, edge functions), which defines how your app works. Built in Test | Yes |
+| Database schema | The structure of your database (tables, columns, indexes, migrations). Built in Test | Yes* |
+| Database data | The contents of your database (rows, users, records, uploads). Environment-specific | No |
+| Cloud configuration | Environment settings like auth, secrets, environment variables, integrations, and features. Environment-specific | No |
+
+***Safe schema migrations** that should not cause data loss (for example, adding tables or columns) are **applied to Live automatically on publish**.
+
+**Data migrations** (moving or transforming existing data) are **not run automatically**. If a change could **risk data loss**, ZenOpus:
+
+- Explains the situation
+- Provides an SQL query
+- Asks you to run it manually in the SQL editor
+
+## Enable Test and Live environments
+
+To enable Test and Live environments, follow the steps below:
+
+1. Go to **Cloud view → Advanced settings**.
+1. Select **Enable Test and Live environments** option.
+1. Complete the onboarding flow.
+1. Click **Enable Test and Live environments** button.
+
+### Test and Live Cloud view
+
+When you enable Test and Live environments, you can switch between **Test** and **Live** in the Cloud view to inspect data and settings. This selector only controls **what you’re viewing**, not **where ZenOpus builds**.
+
+<Warning>
+Editing Live data or Live Cloud configuration (auth, secrets, integrations) affects your production app **immediately**.
+</Warning>
+
+## Remove the Test database
+
+You can delete the Test database from **Cloud → Advanced settings → Danger zone**.
+
+This action:
+
+- Deletes all Test data
+- Disables the Test and Live environments feature
+- Does not affect Live data
+
+You can re-enable the Test and Live environments later if needed. This will create a new Test database from the current Live state.

@@ -1,0 +1,104 @@
+---
+title: "Controlar la visibilidad del proyecto"
+description: "Elija visibilidad de proyecto pública, Workspace o restringida para controlar quién puede ver, remezclar o colaborar en sus proyectos."
+---
+La visibilidad del proyecto controla quién puede ver, editar y remezclar **tu proyecto en el editor**.
+
+Esto incluye acceso a su código, trabajo en progreso y cambios que aún no se han publicado. Dependiendo de su plan, puede mantener un proyecto restringido para usted, colaborar de forma privada con su Workspace o hacerlo público.
+
+<Note>
+**Visibilidad del proyecto versus acceso al sitio web (diferencia importante)**
+
+ZenOpus utiliza dos configuraciones de visibilidad independientes:
+
+- **La visibilidad del proyecto (acceso del editor)** controla quién puede ver y editar su proyecto en el editor, incluido su código fuente, el trabajo en progreso y cualquier cambio que aún no se haya publicado.
+- **El acceso al sitio web (acceso a la URL publicada)** controla quién puede visitar la aplicación publicada en su URL activa.
+
+Estas configuraciones son independientes. La publicación no cambia quién puede acceder a su proyecto en el editor y cambiar la visibilidad del proyecto no afecta quién puede visitar la aplicación publicada.
+</Note>
+
+## Privacidad por defecto
+
+A partir de diciembre de 2025, **todos los proyectos tienen de forma predeterminada la visibilidad Workspace para todos los planes**. Esto significa que sus proyectos son privados para su Workspace de forma predeterminada y solo se vuelven públicos cuando elige cambiar su visibilidad.
+
+## Gestionar la visibilidad del proyecto
+
+La visibilidad del proyecto se puede gestionar tanto en el nivel **Workspace** como en el **nivel de proyecto**.
+
+- Workspace **los administradores y propietarios** pueden establecer la **visibilidad predeterminada** para todos los proyectos nuevos en **Configuración → Privacidad y seguridad → Visibilidad predeterminada del proyecto**.
+- Puede anular el valor predeterminado Workspace para proyectos individuales en cualquier momento en **Configuración del proyecto → Visibilidad del proyecto**.
+
+### Opciones de visibilidad del proyecto
+
+Puede configurar la visibilidad del proyecto en:
+
+- **Público** (no disponible para Enterprise)  
+**Cualquiera puede ver y remezclar** el proyecto en el editor.
+- **Workspace** (predeterminado para todos los planes)  
+Solo los miembros de **Workspace pueden ver y colaborar** en el proyecto en el editor. Ideal para la colaboración en equipo manteniendo el trabajo privado y seguro.
+- **Restringido** (disponible para Business y superiores)  
+**Solo tú puedes ver y editar el proyecto en el editor**. Úselo para exploración temprana, creación de prototipos o experimentos personales. Puedes cambiarlo a visibilidad Workspace cuando estés listo para compartir y colaborar con tu equipo.
+
+<Note>
+**Nota importante:**
+
+- **Antes del 6 de noviembre de 2025:** Los proyectos eran **públicos de forma predeterminada** para los planes gratuitos y solo los espacios de trabajo pagos podían cambiar la visibilidad.
+- **Después del 6 de noviembre de 2025:** Los proyectos nuevos tienen de forma predeterminada **Workspace visibilidad** para todos los planes, y todos los espacios de trabajo pueden actualizar la visibilidad de los proyectos existentes.
+- **A partir de diciembre de 2025:** Todos los proyectos tienen de forma predeterminada **Workspace visibilidad** para todos los planes.
+</Note>
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿La publicación de mi proyecto les da a todos acceso a mi proyecto y código?">
+No. La publicación solo hace que la aplicación esté disponible en la URL publicada. No le otorga a nadie acceso a su proyecto en el editor ni al código de su proyecto, y no hace que su proyecto se pueda remezclar automáticamente.
+
+El acceso al editor, al código y a los cambios no publicados siempre está controlado por la **visibilidad del proyecto**. Cualquier persona solo puede ver o remezclar proyectos con visibilidad pública.
+
+El acceso a la aplicación publicada se controla por separado a través de la configuración de acceso al sitio web. Para obtener más información, consulte [Publique su aplicación](/es/features/publish).
+</Accordion>
+<Accordion title="¿La visibilidad del proyecto afecta quién puede visitar mi aplicación publicada?">
+No. La visibilidad del proyecto controla el acceso a su proyecto en el editor. Quién puede visitar la aplicación en vivo en su URL publicada se controla por separado a través de la configuración de acceso al sitio web. Consulte [Publique su aplicación](/es/features/publish) para obtener más información.
+</Accordion>
+<Accordion title="¿Cómo funcionan juntos la visibilidad del proyecto y el acceso al sitio web?">
+La visibilidad del proyecto y el acceso al sitio web son **configuraciones independientes**. Puedes combinarlos de diferentes formas según tus necesidades.
+
+- La **visibilidad del proyecto** controla quién puede acceder al **proyecto en el editor**, incluido el código y el trabajo en progreso.
+- El **acceso al sitio web** controla quién puede visitar la **aplicación publicada** en su URL activa.
+
+A continuación se muestran configuraciones comunes:
+
+1. **Aplicación interna del equipo****Resultado:** Solo los miembros Workspace pueden ver y editar el proyecto en el editor y visitar la aplicación publicada.
+    - Visibilidad del proyecto: Workspace
+    - Acceso al sitio web: Workspace
+1. **Trabajo privado en progreso, aplicación pública****Resultado:** Solo usted puede ver y editar el proyecto en el editor, pero cualquiera con el enlace puede visitar la aplicación publicada.
+    - Visibilidad del proyecto: restringida
+    - Acceso al sitio web: Cualquiera
+1. **Aplicación compartida públicamente y creada en equipo****Resultado:** Solo los miembros de Workspace pueden ver y editar el proyecto en el editor, pero cualquiera que tenga el enlace puede visitar la aplicación publicada.
+    - Visibilidad del proyecto: Workspace
+    - Acceso al sitio web: Cualquiera
+1. **Colaboración abierta****Resultado:** Cualquiera puede ver y remezclar el proyecto en el editor, y cualquiera con el enlace puede visitar la aplicación publicada.
+    - Visibilidad del proyecto: Pública
+    - Acceso al sitio web: Cualquiera
+1. **Prototipo privado compartido internamente****Resultado:** Solo usted puede ver y editar el proyecto en el editor, y solo los miembros Workspace pueden visitar la aplicación publicada.
+    - Visibilidad del proyecto: restringida
+    - Acceso al sitio web: Workspace
+
+<Note>
+**Recordatorio clave:** La publicación no cambia quién puede acceder a su proyecto en el editor, y la visibilidad del proyecto no afecta quién puede visitar la aplicación publicada.
+</Note>
+</Accordion>
+<Accordion title="¿Puedo cambiar la visibilidad del proyecto después de crearlo?">
+Sí, puedes cambiar la visibilidad de tu proyecto en cualquier momento. Vaya a **Configuración del proyecto → Visibilidad del proyecto** y seleccione una opción diferente, según su plan. El cambio entra en vigor de inmediato y puede cambiar entre configuraciones de visibilidad tantas veces como sea necesario.
+</Accordion>
+<Accordion title="¿Cuál es la diferencia entre Workspace y visibilidad restringida en la práctica?">
+**La visibilidad de Workspace** permite que todos los miembros de Workspace vean y colaboren en el proyecto en el editor. Esto es ideal para proyectos de equipo en los que desea recibir aportaciones y contribuciones de sus colegas.
+
+**Visibilidad restringida** significa que solo tú puedes ver y editar el proyecto en el editor. Otros miembros de Workspace no lo verán en la lista de proyectos Workspace. Esto es útil para ideas en etapa inicial, experimentos personales o prototipos que aún no está listo para compartir. Puede cambiarlo a visibilidad Workspace cuando esté listo para colaborar.
+</Accordion>
+<Accordion title="¿Puedo restringir el acceso a personas específicas dentro del Workspace?">
+Sí. Cree el proyecto con visibilidad **restringida**. El proyecto sólo será visible para usted.
+
+Cuando esté listo para compartir, haga clic en **Compartir** e invite a personas específicas, asignando roles según sea necesario.
+</Accordion>
+</AccordionGroup>

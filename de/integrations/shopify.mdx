@@ -1,0 +1,303 @@
+---
+title: "Erstellen Sie mit Shopify einen E-Commerce-Shop"
+description: "Erfahren Sie, wie Sie einen neuen Shopify-Shop erstellen oder einen bestehenden mit ZenOpus verbinden und anschließend Ihre Storefront erstellen und starten."
+---
+ZenOpus lässt sich direkt in Shopify integrieren, sodass Sie **einen neuen Shopify-Shop erstellen oder einen bestehenden verknüpfen** und dann eine vollständige E-Commerce-Storefront in natürlicher Sprache erstellen, anpassen und starten können. Shopify kümmert sich um Zahlungen, Inventar und Logistik, wenn Sie live gehen.
+
+## Anwendungsfälle
+
+Mit ZenOpus + Shopify können Sie echte Online-Shops erstellen und starten für:
+
+- **Physische Produkte**: Verkaufen Sie Kleidung, Gadgets, Accessoires oder Haushaltswaren
+- **Digitale Produkte**: Bieten Sie E-Books, Kurse, Musik oder Software-Downloads an
+- **Nischenmarken**: Eröffnen Sie schnell Geschäfte für Merchandise-Artikel in limitierter Auflage, lokale Produkte, Dropshipping oder Nebenprojekte
+- **Kleine Unternehmen**: Präsentieren Sie Bäckereien, Cafés oder Handwerksbetriebe und nehmen Sie Bestellungen online entgegen
+- **Testen neuer Produktideen**: Fügen Sie einige Produkte hinzu und bewerten Sie die Leistung vor der Serienproduktion
+- **Business-Erweiterung**: Einführung neuer Kollektionen, saisonaler Kampagnen oder Bundles mit nur einer Aufforderung
+
+## Bevor Sie beginnen
+
+Bevor Sie mit dem Aufbau Ihres E-Commerce-Shops beginnen, sollten Sie Folgendes wissen:
+
+- **Neue oder bestehende Shopify-Shops**  
+ZenOpus unterstützt sowohl die **Erstellung neuer Shopify-Shops** als auch die **Verknüpfung bestehender Shopify-Shops**.
+- **Sandbox-Shop – keine Shopify-Kosten (nur neue Shops)**  
+Wenn Sie in ZenOpus einen neuen Shopify-Shop erstellen, erstellt ZenOpus automatisch einen **Sandbox-(Entwicklungs-)Shop**, sodass Sie ohne Shopify-Kosten sicher erstellen und experimentieren können. Diese Umgebung eignet sich perfekt zum Einrichten und Testen, verarbeitet jedoch keine echten Zahlungen.
+- **Beanspruchen Sie Ihren Shop (nur neue Shops)**  
+Wenn Sie bereit sind, Ihren neu erstellten Shop zu eröffnen, müssen Sie **Ihren Shop beanspruchen**. Dadurch wird es in Ihr Shopify-Konto migriert, eine **30-tägige kostenlose Shopify-Testversion** gestartet und der beanspruchende ZenOpus-Benutzer zum Shopify-Shop-Inhaber gemacht. In Shopify müssen Sie Zahlungen aktivieren und die Einrichtung Ihres Shops abschließen, um echte Zahlungen von Ihren Kunden akzeptieren zu können.
+- **Erforderliches Shopify-Abonnement**  
+Nach dem kostenlosen Testzeitraum benötigen Sie einen **kostenpflichtigen Shopify-Plan**, um weiterhin Produkte online verkaufen zu können. Dieses Abonnement wird **direkt über Shopify** verwaltet und ist **getrennt von den ZenOpus-Preisen**.
+- **Einhaltung der Shopify-Bewertungsrichtlinien**  
+Stellen Sie vor der Veröffentlichung Ihres Shops sicher, dass alle Bewertungen **authentisch und unvoreingenommen sind und mit**[**Shopifys Bewertungsrichtlinie**](https://help.shopify.com/en/partners/help-Support/faq/reviews) übereinstimmen.
+
+## Aktivieren Sie die Shopify-Integration
+
+Standardmäßig ist die Shopify-Integration für Ihren Workspace aktiviert. Sie können das Shopify-Integrationsverhalten und die zugehörigen Shopify-Einstellungen für Ihre Projekte unter **Einstellungen → Connectors → Gemeinsame Connectors → Shopify → Berechtigungen verwalten** verwalten.
+
+### Berechtigungseinstellungen
+
+Die Standard-Berechtigungseinstellung ist **Jedes Mal fragen**, d. h. Sie entscheiden, ob Sie die Shopify-Integration für jedes Projekt aktivieren oder deaktivieren möchten. Sie können Ihre Präferenz jederzeit über **Einstellungen → Connectors → Gemeinsame Connectors → Shopify → Berechtigungen verwalten** ändern.
+
+ZenOpus fordert Sie auf, wenn eine Shopify-Integration erforderlich ist. Sie haben drei Möglichkeiten:
+
+- **Zulassen**: Aktivieren Sie die Integration für das aktuelle Projekt.
+- **Ablehnen**: Lehnen Sie die Integration für diese Anfrage ab (möglicherweise werden Sie später noch einmal gefragt).
+- **Einstellungen anpassen**: Ändern Sie das Standardverhalten für zukünftige Projekte (hat keine Auswirkungen auf das aktuelle Projekt).
+
+## Shopify-Integrationsablauf
+
+Befolgen Sie die folgenden Schritte, um mit Shopify einen E-Commerce-Shop aufzubauen.
+
+### Schritt 1: Starten Sie ein Projekt
+
+Sie können beginnen mit:
+
+- Ein neues Projekt von Grund auf erstellen
+- Remixen eines bestehenden Projekts
+
+<Tabs>
+<Tab title="Erstellen Sie ein neues Projekt">
+Teilen Sie ZenOpus mit, welche Art von Shop Sie erstellen möchten, und geben Sie Shopify an.
+
+Zum Beispiel:
+
+```text
+Erstellen Sie mit Shopify einen E-Commerce-Shop für den Verkauf handgefertigter Duftkerzen.
+```
+</Tab>
+<Tab title="Remixen Sie ein Projekt">
+Sie können Folgendes remixen:
+
+- **Shopify-Vorlagenprojekte**, siehe [ZenOpus + Shopify-Vorlagen](https://zenopus.dev/shopify)  
+
+ Beim Remixen prompt ZenOpus, um Shopify zu integrieren und Scheindaten zu entfernen. Es ist wichtig, eine gute und umfassende Eingabeaufforderung zu verwenden.
+    ```text
+    Ich möchte die Produkte in diesem Shop durch meine eigenen Produkte ersetzen und meinen Shopify-Shop erstellen. Bitte fahren Sie fort mit:
+        
+        1. Stellen Sie eine Verbindung zu Shopify her.
+        2. Entfernen Sie alle Scheinproduktdaten aus dem Shop und erstellen Sie X neue Produkte mit Produktbildern.
+        3. Aktualisieren Sie die Produktkarten und die Produktdetailseite, um die neuen Produktinformationen zu verwenden.
+        4. Aktualisieren Sie die URL der Produktdetailseite so, dass sie mit dem neuen Produkt übereinstimmt.
+        5. Aktualisieren Sie die Komponente und Logik zum Hinzufügen zur Wunschliste entsprechend dieser Änderung.
+        6. Aktualisieren Sie meinen Warenkorb, den CTA „Jetzt kaufen“ und alle damit verbundenen Checkout-Aktionen auf einer beliebigen Seite, um die Shopify-Shop-Integration widerzuspiegeln.
+    ```
+- **Projekte, die zuvor mit einem Shopify-Shop verbunden waren**  
+
+ Um ein Projekt mit einem verbundenen Shopify-Shop neu zu mischen, müssen Sie zunächst [die Verbindung zum Shopify-Shop trennen](#trennen-sie-einen-shopify-shop). Projekte mit einer aktiven Shopify-Verbindung können erst neu gemischt werden, wenn die Verbindung zum Shop getrennt wird.
+</Tab>
+</Tabs>
+
+### Schritt 2: Erstellen Sie einen neuen Shopify-Shop oder verbinden Sie einen bestehenden
+
+In beiden oben genannten Szenarien fordert Sie der Agent auf, **die Shopify-Verbindung zu aktivieren**. Klicken Sie auf **Zulassen** und wählen Sie das Shopify-Setup aus.
+
+![Shopify-Shop-Einrichtungsdialog mit Optionen zum Erstellen eines neuen Shops oder zum Verbinden eines vorhandenen Shopify-Shops](/images/zenopus/integrations/shopify/shopify-choose-store-setup.png)
+
+Sie können fortfahren, indem Sie einen neuen Shopify-Shop erstellen oder einen vorhandenen Shopify-Shop verbinden, der Ihnen bereits gehört.
+
+<Tabs>
+<Tab title="Erstellen Sie einen neuen Shop">
+Um einen neuen Shop zu erstellen, führen Sie die folgenden Schritte aus:
+
+<Steps>
+<Step title="Wählen Sie das Land aus">
+Wählen Sie das Land aus, in dem Ihr Shop seinen Sitz haben soll. Dies wird verwendet, um die Währung Ihres Shopify-Shops festzulegen.
+</Step>
+<Step title="Shop erstellen">
+Klicken Sie auf **Shop erstellen**. Ihr Sandbox-Store ist jetzt zur Einrichtung bereit. Sie können mit dem Aufbau Ihres Shops fortfahren, wie in den nächsten Schritten erläutert.
+
+<Note>
+Bevor der Shop beansprucht wird, können alle Projektmitarbeiter die Shopify-Integration mit vollem Lese-/Schreibzugriff nutzen.
+</Note>
+</Step>
+</Steps>
+</Tab>
+<Tab title="Verbinden Sie einen bestehenden Shop">
+<Note>
+Um einen bestehenden Shop erfolgreich zu verbinden, muss die E-Mail-Adresse Ihres ZenOpus-Kontos mit der E-Mail-Adresse des Shopify-Shop-Inhabers übereinstimmen.
+</Note>
+
+Um einen bestehenden Shopify-Shop zu verbinden, führen Sie die folgenden Schritte aus:
+
+<Steps>
+<Step title="Geben Sie Ihren Shopify-Administratorlink ein">
+Melden Sie sich bei Ihrem [Shopify-Administrator](https://admin.shopify.com/) an und kopieren Sie die URL aus Ihrem Browser, zum Beispiel `https://admin.shopify.com/store/{your store}` . Geben Sie die URL in ZenOpus ein.
+</Step>
+<Step title="Shop verbinden">
+Klicken Sie auf **Shop verbinden**. Dadurch gelangen Sie zu Shopify.
+</Step>
+<Step title="Installieren Sie die ZenOpus-App in Shopify">
+Klicken Sie auf **Installieren**, um die ZenOpus-App in Ihrem Shopify-Shop zu installieren.
+
+Wenn die App autorisiert ist, wird Ihr Shopify-Shop verbunden und Sie werden zurück zu ZenOpus weitergeleitet. Sie können mit dem Aufbau Ihres Shops fortfahren, wie in den nächsten Schritten erläutert.
+
+- Sie können Produkte direkt im Chat erstellen, aktualisieren und löschen.
+- Sie können den Agenten auffordern, Produkte aus Ihrem bestehenden Shop abzurufen und anzuzeigen.
+
+<Note>
+- Nur der Benutzer, der einen bestehenden Shop angebunden hat, hat Schreibzugriff (Produkte, Varianten und Rabattcodes erstellen, aktualisieren, löschen). Änderungen, die der Benutzer vornimmt, der den Shop verbunden hat, werden sofort in Ihrem Shopify-Shop übernommen.
+- Mitarbeiter haben weiterhin Lesezugriff auf Shopify-Daten (Suchen und Abrufen von Produkten, Varianten und Rabattcodes), können die Storefront jedoch weiterhin vollständig erstellen.
+</Note>
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+### Schritt 3: Produkte und Produktbilder hinzufügen
+
+Fügen Sie zunächst Produkte mit einem **Namen, einer Beschreibung und einem Preis** hinzu. Zum Beispiel:
+
+```text
+Fügen Sie ein Produkt mit dem Namen Lavender Breeze Candle hinzu, Beschreibung: „Eine beruhigende handgemachte Sojakerze mit ätherischen Lavendelölen“, Preis: 25 $.
+```
+
+Sie können die Details später bearbeiten. Wenn Ihr Produkt nicht angezeigt wird, fordern Sie Folgendes auf:
+
+```text
+Zeigen Sie die Produkte auf der Website an.
+```
+
+Anschließend können Sie Ihre Einträge mithilfe einer der folgenden Optionen mit visuellen Elementen aufwerten. Verwenden Sie immer repräsentative Bilder.
+
+**KI-Bilder generieren**
+
+```text
+Fügen Sie dem Produkt Lavender Breeze Candle ein KI-generiertes Bild hinzu.
+```
+
+**Laden Sie Ihr eigenes Bild hoch oder hängen Sie es an**
+
+```text
+Fügen Sie das beigefügte Bild dem Produkt Lavender Breeze Candle hinzu.
+```
+
+**Bild von URL hinzufügen**
+
+```text
+Fügen Sie dem Produkt „Lavender Breeze Candle“ ein Bild von der URL hinzu.
+```
+
+### Schritt 4: Verwalten Sie Ihren Shop
+
+Verwalten Sie Ihre Produkte und verfeinern Sie Ihren Shop, ohne ZenOpus zu verlassen. Beispielsweise können Sie ZenOpus anweisen:
+
+- Aktualisieren Sie Produktnamen, Beschreibungen oder Preise
+- Produkte entfernen
+- Alle Produkte anzeigen
+- Fügen Sie Produktfilterfunktionen hinzu und erstellen Sie Sammlungen basierend auf verschiedenen Kategorien
+- Fügen Sie eine Produktbewertungsfunktion hinzu und lassen Sie Bewertungen nur für verifizierte Käufe zu
+- Fügen Sie prozentuale oder festbetragsbasierte (USD) Rabattcodes hinzu und geben Sie den Gültigkeitszeitraum an
+- Fügen Sie Wunschlistenfunktionen und die Möglichkeit hinzu, die Wunschliste zu teilen
+
+```text
+Aktualisieren Sie den Preis der Lavendelbrise-Kerze auf 28 $.
+Ändern Sie die Beschreibung der Vanillebohnenkerze, um den Holzdocht hervorzuheben. 
+Entfernen Sie das Produkt Zimt-Gewürzkerze.
+Alle Produkte anzeigen.
+Erstellen Sie ein Produktbewertungssystem und lassen Sie Bewertungen nur für verifizierte Einkäufe zu.
+Erstellen Sie einen 15 % Rabattcode für das Produkt Lavender Breeze Candle. Der Code soll LAVENDER15 lauten und bis Ende November 2025 gültig sein. 
+Erlauben Sie mir, Produkte zur Wunschliste hinzuzufügen und diese zu teilen.
+```
+
+### Schritt 5: Beanspruchen Sie Ihren Shopify-Shop (nur neue Shops)
+
+<Note>
+- Wenn der Shop beansprucht wird, wird der ZenOpus-Benutzer, der ihn beansprucht hat, zum Shopify-Shop-Inhaber.
+- Nur der ZenOpus-Benutzer, der den Store beansprucht hat, hat Schreibzugriff auf den Store.
+- Mitarbeiter haben weiterhin Lesezugriff auf Shopify-Daten (Suchen und Abrufen von Produkten, Varianten und Rabattcodes), können die Storefront jedoch weiterhin vollständig erstellen.
+</Note>
+
+Wenn Sie bereit sind, Ihren neuen Shop zu beanspruchen und zu eröffnen, bereiten Sie sich darauf vor, Ihren Shop zu entsperren und Zahlungen einzurichten und zu aktivieren, indem Sie den **KYC (Know Your Customer)**-Prozess abschließen. Dies kann einige Zeit dauern.
+
+<Steps>
+<Step title="Beanspruchen Sie den Laden">
+Geben Sie `Claim the store` ein. ZenOpus fordert Sie auf, den Shop zu beanspruchen. Klicken Sie auf **Anspruch**.
+
+Dadurch wird Shopify in einem neuen Tab geöffnet, in dem Sie sich anmelden und dann den Anspruchsprozess abschließen können. Möglicherweise erhalten Sie auch eine E-Mail-Einladung, um Ihren Shop zu beanspruchen.
+</Step>
+<Step title="Akzeptieren Sie den Link zum Anspruchsspeicher">
+Akzeptieren Sie den Link **Claim Store** von Shopify. Dadurch gelangen Sie zurück zu Ihrem ZenOpus-Projekt.
+
+<Tip>
+Falls die Überprüfung des Store-Anspruchs fehlschlägt, sollte das Problem durch Klicken auf **Erneut versuchen** behoben werden.
+</Tip>
+</Step>
+<Step title="Schließen Sie die Shop-Einrichtung im Shopify Admin ab">
+Ihr Shopify-Shop ist fertig. Gehen Sie zu [Shopify Admin](https://admin.shopify.com/), um die Einrichtung Ihres Shops abzuschließen und Zahlungen zu aktivieren, damit Sie mit dem Verkauf beginnen können. Weitere Informationen finden Sie unter [Shopify-Zahlungen](https://help.shopify.com/en/manual/payments/shopify-payments/onboarding).
+</Step>
+</Steps>
+
+Wenn Sie Ihren Shop beanspruchen, weist Shopify Ihrem Shop eine permanente Domain zu, die nur für Ihr Backend verwendet wird. Wenn Sie Ihr Projekt veröffentlichen, ist Ihre **echte Shop-URL** Ihr `zenopus.app` oder Ihre [benutzerdefinierte Domain](/de/features/custom-domain).
+
+<Warning>
+Beanspruchen Sie Ihren Shop erst, wenn Sie vollständig zum Start bereit sind, da Sie nach der 30-tägigen kostenlosen Testversion ein kostenpflichtiges Shopify-Abonnement benötigen, um weiterhin Produkte online verkaufen zu können.
+</Warning>
+
+### Schritt 6: Starten Sie Ihren Shop
+
+Wenn die Einrichtung Ihres Shops abgeschlossen ist, [veröffentlichen Sie Ihr ZenOpus-Projekt](/de/features/publish) und teilen Sie Ihren Shop mit der Welt.
+
+Sie können jederzeit direkt von ZenOpus aus:
+
+- Produkte erstellen, aktualisieren und löschen
+- Verwalten Sie Preise und Beschreibungen
+- Starten Sie neue Kollektionen, Werbeaktionen oder Bundles
+
+## Trennen Sie einen Shopify-Shop
+
+Sie können einen Shopify-Shop jederzeit von einem Projekt trennen. Dies ist nützlich, wenn Sie Folgendes möchten:
+
+- Mischen Sie das Projekt neu (Projekte mit einem verbundenen Shopify-Shop können nicht neu gemischt werden)
+- Verbinden Sie einen anderen Shopify-Shop
+- Erstellen Sie einen neuen Shopify-Shop, ohne ein neues Projekt zu starten
+
+Durch das Trennen der Verbindung wird die Verbindung zwischen Ihrem ZenOpus-Projekt und dem Shopify-Shop entfernt. Ihr Shopify-Shop und seine Daten bleiben in Shopify erhalten, aber Ihr ZenOpus-Projekt ist nicht mehr an diesen Shop gebunden und kann frei wiederverwendet werden.
+
+Es gibt drei Möglichkeiten, die Verbindung zu trennen:
+
+- **Fragen Sie den Agenten**: Geben Sie eine Eingabeaufforderung wie `Disconnect my Shopify store` ein.
+- **Shopify-Menü**: Klicken Sie auf das Shopify-Symbol in der Navigationsleiste und wählen Sie **Shopverbindung trennen** aus dem Drei-Punkte-Menü
+- **Projekteinstellungen**: Gehen Sie zu **Projekteinstellungen → Shopify** und klicken Sie auf **Trennen**
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Kann ich einen bestehenden Shopify-Shop mit ZenOpus verbinden?">
+Ja. ZenOpus unterstützt sowohl die **Erstellung neuer Shopify-Shops** als auch die **Verknüpfung bestehender Shopify-Shops**.
+
+Um einen bestehenden Shop zu verbinden, muss die E-Mail-Adresse Ihres **ZenOpus-Kontos mit der E-Mail-Adresse des Shopify-Shop-Inhabers** übereinstimmen. Wenn Sie verbunden sind, können Sie Produkte verwalten und Ihre Storefront direkt von ZenOpus aus erstellen.
+</Accordion>
+<Accordion title="Warum kann ich keine Produkte erstellen oder aktualisieren, obwohl Shopify verbunden ist?">
+Dies ist normalerweise ein Berechtigungsproblem:
+
+- **Vorhandenes Geschäft verbunden:** Nur der Benutzer, der das Geschäft verbunden hat, kann Änderungen vornehmen (Produkte, Varianten und Rabattcodes erstellen/aktualisieren/löschen).
+- **Neuen Shop erstellt (noch nicht beansprucht):** Alle Mitarbeiter können Änderungen vornehmen.
+- **Einen neuen Shop erstellt (beansprucht):** Der Benutzer, der den Shop beansprucht hat, wird zum Shopify-Shop-Inhaber und **nur dieser Benutzer** kann Änderungen vornehmen.
+
+Mitarbeiter haben weiterhin schreibgeschützten Shopify-Zugriff und können die Storefront in ZenOpus vollständig erstellen.
+</Accordion>
+<Accordion title="Ich habe meinen Shop beansprucht, aber die Verifizierung ist fehlgeschlagen. Was soll ich tun?">
+Manchmal kann es einen Moment dauern, bis Shopify den Anspruch abschließend bearbeitet. Wenn die Überprüfung fehlschlägt, klicken Sie in ZenOpus auf **Erneut versuchen**, um den Anspruchsstatus erneut zu überprüfen. Durch einen erneuten Versuch wird das Problem normalerweise behoben.
+</Accordion>
+<Accordion title="Kann ich Shopify-Projekte remixen?">
+Sie können keine Projekte neu mischen, bei denen die Shopify-Verbindung aktiviert wurde. Um ein Projekt mit einem verbundenen Shopify-Shop neu zu mischen, [trennen Sie zunächst die Verbindung zum Shopify-Shop](#trennen-sie-einen-shopify-shop).
+
+Sie können auch ein vorhandenes Shopify-Vorlagenprojekt neu mischen, um loszulegen, siehe [ZenOpus + Shopify-Vorlagen](https://zenopus.dev/shopify).
+</Accordion>
+<Accordion title="Ich habe meine Produkte zu einem Remix-Vorlagenprojekt hinzugefügt, aber der Link zur Produktseite ist defekt. Wie kann ich das beheben?">
+Fordern Sie den Agent auf, Folgendes zu tun:
+
+```text
+Bitte aktualisieren Sie die Produkt-URL-Logik, um sicherzustellen, dass alle neuen und zukünftigen Produkte im Shop ihre jeweiligen Produktdetailseiten korrekt anzeigen.
+```
+
+Dies sollte sicherstellen, dass Sie in Zukunft keine Probleme mehr haben. Klicken Sie bei allen anderen Problemen auf **Reparaturversuch**. Der Agent kümmert sich dann um das Problem und löst es.
+</Accordion>
+<Accordion title="Ich sehe immer noch einige Scheinprodukte in meinem Remix-Vorlagenprojekt. Wie kann ich sie entfernen?">
+Bitten Sie den Agenten, die Seiten zu aktualisieren, auf denen Sie diese Produkte gesehen haben, zum Beispiel:
+
+```text
+Löschen Sie den Shop von allen vorhandenen Produkten auf allen Seiten, mit Ausnahme derjenigen, die ich zu meinem Shopify-Shop hinzugefügt habe.
+```
+</Accordion>
+</AccordionGroup>

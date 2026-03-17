@@ -1,0 +1,261 @@
+---
+title: "Fügen Sie Google-Authentifizierung zu ZenOpus Cloud-Apps hinzu"
+description: "Fügen Sie Google-Authentifizierung zu ZenOpus Cloud-Apps hinzu, indem Sie verwaltetes Google OAuth oder Ihre eigenen Google Cloud-Anmeldeinformationen verwenden."
+---
+<Note>
+Auf dieser Seite wird die **Google-Authentifizierung in ZenOpus Cloud** dokumentiert. Der hier beschriebene verwaltete Google-Authentifizierungsablauf und die Einrichtung Ihrer eigenen Anmeldeinformationen sind nur für [**ZenOpus Cloud Apps**](/de/integrations/cloud) verfügbar.
+</Note>
+
+## Übersicht
+
+ZenOpus unterstützt **Mit Google anmelden** mithilfe des Industriestandards OAuth 2.0, sodass Benutzer sich mit ihren Google-Konten authentifizieren können, anstatt ein Passwort zu erstellen.
+
+Die Google-Authentifizierung in [ZenOpus Cloud](/de/integrations/cloud) kann auf zwei Arten konfiguriert werden:
+
+- **Verwaltet von ZenOpus**: ZenOpus verwaltet den OAuth-Client, Anmeldeinformationen, Umleitungsbehandlung und Sicherheitsupdates. Dies ist die standardmäßige und empfohlene Einrichtung.
+- **Ihre eigenen Anmeldeinformationen** (manchmal auch als BYOK bezeichnet): Sie verbinden OAuth-Anmeldeinformationen aus Ihrem eigenen Google Cloud-Projekt und verwalten die Sicherheit und Rotation der Anmeldeinformationen.
+
+Beide Optionen bieten Benutzern das gleiche Anmeldeerlebnis.
+
+1. Der Benutzer klickt in Ihrer App auf **Mit Google anmelden**
+1. Google zeigt einen Einwilligungsbildschirm an
+1. Der Benutzer überprüft und genehmigt den Zugriff
+1. Google leitet den angemeldeten Nutzer zurück zu Ihrer App
+
+Aus technischer Sicht basiert OAuth auf:
+
+- eine **Client-ID** (identifiziert die Anwendung)
+- ein **Client-Geheimnis** (autorisiert die Anwendung)
+- **Weiterleitungs-URLs** (wohin Google Nutzer nach Genehmigung weiterleitet)
+
+ZenOpus integriert diesen Ablauf direkt in Ihre Anwendung und Benutzeroberfläche.
+
+## Warum die Google-Anmeldung verwenden?
+
+Die Google-Anmeldung bietet ein vertrautes Authentifizierungserlebnis und reduziert Reibungsverluste bei der Anmeldung und Anmeldung.
+
+- Schnelleres Onboarding ohne Passworterstellung
+- Vertrauenswürdige Google-Einwilligungserfahrung
+- Reduzierter Aufwand für das Zurücksetzen von Passwörtern und die Kontowiederherstellung
+- Von Google bereitgestellte vorab bestätigte E-Mail-Adressen
+- Zuverlässige Benutzeridentität mit Profilinformationen
+
+## Häufige Anwendungsfälle
+
+Die Google-Anmeldung wird häufig verwendet für:
+
+- Verbraucheranwendungen, bei denen Social Login erwartet wird
+- SaaS-Produkte für professionelle Benutzer
+- Interne Tools mit Google Workspace
+- E-Commerce-Konten und Bestellhistorie
+- Communities oder Produkte, die verifizierte E-Mail-Adressen erfordern
+
+## Einrichtungsoptionen für die Google-Authentifizierung
+
+ZenOpus Cloud unterstützt die Einrichtung der Google-Authentifizierung auf zwei Arten:
+
+- **Verwaltet von ZenOpus**
+- **Ihre eigenen Anmeldeinformationen**
+
+Das Endbenutzererlebnis ist in beiden Fällen identisch; Der Unterschied besteht darin, wie OAuth-Anmeldeinformationen verwaltet werden.
+
+<Tabs>
+<Tab title="Verwaltet von ZenOpus (Standard)">
+ZenOpus verwaltet den OAuth-Client, die Anmeldeinformationen, die Umleitungsbehandlung und zugehörige Sicherheitsupdates für diesen Flow. Keine Konfiguration der Google Cloud Console erforderlich.
+
+Verwenden Sie diese Option, wenn Sie:
+
+- Ich möchte die einfachste Einrichtung
+- Sie möchten Google Cloud nicht manuell konfigurieren
+- benötigen keinen Besitz von OAuth-Anmeldeinformationen
+- Sie benötigen keine benutzerdefinierten OAuth-Bereiche, die über die Standardeinstellungen hinausgehen (E-Mail und Basisprofil).
+
+Bei Verwendung von **Verwaltet von ZenOpus** wird der Google-Zustimmungsbildschirm** angezeigt, wenn sich ein Nutzer zum ersten Mal anmeldet.
+
+Der Einwilligungsbildschirm:
+
+- Zeigt Ihren Anwendungsnamen an
+- Zeigt an, dass die App Zugriff über die Google-Authentifizierung anfordert
+- Fordert Zugriff auf die E-Mail-Adresse und grundlegende Profilinformationen des Benutzers an
+
+Benutzer werden gebeten, den Zugriff einmalig zu genehmigen. Nach der Genehmigung werden sie zurück zu Ihrer App weitergeleitet und sehen den Zustimmungsbildschirm nicht mehr, es sei denn, die Berechtigungen ändern sich.
+
+<Steps>
+<Step title="Prompt ZenOpus, um die Google-Authentifizierung hinzuzufügen">
+```text
+Fügen Sie meiner App die Google-Anmeldung hinzu, damit sich Benutzer mit ihrem Google-Konto anmelden können
+```
+
+ZenOpus aktiviert die Google-Authentifizierung automatisch in **Cloud → Benutzer → Auth → Google** und:
+
+- Konfigurieren Sie Google OAuth im Backend
+- Anmelde-UI-Komponenten erstellen oder aktualisieren
+- Richten Sie die Authentifizierungsstatusverwaltung ein
+- Abmeldefunktion hinzufügen
+
+Sie können die Änderungen in der Ansicht **Details** überprüfen.
+</Step>
+<Step title="Testen Sie den Fluss">
+Überprüfen Sie nach dem Aktivieren der Google-Anmeldung Folgendes:
+
+- Es erscheint die Schaltfläche **Mit Google anmelden**
+- Benutzer werden zur Authentifizierung an Google weitergeleitet
+- Benutzer kehren im angemeldeten Zustand zur App zurück
+- Der Zustimmungsbildschirm verhält sich wie erwartet
+- Benutzer können sich erfolgreich an- und abmelden
+</Step>
+</Steps>
+</Tab>
+<Tab title="Ihre eigenen Referenzen">
+Sie erstellen und verwalten OAuth-Anmeldeinformationen in Ihrem eigenen Google Cloud-Projekt und verbinden sie mit ZenOpus. Sie sind für die Verwaltung der Sicherheit und Rotation der Anmeldeinformationen verantwortlich.
+
+Verwenden Sie diese Option, wenn Sie:
+
+- erfordern OAuth unter Ihrem eigenen Google Cloud-Projekt
+- Sie benötigen die volle Kontrolle über das Branding des Einwilligungsbildschirms
+- Sicherheits- oder Compliance-Anforderungen haben
+- benötigen benutzerdefinierte OAuth-Bereiche, die über die Standardeinstellungen hinausgehen
+
+Wenn Sie **Ihre eigenen Anmeldeinformationen** verwenden, wird der Google **Einwilligungsbildschirm** vollständig von Ihrem Google Cloud-Projekt gesteuert, einschließlich:
+
+- App-Name und Branding
+- Konfiguration des Zustimmungsbildschirms
+- OAuth-Bereiche
+
+ZenOpus verwendet die von Ihnen bereitgestellten Anmeldeinformationen und Einstellungen, ohne den Einwilligungsbildschirm zu ändern.
+
+<Steps>
+<Step title="Erstellen Sie OAuth-Anmeldeinformationen in Google Cloud">
+In der [Google Cloud Console](https://console.cloud.google.com) müssen Sie:
+
+- Wählen Sie ein Google Cloud-Projekt aus oder erstellen Sie es
+- Konfigurieren Sie einen **OAuth-Zustimmungsbildschirm**
+- Erstellen Sie eine **OAuth-Client-ID** vom Typ **Webanwendung**
+
+Alle Einzelheiten finden Sie in der [Google Auth Platform-Dokumentation](https://Support.google.com/cloud/topic/15540269).
+</Step>
+<Step title="Anmeldeinformationen in ZenOpus konfigurieren">
+- Gehen Sie zu **Cloud → Benutzer → Auth → Google**.
+- Aktivieren Sie **Google-Anmeldung** und wählen Sie **Ihre eigenen Anmeldeinformationen**.
+- Geben Sie Ihre **Client-ID** und Ihr **Client-Geheimnis** ein.
+</Step>
+<Step title="Konfigurieren Sie Weiterleitungs-URIs in Google Cloud">
+Wenn Sie Ihre eigenen Google OAuth-Anmeldeinformationen verwenden, zeigt ZenOpus möglicherweise **mehrere mögliche Weiterleitungs-URIs** an, zum Beispiel:
+
+- Ihre Standarddomäne ZenOpus (`https://myapp.zenopus.app`)
+- eine oder mehrere benutzerdefinierte Domänen, die Sie hinzugefügt haben (`https://myapp.com`)
+
+In der Google Cloud Console müssen Sie **jeden Weiterleitungs-URI, den Sie verwenden möchten** als **Autorisierten Weiterleitungs-URI** auf Ihrem OAuth-Client hinzufügen.
+
+<Note>
+Umleitungs-URIs müssen genau übereinstimmen. Schema, Domäne, Pfad und abschließende Schrägstriche sind alle wichtig.
+</Note>
+</Step>
+<Step title="Bestätigen Sie, welche Weiterleitungs-URIs in Ihrem Google OAuth-Client autorisiert sind">
+ZenOpus muss wissen, **welche Weiterleitungs-URIs in Ihrem Google OAuth-Client autorisiert sind**. Nachdem Sie sie in Google Cloud hinzugefügt haben, kehren Sie zu ZenOpus zurück und **wählen Sie die Weiterleitungs-URIs aus, die Sie auf die Whitelist gesetzt haben**.
+
+Durch die Auswahl von Umleitungs-URIs in ZenOpus bestätigen Sie Folgendes:
+
+- welche Domains in Ihrem Google OAuth-Client autorisiert sind
+- Zu welcher Domäne ZenOpus Benutzer nach der Anmeldung zurückgeleitet werden dürfen
+
+Dadurch wird sichergestellt, dass die Google-Authentifizierung weiterhin über Standard- und benutzerdefinierte Domänen hinweg ordnungsgemäß funktioniert.
+</Step>
+<Step title="Speichern Sie Ihre Google-Anmeldeeinstellungen">
+Klicken Sie auf **Speichern**, um Ihre Google-Anmeldeinformationen und ausgewählten Weiterleitungs-URIs zu speichern und zu bestätigen.
+</Step>
+<Step title="Fügen Sie Ihrer App eine Authentifizierungs-Benutzeroberfläche hinzu">
+Prompt ZenOpus, um die Google-Anmeldeoberfläche zu Ihrer App hinzuzufügen:
+
+```text
+Fügen Sie meiner App die Google-Anmeldung mit meinen eigenen Google OAuth-Anmeldeinformationen hinzu.
+```
+
+ZenOpus generiert die Benutzeroberfläche mit Ihren benutzerdefinierten Anmeldeinformationen.
+</Step>
+<Step title="Testen Sie den Fluss">
+Überprüfen Sie vor der Bereitstellung in der Produktion Folgendes:
+
+- Es erscheint die Schaltfläche **Mit Google anmelden**
+- Umleitungs-URIs sind korrekt konfiguriert
+- Benutzer kehren im angemeldeten Zustand zur App zurück
+- Der Zustimmungsbildschirm verhält sich wie erwartet
+- Benutzer können sich erfolgreich an- und abmelden
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+## Verwalten der Google-Authentifizierung
+
+Sie können jederzeit über **Cloud → Benutzer → Auth → Google** zwischen **Verwaltet durch ZenOpus** und **Ihre eigenen Anmeldeinformationen** wechseln.
+
+Das Ändern der Google-Authentifizierungseinrichtung hat keine Auswirkungen auf bestehende Benutzerkonten. Benutzer können sich weiterhin mit denselben Google-Konten anmelden.
+
+## Fehlerbehebung bei der Einrichtung „Ihre eigenen Anmeldeinformationen“.
+
+<AccordionGroup>
+<Accordion title="Nicht übereinstimmende Weiterleitungs-URI">
+- Stellen Sie sicher, dass jede Weiterleitungs-URL, die Sie in ZenOpus ausgewählt haben, zu Google Cloud hinzugefügt wird
+- Suchen Sie nach fehlenden oder zusätzlichen abschließenden Schrägstrichen
+- Überprüfen Sie, ob das Schema (`https` vs. `http`) genau übereinstimmt
+</Accordion>
+<Accordion title="Probleme mit dem Einwilligungsbildschirm">
+- Stellen Sie sicher, dass der OAuth-Zustimmungsbildschirm in Google Cloud korrekt konfiguriert ist
+- Fügen Sie Ihr Konto als Testbenutzer hinzu, wenn die App nicht veröffentlicht ist
+- Überprüfen Sie, ob die erforderlichen Bereiche konfiguriert sind
+</Accordion>
+<Accordion title="Falscher OAuth-Clienttyp">
+- Verwenden Sie einen **Webanwendung** OAuth-Client
+- Mobile- oder Desktop-Clienttypen sind nicht mit dem Umleitungsfluss von ZenOpus kompatibel
+</Accordion>
+<Accordion title="Authentifizierung funktioniert nicht">
+- Bestätigen Sie, dass die Google-Anmeldung unter **Benutzer → Authentifizierung → Google** aktiviert ist.
+- Überprüfen Sie die Werte `Client ID` und `Client secret` (Ihr eigenes Anmeldeinformations-Setup).
+- Stellen Sie sicher, dass die Authentifizierungs-Benutzeroberfläche mit dem Backend verbunden ist
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Ist die von ZenOpus verwaltete Google-Authentifizierung für alle ZenOpus-Apps verfügbar?">
+Nein. **ZenOpus-verwaltet** Die Google-Authentifizierung ist nur für **ZenOpus Cloud-Apps** verfügbar.
+</Accordion>
+<Accordion title="Kann ich die Google-Authentifizierung in Apps verwenden, die nicht ZenOpus Cloud verwenden?">
+Ja. Die Google-Authentifizierung kann zu Apps hinzugefügt werden, die nicht ZenOpus Cloud verwenden, erfordert jedoch eine manuelle Einrichtung außerhalb von ZenOpus Cloud.
+
+In Apps, die ZenOpus Cloud nicht verwenden, könnten Sie beispielsweise Folgendes tun:
+
+- Integrieren Sie Google OAuth direkt in Ihren Frontend- oder Backend-Code
+- Verwenden Sie Googles One Tap oder Standard-OAuth-Anmeldeabläufe
+- Verwenden Sie einen Authentifizierungsdienst eines Drittanbieters wie Supabase Auth
+- Verwalten Sie OAuth-Anmeldeinformationen, Weiterleitungsverarbeitung und Sitzungslogik selbst
+
+Diese Seite dokumentiert die **ZenOpus Cloud-Implementierung**, einschließlich der verwalteten Google-Authentifizierung und Ihres eigenen Anmeldeinformationsflusses speziell für ZenOpus Cloud.
+</Accordion>
+<Accordion title="Sollte ich die Option „Verwaltet von ZenOpus“ oder meine eigenen Anmeldeinformationen verwenden?">
+Verwenden Sie **Verwaltet von ZenOpus**, es sei denn, Sie müssen speziell Ihre eigenen Google Cloud OAuth-Anmeldeinformationen verwalten, das Branding des Zustimmungsbildschirms anpassen oder benutzerdefinierte OAuth-Bereiche konfigurieren.
+</Accordion>
+<Accordion title="Welche Informationen teilt Google mit meiner App?">
+Standardmäßig stellt Google die **E-Mail-Adresse** und **grundlegende Profilinformationen** des Nutzers bereit. Es werden keine zusätzlichen Daten weitergegeben, es sei denn, Sie konfigurieren benutzerdefinierte OAuth-Bereiche (nur die Einrichtung Ihrer eigenen Anmeldeinformationen).
+</Accordion>
+<Accordion title="Sehen Nutzer bei jeder Anmeldung den Google-Einwilligungsbildschirm?">
+Nein. Nutzern wird der Zustimmungsbildschirm angezeigt, wenn sie sich **zum ersten Mal** bei Google anmelden oder wenn sich die angeforderten Berechtigungen ändern.
+</Accordion>
+<Accordion title="Kann ich später zwischen „verwaltet“ und „eigene Zugangsdaten“ wechseln?">
+Ja. Sie können jederzeit zwischen **Verwaltet von ZenOpus** und **Ihren eigenen Anmeldeinformationen** wechseln. Bestehende Benutzerkonten sind nicht betroffen.
+</Accordion>
+<Accordion title="Warum erhalte ich einen Fehler bei der Umleitungs-URI-Nichtübereinstimmung?">
+Dies bedeutet normalerweise, dass die Weiterleitungs-URLs, die Sie in ZenOpus ausgewählt haben, nicht genau mit den in Google Cloud konfigurierten **Autorisierten Weiterleitungs-URIs** übereinstimmen.
+
+- Stellen Sie sicher, dass jede Weiterleitungs-URL, die Sie in ZenOpus ausgewählt haben, zu Google Cloud hinzugefügt wird.
+- Überprüfen Sie Schema, Domäne, Pfad und abschließende Schrägstriche.
+</Accordion>
+<Accordion title="Ersetzt die Google-Authentifizierung die E-Mail-/Passwort-Anmeldung?">
+Nein. Die Google-Authentifizierung ist eine zusätzliche Anmeldemethode. Sie können die Google-Anmeldung neben anderen Authentifizierungsmethoden anbieten.
+</Accordion>
+<Accordion title="Muss ich die Google Cloud Console konfigurieren, wenn ich das Setup „Verwaltet von ZenOpus“ verwende?">
+Nein. Die Konfiguration der Google Cloud Console ist nur erforderlich, wenn Sie **Ihre eigenen Anmeldeinformationen** verwenden.
+</Accordion>
+</AccordionGroup>

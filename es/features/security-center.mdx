@@ -1,0 +1,118 @@
+---
+title: "Workspace centro de seguridad"
+description: "Un panel de seguridad centralizado Workspace para monitorear los hallazgos de seguridad, la cobertura del escaneo y los riesgos de dependencia en todos los proyectos."
+---
+El **Centro de seguridad** ayuda a los equipos a identificar riesgos, priorizar correcciones y realizar un seguimiento de la cobertura de seguridad en todos los proyectos a escala.
+
+- **Disponible en:** Business y planes Enterprise
+- **Acceso:** Workspace administradores y propietarios
+- **Ubicación:** Configuración → Workspace → Centro de seguridad
+
+<Tip>
+El centro de seguridad proporciona una vista amplia **Workspace del estado de seguridad en todos los proyectos**.
+
+- Para revisar, corregir o actualizar los resultados de un proyecto individual, abra la [Vista de seguridad del proyecto](/es/features/security-view).
+- Para obtener una descripción general del modelo de seguridad y el enfoque de escaneo de ZenOpus, consulte la [Descripción general de seguridad](/es/features/security).
+- Para obtener orientación práctica sobre cómo escribir código seguro y evitar errores de seguridad comunes, consulte [Prácticas recomendadas de seguridad para aplicaciones ZenOpus](/es/tips-tricks/security-best-practices).
+</Tip>
+
+## Lo que muestra el centro de seguridad
+
+El centro de seguridad está organizado en dos secciones principales, cada una centrada en un aspecto diferente de la seguridad Workspace. Combina el análisis de código y la seguridad de la cadena de suministro en una única vista de nivel Workspace.
+
+### Análisis de código
+
+Revise los hallazgos de seguridad del **análisis de seguridad automatizado** en todos los proyectos de su Workspace. Las tarjetas de resumen brindan una vista rápida de los proyectos totales, los proyectos con hallazgos y la cobertura del escaneo.
+
+- **Errores**: problemas de seguridad críticos que requieren atención inmediata
+- **Advertencias**: Problemas de seguridad importantes que deben revisarse
+- **Información**: Hallazgos informativos que proporcionan contexto adicional
+- **Estado de escaneo**: cuándo se escanearon los proyectos por última vez, incluidos los indicadores de escaneo en vivo
+- **Visibilidad**: el estado de publicación del proyecto, ya sea borrador (no publicado), Workspace (publicado internamente en Workspace) o público (publicado públicamente).
+
+Puede buscar, filtrar y ordenar proyectos por estado de seguridad, visibilidad (estado de publicación), estado de escaneo o nombre para concentrarse rápidamente en lo más importante.
+
+### Seguridad de la cadena de suministro
+
+Supervise las vulnerabilidades de dependencia en todo su Workspace. Las tarjetas de resumen resaltan los recuentos de vulnerabilidades por gravedad y cobertura general del análisis.
+
+- **Dos vistas**: Revisar vulnerabilidades **por proyecto** o **por vulnerabilidad**
+- **Vulnerabilidades por gravedad**: categorizadas como críticas, altas o medias
+- **Proyectos afectados**: qué proyectos utilizan dependencias vulnerables
+- **Paquetes vulnerables**: nombres de paquetes, versiones afectadas y versiones reparadas cuando estén disponibles
+- **Exportación CSV**: exporte una lista de dependencias de todo Workspace como un archivo CSV para auditorías o informes (disponible en la **vista de proyectos** en Seguridad de la cadena de suministro)
+
+Puede filtrar y buscar vulnerabilidades por gravedad, visibilidad (estado de publicación), CVE, nombre del paquete o título de la vulnerabilidad.
+
+## Por qué utilizar el centro de seguridad
+
+El centro de seguridad ayuda a los equipos a mantenerse al tanto de los problemas de seguridad al hacer que los riesgos sean visibles, comparables y procesables en todos los proyectos.
+
+- **Supervisión centralizada**  
+Revise los hallazgos de seguridad en todo su Workspace sin abrir proyectos individualmente.
+- **Priorización clara**  
+Concéntrese en proyectos con errores críticos, vulnerabilidades de alta gravedad o análisis obsoletos.
+- **Visibilidad de la cobertura del escaneo**  
+Vea qué proyectos están actualizados y cuáles pueden necesitar revisiones de seguridad.
+- **Conciencia del riesgo de dependencia**  
+Comprenda cómo las dependencias vulnerables afectan múltiples proyectos y coordine las actualizaciones de manera eficiente.
+
+## Casos de uso comunes
+
+El centro de seguridad admite revisiones de rutina y trabajos de seguridad urgentes, que incluyen:
+
+- **Preparación para el lanzamiento y auditorías**  
+Confirme que los proyectos cumplan con los estándares de seguridad antes del envío o de las revisiones de cumplimiento.
+- **Incorporación y transferencias de proyectos**  
+Asegúrese de que los proyectos heredados o transferidos hayan sido escaneados y no introduzcan riesgos de seguridad.
+- **Respuesta a vulnerabilidad crítica**  
+Identifique rápidamente los proyectos afectados cuando se anuncien nuevos problemas de dependencia.
+- **Monitoreo continuo**  
+Revise periódicamente los hallazgos y aborde nuevos problemas como parte de una cadencia semanal o mensual.
+
+## Mejores prácticas para usar el centro de seguridad
+
+El centro de seguridad está diseñado para una revisión continua en lugar de un flujo de trabajo fijo. Las siguientes mejores prácticas reflejan cómo los equipos las usan comúnmente.
+
+- **Comience con la descripción general de Workspace**  
+Revise el estado de seguridad general para comprender cuántos proyectos tienen errores, advertencias o análisis desactualizados.
+- **Priorizar proyectos que necesitan atención**  
+Utilice filtros para centrarse en proyectos con errores críticos, vulnerabilidades de alta gravedad o advertencias recientes.
+- **Compruebe la frescura del escaneo**  
+Identifique proyectos que no se hayan analizado recientemente y que puedan necesitar revisiones de seguridad actualizadas.
+- **Revisar vulnerabilidades de dependencia**  
+Inspeccione los paquetes vulnerables por gravedad para ver qué problemas afectan a múltiples proyectos y requieren actualizaciones coordinadas.
+- **Tome medidas dentro de proyectos individuales**  
+Utilice la acción **Ver** en un proyecto para abrir sus detalles de seguridad, ejecutar nuevos análisis, actualizar dependencias y resolver hallazgos en la [Vista de seguridad del proyecto](/es/features/security-view).
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Quién puede acceder al centro de seguridad?">
+Los administradores y propietarios de Workspace en los planes Business y Enterprise pueden acceder al centro de seguridad en **Configuración → Workspace → Centro de seguridad**.
+</Accordion>
+<Accordion title="¿El Centro de seguridad ejecuta análisis automáticamente?">
+No. Muestra los resultados del escaneo más reciente para cada proyecto. Para actualizar lo que ve, ejecute un nuevo análisis de seguridad en el proyecto.
+</Accordion>
+<Accordion title="¿Cuál es la diferencia entre errores, advertencias e información?">
+- **Los errores** son problemas de seguridad críticos que deben resolverse antes de publicar.
+- **Las advertencias** son inquietudes importantes que pueden no ser críticas pero que deben revisarse.
+- Los hallazgos de **Información** brindan contexto adicional para ayudar a los equipos a comprender mejor su postura de seguridad.
+</Accordion>
+<Accordion title="¿Qué significa &quot;visibilidad&quot;?">
+La visibilidad refleja el **estado de publicación** de un proyecto:
+
+- **Borrador**: No publicado
+- **Workspace**: Publicado internamente y accesible solo para miembros de Workspace
+- **Público**: Publicado públicamente y accesible para cualquier persona con el enlace.
+</Accordion>
+<Accordion title="¿Por qué algunos proyectos aparecen como nunca escaneados?">
+Los proyectos aparecen como nunca analizados si aún no se ha ejecutado un análisis de seguridad para ellos. Ejecute un análisis de seguridad en el proyecto para generar resultados.
+</Accordion>
+<Accordion title="¿El centro de seguridad muestra datos históricos?">
+No. Por el momento, el centro de seguridad muestra solo los resultados del análisis más reciente para cada proyecto.
+</Accordion>
+<Accordion title="¿Puedo exportar datos de seguridad?">
+Sí. Puede exportar una lista de dependencias de todo Workspace como un archivo CSV desde la sección Seguridad de la cadena de suministro (vista de proyectos).
+</Accordion>
+</AccordionGroup>

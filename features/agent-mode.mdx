@@ -1,0 +1,170 @@
+---
+title: "Build in Agent mode"
+description: "Agent mode lets ZenOpus implement and verify changes directly in your project, handling execution end to end with minimal supervision."
+---
+<Tip>
+**Choose a mode**
+
+ZenOpus has two modes:
+
+- [**Plan mode**](/features/plan-mode) → think through the problem, explore options, and decide on an approach
+- **Agent mode** → implement changes and verify the outcome
+
+Plan mode is for decision-making. Agent mode is for execution.
+
+The two modes are designed to work together, and you can switch between them at any time.
+</Tip>
+
+## Overview
+
+Agent mode is ZenOpus’s autonomous execution mode, designed to implement changes directly in your project.
+
+When you give ZenOpus a task, it takes ownership of execution end to end. It understands your intent, explores the codebase for context, applies changes across files, and resolves issues that appear during development. While it works, you can see progress through visible tasks and review the results before moving on.
+
+## What Agent mode is for
+
+You can use Agent mode to:
+
+- Implement features or changes once an approach is decided
+- Fix bugs or errors end to end
+- Refactor code across multiple files
+- Apply coordinated changes across frontend, backend, and configuration
+- Debug issues that arise during implementation
+- Inspect logs and network activity to identify problems
+- Fetch external documentation or assets when needed
+- Generate or edit images and videos for use in your project
+- Verify results before finishing
+
+All changes are applied directly to your project and surfaced through file diffs and summaries. You can follow along step by step in the **Details view**.
+
+## How to use Agent mode
+
+Agent mode is active unless you switch to [Plan mode](/features/plan-mode).
+
+To use it, describe what you want and send your message. Clear requirements and constraints help ZenOpus produce better results.
+
+**Be specific about what you want**
+
+```text
+Add a contact form with name, email, and message fields. Validate email format and show error messages inline.
+```
+
+**Describe expected behavior**
+
+```text
+When users click ‘Add to Cart’, show a success message and update the cart count in the header. Store cart items in local storage.
+```
+
+**Provide context for complex changes**
+
+```text
+Update the dashboard to show sales data from the last 30 days. Use the existing Chart component and match the styling used on the analytics page.
+```
+
+**Set guardrails for sensitive areas**
+
+```text
+Add a new feature to @src/pages/dashboard. Do not modify @src/shared/Layout.tsx or the existing authentication logic.
+```
+
+## Tasks and execution visibility
+
+While ZenOpus is working, tasks appear in the chat interface showing:
+
+- Current step being executed
+- Files being modified
+- Tools being used (search, web fetch, image generation)
+- Progress through multi-step implementations
+
+This visibility helps you:
+
+- Follow progress on complex builds
+- Understand the steps being performed
+- Stay oriented during complex changes
+- Spot issues early if something seems off
+
+## Prompt queue
+
+ZenOpus **processes one task at a time**. While ZenOpus is working, you can continue sending prompts and they will be added to a visible queue above the chat input.
+
+- Pause and resume the entire queue as needed
+- Reorder, edit, copy, or remove individual queued prompts
+- Repeat a queued prompt a specified number of times (up to 50)
+
+This makes it easier to batch work, collaborate without waiting, and automate repetitive workflows.
+
+## Debugging and verification
+
+When using Agent mode, ZenOpus does more than ensure code compiles.
+
+As part of investigation and problem solving, the agent can:
+
+- observe build errors and failures from test runs
+- inspect console output and network requests when verification tools are used
+- reproduce reported issues using browser testing or targeted backend calls
+- verify that fixes work as expected by running appropriate checks
+
+ZenOpus has access to verification tools such as browser testing, frontend tests, and edge function verification to help understand system behavior, validate user workflows, and ensure backend logic works as expected. Most of these tools run only when you ask for them.
+
+For a detailed explanation of testing and verification capabilities, see [Test and verify your app](/features/testing).
+
+## Pricing
+
+Pricing for Agent mode is **usage-based**. Cost depends on factors such as:
+
+- Number of files modified
+- Complexity of logic changes
+- Amount of codebase exploration required
+- Use of tools such as verification, browser checks, web search, or image generation
+
+Many requests cost less than one credit, while more complex tasks may cost more. You can view the cost of a message from the three-dot menu on that message. See [credit usage](/introduction/plans-and-credits#credit-usage) for more information.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Does ZenOpus modify my project directly when in Agent mode?">
+Yes. ZenOpus applies changes directly to your project when using Agent mode. All modifications are visible through file diffs and summaries.
+</Accordion>
+<Accordion title="What happens if errors occur during implementation?">
+ZenOpus can inspect logs, runtime output, and network activity and iterate on fixes until the issue is resolved or clarified. See [Test and verify your app](/features/testing) for more information.
+</Accordion>
+<Accordion title="Can I see what ZenOpus is doing while it works?">
+Yes. Visible tasks show each step of execution, including progress and which files are being modified.
+</Accordion>
+<Accordion title="Can multiple messages be sent while working in Agent mode?">
+Yes. Additional messages are queued and processed in order. You can reorder, pause, or remove queued messages at any time.
+</Accordion>
+<Accordion title="How do I stop a request, and what happens when I do?">
+Click the **stop button** while ZenOpus is responding to immediately halt the current task. This lets you stop a request to provide more context or correct the agent.
+
+ZenOpus keeps all changes made up to that point, so you won’t lose completed work. Stopped requests are charged based on the work completed so far.
+
+If you want to remove the changes, use the **undo button** to revert to the previous state.
+</Accordion>
+<Accordion title="When should I switch to Plan mode?">
+Switch to [Plan mode](/features/plan-mode) when you want to:
+
+- Think through a complex change before implementation
+- Compare multiple architectural approaches
+- Review or edit a plan before any code is changed
+- Investigate an issue and decide on a solution first
+</Accordion>
+<Accordion title="Can I reference a specific file when chatting with ZenOpus?">
+Yes. You can reference code files from your current project directly in chat to make edits and discussion faster and more precise.
+
+Type `@` and select a file, or use the **Reference file in chat** button in the [code editor](/features/code-mode). For example:
+
+```text
+@src/components/UserProfile.tsx add a loading state here
+```
+
+This only references files within your current project. To reference another project, see [Cross-project referencing](/features/cross-project-referencing).
+</Accordion>
+<Accordion title="Can ZenOpus reuse code or features from another project?">
+Yes. ZenOpus supports [cross-project referencing](/features/cross-project-referencing) within the same workspace.
+
+You can use `@` mentions to reference another project directly, or simply ask ZenOpus to reuse an existing implementation. The agent can access relevant code, files, assets, and chat history from other projects and adapt them to your current one.
+
+Cross-project access is read-only and respects workspace permissions.
+</Accordion>
+</AccordionGroup>

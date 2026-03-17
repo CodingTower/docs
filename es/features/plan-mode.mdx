@@ -1,0 +1,172 @@
+---
+title: "Lluvia de ideas en Plan mode"
+description: "Plan mode te ayuda a pensar, explorar y decidir antes de escribir cualquier código. Úselo para hacer preguntas, depurar problemas, comparar enfoques o crear un plan estructurado cuando esté listo para construir."
+---
+<Tip>
+**Elige un modo**
+
+ZenOpus tiene dos modos:
+
+- **Plan mode** → pensar en el problema, explorar opciones y decidir un enfoque
+- [**Agent mode**](/es/features/agent-mode) → implementar cambios y verificar el resultado
+
+Plan mode es para la toma de decisiones. Agent mode es para ejecución.
+
+Los dos modos están diseñados para funcionar juntos y puedes alternar entre ellos en cualquier momento.
+</Tip>
+
+## Descripción general
+
+Plan mode (anteriormente modo Chat) es el modo de planificación y razonamiento de ZenOpus, diseñado para momentos en los que el pensamiento, la exploración o la claridad son más valiosos que la ejecución inmediata. Puede razonar en varios pasos e inspeccionar archivos, registros u otro contexto relevante del proyecto según sea necesario.
+
+En Plan mode, puede explorar ideas, investigar problemas y razonar sobre cambios antes de escribir cualquier código. ZenOpus a menudo hace preguntas aclaratorias para comprender mejor sus objetivos y limitaciones. Cuando hay una implementación clara que proponer, ZenOpus crea un plan formal que puede inspeccionar, editar y perfeccionar.
+
+Plan mode nunca modifica su código. Cada mensaje en Plan mode deduce **un crédito**.
+
+## Para qué sirve Plan mode
+
+Puede utilizar Plan mode para:
+
+- Explore ideas de productos o funciones antes de comprometerse con una dirección
+- Haga preguntas sobre su código base o comportamiento existente
+- Investigue errores, errores o comportamientos confusos de forma segura antes de realizar cambios en el código
+- Compare múltiples enfoques y comprenda las compensaciones
+- Diseño de arquitectura o esquemas de bases de datos.
+- Comprender el impacto de posibles cambios antes de realizarlos
+
+Muchas conversaciones Plan mode son exploratorias y terminan con claridad o dirección. Cuando una conversación conduce a un cambio concreto, Plan mode proporciona una manera segura de revisar y perfeccionar el enfoque propuesto antes de implementar algo.
+
+## Cómo utilizar Plan mode
+
+Puedes usar Plan mode de dos maneras:
+
+- **Comience en Plan mode** cuando comience un nuevo proyecto o explore una idea.
+- **Cambie a Plan mode** en cualquier momento durante el desarrollo para pausar la ejecución y pensar.
+
+Plan mode es intencionalmente interactivo. ZenOpus puede hacer preguntas aclaratorias para comprender los requisitos, restricciones o compensaciones antes de proponer un plan.
+
+### Activar Plan mode
+
+Haga clic en **Planificar** junto a la entrada del mensaje y luego describa lo que desea explorar o decidir.
+
+**Se específico sobre lo que quieres**
+
+```text
+Agregue autenticación de correo electrónico/contraseña con restablecimiento de contraseña. 
+Los usuarios deben permanecer conectados durante 30 días. Utilice ZenOpus Cloud.
+```
+
+**Úselo para exploración**
+
+```text
+¿Cuál es la mejor manera de implementar notificaciones en tiempo real en este proyecto? 
+Explíqueme las opciones y sus compensaciones.
+```
+
+**Úselo para depurar**
+
+```text
+Los usuarios informan que el formulario de inicio de sesión no funciona en dispositivos móviles. 
+Ayúdame a descubrir por qué.
+```
+
+**Solicitar desgloses detallados**
+
+```text
+Analice la implementación de una función de carrito de compras. 
+¿Qué componentes, tablas de bases de datos y puntos finales de API necesitaré?
+```
+
+**Solicite revisiones y mejoras**
+
+```text
+Revisar mi configuración de autenticación actual. 
+¿Qué mejoras de seguridad debo hacer?
+```
+
+## Cuando Plan mode crea un plan
+
+Plan mode no siempre produce un plan de implementación estructurado. Un plan se crea sólo cuando hay una implementación clara que proponer.
+
+Si se genera un plan, aparece en una **Vista de plan** dedicada como un documento estructurado y legible. Puede abrirlo en pantalla completa para revisar todo el enfoque antes de implementar algo.
+
+Un plan normalmente incluye:
+
+- Una descripción general de alto nivel del enfoque
+- Decisiones, supuestos y limitaciones clave
+- Componentes, modelos de datos y API
+- Secuencia de implementación paso a paso
+- Diagramas opcionales como esquemas, flujos o arquitectura.
+
+Desde la vista Plan, puede:
+
+- **Edite** el plan directamente como rebajas para agregar restricciones, eliminar pasos o reescribir secciones.
+- **Aprobar** el plan cuando esté satisfecho con el enfoque.
+
+Puede hacer preguntas de seguimiento o solicitar cambios directamente en el chat y ZenOpus actualizará el plan en consecuencia.
+
+Cuando apruebas un plan:
+
+- ZenOpus cambia a **Agent mode**
+- La implementación comienza basándose estrictamente en el plan aprobado.
+
+Puede regresar a Plan mode en cualquier momento para generar un nuevo plan basado en el estado actual de su código base.
+
+## Planes y perseverancia
+
+Cuando aprueba un plan, la **última versión aprobada** se guarda en `.zenopus/plan.md`.
+
+Este archivo representa el plan actual que implementará Agent mode y puede inspeccionarlo como cualquier otro archivo de proyecto.
+
+**Los planes anteriores no se pierden**. Permanecen disponibles en su **historial de chat** y se pueden volver a abrir en la vista del Plan para referencia o comparación, aunque solo se guarde el plan aprobado más reciente en `plan.md`.
+
+Esto le permite:
+
+- Iterar ideas a lo largo del tiempo
+- Compara diferentes enfoques
+- Vuelva a planificar de forma segura a medida que evolucionan los requisitos
+- Ayude a los nuevos colaboradores a comprender el razonamiento detrás de las implementaciones.
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Plan mode alguna vez cambia mi código?">
+No. Los cambios de código solo ocurren después de que usted aprueba un plan y ZenOpus cambia a Agent mode.
+</Accordion>
+<Accordion title="¿Plan mode cuesta créditos?">
+Sí. Cada mensaje en Plan mode deduce **un crédito**.
+</Accordion>
+<Accordion title="¿Dónde se almacenan los planos?">
+El último plan aprobado se guarda en `.zenopus/plan.md`. Los planes anteriores siguen siendo accesibles desde el historial de chat.
+</Accordion>
+<Accordion title="¿Puedo acceder a planes antiguos?">
+Sí. Los planes anteriores siguen siendo accesibles desde el historial de chat.
+</Accordion>
+<Accordion title="¿Puedo editar los planes una vez creados?">
+Sí. Los planes son completamente editables antes de su aprobación.
+</Accordion>
+<Accordion title="¿Puedo usar Plan mode para depurar?">
+Sí. Plan mode es muy adecuado para investigar problemas y decidir soluciones antes de la implementación.
+</Accordion>
+<Accordion title="¿Dónde está el modo Chat?">
+**Plan mode** se llamaba anteriormente **Modo de chat**. El nombre se cambió para reflejar mejor cómo se pretende utilizar el modo antes de su implementación.
+</Accordion>
+<Accordion title="¿Puedo hacer referencia a un archivo específico cuando chateo con ZenOpus?">
+Sí. Puede hacer referencia a archivos de código de su proyecto actual directamente en el chat para que las ediciones y las discusiones sean más rápidas y precisas.
+
+Escriba `@` y seleccione un archivo, o use el botón **Archivo de referencia en el chat** en el [editor de código](/es/features/code-mode). Por ejemplo:
+
+```text
+@src/components/UserProfile.tsx agregue un estado de carga aquí
+```
+
+Esto solo hace referencia a archivos dentro de su proyecto actual. Para hacer referencia a otro proyecto, consulte [Referencia entre proyectos](/es/features/cross-project-referencing).
+</Accordion>
+<Accordion title="¿Puede ZenOpus reutilizar código o funciones de otro proyecto?">
+Sí. ZenOpus admite [referencias entre proyectos](/es/features/cross-project-referencing) dentro del mismo Workspace.
+
+Puede usar menciones `@` para hacer referencia a otro proyecto directamente, o simplemente pedirle a ZenOpus que reutilice una implementación existente. El agente puede acceder a códigos, archivos, activos e historial de chat relevantes de otros proyectos y adaptarlos al actual.
+
+El acceso entre proyectos es de solo lectura y respeta los permisos Workspace.
+</Accordion>
+</AccordionGroup>

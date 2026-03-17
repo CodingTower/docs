@@ -1,0 +1,167 @@
+---
+title: "AGENTI"
+description: ""
+---
+Istruzioni dell'agente di documentazione
+
+ZenOpus è una piattaforma di sviluppo di app full-stack che consente agli utenti di creare applicazioni Web tramite istruzioni in linguaggio naturale.
+
+Queste istruzioni definiscono come l'agente Mintlify AI dovrebbe creare e aggiornare la documentazione su docs.zenopus.dev. Seguirli costantemente a meno che non venga esplicitamente indicato diversamente.
+
+## Precisione e sicurezza
+
+- Non inventare né presumere il comportamento, i limiti, i prezzi, la disponibilità dei piani o gli elementi dell'interfaccia utente del prodotto.
+- Specifica sempre quali funzionalità dei piani sono disponibili su (Free, Pro, Business, Enterprise o "tutti i piani").
+- Distinguere tra crediti Workspace (per la creazione) e saldo Cloud/AI (per le app distribuite).
+- Se le informazioni non sono chiaramente documentate o fornite, non indovinare.
+- Preferisci omettere i dettagli piuttosto che aggiungere contenuti incerti o speculativi.
+- Quando necessario, chiedi chiarimenti invece di fare supposizioni o colmare lacune.
+- Evidenziare chiaramente azioni irreversibili, limitazioni e incognite, quando applicabile.
+
+## Flusso di informazioni richiesto (regola principale)
+
+Quando crei o aggiorni le pagine della documentazione, segui questo ordine narrativo:
+
+1. **Cosa**: spiega qual è la funzionalità, il connettore o il concetto.
+    - Limitati a 1-2 paragrafi brevi.
+1. **Perché**: spiega perché è importante.
+    - Concentrarsi sul valore, sui risultati e su quando utilizzarlo (o non utilizzarlo).
+1. **Chi**: spiega a chi è rivolto.
+    - Utilizza casi d'uso concreti, app di esempio, scenari o tabelle.
+1. **Come**: spiega come funziona o come usarlo.
+    - Include passaggi di installazione, configurazione, requisiti (account, credenziali), note di fatturazione e utilizzo, limitazioni e azioni irreversibili.
+    - Per i **contenuti concettuali o di riferimento**, "Come" può descrivere il funzionamento del concetto ad alto livello anziché istruzioni dettagliate.
+1. **FAQ**: aggiungi le domande frequenti per migliorare la chiarezza, il recupero dell'assistente AI e il posizionamento nella ricerca.
+
+## Ordine delle sezioni richiesto (predefinito)
+
+Utilizza esattamente questo ordine di intestazione a meno che il contenuto non sia chiaramente applicabile:
+
+- Introduzione (Cosa)
+- Perché e quando usarlo
+- Casi d'uso comuni e app di esempio (Chi)
+- Requisiti e fatturazione
+- Impostazione/configurazione (Come)
+- Domande frequenti
+- Limitazioni e risoluzione dei problemi (facoltativo)
+
+## Cosa includere (lista di controllo dei contenuti)
+
+- Aggiungi **prerequisiti** quando gli utenti necessitano di chiavi API, account, configurazione dell'ambiente o dipendenze.
+- Aggiungi **FAQ** per aiutare i motori di ricerca e l'assistente AI di Mintlify a comprendere e classificare i contenuti.
+- Aggiungi **sezioni di risoluzione dei problemi** per i problemi comuni riscontrati nei ticket Support.
+- Indicare chiaramente la **proprietà della fatturazione**, il **consumo di utilizzo** e le **azioni irreversibili**, ove applicabile.
+
+## Domande frequenti (richiesto)
+
+- Includi **3-6 domande frequenti** sulla maggior parte delle pagine (a seconda delle dimensioni della pagina).
+- Scrivi le domande frequenti come **domande in linguaggio naturale** che gli utenti farebbero effettivamente.
+- Dai priorità alle domande su:
+    - Fatturazione e proprietà (ZenOpus rispetto a fornitore esterno)
+    - Requisiti di account, credenziali o chiave API
+    - Limiti, quote o limiti di velocità
+    - Cancellazione, revoca o azioni irreversibili
+    - Idee sbagliate comuni o casi di fallimento
+- Mantieni le risposte concise, basate sui fatti e brevi.
+- Evitare il linguaggio del marketing; ottimizzare per chiarezza e precisione di recupero.
+
+## Principi di scrittura (globali)
+
+- Mantieni le introduzioni scansionabili e brevi.
+- Preferisci i risultati alle funzionalità nella sezione "Perché".
+- Utilizza esempi concreti e realistici in “Chi” e “Come”.
+- Rendi tutti i passaggi inequivocabili, includendo i percorsi esatti dell'interfaccia utente, se pertinenti.
+
+## SEO e accessibilità
+
+- Utilizza titoli descrittivi e ricchi di parole chiave in linea con ciò che gli utenti cercano.
+- Assicurati che i frontmatter `title` e `description` siano chiari, specifici e incentrati sull'utente.
+- Aggiungi un array `keywords` in frontmatter quando migliora la rilevabilità (usa termini pertinenti e specifici che gli utenti cercherebbero; evita il riempimento di parole chiave).
+- Preferisci titoli di pagina orientati all'azione. I titoli possono essere più lunghi e più descrittivi quando sono utili.
+- Se il titolo della pagina è lungo, aggiungi `sidebarTitle` con una versione più breve per la navigazione.
+- Utilizza link di testo specifici e utilizzabili (evita “fai clic qui”).
+- Mantieni una gerarchia logica delle intestazioni (non saltare i livelli).
+- Aggiungi testo alternativo descrittivo per tutte le immagini e i diagrammi.
+- Struttura i contenuti per facilitarne la scansione utilizzando paragrafi brevi, elenchi e interruzioni di sezione chiare.
+
+## Componenti Mintlify (quando usarli)
+
+Utilizza i componenti Mintlify intenzionalmente per migliorare la chiarezza e la leggibilità. Non abusare dei componenti.
+
+### Callout
+
+- Utilizza `<Note>` per un contesto utile che supporti il contenuto principale.
+- Utilizza `<Tip>` per best practice o indicazioni di esperti.
+- Utilizza `<Warning>` per azioni distruttive, passaggi irreversibili, problemi di sicurezza o limitazioni critiche.
+- Utilizza `<Check>` per confermare l'esito positivo o fornire passaggi di verifica.
+
+### Passi
+
+- Utilizzare `<Steps>` e `<Step>` per procedure a più passaggi, in particolare impostazione e configurazione.
+- Preferire i passaggi in cui le azioni devono essere completate in ordine.
+- Quando possibile, includi una fase di verifica o un indicatore di successo.
+
+### Schede
+
+- Utilizzare `<Tabs>` per istruzioni specifiche della piattaforma o alternative reciprocamente esclusive.
+- Non utilizzare le schede per passaggi sequenziali.
+
+### Fisarmoniche
+
+- Utilizza `<AccordionGroup>` per la risoluzione dei problemi, le domande frequenti, i casi limite o la configurazione avanzata.
+- Mantenere visibili i flussi principali; nascondi dettagli profondi dietro le fisarmoniche.
+
+### Gruppi di codici
+
+- Utilizza `<CodeGroup>` quando mostri lo stesso esempio in più lingue.
+- Utilizzare un singolo blocco di codice quando è rilevante solo una lingua.
+
+## Pubblico e tono
+
+- Scrivi principalmente per un **pubblico non tecnico**.
+- Non semplificare eccessivamente, ma spiega concetti non ovvi.
+- Utilizza la **voce attiva** e la **seconda persona** (“tu”).
+- Concentrarsi su chiarezza, correttezza e utilità piuttosto che sul linguaggio di marketing.
+
+## Stile e formattazione
+
+- **Voce attiva**: preferisci la voce attiva per rendere chiaro chi esegue l'azione.
+    - Corretto: “Elimina il progetto”.
+    - Errato: "Il progetto è stato eliminato."
+    - Eccezione: utilizzare la voce passiva quando si enfatizza lo stato o il risultato.
+        - Esempio: “Il progetto è salvato”.
+- **Presente**:
+    - Usa il tempo presente per il comportamento generale.
+        - Corretto: "Fai clic su Salva per aggiornare le impostazioni."
+    - Usa il futuro solo per le conseguenze future.
+        - Corretto: "Le modifiche andranno perse."
+- **Caso della frase**:
+    - Utilizza maiuscole e minuscole per tutte le intestazioni.
+    - Scrivi in maiuscolo solo la prima parola, i nomi propri e gli acronimi.
+    - Corretto: “Impostazioni progetto”
+    - Errato: "Impostazioni progetto"
+- **Virgola seriale (Oxford)**:
+    - Includi sempre una virgola prima della finale "e" o "o".
+    - Esempio: "Modifica, condividi ed elimina progetti".
+- **Date**:
+    - Utilizza *mese giorno, anno* (ad esempio, *31 luglio 2025*).
+    - Non utilizzare numeri ordinali (1°, 2°, 3°).
+- **Riferimenti all'interfaccia utente**:
+    - Elementi dell'interfaccia utente in grassetto: **Impostazioni**, **Elimina progetto**.
+    - Utilizza il codice in linea per valori, campi o identificatori: `project_id`.
+    - Utilizza percorsi esatti dell'interfaccia utente con → separatori: **Impostazioni → Privacy e sicurezza → Visibilità progetto predefinita**
+
+## Esempi suggeriti
+
+- Inserisci tutti gli esempi di prompt in **blocchi di codice in testo semplice**.
+- Utilizza `text wrap` per preservare la leggibilità.
+
+Esempio:
+
+```text
+Integra l'API OpenWeatherMap. 
+URL di base: https://api.openweathermap.org/data/2.5. 
+Auth: chiave API passata come parametro di query appid. 
+Ho bisogno di un endpoint per recuperare il meteo attuale: GET /weather?q={city}&units=metric&appid={API_KEY}. 
+Documenti: https://openweathermap.org/current
+```

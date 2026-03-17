@@ -1,0 +1,116 @@
+---
+title: "Test your app in a browser"
+description: "Learn how ZenOpus uses browser testing to verify your app by clicking buttons, filling forms, testing flows, and checking behavior across screen sizes."
+---
+Browser testing lets ZenOpus interact with your app in a real browser running in a virtual environment. The agent can click buttons, fill forms, navigate pages, and verify real user behavior with screenshots instead of relying on code alone.
+
+Use browser testing to validate user flows, debug visual or behavioral issues, and confirm that changes work as expected across different screen sizes.
+
+## What browser testing can do
+
+When browser testing runs, the agent can:
+
+- Capture screenshots of the app
+- Click buttons and links
+- Fill inputs and submit forms
+- Navigate between pages
+- Read console logs and network requests
+- Detect runtime errors while interacting with your app
+- Test different screen sizes, including mobile, tablet, and desktop layouts. By default, it uses the same size as your preview.
+
+## How browser testing works
+
+ZenOpus uses browser testing selectively, after trying faster verification methods first.
+
+Browser testing may run when:
+
+- You explicitly ask to verify something works. Common trigger phrases include:  
+“verify it works”, “make sure it works”, “test this”, “check if it’s working”
+- Visual or UI issues can’t be pinpointed through logs or code inspection
+- There is a larger feature change, and ZenOpus offers to test the flow and you confirm
+
+<Tip>
+Avoid asking ZenOpus to *make a large change and test it* in the same prompt.
+
+If browser testing gets stuck and you stop it, any work done during that step may be lost.
+
+A safer flow is to build first, then test in a follow-up prompt.
+</Tip>
+
+### Where it runs
+
+The browser runs remotely in a secure virtual environment. It is not your personal browser and does not take over your local session.
+
+- Browser testing always runs against the preview of the project you are currently working on and tests exactly the version of the app you are viewing.
+- If your app uses authentication, browser testing runs using the same app user you are currently logged in as in the preview. Be explicit if there are actions or areas that should not be clicked or triggered.
+- Some ZenOpus Cloud apps use the [test and live environments](/features/environments) feature. When this feature is enabled, browser testing runs against the project preview in the **test** environment.
+
+### What happens during a browser testing run
+
+You can follow the testing process in a dedicated **Details view**, where the agent:
+
+- Shows the steps it is taking, such as clicking buttons or navigating pages
+- Captures screenshots of the app
+- Displays the URLs and results of interactions
+- Summarizes what worked and what did not
+
+Browser testing is slower than normal actions because the agent is interacting with a real browser and verifying results.
+
+### Example: Manually trigger browser testing
+
+The example below shows how to manually trigger browser testing after discovering an issue with the profile page. Ask ZenOpus to reproduce the issue, fix it, and then verify the fix. For example:
+
+```text
+The page crashes when I click my profile. Reproduce in the browser, fix it, and then verify that your fix worked.
+```
+
+![Manually triggering browser testing](/images/zenopus/features/browser-testing/build-browser-testing.png)
+
+## Limitations
+
+- It cannot interact with canvas-based or drawing tools
+- It cannot upload or download files
+- It cannot perform right-click interactions
+- It may perform drag-and-drop interactions, but they are less reliable than clicks
+- It may perform clipboard actions and text selection, but these are unreliable
+- It is not reliable for evaluating subtle visual design details or color differences
+- It may have difficulty interacting with icon-only buttons compared to text-labeled buttons
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Does browser testing run automatically?">
+Yes, in some cases. ZenOpus may automatically suggest or use browser testing when verification is needed, but it is conservative by default and tries lighter methods first.
+</Accordion>
+<Accordion title="How can I make sure ZenOpus uses browser testing?">
+You can always explicitly ask for browser testing at any time. Common trigger phrases include: “verify it works”, “make sure it works”, “test this”, “check if it’s working”.
+
+For example:
+
+```text
+Use browser testing to verify this flow.
+```
+</Accordion>
+<Accordion title="Which environment does browser testing run in?">
+Browser testing always runs against the preview of the project you are currently working on. It tests exactly the version of the app you are viewing.
+
+If your project uses **test and live environment separation**, browser testing runs against the test environment preview.
+</Accordion>
+<Accordion title="Does browser testing use my app permissions?">
+Yes. If your app uses authentication, the agent is logged in as the same app user you are currently logged in and browser testing runs using the same app user.
+
+Be explicit if something should not be clicked or triggered.
+</Accordion>
+<Accordion title="Is this my real browser?">
+No. Browser testing uses a real browser running in a remote virtual environment. It does not take over your local browser or session.
+</Accordion>
+<Accordion title="What if browser testing keeps failing the same action?">
+If the agent repeatedly fails to interact with the same element, this could be due to browser interaction limitations (more likely) or an underlying issue in your app, such as a hidden element, broken state, or unexpected layout.
+
+Try the following:
+
+1. Review the screenshots and logs from the testing run in the Details view
+1. Ask ZenOpus to make the element easier to interact with (for example, by adding visible text or an accessibility label)
+1. If the issue persists, explicitly instruct the agent to avoid interacting with that element
+</Accordion>
+</AccordionGroup>

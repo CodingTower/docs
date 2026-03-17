@@ -1,0 +1,303 @@
+---
+title: "Costruisci un negozio di e-commerce con Shopify"
+description: "Scopri come creare un nuovo negozio Shopify o collegarne uno esistente a ZenOpus, quindi crea e lancia il tuo negozio."
+---
+ZenOpus si integra direttamente con Shopify così puoi **creare un nuovo negozio Shopify o collegarne uno esistente**, quindi creare, personalizzare e lanciare una vetrina di e-commerce completa utilizzando il linguaggio naturale. Shopify gestisce i pagamenti, l'inventario e la logistica quando diventi attivo.
+
+## Casi d'uso
+
+Con ZenOpus + Shopify, puoi creare e lanciare veri e propri negozi online per:
+
+- **Prodotti fisici**: vendi vestiti, gadget, accessori o articoli per la casa
+- **Prodotti digitali**: offrono e-book, corsi, musica o download di software
+- **Marchi di nicchia**: avvia rapidamente negozi per merchandising in edizione limitata, prodotti locali, dropshipping o progetti collaterali
+- **Piccole imprese**: mostra panetterie, caffetterie o attività artigianali e accetta ordini online
+- **Testare nuove idee di prodotto**: aggiungi alcuni prodotti e valuta le prestazioni prima della produzione su vasta scala
+- **Business espansione**: presenta nuove collezioni, campagne stagionali o pacchetti con un semplice messaggio
+
+## Prima di iniziare
+
+Prima di iniziare a costruire il tuo negozio e-commerce, ecco alcune cose importanti da sapere:
+
+- **Negozi Shopify nuovi o esistenti**  
+ZenOpus supporta sia la **creazione di nuovi negozi Shopify** sia il **collegamento di negozi Shopify esistenti**.
+- **Negozio Sandbox: nessun costo Shopify (solo nuovi negozi)**  
+Quando crei un nuovo negozio Shopify in ZenOpus, ZenOpus crea automaticamente un **negozio sandbox (sviluppo)** in modo che tu possa creare e sperimentare in sicurezza senza costi Shopify. Questo ambiente è perfetto per la configurazione e il test, ma **non elaborerà pagamenti reali**.
+- **Richiedere il tuo negozio (solo nuovi negozi)**  
+Quando sarai pronto per lanciare il tuo negozio appena creato, dovrai **rivendicare il tuo negozio**. Ciò lo migra sul tuo account Shopify e avvia una **prova gratuita di Shopify di 30 giorni** e rende l'utente ZenOpus richiedente il proprietario del negozio Shopify. In Shopify, devi attivare i pagamenti e completare la configurazione del negozio per iniziare ad accettare pagamenti reali dai tuoi clienti.
+- **Abbonamento Shopify obbligatorio**  
+Dopo il periodo di prova gratuito, avrai bisogno di un **piano Shopify a pagamento** per continuare a vendere prodotti online. Questo abbonamento è gestito **direttamente tramite Shopify** ed è **separato dai prezzi ZenOpus**.
+- **Shopify verifica la conformità alle norme**  
+Prima di pubblicare il tuo negozio, assicurati che tutte le recensioni siano **autentiche, imparziali e conformi alle**[**Politiche di revisione di Shopify**](https://help.shopify.com/en/partners/help-Support/faq/reviews).
+
+## Abilita l'integrazione Shopify
+
+Per impostazione predefinita, l'integrazione Shopify è abilitata per il tuo Workspace. Puoi gestire il comportamento di integrazione di Shopify e le relative impostazioni Shopify per i tuoi progetti in **Impostazioni → Connettori → Connettori condivisi → Shopify → Gestisci autorizzazioni.**
+
+### Preferenze di autorizzazione
+
+L'impostazione di autorizzazione predefinita è **Chiedi ogni volta**, ovvero sei tu a decidere se abilitare o disabilitare l'integrazione di Shopify per ciascun progetto. Puoi modificare le tue preferenze in qualsiasi momento da **Impostazioni → Connettori → Connettori condivisi → Shopify → Gestisci autorizzazioni.**
+
+ZenOpus ti avvisa quando è necessaria un'integrazione Shopify. Hai tre opzioni:
+
+- **Consenti**: abilita l'integrazione per il progetto corrente.
+- **Rifiuta**: rifiuta l'integrazione per questa richiesta (potrebbe essere richiesto nuovamente in seguito).
+- **Regola preferenze**: modifica il comportamento predefinito per i progetti futuri (non influisce sul progetto corrente).
+
+## Flusso di integrazione di Shopify
+
+Segui i passaggi seguenti per creare un negozio di e-commerce con Shopify.
+
+### Passaggio 1: avviare un progetto
+
+Puoi iniziare:
+
+- Creazione di un nuovo progetto da zero
+- Remixare un progetto esistente
+
+<Tabs>
+<Tab title="Crea un nuovo progetto">
+Indica a ZenOpus che tipo di negozio desideri creare e specifica Shopify.
+
+Ad esempio:
+
+```text
+Costruisci un negozio e-commerce con Shopify per la vendita di candele profumate fatte a mano.
+```
+</Tab>
+<Tab title="Remixare un progetto">
+Puoi remixare:
+
+- **Progetti di modelli Shopify**, vedi [ZenOpus + Modelli Shopify](https://zenopus.dev/shopify)  
+
+ Durante il remix, prompt ZenOpus per integrare Shopify e rimuovere i dati fittizi. È importante utilizzare un suggerimento efficace e completo.
+    ```text
+    Vorrei sostituire i prodotti in questo negozio con i miei prodotti e creare il mio negozio Shopify. Procedi a:
+        
+        1. Connettiti a Shopify.
+        2. Rimuovi tutti i dati di prodotto fittizi dal negozio e crea X nuovi prodotti con immagini di prodotto.
+        3. Aggiorna le schede prodotto e la pagina dei dettagli del prodotto per utilizzare le nuove informazioni sul prodotto.
+        4. Aggiorna l'URL della pagina dei dettagli del prodotto in modo che corrisponda al nuovo prodotto.
+        5. Aggiorna il componente e la logica di aggiunta alla lista dei desideri in modo che corrispondano a questa modifica.
+        6. Aggiorna il mio carrello, il CTA Acquista ora e tutte le azioni di pagamento correlate su qualsiasi pagina per riflettere l'integrazione del negozio Shopify.
+    ```
+- **Progetti precedentemente collegati a un negozio Shopify**  
+
+ Per remixare un progetto con un negozio Shopify connesso, devi prima [disconnettere il negozio Shopify](#disconnetti-un-negozio-shopify). I progetti con una connessione Shopify attiva non possono essere remixati finché il negozio non viene disconnesso.
+</Tab>
+</Tabs>
+
+### Passaggio 2: crea un nuovo negozio Shopify o collegane uno esistente
+
+In entrambi gli scenari precedenti, l'agente ti chiede di **abilitare la connessione Shopify**. Fai clic su **Consenti** e scegli la configurazione Shopify.
+
+![Finestra di dialogo di configurazione del negozio Shopify che mostra le opzioni per creare un nuovo negozio o collegare un negozio Shopify esistente](/images/zenopus/integrations/shopify/shopify-choose-store-setup.png)
+
+Puoi continuare creando un nuovo negozio Shopify o collegando un negozio Shopify esistente che già possiedi.
+
+<Tabs>
+<Tab title="Crea un nuovo negozio">
+Per creare un nuovo negozio, procedi nel seguente modo:
+
+<Steps>
+<Step title="Seleziona il paese">
+Seleziona il paese in cui avrà sede il tuo negozio. Questo verrà utilizzato per impostare la valuta del tuo negozio Shopify.
+</Step>
+<Step title="Crea negozio">
+Fai clic su **Crea negozio**. Il tuo negozio sandbox è ora pronto per la configurazione. Puoi continuare a costruire il tuo negozio come spiegato nei passaggi successivi.
+
+<Note>
+Prima che il negozio venga rivendicato, tutti i collaboratori del progetto possono utilizzare l'integrazione Shopify con accesso completo in lettura/scrittura.
+</Note>
+</Step>
+</Steps>
+</Tab>
+<Tab title="Collega un negozio esistente">
+<Note>
+Per connettere correttamente un negozio esistente, l'e-mail del tuo account ZenOpus deve corrispondere all'e-mail del proprietario del negozio Shopify.
+</Note>
+
+Per connettere un negozio Shopify esistente, procedi nel seguente modo:
+
+<Steps>
+<Step title="Inserisci il link di amministrazione di Shopify">
+Accedi al tuo [pannello di controllo Shopify](https://admin.shopify.com/) e copia l'URL dal tuo browser, ad esempio `https://admin.shopify.com/store/{your store}`. Inserisci l'URL in ZenOpus.
+</Step>
+<Step title="Connetti il negozio">
+Fai clic su **Connetti negozio**. Questo ti porta a Shopify.
+</Step>
+<Step title="Installa l'app ZenOpus su Shopify">
+Fai clic su **Installa** per installare l'app ZenOpus nel tuo negozio Shopify.
+
+Quando l'app è autorizzata, il tuo negozio Shopify è connesso e verrai reindirizzato a ZenOpus. Puoi continuare a costruire il tuo negozio come spiegato nei passaggi successivi.
+
+- Puoi creare, aggiornare ed eliminare prodotti direttamente dalla chat.
+- Puoi chiedere all'agente di recuperare e visualizzare i prodotti dal tuo negozio esistente.
+
+<Note>
+- Solo l'utente che ha collegato un negozio esistente ha accesso in scrittura (crea, aggiorna, elimina prodotti, varianti e codici sconto). Le modifiche apportate dall'utente che ha collegato il negozio si rifletteranno immediatamente nel tuo negozio Shopify.
+- I collaboratori mantengono l'accesso di sola lettura ai dati Shopify (cercano e recuperano prodotti, varianti e codici sconto), ma possono comunque costruire completamente la vetrina.
+</Note>
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+### Passaggio 3: aggiungi prodotti e immagini dei prodotti
+
+Inizia aggiungendo prodotti con **nome, descrizione e prezzo**. Ad esempio:
+
+```text
+Aggiungi un prodotto chiamato Lavender Breeze Candle, descrizione: "Una candela di soia calmante fatta a mano infusa con oli essenziali di lavanda", prezzo: $ 25.
+```
+
+Potrai modificare i dettagli in seguito. Se il tuo prodotto non viene visualizzato, chiedi:
+
+```text
+Visualizzare i prodotti sul sito web.
+```
+
+Quindi, migliora le tue inserzioni con elementi visivi utilizzando una delle opzioni seguenti. Utilizza sempre immagini rappresentative.
+
+**Genera immagini AI**
+
+```text
+Aggiungi un'immagine generata dall'intelligenza artificiale al prodotto Candela Lavender Breeze.
+```
+
+**Carica o allega la tua immagine**
+
+```text
+Aggiungi l'immagine allegata al prodotto Candela Breeze alla Lavanda.
+```
+
+**Aggiungi immagine dall'URL**
+
+```text
+Aggiungi immagine dall'URL al prodotto Candela Brezza di Lavanda.
+```
+
+### Passaggio 4: gestisci il tuo negozio
+
+Gestisci i tuoi prodotti e perfeziona il tuo negozio senza uscire da ZenOpus. Ad esempio, puoi dire a ZenOpus di:
+
+- Aggiorna nomi, descrizioni o prezzi dei prodotti
+- Rimuovi i prodotti
+- Visualizza tutti i prodotti
+- Aggiungi funzionalità di filtraggio dei prodotti e crea raccolte basate su diverse categorie
+- Aggiungi la funzionalità di recensione del prodotto e consenti le recensioni solo sugli acquisti verificati
+- Aggiungi codici sconto basati su percentuale o importo fisso (USD) e includi il periodo di validità
+- Aggiungi la funzionalità della lista dei desideri e la possibilità di condividere la lista dei desideri
+
+```text
+Aggiorna il prezzo della candela Lavender Breeze a $ 28.
+Cambia la descrizione della candela alla vaniglia per evidenziare lo stoppino in legno. 
+Rimuovi il prodotto Candela speziata alla cannella.
+Visualizza tutti i prodotti.
+Crea un sistema di recensione dei prodotti e consenti solo recensioni su acquisti verificati.
+Crea un codice sconto del 15% sul prodotto Lavender Breeze Candle. Il codice dovrebbe essere LAVENDER15 e valido fino alla fine di novembre 2025. 
+Permettimi di aggiungere prodotti alla lista dei desideri e condividerla.
+```
+
+### Passaggio 5: richiedi il tuo negozio Shopify (solo nuovi negozi)
+
+<Note>
+- Quando il negozio viene rivendicato, l'utente ZenOpus che lo ha rivendicato diventa il proprietario del negozio Shopify.
+- Solo l'utente ZenOpus che ha rivendicato il negozio ha accesso in scrittura al negozio.
+- I collaboratori mantengono l'accesso di sola lettura ai dati Shopify (cercano e recuperano prodotti, varianti e codici sconto), ma possono comunque costruire completamente la vetrina.
+</Note>
+
+Quando sei pronto per richiedere e lanciare il tuo nuovo negozio, preparati a sbloccare il tuo negozio e a impostare e attivare i pagamenti completando il processo **KYC (Know Your Customer)**. L'operazione potrebbe richiedere del tempo.
+
+<Steps>
+<Step title="Richiedi il negozio">
+Digitare `Claim the store`. ZenOpus ti chiede di rivendicare il negozio. Fai clic su **Richiedi**.
+
+Si apre Shopify in una nuova scheda in cui puoi accedere e quindi completare la procedura di reclamo. Potresti anche ricevere un invito via email per rivendicare il tuo negozio.
+</Step>
+<Step title="Accettare il collegamento all'archivio reclami">
+Accetta il collegamento **Richiedi negozio** da Shopify. Questo ti riporta al tuo progetto ZenOpus.
+
+<Tip>
+Nel caso in cui la verifica del reclamo del negozio fallisca, fare clic su **Riprova** dovrebbe risolvere il problema.
+</Tip>
+</Step>
+<Step title="Completa la configurazione del negozio nel Pannello di controllo Shopify">
+Il tuo negozio Shopify è pronto. Vai a [Amministratore Shopify](https://admin.shopify.com/) per completare la configurazione del negozio e attivare i pagamenti in modo da poter iniziare a vendere. Per ulteriori informazioni, consulta [Pagamenti Shopify](https://help.shopify.com/en/manual/payments/shopify-payments/onboarding).
+</Step>
+</Steps>
+
+Quando rivendichi il tuo negozio, Shopify assegna un dominio permanente al tuo negozio, che viene utilizzato solo per il tuo backend. Quando pubblichi il tuo progetto, il tuo **URL del negozio reale** sarà il tuo `zenopus.app` o il tuo [dominio personalizzato](/it/features/custom-domain).
+
+<Warning>
+Richiedi il tuo negozio solo quando sei completamente pronto per il lancio poiché hai bisogno di un abbonamento Shopify a pagamento dopo la prova gratuita di 30 giorni per continuare a vendere prodotti online.
+</Warning>
+
+### Passaggio 6: avvia il tuo negozio
+
+Una volta completata la configurazione del negozio, [pubblica il tuo progetto ZenOpus](/it/features/publish) e condividi il tuo negozio con il mondo.
+
+In ogni momento, direttamente da ZenOpus, potrai:
+
+- Crea, aggiorna ed elimina prodotti
+- Gestisci prezzi e descrizioni
+- Lancia nuove collezioni, promozioni o pacchetti
+
+## Disconnetti un negozio Shopify
+
+Puoi disconnettere un negozio Shopify da un progetto in qualsiasi momento. Questo è utile quando vuoi:
+
+- Remixare il progetto (i progetti con un negozio Shopify connesso non possono essere remixati)
+- Collega un altro negozio Shopify
+- Crea un nuovo negozio Shopify senza avviare un nuovo progetto
+
+La disconnessione rimuove la connessione tra il tuo progetto ZenOpus e il negozio Shopify. Il tuo negozio Shopify e i relativi dati rimangono intatti in Shopify, ma il tuo progetto ZenOpus non è più legato a quel negozio e può essere riutilizzato liberamente.
+
+Esistono tre modi per disconnettersi:
+
+- **Chiedi all'agente**: digita un messaggio come `Disconnect my Shopify store`
+- **Menu Shopify**: fai clic sull'icona Shopify nella barra di navigazione e seleziona **Disconnetti negozio** dal menu con tre punti
+- **Impostazioni progetto**: vai su **Impostazioni progetto → Shopify** e fai clic su **Disconnetti**
+
+## Domande frequenti
+
+<AccordionGroup>
+<Accordion title="Posso collegare un negozio Shopify esistente a ZenOpus?">
+Sì. ZenOpus supporta sia la **creazione di nuovi negozi Shopify** sia il **collegamento di negozi Shopify esistenti**.
+
+Per collegare un negozio esistente, l'e-mail del tuo account **ZenOpus deve corrispondere all'e-mail del proprietario del negozio Shopify**. Una volta connesso, puoi gestire i prodotti e creare la tua vetrina direttamente da ZenOpus.
+</Accordion>
+<Accordion title="Perché non riesco a creare o aggiornare i prodotti anche se Shopify è connesso?">
+Di solito si tratta di un problema di autorizzazioni:
+
+- **Connesso a un negozio esistente:** solo l'utente che ha collegato il negozio può apportare modifiche (creare/aggiornare/eliminare prodotti, varianti e codici sconto).
+- **Creato un nuovo negozio (non ancora rivendicato):** tutti i collaboratori possono apportare modifiche.
+- **Creato un nuovo negozio (rivendicato):** l'utente che ha rivendicato il negozio diventa il proprietario del negozio Shopify e **solo quell'utente** può apportare modifiche.
+
+I collaboratori continuano ad avere accesso Shopify in sola lettura e possono creare completamente la vetrina in ZenOpus.
+</Accordion>
+<Accordion title="Ho rivendicato il mio negozio, ma la verifica non è riuscita. Cosa dovrei fare?">
+A volte Shopify può impiegare qualche istante per finalizzare il reclamo. Se la verifica fallisce, fai clic su **Riprova** in ZenOpus per ricontrollare lo stato del reclamo. Un nuovo tentativo in genere risolve il problema.
+</Accordion>
+<Accordion title="Posso remixare i progetti Shopify?">
+Non puoi remixare progetti in cui è stata abilitata la connessione Shopify. Per remixare un progetto con un negozio Shopify connesso, prima [disconnetti il ​​negozio Shopify](#disconnetti-un-negozio-shopify).
+
+Puoi anche remixare un progetto di modello Shopify esistente per iniziare, vedi [ZenOpus + Modelli Shopify](https://zenopus.dev/shopify).
+</Accordion>
+<Accordion title="Ho aggiunto i miei prodotti a un progetto di modello remixato, ma il collegamento alla pagina del prodotto è interrotto. Come posso risolverlo?">
+Richiedere all'agente di effettuare le seguenti operazioni:
+
+```text
+Aggiorna la logica dell'URL del prodotto per garantire che tutti i prodotti nuovi e futuri nel negozio visualizzino correttamente le rispettive pagine dei dettagli del prodotto.
+```
+
+Ciò dovrebbe garantire che non avrai problemi in futuro. Per tutti gli altri problemi, fai clic su **Prova a risolvere** e l'agente affronterà e risolverà il problema.
+</Accordion>
+<Accordion title="Vedo ancora alcuni prodotti fittizi nel mio progetto di modello remixato, come posso rimuoverli?">
+Chiedi all'agente di aggiornare le pagine in cui hai visto questi prodotti, ad esempio:
+
+```text
+Cancella il negozio da tutti i prodotti esistenti su tutte le pagine ad eccezione di quelli che ho aggiunto al mio negozio Shopify.
+```
+</Accordion>
+</AccordionGroup>

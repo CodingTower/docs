@@ -1,0 +1,807 @@
+---
+title: "Deploying and hosting outside ZenOpus Cloud"
+description: "An overview of common ways to deploy and host ZenOpus applications outside ZenOpus Cloud, with examples using managed platforms and self-hosted infrastructure."
+---
+This guide provides **practical examples and instructions** for deploying and hosting ZenOpus applications outside ZenOpus Cloud.
+
+It builds on the concepts explained in [Deployment, hosting, and ownership options with ZenOpus Cloud](/tips-tricks/deployment-hosting-ownership) and focuses on the most common migration paths. You can adopt any of these scenarios independently and in any order.
+
+In this guide, **hosting** refers to where your application runs, while **deployment** refers to how your code is built and delivered to that environment.
+
+If you plan to run everything on ZenOpus Cloud, you do not need this guide.
+
+## Before you migrate
+
+This guide is intended for teams with specific requirements, such as compliance constraints, data residency needs, or organizational infrastructure policies, that require running parts of an application outside ZenOpus Cloud.
+
+ZenOpus Cloud already provides an integrated development and production environment, including:
+
+- Production hosting with custom domains and automatic SSL
+- Automated deployments and environment management
+- Managed authentication with row-level security
+- Database and file storage
+- Automatic preview environments for every change
+- AI agent with debugging in preview and development environments
+- Managed AI provider access for runtime features
+- Built-in OAuth configuration and token refresh
+- Security scanning and compliance-ready infrastructure (SOC 2 Type 2, ISO 27001)
+
+Most teams never need to migrate. You can start on ZenOpus Cloud and move components later if and when you hit real constraints.
+
+## Prerequisite: Connect your project to GitHub
+
+All scenarios in this guide require [connecting your project to GitHub](/integrations/github).
+
+When GitHub is connected:
+
+- Your ZenOpus project stays in continuous sync with your repository
+- External platforms deploy directly from GitHub
+- ZenOpus continues to manage development, previews, and tooling independently
+
+From here on, this guide assumes your project is connected to GitHub.
+
+## Host the production frontend on a managed platform
+
+This is the most common first step when moving outside ZenOpus Cloud.
+
+You deploy the production frontend to a managed hosting platform while continuing to use ZenOpus for development and previews. Your backend and data can remain on ZenOpus Cloud or run elsewhere.
+
+### What you’re responsible for
+
+When the production frontend runs outside ZenOpus Cloud, you are responsible for:
+
+- Frontend deployment pipelines and rollbacks
+- Production environment variables
+- CDN behavior and caching
+- Frontend availability and uptime
+- Production logs and deployment history
+- Preview environments for production branches or releases
+
+ZenOpus cannot monitor or debug production infrastructure it does not control.
+
+### Common approaches
+
+- **Git-based hosting platforms**  
+These platforms connect directly to your GitHub repository and automatically build and deploy on each push:
+    - Netlify
+    - Cloudflare Pages
+    - Vercel
+    - AWS Amplify Hosting
+    - Azure Static Web Apps
+    - Google Firebase Hosting
+- **Object storage + CDN hosting**  
+These platforms host static files behind a CDN but require a build pipeline to generate and upload the `dist/` output.
+    - **AWS:** S3 + CloudFront
+    - **Google Cloud:** Cloud Storage + Cloud CDN
+    - **Azure:** Azure Storage (Static Website) + Azure CDN or Front Door
+
+### Deploying to a Git-based hosting platform
+
+This approach applies to platforms that automatically build and deploy from your GitHub repository.
+
+<Accordion title="Example: Deploying to a Git-based hosting platform">
+<Steps>
+<Step title="Connect your repository">
+Connect your GitHub repository to the hosting platform.
+</Step>
+<Step title="Configure build settings">
+Most platforms auto-detect these:
+
+- **Build command**: `npm run build`
+- **Output directory**: `dist`
+- **Node version**: 22
+</Step>
+<Step title="Configure environment variables">
+Projects without a backend require no environment variables.
+
+Projects using ZenOpus Cloud need the values from your project’s `.env` file:
+
+```text
+VITE_SUPABASE_URL
+VITE_SUPABASE_PUBLISHABLE_KEY
+VITE_SUPABASE_PROJECT_ID
+```
+
+You can find these in the `.env` file in ZenOpus’s code editor or in your synced GitHub repository.
+</Step>
+<Step title="Configure SPA routing">
+If direct URL navigation returns a `404`, configure a fallback rewrite so all routes serve `/index.html`. The method varies by platform (for example, `_redirects` file on Netlify/Cloudflare, `staticwebapp.config.json` on Azure, rewrite rules on Amplify, `vercel.json` on Vercel, `firebase.json` on Firebase).
+</Step>
+<Step title="Update OAuth redirect URLs">
+If your app uses Google sign-In or other OAuth providers, add your new production domain to your authentication provider’s allowed redirect URLs.
+</Step>
+<Step title="Deploy">
+Each push to GitHub triggers a new production deployment.
+</Step>
+</Steps>
+
+**Result:** A publicly accessible production frontend served over HTTPS, connected to your ZenOpus Cloud backend.
+</Accordion>
+
+### Deploying to object storage + CDN with CI/CD
+
+CDN-backed hosting requires a CI/CD pipeline to build your app and upload the `dist/` output. Build steps are identical across providers. Deployment is provider-specific, see links to official documentation for each platform.
+
+<Accordion title="Example: Deploying to object storage + CDN with CI/CD">
+For authentication, all major cloud providers support **OpenID Connect (OIDC)** with GitHub Actions, which eliminates the need to store long-lived credentials as secrets. This is the recommended approach.
+
+- [AWS: Use IAM roles with OIDC](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
+- [Google Cloud: Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines)
+- [Azure: Federated identity credentials](https://learn.microsoft.com/en-us/entra/workload-id/workload-identity-federation)
+
+<Steps>
+<Step title="Add GitHub secrets">
+Add the required secrets in your GitHub repository settings (**Settings → Secrets and variables → Actions**).
+
+| Secret | Value |
+| --- | --- |
+| VITE_SUPABASE_URL | Your Supabase project URL (from your project’s .env file) |
+| VITE_SUPABASE_PUBLISHABLE_KEY | Your Supabase publishable key (from your project’s .env file) |
+</Step>
+<Step title="Create the workflow file">
+For example, create `.github/workflows/deploy.yml` in your repository:
+
+```yaml
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+
+      # Deploy step is provider-specific. See documentation links below.
+      # The build output is in the dist/ directory.
+```
+</Step>
+<Step title="Add provider-specific deployment steps">
+After the build step, add deployment steps for your platform. Refer to official documentation for current best practices:
+
+| Platform | Documentation |
+| --- | --- |
+| AWS S3 + CloudFront | Deploying to Amazon S3 , GitHub Actions for AWS |
+| Google Cloud Storage | Hosting a static website , GitHub Actions for Google Cloud |
+| Azure Blob Storage | Static website hosting in Azure Storage , GitHub Actions for Azure |
+</Step>
+<Step title="Configure SPA routing">
+All CDN-backed hosting requires configuration to return `index.html` with a **200** status code for routes that don’t match a file. This is typically configured as:
+
+- A **custom error response returning 200** (CloudFront)
+- A **URL rewrite rule on a load balancer** (Cloud CDN)
+- A **URL rewrite rule** (Front Door)
+
+<Warning>
+Do not rely on storage-level error page settings, as they return 404 status codes.
+</Warning>
+</Step>
+</Steps>
+</Accordion>
+
+## Host the production frontend on your own infrastructure
+
+Use this approach when you need full control over frontend hosting, networking, or runtime environment. This is sometimes referred to as **self-hosting**.
+
+The frontend is built from your GitHub repository and deployed to infrastructure you manage. The backend and data can remain on ZenOpus Cloud or run elsewhere.
+
+### What you’re responsible for
+
+When the production frontend runs on infrastructure you manage, you are responsible for:
+
+- Build and deployment automation
+- SSL/TLS configuration
+- CDN and reverse proxy configuration
+- Monitoring, logging, and uptime
+- Infrastructure updates and security
+- Preview environments for branches or releases
+
+ZenOpus cannot monitor or debug production infrastructure it does not control.
+
+### Common approaches
+
+- **Container-based deployments**  
+For example: Docker deployed via Kubernetes (EKS, GKE, AKS), ECS, Nomad, or internal container platforms
+- **Virtual machines behind a web server**  
+For example: Linux VMs running Nginx or Apache, managed through configuration management or internal tooling
+- **Internal PaaS platforms**  
+For example: company-internal deployment platforms or private cloud PaaS solutions
+
+### Build requirements
+
+ZenOpus projects are standard Vite applications and build as static frontends.
+
+- **Build command:**`npm run build`
+- **Output directory:**`dist/`
+- **Node version:** 22 recommended
+
+Environment variables prefixed with `VITE_` are embedded at **build time**, not runtime.
+
+If using ZenOpus Cloud as your backend, you must set these before running `npm run build`:
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
+
+You can find these values in your project’s `.env` file.
+
+### Container-based deployment (Docker)
+
+<Note>
+You can generate these Docker configurations directly with the ZenOpus agent. See [Using ZenOpus to generate Docker deployments](#using-zenopus-to-generate-docker-deployments) below.
+</Note>
+
+<AccordionGroup>
+<Accordion title="Example: Manual Docker deployment">
+This is the most common approach for deploying to Kubernetes, ECS, Cloud Run, or any container orchestration platform. It also works for running the frontend as a standalone container on a single VM.
+
+<Steps>
+<Step title="Clone your GitHub repository">
+```bash
+git clone <your-github-repo-url>
+cd <project-name>
+```
+</Step>
+<Step title="Create a Dockerfile">
+ZenOpus projects can be containerized using a standard multi-stage Docker build: the first stage installs dependencies and runs `npm run build`, and the second stage serves the static output with nginx.
+
+Here’s an example Dockerfile you can adapt:
+
+```docker
+# Build stage
+FROM node:22-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Environment variables are embedded at build time
+ARG VITE_SUPABASE_URL
+ARG VITE_SUPABASE_PUBLISHABLE_KEY
+ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
+ENV VITE_SUPABASE_PUBLISHABLE_KEY=$VITE_SUPABASE_PUBLISHABLE_KEY
+
+# Build the application
+RUN npm run build
+
+# Production stage
+FROM nginx:alpine
+
+# Copy built assets to nginx
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy nginx configuration for SPA routing
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+```
+</Step>
+<Step title="Create an nginx configuration file">
+ZenOpus projects use client-side routing (React Router with BrowserRouter), so your web server must return `index.html` for all routes. Create an `nginx.conf` file:
+
+```nginx
+server {
+    listen 80;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Cache static assets
+    location /assets/ {
+    	expires 1y;
+    	add_header Cache-Control "public, immutable";
+	}
+
+    # Handle client-side routing - required for ZenOpus projects
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+</Step>
+<Step title="Build the container image">
+Set your environment variables as build arguments:
+
+```bash
+docker build \
+  --build-arg VITE_SUPABASE_URL=<your-url> \
+  --build-arg VITE_SUPABASE_PUBLISHABLE_KEY=<your-key> \
+  -t my-zenopus-app .
+```
+</Step>
+<Step title="Push to your container registry">
+For example:
+
+```bash
+docker tag my-zenopus-app your-registry/my-zenopus-app:latest
+docker push your-registry/my-zenopus-app:latest
+```
+</Step>
+<Step title="Deploy using your orchestration platform">
+Deploy the container using Kubernetes, ECS, Cloud Run, Nomad, or your internal platform. No runtime environment variables are needed, they are already embedded in the build.
+</Step>
+</Steps>
+
+**Result:** A running container serving your frontend over HTTP on port 80.
+
+<Warning>
+Environment variables are embedded at build time. To change them, you must rebuild the container image.
+</Warning>
+</Accordion>
+<Accordion title="Example: Automated Docker deployment (CI/CD)">
+This workflow builds a Docker image and pushes it to a container registry for deployment to Kubernetes, ECS, or other orchestration platforms. This automates the manual container-based deployment steps described above.
+
+<Note>
+You will likely need to adapt it for your security requirements, existing pipelines, and organizational policies.
+</Note>
+
+For authentication, major container registries support **OpenID Connect (OIDC)** with GitHub Actions, which eliminates the need to store long-lived credentials as secrets. This is the recommended approach.
+
+- [AWS ECR: Use IAM roles with OIDC](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
+- [Google Artifact Registry: Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation-with-deployment-pipelines)
+- [Azure Container Registry: Federated identity credentials](https://learn.microsoft.com/en-us/entra/workload-id/workload-identity-federation)
+- [GitHub Container Registry: Use GITHUB_TOKEN](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) (no secrets needed)
+
+**Prerequisites:**
+
+- A container registry (for example, GitHub Container Registry, AWS ECR, Google Artifact Registry, Azure Container Registry, Docker Hub)
+- The `Dockerfile` and `nginx.conf` files from the manual container-based deployment section above
+- An orchestration platform to deploy the container (for example, Kubernetes, ECS)
+
+<Steps>
+<Step title="Add GitHub secrets">
+Add the required secrets in your GitHub repository settings (**Settings → Secrets and variables → Actions**).
+
+| Secret | Value |
+| --- | --- |
+| VITE_SUPABASE_URL | Your Supabase project URL (from your project’s .env file) |
+| VITE_SUPABASE_PUBLISHABLE_KEY | Your Supabase publishable key (from your project’s .env file) |
+</Step>
+<Step title="Create the workflow file">
+For example, create `.github/workflows/deploy-container.yml` in your repository:
+
+```yaml
+name: Build and Push Container
+
+on:
+  push:
+    branches: [main]
+
+env:
+  IMAGE_NAME: my-zenopus-app
+  REGISTRY: ghcr.io/your-org  # Replace with your registry URL
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # TODO: Add registry authentication step here.
+      # This workflow will not run until you configure authentication.
+      # See "Registry-specific authentication" table below.
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          build-args: |
+            VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}
+            VITE_SUPABASE_PUBLISHABLE_KEY=${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+```
+</Step>
+<Step title="Configure registry authentication">
+Add the appropriate authentication step before **Build and push Docker image** in the workflow. Refer to official documentation for current best practices:
+
+| Registry | Documentation |
+| --- | --- |
+| GitHub Container Registry | Authenticating with GITHUB_TOKEN |
+| AWS ECR | Amazon ECR Login Action |
+| Google Artifact Registry | Google Auth Action |
+| Azure Container Registry | Azure Login Action |
+| Docker Hub | Docker Login Action |
+</Step>
+</Steps>
+</Accordion>
+</AccordionGroup>
+
+### VM or static server deployment
+
+<Accordion title="Example: Manual VM or static server deployment">
+This approach is for deploying to Linux VMs, bare-metal servers, or any machine running a web server like Nginx or Apache.
+
+<Steps>
+<Step title="Clone your GitHub repository">
+```bash
+git clone <your-github-repo-url>
+cd <project-name>
+```
+</Step>
+<Step title="Install dependencies">
+```bash
+npm ci
+```
+</Step>
+<Step title="Build the application with environment variables">
+Set environment variables before running the build:
+
+```bash
+VITE_SUPABASE_URL=<your-url> \
+VITE_SUPABASE_PUBLISHABLE_KEY=<your-key> \
+npm run build
+```
+
+Build output is in the `dist/` directory.
+</Step>
+<Step title="Upload the build output to your server">
+For example, using `scp`:
+
+```bash
+scp -r dist/* user@your-server:/var/www/html/
+```
+
+Or using `rsync`:
+
+```bash
+rsync -avz dist/ user@your-server:/var/www/html/
+```
+</Step>
+<Step title="Configure your web server">
+ZenOpus projects use client-side routing (React Router with BrowserRouter), so your web server must return `index.html` for all routes.
+
+**Example nginx configuration:**
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+    root /var/www/html;
+    index index.html;
+
+    # Cache static assets
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # Handle client-side routing - required for ZenOpus projects
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+**Example Apache configuration (.htaccess):**
+
+```apache
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+```
+</Step>
+<Step title="Configure TLS (recommended)">
+Use [Certbot](https://certbot.eff.org/) to add a free Let’s Encrypt certificate, or configure your existing SSL certificates.
+</Step>
+</Steps>
+
+**Result:** Your app is served over HTTP(S) from your server.
+
+<Warning>
+Environment variables are baked into the build output. No runtime configuration is needed on the server. To change environment variables, rebuild the application and re-upload the `dist/` output.
+</Warning>
+</Accordion>
+
+## Host backend and data on a managed provider (Supabase example)
+
+This option is typically chosen when you need direct database access, advanced database features, or clearer separation of infrastructure ownership, without taking on full operational responsibility.
+
+You move your backend services and database to a managed backend provider. The most direct migration path is to **managed Supabase**, which closely matches ZenOpus Cloud’s default backend architecture. The production frontend can run on ZenOpus Cloud or elsewhere.
+
+After migration:
+
+- The production frontend needs to point to the new backend
+- You can continue using the ZenOpus editor and preview environments during development
+
+This guide uses **Supabase** as the reference migration path because ZenOpus applications rely on Supabase-compatible services (authentication, storage, realtime, edge functions, and row-level security).
+
+Migration to other backend platforms is possible, but may require implementing equivalent authentication, storage, and backend services depending on your provider.
+
+The detailed steps below describe how to migrate a project from ZenOpus Cloud to a managed Supabase instance.
+
+### What you’re responsible for
+
+When your backend runs outside ZenOpus Cloud, you are responsible for the backend capabilities ZenOpus previously managed, including:
+
+- Database availability, scaling, and backups
+- Backend monitoring and incident response
+- Row-level security configuration and maintenance
+- Authentication provider configuration
+- OAuth credentials, redirect URLs, and secret rotation
+- Backend environment variables and configuration
+- Security scanning for misconfigurations and exposed secrets
+- Compliance posture of your backend infrastructure
+
+ZenOpus cannot monitor or debug backend infrastructure it does not control. Managed OAuth configuration and automatic token refresh are only available when the backend runs on ZenOpus Cloud.
+
+### What migrates and how
+
+| App components | Migration method | Notes |
+| --- | --- | --- |
+| Database schema | Automatic via SQL migrations | Includes tables, columns, indexes, RLS policies, functions, triggers |
+| Storage buckets | Automatic via SQL migrations | Includes access policies |
+| Authentication providers | Manual | Reconfigure auth (for example, Google OAuth, GitHub) in your new hosting environment |
+| Environment variables and secrets | Manual | Reconfigure any API keys, tokens, or credentials for external services (for example, Stripe) in your new hosting environment |
+| Data (table contents) | Manual | Export/import as CSV |
+| Storage files | Manual | Download/upload manually |
+| User accounts | Manual, partial | You can export user data from the database, but you cannot export user passwords, so you need to trigger a password reset flow. We recommend you plan the migration before onboarding real users. |
+
+<AccordionGroup>
+<Accordion title="Manual migration using the Supabase dashboard">
+<Steps>
+<Step title="Create a new Supabase project">
+Follow the steps below to create a new Supabase project.
+
+1. Go to [supabase.com](https://supabase.com) → **New project**
+1. Choose your organization and fill in:
+    - **Project name**: any name
+    - **Database password**: strong password
+    - **Region**: closest to your users
+1. Click **Create new project** and wait around 2 minutes for the project to initialize.
+1. From your new Supabase project settings, save these values:
+    - **Project ID**
+    - **Public API Key** (anon key)
+    - **Project URL**: `https://[your-project-id].supabase.co`
+</Step>
+<Step title="Update environment variables">
+Replace ZenOpus Cloud values with new Supabase credentials in your `.env` file.
+
+1. In your ZenOpus project, go to **Code**.
+1. Locate `.env` file.
+1. Update ZenOpus Cloud values with new Supabase credentials:
+    ```text
+    VITE_SUPABASE_PROJECT_ID="your-new-project-id"
+    VITE_SUPABASE_PUBLISHABLE_KEY="your-new-anon-key"
+    VITE_SUPABASE_URL="https://your-new-project-id.supabase.co"
+    ```
+1. Save changes.
+</Step>
+<Step title="Update Supabase configuration">
+Replace ZenOpus Cloud project ID with new Supabase project ID in your `supabase/config.toml` file.
+
+1. In your ZenOpus project, go to **Code**.
+1. Locate `supabase/config.toml` file.
+1. Update ZenOpus Cloud project ID with new Supabase project ID:
+    ```text
+    project_id = "your-new-project-id"
+    ```
+1. Save changes.
+</Step>
+<Step title="Run database migrations">
+Each ZenOpus Cloud project includes SQL migration files in the `supabase/migrations/` folder.
+
+Run them in chronological order based on the timestamp in the filename. They are ordered from earliest to latest. For example:
+
+```text
+20251008155159_[hash].sql   # first - earliest
+20251008155215_[hash].sql   # second
+```
+
+For each migration file in your ZenOpus Cloud project, follow the steps below:
+
+1. Copy the entire SQL content from each migration file.
+1. Paste it into the **SQL editor** in your new Supabase project.
+1. Run and wait for success message.
+
+<Note>
+If a migration fails, check the migration order, table dependencies, and SQL syntax errors.
+</Note>
+</Step>
+<Step title="Export and import your data">
+Export the data from your ZenOpus Cloud project and then manually import it to your new Supabase project.
+
+**Export each table with data from your ZenOpus Cloud project:**
+
+1. Go to **Cloud → Database → Table**.
+1. Click **Export CSV**.
+1. Save the file.
+
+**Import CSV files to corresponding tables in your new Supabase project:**
+
+1. Go to **Table Editor**.
+1. For each table, click **Insert → Import data from CSV**.
+1. Map columns correctly.
+1. Click **Import data**.
+</Step>
+<Step title="Reconfigure authentication">
+If your ZenOpus Cloud project requires authentication, you need to manually reconfigure auth providers in your new Supabase project.
+
+1. In your new Supabase project, go to **Authentication → Sign In / Providers**.
+1. Enable and configure each provider.
+1. In your OAuth app settings (for example, Google Console, GitHub), update redirect URLs to use your new Supabase project URL.
+</Step>
+<Step title="Migrate storage files">
+Download any files from storage buckets in your ZenOpus Cloud project and upload them to your new Supabase project.
+
+1. In your ZenOpus project, go to **Cloud → Storage**.
+1. Download files from your storage buckets.
+1. In Supabase, go to **Storage** and upload files to corresponding buckets.
+</Step>
+<Step title="Set up environment variables and secrets">
+If you are using any external services (for example, Stripe) in your ZenOpus Cloud project, you need to manually reconfigure API keys, tokens, and credentials in your new Supabase project.
+
+1. In your new Supabase project, go to **Edge Functions → Manage Secrets**.
+1. Add any API keys or external service credentials.
+1. Save changes.
+</Step>
+<Step title="Verify everything works">
+When you are done with all of the steps, your app runs entirely on your Supabase backend. Make sure that everything works, for example:
+
+- App loads without errors
+- You can create and read database records
+- Authentication works
+- Storage uploads/downloads succeed
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Advanced migration using the Supabase CLI">
+For developers comfortable with the command line:
+
+```text
+# 1. Install Supabase CLI
+
+npm install -g @supabase/cli
+
+# or
+
+brew install supabase/tap/supabase
+
+# 2. Update config files (.env + supabase/config.toml)
+
+# 3. Link to your new Supabase project
+
+supabase login
+
+supabase link --project-ref your-new-project-id
+
+# 4. Push all migrations
+
+supabase db push
+
+# 5. Verify schema
+
+supabase db diff
+```
+</Accordion>
+</AccordionGroup>
+
+For provider-specific details, see [**Supabase documentation**](https://supabase.com/docs).
+
+## Host backend and data on your own infrastructure (Supabase example)
+
+This option is intended for strict compliance, data residency, or infrastructure control requirements.
+
+You run the backend and database on infrastructure you operate. The most direct self-hosted path is **self-hosted Supabase**, which provides the authentication, storage, realtime, and edge function services that ZenOpus applications depend on.
+
+The production frontend can remain on ZenOpus Cloud or elsewhere. ZenOpus can still be used for development, or development can fully transition to other tools.
+
+Running only a standalone PostgreSQL database is not sufficient unless you implement equivalent authentication, storage, realtime, and edge services.
+
+### What you’re responsible for
+
+When the backend runs on infrastructure you operate, you are responsible for the backend capabilities ZenOpus previously managed, including:
+
+- PostgreSQL operations, backups, and disaster recovery
+- Authentication, storage, and realtime service availability and reliability
+- Row-level security design and enforcement
+- Applying security patches and managing version upgrades
+- Edge function deployment and execution
+- Performance tuning and scaling
+- Monitoring, alerting, and incident response
+- Compliance certification of your infrastructure
+
+ZenOpus does not monitor, operate, or debug any part of self-hosted infrastructure, and production previews are not generated for self-hosted production environments.
+
+**When self-hosting Supabase, you typically:**
+
+- Deploy Supabase in your own infrastructure using [Supabase’s official self-hosting with Docker guide](https://supabase.com/docs/guides/self-hosting/docker).
+    <Note>
+    You can generate these Docker configurations directly with the ZenOpus agent. See [Using ZenOpus to generate Docker deployments](#using-zenopus-to-generate-docker-deployments) below.
+    </Note>
+- Configure PostgreSQL, authentication, storage, and required services.
+- Apply the migration files from your ZenOpus project (`supabase/migrations/`) to your self-hosted instance.
+- Update your application environment variables to point at your self-hosted Supabase:
+    ```text
+    VITE_SUPABASE_URL=https://your-self-hosted-domain.com
+    VITE_SUPABASE_PUBLISHABLE_KEY=your-anon-key
+    ```
+
+For detailed infrastructure setup and operational guidance, follow [Supabase’s official self-hosting documentation](https://supabase.com/docs/guides/self-hosting).
+
+## Using ZenOpus to generate Docker deployments
+
+If you prefer a containerized deployment, you can prompt ZenOpus to generate Docker and Docker Compose configurations for your project. The agent will provide generated file details, service ports, and run commands in chat. Below are the three supported patterns.
+
+### Frontend only
+
+Package just the React app as a static site served by Nginx. Use this when you only want to move your frontend.
+
+For example:
+
+```text
+Dockerize this project for frontend-only deployment with Nginx
+```
+
+### Backend only (self-hosted Supabase)
+
+Run the full Supabase stack locally without bundling the frontend. Use this when you want to develop the frontend separately or serve it from another host.
+
+For example:
+
+```text
+Create a Docker Compose setup for a self-hosted Supabase backend only (no frontend container)
+```
+
+### Full stack (frontend + self-hosted Supabase)
+
+Bundle the frontend and a self-hosted Supabase stack in a single Docker Compose setup. Use this for fully self-contained deployments.
+
+For example:
+
+```text
+Dockerize this project with a self-hosted Supabase backend bundled in Docker Compose
+```
+
+### Manual configuration required for self-hosted Supabase
+
+The agent generates placeholder secrets that must be replaced before use:
+
+1. Generate a JWT secret:  `openssl rand -base64 32`
+1. Generate API keys using your JWT secret. Follow the [Supabase self-hosting documentation for generating API keys](https://supabase.com/docs/guides/self-hosting/docker#generate-api-keys).
+1. Replace the following values in `docker-compose.yml`:
+    - `JWT_SECRET`
+    - `POSTGRES_PASSWORD`
+    - `ANON_KEY`
+    - `SERVICE_ROLE_KEY`
+
+### Limitations
+
+- The agent cannot run or test Docker builds. You must verify locally.
+- The agent cannot generate real secrets. Placeholders require manual replacement.

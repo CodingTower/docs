@@ -1,0 +1,225 @@
+---
+title: "Define workspace and project knowledge"
+description: "Define persistent instructions for ZenOpus using workspace knowledge and project knowledge. Set shared coding standards, architecture rules, and project context that ZenOpus remembers across conversations and projects."
+---
+Knowledge lets you provide persistent instructions and context to the ZenOpus agent. Instead of repeating the same explanations in every conversation, you can define them once and ZenOpus will consider them when generating edits.
+
+Knowledge is defined at two levels:
+
+- **Workspace knowledge** defines shared rules that apply across all projects in a workspace, such as coding standards, preferred libraries, or naming conventions.
+- **Project knowledge** adds context that is specific to a single project, such as the application purpose, database schema, architecture decisions, or domain terminology.
+
+Both are plain text fields that provide persistent instructions to the ZenOpus agent.
+
+## Workspace knowledge
+
+Workspace knowledge is a text field that lets you define shared rules once and apply them across all projects in your workspace. Project knowledge can then add context that is specific to a particular project.
+
+It is best used for **rules and conventions that should be consistent across multiple projects**. By defining these guidelines once, you avoid repeating the same instructions in every project’s knowledge field.
+
+Workspace knowledge is especially useful in team environments where multiple people are building projects. Workspace admins can define guardrails such as coding standards, testing requirements, or architectural rules so every project follows the same conventions automatically.
+
+Only **workspace owners and admins** can manage workspace knowledge. To manage workspace knowledge, go to either:
+
+- **Settings → Knowledge**
+- **Project settings → Knowledge**
+
+Workspace knowledge supports up to **10,000 characters**.
+
+### What to include
+
+Workspace knowledge is best for:
+
+- Coding style conventions
+- Naming conventions
+- Preferred libraries or frameworks
+- Shared architectural patterns
+- Testing requirements
+- Code quality or linting rules
+- Language or formatting preferences
+- Brand voice, UI copy, or design guidelines
+- Things ZenOpus should avoid doing
+
+### Example
+
+```text
+Coding standards
+- Always enable TypeScript strict mode.
+- Never use `any`. Use `unknown` and narrow the type.
+- Prefer named exports. Do not use default exports.
+- Prefer `const` over `let`. Never use `var`.
+
+Naming conventions
+- Use camelCase for variables and functions.
+- Use PascalCase for components and types.
+- Use kebab-case for file names.
+
+Styling
+- Use Tailwind CSS for styling.
+- Do not use inline styles.
+- Do not use CSS modules.
+
+Libraries
+- Use shadcn/ui components when possible.
+- Use React Query for server state.
+- Use Zustand for client state.
+
+Architecture
+- Route API calls through a service layer.
+- Do not call `fetch` directly from React components.
+
+Testing
+- Write unit tests for new utility functions and hooks.
+- Run existing tests after making changes.
+- Verify new functionality in the browser before marking it complete.
+
+Code quality
+- Run the linter after significant changes.
+- Remove unused imports and dead code.
+
+Localization
+- Write code comments and variable names in English.
+- Use date format DD/MM/YYYY.
+- Use European number formatting (comma as decimal separator).
+
+Brand voice
+- Use a friendly, professional tone in all user-facing copy.
+- Use sentence case for headings and buttons (for example, "Create new project", not "Create New Project").
+- Do not use placeholder text like "Lorem ipsum", always write realistic copy.
+
+General rules
+- Do not add `console.log` statements.
+- Do not use deprecated React patterns.
+- Write code comments in English.
+```
+
+### Important notes
+
+- **Changes apply immediately**  
+If you update workspace knowledge during an active conversation, ZenOpus will use the updated instructions on follow-up messages.
+- **One workspace knowledge per workspace**  
+Each workspace has a single workspace knowledge shared across all projects. You cannot define different workspace-level instructions for subsets of projects inside the same workspace.
+- **Workspace knowledge in long conversations**  
+Workspace knowledge is always included together with project knowledge alongside project code and other context sources. However, in very long conversations with a lot of context, instructions may not always be followed consistently.
+
+## Project knowledge
+
+Project knowledge is a text field that stores persistent instructions and context for a single project. Use it to provide information that applies only to that specific project, such as the application purpose, architecture, or domain terminology.
+
+Anyone with permission to edit the project can update project knowledge. To manage project knowledge, go to **Project settings → Knowledge**.
+
+Project knowledge supports up to **10,000 characters**.
+
+### What to include
+
+Good project knowledge usually includes:
+
+- What the application does
+- User personas or target audiences
+- Database schema or key tables
+- Architecture decisions
+- Domain terminology
+- Project specific constraints
+- Design guidelines (colors, typography, or layout)
+- Links to important references such as API documentation or internal tools
+- Security or compliance requirements
+
+### Example
+
+```text
+Project overview
+This is a B2B SaaS application for restaurant managers to track food inventory across multiple locations.
+
+Users
+Primary users are restaurant managers who need quick visibility into stock levels and ingredient usage.
+Secondary users are staff responsible for logging inventory changes.
+
+Key database tables
+- inventory_items (id, name, category, quantity, unit, location_id)
+- locations (id, name, workspace_id)
+- transactions (id, item_id, quantity_change, type, created_at)
+
+Design guidelines
+- Use Tailwind CSS for styling.
+- Follow the existing color palette and spacing scale.
+- Use consistent spacing and layout patterns across pages.
+- Prefer shadcn/ui components when available.
+
+Architecture rules
+- Store monetary values in cents as integers.
+- Use optimistic updates for all mutations.
+- Place reusable components in /components.
+
+Domain terminology
+- "Inventory item" refers to a tracked ingredient or product.
+- "Transaction" represents a change in inventory quantity.
+
+External references
+- API documentation: https://docs.example.com/api
+```
+
+## Best practices
+
+<AccordionGroup>
+<Accordion title="Define shared rules at the workspace level">
+Use **workspace knowledge** to define coding standards, preferred libraries, architectural conventions, and other rules that should apply across multiple projects.
+
+Then use **project knowledge** to add context specific to each project, such as the application purpose, database schema, domain terminology, or integrations.
+
+If a project needs different behavior from the workspace defaults, you can define those rules in **project knowledge**. When the same instruction appears in both places, ZenOpus will generally prioritize **project knowledge**, since it is more specific to the current project.
+</Accordion>
+<Accordion title="Be specific">
+Clear instructions produce better results.
+
+Good example:
+
+```text
+Always enable TypeScript strict mode. Never use any.
+```
+
+Less useful example:
+
+```text
+Write clean code.
+```
+</Accordion>
+<Accordion title="Write it like onboarding documentation">
+Imagine explaining the project to a new developer joining the team. Include the important architectural decisions so ZenOpus does not attempt to change them.
+</Accordion>
+<Accordion title="Keep instructions concise">
+Short instructions work better than long paragraphs. Prefer bullet lists and direct rules.
+</Accordion>
+<Accordion title="Review knowledge periodically">
+If your stack or architecture changes, update your knowledge so ZenOpus does not follow outdated patterns.
+
+You do not need to document everything. Even a few clear rules or a short project description can significantly improve the quality of edits.
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="What is the character limit for knowledge?">
+Both project knowledge and workspace knowledge support up to 10,000 characters.
+</Accordion>
+<Accordion title="Can I have multiple sets of workspace knowledge instructions?">
+No. Each workspace has one workspace knowledge shared across all projects.
+</Accordion>
+<Accordion title="Can I add instruction files in the project's repository?">
+Yes. Instruction files such as `AGENTS.md` or `CLAUDE.md` can also provide guidance to the ZenOpus agent.
+
+For technical users managing instruction files directly in their repositories, root-level `AGENTS.md` files are always read by the ZenOpus agent regardless of session length.
+</Accordion>
+<Accordion title="Which context sources does ZenOpus read?">
+When you send a message, ZenOpus reads your **project knowledge**, **workspace knowledge**, and **project code** to understand how your project works before generating edits.
+
+It also looks at any integration knowledge from connected services and instruction files in your project’s GitHub repository such as `AGENTS.md` or `CLAUDE.md`.
+</Accordion>
+<Accordion title="What happens if project and workspace knowledge conflict?">
+Project knowledge and workspace knowledge are included together when ZenOpus generates responses.
+
+If the instructions conflict, ZenOpus is encouraged to prioritize the instructions defined in **project knowledge**, since they apply specifically to the current project.
+
+To avoid confusion, keep shared rules in workspace knowledge and project-specific details in project knowledge.
+</Accordion>
+</AccordionGroup>

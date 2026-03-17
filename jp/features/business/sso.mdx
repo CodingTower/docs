@@ -1,0 +1,560 @@
+---
+title: "シングル サインオン (SSO) をセットアップする"
+description: "Okta、Auth0、Microsoft Entra ID、または任意の OIDC/SAML 2.0 プロバイダーに接続して、Workspace の安全な集中認証を有効にします。"
+---
+シングル サインオン (SSO) は **Business** および **Enterprise** プランで利用でき、組織全体で安全な一元的な認証を可能にします。 SSO を使用すると、ユーザーは 1 セットの資格情報で ZenOpus にアクセスできるため、アクセス管理が簡素化され、セキュリティが向上します。
+
+<Note>
+**サービス プロバイダー (SP) によって開始されたサインインのみ:** ユーザーは ZenOpus (SP) からサインインを開始する必要があります。
+
+**アイデンティティ プロバイダー (IdP) によって開始される SSO** (IdP ダッシュボード タイルから開始) は **サポートされていません**。
+</Note>
+
+## サポートされている SSO プロトコル
+
+ZenOpus は **OIDC** と **SAML 2.0** の両方のプロトコルをサポートし、Okta、Auth0、Microsoft Entra ID (Azure AD) などを含むすべての主要な **アイデンティティ プロバイダー (IdP)** との統合を可能にします。
+
+- **OpenID Connect (OIDC)**: 推奨。 OAuth 2.0 上に構築された最新の ID レイヤーで、ID 検証を提供します。
+- **SAML (Security Assertion Markup Language) 2.0**: エンタープライズ環境で広く使用されている、認証および認可データを交換するための XML ベースのプロトコル。
+
+## 前提条件
+
+OIDC または SAML を使用してアイデンティティ プロバイダーを ZenOpus に接続するには、以下が必要です。
+
+- **IdP 管理者アクセス** (Okta、Auth0、Microsoft Entra ID、または使用しているその他のプロバイダー)
+- **ZenOpus Workspace 所有者または管理者の役割**
+- ZenOpus の **検証済みドメイン** (ドメインの所有権を証明するため)
+    <Info>
+    ドメインを確認するには、UI に表示される `TXT` レコードを DNS プロバイダーに追加します。詳細については、「[カスタム ドメイン](/jp/features/custom-domain)」を参照してください。
+    </Info>
+
+## ZenOpus で SSO セットアップを開始する
+
+SSO 構成は、ZenOpus と ID プロバイダー間の **双方向セットアップ** です。
+
+- **ZenOpus → IdP:** ZenOpus URL と設定を IdP アプリにコピーします。
+- **IdP → ZenOpus:** IdP の発行者、メタデータ、および証明書を ZenOpus にコピーします。
+
+Workspace **所有者** または **管理者** は SSO を設定できます。まず、**設定 → Workspace → ID → SSO プロバイダーの追加** に移動し、**OIDC** または **SAML** を選択します。
+
+### IdP構成リファレンス
+
+ZenOpus で SSO プロバイダーのセットアップを開始すると、次のように表示されます。
+
+- **IdP で構成する内容** (アプリの種類、スコープ、属性マッピングなど)
+- **ZenOpus URL と識別子** IdP に入力する必要がある場合があります。
+
+IdP で OIDC または SAML を構成する際には、以下のリファレンスを使用してください。
+
+<Tabs>
+<Tab title="OIDC">
+- アプリケーションの種類: `Web Application`
+- 許可タイプ: `Authorization Code`
+- トークンメソッド: `POST` (構成可能な場合)
+- コピーして IdP に追加するリダイレクト URI: `https://auth.zenopus.dev/__/auth/handler`
+- OAuth スコープ:
+    - 必須: `openid`、`email`
+    - 推奨: `profile`
+</Tab>
+<Tab title="SAML">
+- ACS URL (アサーション コンシューマ サービス): `https://auth.zenopus.dev/__/auth/handler`
+- SP エンティティ ID / オーディエンス URI: `https://auth.zenopus.dev/__/auth/handler`
+- 属性マッピング:
+    - `email` (必須): 形式が `EmailAddress` に設定されていることを確認します。
+    - `displayName` (推奨): ユーザーのフルネームにマップします
+    - `photoURL` (推奨): ユーザーのプロフィール写真の URL にマップします
+</Tab>
+</Tabs>
+
+## プロバイダー固有のセットアップ ガイド
+
+Okta、Auth0、または Microsoft Entra を使用している場合は、SSO を設定するためのプロバイダー固有のドキュメントを見つけることができます。別のプロバイダーを使用する場合は、「他のプロバイダーの構成」(#configure-other-providers) を参照してください。
+
+始める前に、[ZenOpus で SSO セットアップを開始](#zenopus-で-sso-セットアップを開始する) を完了して、IdP で使用する必要がある設定と値を取得してください。
+
+詳細については、IdP の公式ドキュメントを参照してください。
+
+### Okta を SSO プロバイダーとして構成する
+
+<Tabs>
+<Tab title="OIDC">
+<Steps>
+<Step title="Okta でアプリケーションを作成する">
+- **Okta 管理コンソール → アプリケーション** に移動します。
+- **アプリ統合の作成** をクリックし、**OIDC** を選択します。次に、**Web アプリケーション** アプリケーション タイプを選択します。
+- アプリに名前を付けます (例: `ZenOpus OIDC SSO`)。
+</Step>
+<Step title="Okta で OIDC 統合を構成する">
+- **許可タイプ**を `Authorization Code` に設定します
+- デフォルトのリダイレクト URI を削除します。
+- ZenOpus リダイレクト URL を Okta **サインイン リダイレクト URI** に追加します: `https://auth.zenopus.dev/__/auth/handler`
+- **割り当て** を選択します。ZenOpus にアクセスする必要があるユーザー/グループにアプリケーションを割り当てます。
+</Step>
+<Step title="アプリケーションの保存">
+[**保存**] をクリックします。これで、アプリケーションが Okta で作成されました。
+</Step>
+<Step title="Okta 発行者 URL を構成する">
+Okta で、**サインオン → OpenID Connect ID トークン** に移動し、発行者ドロップダウンから **Okta URL** を選択し、**保存**します。
+</Step>
+<Step title="ZenOpus に IdP 情報を提供します">
+Okta で、**サインオン** タブから次の値をコピーし、ZenOpus に入力します。
+
+- オクタ `Issuer URL` → ZenOpus `OIDC Issuer URL/Discovery Endpoint`
+
+Okta で、**全般** タブから次の値をコピーし、ZenOpus に入力します。
+
+- オクタ `Client ID` → ZenOpus `OAuth Client ID/Application ID`
+- オクタ `Client Secret` → ZenOpus `OAuth Client Secret`
+</Step>
+<Step title="表示名とSSOログイン識別子（テナントID）を設定する">
+ZenOpus で、必要に応じてこれらの値を更新します。値は、検証済みのドメインに基づいて事前入力されます。
+
+- **表示名**: 認証中にユーザーに表示される名前。
+- **SSO ログイン識別子 (テナント ID)**: ユーザーが SSO で直接サインインするために使用する URL。
+</Step>
+<Step title="(オプション) ZenOpus で構成をテストします。">
+ZenOpus で、**構成のテスト** をクリックします。すべてが正しく構成されていれば、検証は成功するはずです。
+</Step>
+<Step title="ZenOpus で OIDC プロバイダーの構成を完了する">
+ZenOpus で、[**プロバイダーの構成**] をクリックして、OIDC SSO プロバイダーとしての Okta の構成を完了します。
+</Step>
+</Steps>
+</Tab>
+<Tab title="SAML">
+<Steps>
+<Step title="Okta でアプリケーションを作成する">
+- **Okta 管理コンソール → アプリケーション** に移動します。
+- [**アプリ統合の作成**] をクリックし、**SAML 2.0** を選択します。
+- アプリに名前を付けます (例: `ZenOpus SAML SSO`)。
+</Step>
+<Step title="Okta で SAML 設定を構成する">
+- シングル サインオン URL: `https://auth.zenopus.dev/__/auth/handler`
+- 対象者 URI (SP エンティティ ID): `https://auth.zenopus.dev/__/auth/handler`
+- 名前IDの形式: `EmailAddress`
+</Step>
+<Step title="アプリケーションの保存">
+[**完了**] をクリックします。これで、アプリケーションが Okta に作成されました。
+</Step>
+<Step title="ZenOpus に IdP 情報を提供します">
+Okta で、**サインオン → SAML 2.0 → メタデータの詳細** に移動し、**メタデータ URL** をコピーします。
+
+ZenOpus で、SAML プロバイダーのクイック セットアップまたは手動構成のいずれかを選択します。
+
+**オプション 1: クイック セットアップ - メタデータ URL からインポート**
+
+ZenOpus の **クイック セットアップ: メタデータ URL からインポート** フィールドにメタデータ URL を貼り付けます。 [**テストとインポート**] をクリックして、以下の必須フィールドに自動的に値を入力します。
+
+**オプション 2: 手動構成**
+
+新しいタブでメタデータ URL を開きます。次の **メタデータ URL** 値をコピーし、ZenOpus に入力します。
+
+- オクタ `SingleSignOnService Location` → ZenOpus `SAML SSO Sign-on URL from your IdP`
+- オクタ `EntityID` → ZenOpus `Identity Provider Entity ID / Issuer`
+- オクタ `X509Certificate` → ZenOpus `X.509 Signing Certificate (public key)`
+    <Note>
+    `-----BEGIN CERTIFICATE-----` 行と `-----END CERTIFICATE-----` 行の間に証明書の値を貼り付けます。
+    </Note>
+</Step>
+<Step title="表示名とSSOログイン識別子（テナントID）を設定する">
+ZenOpus で、必要に応じてこれらの値を更新します。値は、検証済みのドメインに基づいて事前入力されます。
+
+- **表示名**: 認証中にユーザーに表示される名前。
+- **SSO ログイン識別子 (テナント ID)**: ユーザーが SSO で直接サインインするために使用する URL。
+</Step>
+<Step title="ZenOpus で SAML プロバイダーの構成を完了する">
+ZenOpus で、[**SAML プロバイダーの構成] → [SSO の確認と有効化]** をクリックして、SAML SSO プロバイダーとしての Okta の構成を完了します。
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+### Auth0 を SSO プロバイダーとして構成する
+
+<Tabs>
+<Tab title="OIDC">
+<Steps>
+<Step title="Auth0でアプリケーションを作成する">
+- **Auth0 管理ダッシュボード → アプリケーション** に移動します。
+- [**アプリケーションの作成**] をクリックします。 **通常の Web アプリケーション** アプリケーション タイプを選択します。
+- アプリに名前を付けます (例: `ZenOpus OIDC SSO`)。
+- [**作成**] をクリックします。
+</Step>
+<Step title="許可されたコールバック URL を構成する">
+- Auth0 で、アプリケーション設定に移動します。
+- **許可されたコールバック URL** を追加します: `https://auth.zenopus.dev/__/auth/handler`
+- [**保存**] をクリックします。
+</Step>
+<Step title="ZenOpus に IdP 情報を提供します">
+Auth0 で、**設定** タブから次の値をコピーし、ZenOpus に入力します。
+
+- Auth0 `Domain` → ZenOpus `OIDC Issuer URL/Discovery Endpoint` (`https://` を含む)
+- Auth0 `Client ID` → ZenOpus `OAuth Client ID/Application ID`
+- Auth0 `Client Secret` → ZenOpus `OAuth Client Secret`
+</Step>
+<Step title="表示名とSSOログイン識別子（テナントID）を設定する">
+ZenOpus で、必要に応じてこれらの値を更新します。値は、検証済みのドメインに基づいて事前入力されます。
+
+- **表示名**: 認証中にユーザーに表示される名前。
+- **SSO ログイン識別子 (テナント ID)**: ユーザーが SSO で直接サインインするために使用する URL。
+</Step>
+<Step title="(オプション) ZenOpus でのテスト構成">
+ZenOpus で、**構成のテスト** をクリックします。すべてを正確に構成していれば、検証は成功するはずです。
+</Step>
+<Step title="ZenOpus で OIDC プロバイダーの構成を完了する">
+ZenOpus で、**プロバイダーの構成** をクリックして、OIDC SSO プロバイダーとしての Auth0 の構成を完了します。
+</Step>
+</Steps>
+</Tab>
+<Tab title="SAML">
+<Steps>
+<Step title="Auth0でアプリケーションを作成する">
+- **Auth0 管理ダッシュボード → アプリケーション** に移動します。
+- [**アプリケーションの作成**] をクリックします。 **通常の Web アプリケーション** アプリケーション タイプを選択します。
+- アプリに名前を付けます (例: `ZenOpus SAML SSO`)。
+- [**作成**] をクリックします。
+</Step>
+<Step title="許可されたコールバック URL を構成する">
+- Auth0 で、アプリケーション設定に移動します。
+- **許可されたコールバック URL** を追加します: `https://auth.zenopus.dev/__/auth/handler`
+- [**保存**] をクリックします。
+</Step>
+<Step title="SAML2 Web アプリ アドオンの構成">
+- Auth0 で、**アドオン**に移動し、**SAML2 Web アプリ**を有効にします。
+- **アドオン: SAML2 Web アプリ → 設定** で、次のように設定します。
+    - アプリケーション コールバック URL: `https://auth.zenopus.dev/__/auth/handler`
+    - 設定: 次の `mappings` JSON を貼り付けます。
+
+```json
+    {
+      "mappings": {
+        "email": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      },
+      "nameIdentifierFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    }
+```
+
+- [**有効にする**] をクリックします。
+</Step>
+<Step title="ZenOpus に IdP 情報を提供します">
+ZenOpus で、SAML プロバイダーのクイック セットアップまたは手動構成のいずれかを選択します。
+
+**オプション 1: クイック セットアップ - メタデータ URL からインポート**
+
+- **Auth0 → アドオン: SAML2 Web アプリ → 使用方法**で、**アイデンティティ プロバイダー メタデータ**を見つけ、矢印アイコンをクリックして URL を取得します。
+- ZenOpus の **クイック セットアップ: メタデータ URL からインポート** フィールドにメタデータ URL を貼り付けます。
+- [**テストとインポート**] をクリックして、以下の必須フィールドに自動的に値を入力します。
+
+**オプション 2: 手動構成**
+
+**Auth0 → アドオン: SAML2 Web アプリ → 使用法** で、次の **SAML プロトコル構成パラメーター** の値をコピーし、ZenOpus に入力します。
+
+- Auth0 `Identity Provider Login URL` → ZenOpus `SAML SSO Sign-on URL from your IdP`
+- Auth0 `Issuer` → ZenOpus `Identity Provider Entity ID / Issuer`
+- Auth0 `Identity Provider Certificate` (`X509Certificate`) → ZenOpus `X.509 Signing Certificate (public key)`
+    <Note>
+    Auth0 証明書をダウンロードし、`X509Certificate` 値をコピーします。 `-----BEGIN CERTIFICATE-----` 行と `-----END CERTIFICATE-----` 行の間に証明書の値を貼り付けます。
+    </Note>
+</Step>
+<Step title="表示名とSSOログイン識別子（テナントID）を設定する">
+ZenOpus で、必要に応じてこれらの値を更新します。値は、検証済みのドメインに基づいて事前入力されます。
+
+- **表示名**: 認証中にユーザーに表示される名前。
+- **SSO ログイン識別子 (テナント ID)**: ユーザーが SSO で直接サインインするために使用する URL。
+</Step>
+<Step title="ZenOpus で SAML プロバイダーの構成を完了する">
+ZenOpus で、[**SAML プロバイダーの構成] → [SSO の確認と有効化]** をクリックして、SAML SSO プロバイダーとしての Auth0 の構成を完了します。
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+### Microsoft Entra ID を SSO プロバイダーとして構成する
+
+<Tabs>
+<Tab title="OIDC">
+<Steps>
+<Step title="Microsoft Entra ID でアプリ登録を作成する">
+- **Microsoft Entra 管理センター → アプリの登録 → 新規登録** に移動します。
+- アプリに名前を付けます (例: `ZenOpus OIDC SSO`)。
+- **リダイレクト URI** を構成します:
+    - **プラットフォーム**を`Web`として選択します。
+    - リダイレクト URL `https://auth.zenopus.dev/__/auth/handler` を貼り付け、**保存** をクリックします。
+- [**登録**] をクリックします。
+</Step>
+<Step title="オプションのクレームを構成する">
+- Microsoft Entra で、**トークン構成 → オプションのクレームの追加** に移動します。
+- **ID トークン** を選択し、`email` クレームを追加します。
+- [**追加**] をクリックします。
+</Step>
+<Step title="API権限を設定する">
+- Microsoft Entra で、**API アクセス許可 → アクセス許可の追加 → Microsoft Graph** に移動します。
+- **委任されたアクセス許可** を選択し、以下を追加します。
+    - __コード0__
+    - __コード0__
+    - __コード0__
+- [**権限の追加**] をクリックします。
+</Step>
+<Step title="ZenOpus に IdP 情報を提供します">
+ZenOpus に次のように入力します。
+
+- `OIDC Issuer URL/Discovery Endpoint`: URL を `https://login.microsoftonline.com/{TENANT_ID}/v2.0` としてフォーマットします
+    <Info>
+    `{TENANT_ID}` を、Microsoft Entra の **概要** ページの **ディレクトリ (テナント) ID** に置き換えます。
+    </Info>
+
+Microsoft Entra では、**概要** ページから **クライアント ID** の値をコピーし、ZenOpus に入力します。
+
+- Microsoft Entra `Application (Client) ID` → ZenOpus `OAuth Client ID/Application ID`
+
+Microsoft Entra で、**クライアント シークレット**を構成し、ZenOpus に入力します。
+
+- **証明書とシークレット → 新しいクライアント シークレット** に移動します。
+- シークレットを作成し、そのシークレット値をすぐにコピーします (再度表示されません)。
+- Microsoft Entra `Client secret` → ZenOpus `OAuth Client Secret` を貼り付けます。
+</Step>
+<Step title="表示名とSSOログイン識別子（テナントID）を設定する">
+ZenOpus で、必要に応じてこれらの値を更新します。値は、検証済みのドメインに基づいて事前入力されます。
+
+- **表示名**: 認証中にユーザーに表示される名前。
+- **SSO ログイン識別子 (テナント ID)**: ユーザーが SSO で直接サインインするために使用する URL。
+</Step>
+<Step title="(オプション) ZenOpus でのテスト構成">
+ZenOpus で、**構成のテスト** をクリックします。すべてを正確に構成していれば、検証は成功するはずです。
+</Step>
+<Step title="ZenOpus で OIDC プロバイダーの構成を完了する">
+ZenOpus で、**プロバイダーの構成** をクリックして、OIDC SSO プロバイダーとしての Microsoft Entra ID の構成を完了します。
+</Step>
+</Steps>
+</Tab>
+<Tab title="SAML">
+<Steps>
+<Step title="Microsoft Entra ID でエンタープライズ アプリを作成する">
+- **Microsoft Entra ID 管理センター → エンタープライズ アプリケーション** に移動し、**新しいアプリケーション** を選択します。
+- [**独自のアプリケーションを作成する**] を選択し、[**ギャラリーにない他のアプリケーションを統合する (ギャラリー以外)**] を選択します。
+- アプリに名前を付けます (例: `ZenOpus SAML SSO`)。
+- [**作成**] をクリックします。これでアプリケーションが作成されました。
+</Step>
+<Step title="SAML SSO の構成">
+Microsoft Entra で、**シングル サインオン** セットアップ ページに移動し、**SAML** を選択します。 **基本的な SAML 構成** で、次のように入力します。
+
+- 識別子 (エンティティ ID): `https://auth.zenopus.dev/__/auth/handler`
+- 応答 URL (アサーション コンシューマ サービス URL): `https://auth.zenopus.dev/__/auth/handler`
+
+他の値は空白のままにして、**保存**を選択します。
+</Step>
+<Step title="ZenOpus に IdP 情報を提供します">
+アプリケーションが Microsoft Entra でセットアップされている場合、SAML プロバイダーのクイック セットアップまたは ZenOpus での手動構成を選択できます。
+
+**オプション 1: クイック セットアップ - メタデータ URL からインポート**
+
+- Microsoft Entra で、**SAML 証明書**に移動し、**App Federation Metadata URL** をコピーします。
+- ZenOpus の **アプリ フェデレーション メタデータ URL** を **クイック セットアップ: メタデータ URL からインポート** フィールドに貼り付けます。
+- [**テストとインポート**] をクリックして、以下の必須フィールドに自動的に値を入力します。
+
+**オプション 2: 手動構成**
+
+Microsoft Entra で次の値をコピーし、ZenOpus に入力します。
+
+- Microsoft Entra `Login URL` → ZenOpus `SAML SSO Sign-on URL from your IdP`
+- Microsoft Entra `Microsoft Entra Identifier` → ZenOpus `Identity Provider Entity ID / Issuer`
+- Microsoft Entra `X509Certificate` → ZenOpus `X.509 Signing Certificate (public key)`
+    <Note>
+    証明書 (Base 64) をダウンロードするか、新しいタブで `App Federation Metadata URL` を開いて `X509Certificate` 値をコピーできます。 `-----BEGIN CERTIFICATE-----` 行と `-----END CERTIFICATE-----` 行の間に証明書の値を貼り付けます。
+    </Note>
+</Step>
+<Step title="表示名とSSOログイン識別子（テナントID）を設定する">
+ZenOpus で、必要に応じてこれらの値を更新します。値は、検証済みのドメインに基づいて事前入力されます。
+
+- **表示名**: 認証中にユーザーに表示される名前。
+- **SSO ログイン識別子 (テナント ID)**: ユーザーが SSO で直接サインインするために使用する URL。
+</Step>
+<Step title="ZenOpus で SAML プロバイダーの構成を完了する">
+ZenOpus で、[**SAML プロバイダーの構成] → [SSO の確認と有効化]** をクリックして、SAML SSO プロバイダーとしての Microsoft Entra ID の構成を完了します。
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+## 他のプロバイダーを構成する
+
+ZenOpus SSO を使用して、OIDC または SAML 準拠のプロバイダーを構成できます。
+
+始める前に、[ZenOpus で SSO セットアップを開始](#zenopus-で-sso-セットアップを開始する) を完了して、IdP で使用する必要がある設定と値を取得してください。
+
+<Tabs>
+<Tab title="OIDC">
+**プロバイダーのマッピング**
+
+プロバイダー間で共通のフィールド名:
+
+- リダイレクト URI: `Callback URL`、`Sign-in redirect URI`
+- 発行者/ドメイン: `Issuer URL`、`Authority`、`Okta domain`、`Auth0 domain`、`Tenant domain`
+- クライアント資格情報: `Client ID` および `Client Secret`
+
+**手順**
+
+<Steps>
+<Step title="OIDC 機密アプリを作成する">
+ID プロバイダーで新しい OIDC Web アプリケーションを作成します。
+</Step>
+<Step title="リダイレクト URI を構成する">
+リダイレクト/コールバック URL に `https://auth.zenopus.dev/__/auth/handler` を追加します
+</Step>
+<Step title="必要なスコープを有効にする">
+`openid` および `email` スコープが有効になっていて、必要に応じて同意されていることを確認します。
+</Step>
+<Step title="ZenOpus に IdP 情報を提供します">
+IdP で、対応する値を見つけて ZenOpus に入力します。
+
+- `Domain` または `Issuer URL` → ZenOpus `OIDC Issuer URL/Discovery Endpoint`
+- `Client ID` → ZenOpus `OAuth Client ID/Application ID`
+- `Client Secret` → ZenOpus `OAuth Client Secret`
+</Step>
+<Step title="表示名とSSOログイン識別子（テナントID）を設定する">
+ZenOpus で、必要に応じてこれらの値を更新します。値は、検証済みのドメインに基づいて事前入力されます。
+
+- **表示名**: 認証中にユーザーに表示される名前。
+- **SSO ログイン識別子 (テナント ID)**: ユーザーが SSO で直接サインインするために使用する URL。
+</Step>
+</Steps>
+</Tab>
+<Tab title="SAML">
+**プロバイダーのマッピング**
+
+プロバイダー間で共通のフィールド名:
+
+- ACS URL: `Single Sign-On URL`、`SSO URL`、`Reply URL`、`Assertion Consumer Service URL`
+- 対象者: `SP Entity ID`、`Audience URI`、`Identifier`
+- 属性マッピング: `Attribute Statements`、`User Attributes & Claims`
+
+**手順**
+
+<Steps>
+<Step title="SAML 2.0 アプリケーションを作成する">
+プロバイダーで新しい SAML 2.0 アプリケーションを作成します。
+</Step>
+<Step title="エンドポイントの構成">
+- ACS URL: `https://auth.zenopus.dev/__/auth/handler`
+- 対象者/エンティティ ID: `https://auth.zenopus.dev/__/auth/handler`
+</Step>
+<Step title="マップ属性">
+`email` が SAML アサーションに含まれていることを確認してください。 `displayName` はオプションです。
+</Step>
+<Step title="ユーザーの割り当て">
+ZenOpus にアクセスする必要があるユーザー/グループにアプリケーションを割り当てます。
+</Step>
+<Step title="ZenOpus に IdP 情報を提供します">
+ZenOpus で、SAML プロバイダーのクイック セットアップまたは手動構成のいずれかを選択します。
+
+**オプション 1: クイック セットアップ - メタデータ URL からインポート**
+
+- IdP で、SAML メタデータ URL を見つけます (通常は SAML アプリケーション設定またはメタデータの詳細にあります)。
+- ZenOpus の **クイック セットアップ: メタデータ URL からインポート** フィールドにメタデータ URL を貼り付けます。
+- [**テストとインポート**] をクリックして、以下の必須フィールドに自動的に値を入力します。
+
+**オプション 2: 手動構成**
+
+IdP で、対応する値を見つけて ZenOpus に入力します。
+
+- `Login URL` → ZenOpus `SAML SSO Sign-on URL from your IdP`
+- `Identifier/Issuer/Entity ID` → ZenOpus `Identity Provider Entity ID / Issuer`
+- `X509Certificate` → ZenOpus `X.509 Signing Certificate (public key)`
+</Step>
+<Step title="表示名とSSOログイン識別子（テナントID）を設定する">
+ZenOpus で、必要に応じてこれらの値を更新します。値は、検証済みのドメインに基づいて事前入力されます。
+
+- **表示名**: 認証中にユーザーに表示される名前。
+- **SSO ログイン識別子 (テナント ID)**: ユーザーが SSO で直接サインインするために使用する URL。
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+## トラブルシューティング
+
+<Tabs>
+<Tab title="OIDC">
+<AccordionGroup>
+<Accordion title="リダイレクト URI が無効または不一致です">
+リダイレクト/コールバック URL が IdP の `https://auth.zenopus.dev/__/auth/handler` と正確に一致することを確認してください。
+</Accordion>
+<Accordion title="発行者 URL / 検出が失敗する">
+プロバイダーの OIDC 発行者 URL (ドメインだけでなく) を使用します。
+
+- Okta の場合は、**サインオン** タブからコピーします。
+- Auth0 には、テナント ドメインを使用します。
+</Accordion>
+<Accordion title="メールが返されない">
+`email` スコープを付与し、ユーザー アカウントにプライマリ電子メールがあることを確認します。
+</Accordion>
+<Accordion title="認証フローの問題">
+`Authorization Code` を機密クライアントおよびクライアント シークレットとともに使用します。暗黙的または PKCE 専用のアプリ タイプは避けてください。
+</Accordion>
+</AccordionGroup>
+</Tab>
+<Tab title="SAML">
+<AccordionGroup>
+<Accordion title="無効な ACS または対象者">
+ACS とオーディエンス/エンティティ ID の両方が IdP の `https://auth.zenopus.dev/__/auth/handler` と正確に一致していることを確認してください。
+</Accordion>
+<Accordion title="電子メールの請求がありません">
+電子メールの請求を必ずマッピングしてください。
+
+Microsoft Entra ID の場合、`email` を `user.mail` にマップします。 `user.mail` が空の場合は、`user.userprincipalname` を使用します。
+</Accordion>
+<Accordion title="プロバイダーの資格情報が無効です">
+正しい `X.509` 証明書を貼り付けます。証明書が更新される場合は、ZenOpus で更新します。
+</Accordion>
+</AccordionGroup>
+</Tab>
+</Tabs>
+
+## よくある質問
+
+<AccordionGroup>
+<Accordion title="すでにアカウントを持っていますが、SSO を使用するビジネス Workspace に参加しています。ログインするにはどうすればよいですか?">
+別のログイン方法 (電子メール/パスワード、Google、GitHub など) を使用してアカウントを作成した場合は、**最初に**その方法でログインする必要があります。ログインしたら、**[設定] → [アカウント] → [SSO をリンク]** に移動します。これにより、既存のアカウントが会社の SSO にリンクされます。
+
+<Note>
+**重要:** 既存のアカウントをリンクする前に SSO でログインしようとすると、エラーが表示されます。これは不正アクセスを防ぐためのセキュリティ対策です。最初に独自の方法でログインして、リンク処理を完了します。
+</Note>
+</Accordion>
+<Accordion title="ZenOpus Support を行う SSO プロバイダーはどれですか?">
+ZenOpus は業界標準の OIDC および SAML プロトコルをサポートしているため、それらをサポートする任意の SSO プロバイダーと統合できます。
+</Accordion>
+<Accordion title="ZenOpus Support は Workspace ごとに複数の SSO プロバイダーを使用しますか?">
+いいえ。Workspace では、**一度に 1 つのアクティブな SSO プロバイダー**を構成できます。
+</Accordion>
+<Accordion title="Workspace に SSO を強制できますか?">
+はい。 Workspace **所有者** または **管理者** は、**設定 → Workspace → ID** で **SSO の強制**を有効にし、**セッション期間**を選択して、再認証が必要になるまでユーザーがサインインし続ける時間を構成できます (24 時間、48 時間、または 7 日間)。
+
+これには、すべての Workspace メンバーが認証に SSO を使用する必要があります。外部コラボレーターと招待リンクは無効になります。
+</Accordion>
+<Accordion title="ZenOpus Support IdP によって SSO が開始されますか?">
+いいえ。**IdP で開始される SSO** (IdP ダッシュボード タイルから開始) はサポートされていません。
+
+ZenOpus は **SP によって開始されたサインインのみ**をサポートします。 ユーザーは ZenOpus からサインインを開始する必要があります。
+</Accordion>
+<Accordion title="ZenOpus Support は SSO を使用したジャストインタイム (JIT) プロビジョニングを行いますか?">
+はい、ZenOpus は SSO を介した **JIT (ジャストインタイム) プロビジョニング** をサポートしています。 ユーザー アカウントは、誰かが初めて SSO 経由でサインインしたときに自動的に作成され、会社 Workspace に追加されます。
+
+また、JIT で作成されたユーザーの **デフォルトの役割** (管理者、編集者、または閲覧者) を設定することもできます。この役割は、初めて SSO 経由で参加するときに適用されます。
+</Accordion>
+<Accordion title="ZenOpus Support SCIM または自動ユーザー プロビジョニングを行いますか?">
+はい。 ZenOpus は、**Business プラン以上**での自動ユーザー プロビジョニングおよびプロビジョニング解除のための **SCIM プロビジョニング**をサポートします。
+
+SCIM を使用すると、ユーザーの作成、削除、ロールの割り当ては、割り当てとグループ メンバーシップに基づいて ID プロバイダーから一元管理されます。
+
+詳細については、「SCIM ユーザー プロビジョニングのセットアップ」(/jp/features/business/scim) を参照してください。
+</Accordion>
+<Accordion title="自分のテナント ID (SSO ログイン識別子) を確認するにはどうすればよいですか?">
+テナント ID は、**SSO ログイン URL** で使用される `{tenantId}` 値です。  
+
+__コード0__。これは、ZenOpus で SSO プロバイダーを設定するときに構成した **SSO ログイン識別子** と一致します。
+
+プロバイダーを構成した後、**[設定] → Workspace → [ID]** でも見つけることができます。
+</Accordion>
+<Accordion title="SSO プロバイダー構成を編集するにはどうすればよいですか?">
+構成された SSO プロバイダーを編集することはできません。更新を行うには、まず既存の SSO プロバイダーを削除してから、再度構成する必要があります。
+</Accordion>
+</AccordionGroup>

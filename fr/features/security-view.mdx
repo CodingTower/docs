@@ -1,0 +1,181 @@
+---
+title: "Vue de sécurité du projet"
+description: "Examinez les résultats de sécurité, corrigez les vulnérabilités et gérez les risques de dépendance pour un seul projet avant de le publier."
+---
+## Qu'est-ce que la vue Sécurité ?
+
+La vue Sécurité affiche les résultats de sécurité pour un seul projet. Il rassemble les résultats de **quatre scanners de sécurité automatisés** qui analysent différentes parties de votre application :
+
+- [Analyse RLS](/fr/features/security#protéger-laccès-aux-données-avec-la-sécurité-au-niveau-des-lignes-rls) : examine les politiques de sécurité au niveau des lignes sur les tables de base de données
+- [Contrôle de sécurité de la base de données](/fr/features/security#identifier-les-risques-de-sécurité-des-bases-de-données) : examine le schéma de la base de données et la configuration RLS à la recherche de modèles dangereux
+- [Examen de la sécurité du code](/fr/features/security#identifier-les-vulnérabilités-dans-le-code-de-lapplication) : analyse le code de l'application pour détecter les vulnérabilités courantes
+- [Audit des dépendances](/fr/features/security#identifier-les-vulnérabilités-dans-les-dépendances) : analyse les dépendances `npm` à la recherche de vulnérabilités de sécurité connues
+
+Les résultats de ces analyseurs sont présentés ensemble dans la vue Sécurité afin que vous puissiez comprendre les risques, prendre des mesures et vérifier que votre projet est prêt à être publié.
+
+Pour plus de détails sur le fonctionnement de chaque scanner et le moment où les analyses sont exécutées, voir [Présentation de la sécurité](/fr/features/security).
+
+Vous trouverez l'**onglet Sécurité** dans n'importe quel projet ZenOpus en cliquant sur le bouton `+` à côté de **Aperçu**.
+
+<Tip>
+La vue Sécurité se concentre sur un seul projet.
+
+- Pour surveiller les résultats de sécurité et les risques de dépendance sur plusieurs projets, utilisez le [Centre de sécurité](/fr/features/security-center).
+- Pour obtenir des conseils pratiques sur la façon d'écrire du code sécurisé et d'éviter les erreurs de sécurité courantes, consultez [Meilleures pratiques de sécurité pour les applications ZenOpus](/fr/tips-tricks/security-best-practices).
+</Tip>
+
+## Pourquoi utiliser la vue Sécurité ?
+
+- **Détectez les problèmes le plus tôt possible**  
+Les problèmes de sécurité sont plus faciles à résoudre pendant le développement qu'après le déploiement. La vue Sécurité permet d'identifier les problèmes courants tels qu'un accès à la base de données mal configuré, des modèles de code non sécurisés ou des dépendances vulnérables avant la mise en ligne de votre application.
+- **Concentrez-vous sur ce qui compte**  
+Tous les résultats de sécurité ne comportent pas le même risque. Les résultats sont classés par gravité afin que vous puissiez d'abord prioriser les problèmes critiques et examiner ultérieurement les recommandations à faible risque.
+- **Gagnez du temps avec les correctifs guidés**  
+De nombreuses conclusions incluent des options de correction automatisées ou des conseils clairs. Vous pouvez demander à ZenOpus de résoudre directement des problèmes spécifiques et d'examiner les modifications qui en résultent.
+- **Suivez la sécurité à mesure que votre projet évolue**  
+À mesure que votre projet évolue, les résultats des analyses précédentes peuvent devenir obsolètes. La vue Sécurité indique clairement quand les analyses doivent être actualisées afin que vous connaissiez toujours l'état de sécurité actuel de votre projet.
+
+## Améliorer la précision de l'analyse avec le contexte
+
+Cliquez sur **Ajouter un contexte** pour décrire le contexte de sécurité de votre projet. Cela aide les scanners IA à adapter les recommandations et à réduire les faux positifs.
+
+Le contexte utile comprend :
+
+- Le but du projet
+- Qui utilise l'application
+- Si les données sont sensibles
+- Que l'environnement soit le développement, la mise en scène ou la production
+
+Le contexte est stocké dans les [Connaissances](/fr/features/knowledge) de votre projet et s'applique aux analyses futures. Le contexte de sécurité doit décrire les faits concernant votre projet et ne doit pas justifier l'ignorance des risques légitimes.
+
+## Comprendre l'état de l'analyse
+
+L'état de l'analyse en haut de la vue Sécurité indique si vos résultats de sécurité reflètent vos dernières modifications.
+
+- **À jour** : tous les scanners reflètent la version actuelle de votre projet.
+- **Obsolète** : un ou plusieurs scanners n'ont pas fonctionné depuis la modification du projet.
+- **Analyse** : des analyses sont actuellement en cours.
+
+Les résultats de l'analyse sont liés à une version spécifique de votre code. Lorsque votre projet change, les résultats antérieurs peuvent ne plus être précis et être marqués comme obsolètes.
+
+## Mise à jour des analyses
+
+Cliquez sur **Mettre à jour** pour actualiser tous les scanners obsolètes. Cette action est **gratuite et ne consomme pas de crédits**. Seuls les scanners nécessitant une mise à jour fonctionneront.
+
+<Note>
+L'analyseur de révision de sécurité du code s'exécute uniquement lorsque vous cliquez sur Mettre à jour et ne s'exécute pas automatiquement.
+</Note>
+
+Vous devez mettre à jour les analyses :
+
+- Avant de publier
+- Après des modifications importantes du code ou de la base de données
+- Lors de l'ajout ou de la mise à jour de dépendances
+- Périodiquement pour les applications de production
+
+## Répondre aux résultats de sécurité
+
+Tous les résultats apparaissent sous **Problèmes détectés** et sont regroupés par **niveau de gravité**. Si des erreurs existent, la vue les affiche par défaut en premier.
+
+- **Erreur** : problèmes critiques nécessitant votre attention immédiate
+- **Avertissement** : Problèmes que vous devez examiner et corriger si nécessaire
+- **Info** : Suggestions à envisager de mettre en œuvre
+
+Cliquez sur un résultat pour le développer et consulter tous les détails, notamment :
+
+- Quel scanner a produit le résultat
+- Une explication détaillée du problème
+- Pourquoi le problème est important pour la sécurité
+- Étapes de correction suggérées
+
+Vous pouvez traiter les résultats de plusieurs manières :
+
+- **Corriger un résultat spécifique**  
+Utilisez le chat en ligne dans une découverte pour demander à ZenOpus d'analyser ou de résoudre ce problème. Cette action est gratuite et ne consomme pas de crédits.
+- **Corrigez plusieurs résultats à la fois**  
+Utilisez **Try to fix all** pour tenter une correction automatique de tous les résultats du filtre actuel. Cette action est gratuite et ne consomme pas de crédits. Les correctifs automatiques nécessitent que l'analyse **Code security review** soit à jour. Examinez toujours les modifications apportées par ZenOpus et testez-les minutieusement.
+
+Si un résultat ne s'applique pas à votre cas d'utilisation, vous pouvez l'**ignorer** en fournissant une raison. Les résultats ignorés restent visibles, sont marqués d'une étiquette ignoré et peuvent être restaurés à tout moment.
+
+Ignorer les résultats devrait être une décision délibérée. Si vous n'êtes pas sûr qu'un résultat s'applique, demandez des éclaircissements à ZenOpus avant de l'ignorer.
+
+Toutes les actions dans la vue Sécurité sont gratuites. Les examens de sécurité conversationnels dans le chat consomment des crédits. Voir [Présentation de la sécurité](/fr/features/security) pour plus de détails.
+
+## Fonctionnalités avancées
+
+Lorsque la **Vue avancée** est activée, la vue Sécurité expose des outils et des détails supplémentaires pour une inspection et un contrôle plus approfondis.
+
+### Statut par scanner
+
+Activez **Affichage avancé** et cliquez sur le badge d'état de numérisation pour afficher des informations détaillées sur chaque scanner, notamment :
+
+- Quand chaque scanner a été exécuté pour la dernière fois
+- Si les résultats sont à jour
+- Quels scanners sont actuellement obsolètes
+
+Cela vous aide à comprendre exactement ce qui a été vérifié, ce qui peut être obsolète et si vous devez actualiser les analyses.
+
+### Gestion des dépendances
+
+Lorsque la **Vue avancée** est activée, la vue Sécurité affiche une section **Dépendances du projet** répertoriant toutes les dépendances `npm` de production et les vulnérabilités connues.
+
+Pour chaque dépendance, vous pouvez voir :
+
+- Nom et version du package
+- Nombre de vulnérabilités par gravité, notamment critique, élevée et moyenne
+- Une action **Corriger ici** pour les packages vulnérables
+
+Vous pouvez également :
+
+- Filtrer pour afficher uniquement les packages vulnérables
+- Déclenchez un nouvel audit de dépendance
+- Téléchargez un rapport JSON de toutes les dépendances et vulnérabilités pour les audits ou les examens de conformité
+
+Maintenir les dépendances à jour est l'un des moyens les plus efficaces de réduire les risques de sécurité au fil du temps, en particulier lorsque de nouvelles vulnérabilités sont révélées.
+
+## Bonnes pratiques pour l'utilisation de la vue Sécurité
+
+La vue Sécurité est conçue pour une utilisation continue tout au long du développement, et pas seulement pour une vérification finale avant la publication. Les bonnes pratiques suivantes reflètent la façon dont les constructeurs l’utilisent couramment.
+
+- **Maintenir les résultats de sécurité à jour**  
+Examinez régulièrement les résultats et actualisez les analyses lorsque les résultats deviennent obsolètes, en particulier après l'ajout de fonctionnalités, la modification de l'accès à la base de données ou la mise à jour des dépendances.
+- **Donner la priorité aux problèmes critiques**  
+Traitez les résultats au niveau des erreurs avant les avertissements ou les éléments d’information. Les découvertes critiques représentent souvent des vulnérabilités exploitables.
+- **Utilisez les deux approches de numérisation**  
+Utilisez des analyses automatisées dans la vue Sécurité pour des contrôles structurés et des correctifs ciblés. Complétez-les en demandant périodiquement à ZenOpus de « vérifier la sécurité de mon application » dans le chat pour une analyse narrative susceptible de détecter les problèmes manqués par les scanners automatisés.
+- **Gérer le risque de dépendance de manière proactive**  
+Consultez régulièrement la section sur les dépendances et corrigez rapidement les vulnérabilités de haute gravité.
+- **Examiner et vérifier les correctifs**  
+Les correctifs automatisés peuvent vous faire gagner du temps, mais examinez toujours les modifications et testez votre application avant de poursuivre le développement.
+- **Soyez délibéré lorsque vous ignorez les résultats**  
+Ignorez les résultats uniquement lorsqu’ils ne s’appliquent clairement pas. Revisitez les résultats ignorés à mesure que votre projet évolue.
+- **Continuer la surveillance après la publication**  
+La publication n’est pas la fin du travail de sécurité. Surveillez les nouveaux résultats à mesure que votre application évolue au fil du temps.
+
+<Warning>
+Les analyses automatisées aident à détecter les problèmes courants, mais elles ne peuvent pas garantir une sécurité totale. Pour les applications gérant des données sensibles ou des fonctionnalités critiques, envisagez un examen de sécurité professionnel supplémentaire.
+</Warning>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Comment accéder à la vue Sécurité ?">
+Vous trouverez l'**onglet Sécurité** dans n'importe quel projet ZenOpus en cliquant sur le bouton `+` à côté de **Aperçu**.
+</Accordion>
+<Accordion title="Que signifie obsolète ?">
+Les résultats d’un scanner sont obsolètes lorsque votre projet a changé depuis la dernière numérisation. Cliquez sur **Mettre à jour** pour actualiser les résultats. Les actions sur les résultats obsolètes sont désactivées pour empêcher d’agir sur des informations obsolètes.
+</Accordion>
+<Accordion title="Quelle est la différence entre Mettre à jour et demander à ZenOpus de vérifier la sécurité ?">
+**Mise à jour** actualise les scanners de sécurité automatisés et met à jour les résultats affichés dans la vue Sécurité. Cette action est gratuite et ne consomme pas de crédits.
+
+**Demander à ZenOpus d'examiner la sécurité de votre application** dans le chat déclenche un examen distinct piloté par l'IA qui fournit un rapport narratif et des recommandations. Il ne met pas à jour les résultats ou l'état de l'analyse. Les examens de sécurité conversationnels dans le chat consomment des crédits.
+
+Les deux approches sont complémentaires.
+</Accordion>
+<Accordion title="Puis-je utiliser la vue Sécurité pour les projets publiés ?">
+Oui. Continuez à surveiller la sécurité après la publication, en particulier lors de l'ajout de fonctionnalités ou de la mise à jour des dépendances.
+</Accordion>
+<Accordion title="Que se passe-t-il si je publie avec des résultats critiques ?">
+ZenOpus vous avertit avant de publier si des problèmes critiques existent. Vous pouvez quand même choisir de publier, mais cela est fortement déconseillé car les découvertes critiques représentent généralement des vulnérabilités exploitables.
+</Accordion>
+</AccordionGroup>

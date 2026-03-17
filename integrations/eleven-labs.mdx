@@ -1,0 +1,126 @@
+---
+title: "Connect your app to ElevenLabs"
+description: "Connect your app to ElevenLabs, an AI audio platform, to generate high-quality speech and audio content."
+---
+[ElevenLabs](https://elevenlabs.io/) is an AI audio platform that lets your ZenOpus app generate **spoken audio and voice-driven experiences**. It’s designed for apps that need realistic text-to-speech, character voices, or audio output as a core part of the product experience.
+
+With ElevenLabs, your app can:
+
+- Convert text into high-quality synthesized speech
+- Use character voices or branded narrators
+- Generate podcasts, audio summaries, or spoken content
+- Power real-time conversational or voice-based interactions
+- Support accessibility through screen-free or hands-free experiences
+
+ElevenLabs is a good fit when your app depends on **spoken output or audio-first interaction** rather than text-only interfaces.
+
+## Common use cases and example apps
+
+| Example app | Example prompt | Description |
+| --- | --- | --- |
+| Voice-enabled assistants | Build a voice-enabled assistant. Users ask questions and the app responds aloud using ElevenLabs voices. | Create voice-enabled assistants that deliver spoken responses instead of text-only replies . The app accepts user input, generates a response, converts that response into spoken audio using a selected voice, and delivers audio as the primary output. |
+| Daily briefing apps | Use ElevenLabs and build a daily briefing app that reads out metrics or summaries every morning. | Deliver daily briefings as audio so users can listen while multitasking . The app compiles a briefing from selected sources (for example metrics, dashboards, or summaries), generates a spoken version, and provides playback in-app. |
+| Podcast and narrated content generators | Use ElevenLabs and build an app that turns articles or story prompts into narrated audio episodes. | Turn written content into narrated audio episodes users can listen to on demand . The app transforms articles or prompts into scripts, generates narration (optionally using multiple voices), and outputs complete audio episodes for on-demand listening.. |
+| Children’s story and storytelling apps | Use ElevenLabs and build a story app that generates narrated stories with character voices. | Generate narrated stories with expressive character voices for immersive storytelling experiences . The app creates stories based on user-defined inputs, assigns voices to characters, and produces fully narrated audio as the primary output. |
+| Learning and instructional apps | Use ElevenLabs and build a learning app that reads lessons or exercises aloud. | Support learning through spoken instruction and narrated educational content . The app converts lessons, exercises, or explanations into spoken audio and delivers narration as a core part of the learning experience. |
+| Fitness, wellness, and guided experience apps | Use ElevenLabs and build a fitness or wellness app that delivers spoken guidance. | Provide guided experiences through audio-first instructions and prompts . The app generates spoken guidance for routines, sessions, or exercises and delivers audio continuously throughout the experience. |
+| Accessibility features | Use ElevenLabs and build an app that reads content aloud for users who prefer or require audio output. | Enable audio-first access to app content so it can be consumed without relying on the screen . The app automatically generates spoken audio for relevant content and delivers audio as the primary way users consume information, supporting screen-free or hands-free use. |
+
+## How to connect ElevenLabs
+
+Workspace **admins** and **owners** can connect ElevenLabs.
+
+You can create multiple ElevenLabs connections using different API keys, and with different access levels, which is useful for separating environments (for example, development and production) or managing rate limits.
+
+When the connection is created, ElevenLabs becomes available across all projects in the workspace.
+
+### Prerequisites
+
+Before connecting ElevenLabs, make sure you have:
+
+- An ElevenLabs account and API key
+    <Note>
+    All audio generation or processing performed through this connector consumes ElevenLabs credits (based on the selected model and input length), and billing is handled directly by ElevenLabs, not ZenOpus.
+    </Note>
+- ZenOpus workspace owner or admin role
+
+### Step 1: Create an ElevenLabs account and API key
+
+An API key lets you connect to ElevenLabs API and use its features. You can create multiple keys with different access levels.
+
+To create an ElevenLabs API key:
+
+1. Go to [ElevenLabs](https://elevenlabs.io/app/developers/api-keys?source=zenopus) and set up your account.
+1. In **Developers → API keys**, click **Create Key**.
+1. Give the key a descriptive name, for example, `ZenOpus integration`.
+1. Turn on **Restrict Key**.
+1. Set a monthly **Credit Limit**.
+1. Choose which feature endpoints this key can use, depending on what your app needs.
+1. Copy the generated API key and store it securely.
+    <Info>
+    Your API key functions like a password. Keep it secure and never share it publicly. You’ll need it in the next step.
+    </Info>
+
+### Step 2: Connect ElevenLabs to ZenOpus
+
+You can create multiple connections using different API keys.
+
+To connect ElevenLabs:
+
+1. Go to **Settings → Connectors → Shared connectors** and select **ElevenLabs**.
+1. Click **Add connection**.
+1. **Display name**: name the connection, for example `ElevenLabs Prod`.
+1. Under **Authentication**, enter your ElevenLabs API key (`sk_xxxxxxxx…`).
+1. Click **Create**.
+
+When connected, your ZenOpus apps can start generating speech and audio using ElevenLabs.
+
+## How to unlink projects from a connection
+
+Editors and above can remove specific projects from a connection without deleting the connection entirely. The connection will remain available for other projects.
+
+To unlink projects:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **ElevenLabs**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to manage.
+</Step>
+<Step title="Select projects">
+Under **Linked projects**, check the projects you want to unlink.
+</Step>
+<Step title="Confirm">
+Click **Unlink projects** and confirm.
+</Step>
+</Steps>
+
+When unlinked, those projects will no longer have access to **ElevenLabs** through this connection. If a project needs **ElevenLabs** again, you can link it to any available connection.
+
+## How to delete a connection
+
+Workspace admins and owners can delete **ElevenLabs** connections.
+
+<Warning>
+Deleting a connection is permanent and cannot be undone. It will remove the credentials from all linked projects, and any apps using this connection will stop working until a new connection is added.
+</Warning>
+
+Before deleting, review the **Linked projects** section to see which projects are currently using the connection.
+
+To delete a connection:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **ElevenLabs**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to remove.
+</Step>
+<Step title="Review linked projects">
+Review the **Linked projects** section.
+</Step>
+<Step title="Delete">
+Under **Delete this connection**, click **Delete** and confirm.
+</Step>
+</Steps>

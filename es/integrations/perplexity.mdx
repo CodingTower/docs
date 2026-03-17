@@ -1,0 +1,126 @@
+---
+title: "Conecta tu aplicación a Perplexity"
+description: "Conecte su aplicación a Perplexity, un motor de búsqueda impulsado por inteligencia artificial, para recuperar información en tiempo real con citas verificables."
+---
+[Perplejidad](https://www.perplexity.ai/) es una plataforma de búsqueda de inteligencia artificial que arroja respuestas concisas basadas en datos web en vivo y respaldadas por fuentes. Está diseñado para aplicaciones que necesitan **información actualizada y confiable**, en lugar de conocimientos estáticos o de solo capacitación.
+
+Con Perplexity, tu aplicación puede:
+
+- Responda preguntas utilizando información actualizada de la web.
+- Genera resúmenes con citas claras y verificables.
+- Compara empresas, productos o mercados en tiempo real
+- Reduzca las horas de investigación manual a segundos
+
+La perplejidad es una buena opción cuando su aplicación depende de **información reciente respaldada por fuentes**, como noticias, investigaciones, inteligencia de mercado o verificación de hechos.
+
+## Casos de uso comunes y aplicaciones de ejemplo
+
+| Aplicación de ejemplo | Mensaje de ejemplo | Descripción |
+| --- | --- | --- |
+| Asistentes de preparación de ventas | Utilice Perplexity y cree un asistente de preparación de ventas que recopile el contexto de la empresa antes de cada llamada. | Obtenga descripciones generales de la empresa, noticias recientes, cambios de liderazgo y señales de riesgo mediante la búsqueda en vivo. La aplicación ejecuta consultas de Perplexity antes de una reunión y presenta un informe conciso y citado para los representantes de ventas. |
+| Herramientas de investigación de mercado y de la competencia | Cree una herramienta de investigación de la competencia utilizando Perplexity. | Resumir eventos de financiación, lanzamientos de productos, cambios de posicionamiento y actividad del mercado. La aplicación ejecuta múltiples búsquedas de Perplexity en paralelo y agrega los resultados en un panel de investigación. |
+| Seguidores regulatorios o de políticas | Cree una aplicación que rastree las actualizaciones regulatorias usando Perplexity. | Supervise nuevas resoluciones, cambios de políticas o actualizaciones de cumplimiento basadas en fuentes recientes. La aplicación consulta periódicamente a Perplexity y muestra información recientemente publicada o actualizada con citas. |
+| Aplicaciones de verificación de hechos (“¿Es esto cierto?”) | Cree una aplicación de verificación de datos utilizando la búsqueda Perplexity. | Verifique las afirmaciones recuperando fuentes que las apoyen y las que las contradigan. La aplicación acepta una declaración como entrada y devuelve una respuesta sintetizada con referencias citadas. |
+| Asistentes de investigación | Utilice Perplexity y cree un asistente de investigación que responda preguntas abiertas. | Responda preguntas como "¿Qué pasó en esta industria esta semana?" o "¿Quiénes son los principales competidores de X?" La aplicación utiliza Perplexity para generar respuestas estructuradas y citadas. |
+
+## Cómo conectar la perplejidad
+
+Workspace **los administradores** y los **propietarios** pueden conectar Perplexity.
+
+Puede crear múltiples conexiones Perplexity utilizando diferentes claves API, lo cual es útil para separar entornos (por ejemplo, desarrollo y producción) o administrar límites de velocidad.
+
+Cuando se crea la conexión, Perplexity pasa a estar disponible en todos los proyectos en Workspace.
+
+### Requisitos previos
+
+Antes de conectar Perplexity, asegúrese de tener:
+
+- Una cuenta de Perplexity con permisos de administrador para facturación y gestión de claves API
+- Una clave API de Perplejidad
+- ZenOpus Workspace propietario o rol de administrador
+
+<Note>
+Debe tener una cuenta Perplexity activa con acceso API. Todas las solicitudes de búsqueda y respuesta realizadas a través de este conector consumen el uso de la API de Perplexity y la facturación la maneja Perplexity directamente, no ZenOpus.
+</Note>
+
+### Paso 1: cree una cuenta de Perplexity y una clave API
+
+Una clave API le permite conectarse a la API Perplexity y utilizar sus funciones. Puede crear varias claves API en Perplexity.
+
+Para crear una clave API de Perplexity:
+
+1. Vaya a [Perplexity](https://www.perplexity.ai/) y configure su cuenta.
+1. Vaya a **Cuenta (icono de perfil) → API**.
+1. Vaya a **grupo API** para configurar su organización. Complete el nombre, la dirección y los datos fiscales de su organización.
+1. Vaya a **Facturación API** y haga clic en **Agregar método de pago** para ingresar la información de su tarjeta de crédito.
+1. Vaya a **Clave API** y haga clic en **Crear clave**. Asigne a su clave un nombre descriptivo, por ejemplo, `ZenOpus integration`.
+1. Copie la clave API generada y guárdela de forma segura.
+    <Info>
+    Su clave API funciona como una contraseña. Mantenlo seguro y nunca lo compartas públicamente. Lo necesitarás en el siguiente paso.
+    </Info>
+
+Consulte los documentos de Perplexity para obtener instrucciones detalladas: [Grupos de API y facturación](https://docs.perplexity.ai/getting-started/api-groups).
+
+### Paso 2: Conecte Perplejidad a ZenOpus
+
+Puede crear múltiples conexiones usando diferentes claves API.
+
+Para conectar Perplejidad:
+
+1. Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **Perplejidad**.
+1. Haga clic en **Agregar conexión**.
+1. **Nombre para mostrar**: asigne un nombre a la conexión, por ejemplo `Perplexity Prod`.
+1. En **Autenticación**, ingrese su clave API de Perplexity (`pplx-xxxx…`).
+1. Haga clic en **Crear**.
+
+Cuando están conectadas, sus aplicaciones ZenOpus pueden comenzar a usar Perplexity para recuperar información citada en tiempo real.
+
+## Cómo desvincular proyectos de una conexión
+
+Los editores y superiores pueden eliminar proyectos específicos de una conexión sin eliminar la conexión por completo. La conexión permanecerá disponible para otros proyectos.
+
+Para desvincular proyectos:
+
+<Steps>
+<Step title="Navegar a conectores">
+Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **Perplejidad**.
+</Step>
+<Step title="Abre la conexión">
+Abra la conexión que desea administrar.
+</Step>
+<Step title="Seleccionar proyectos">
+En **Proyectos vinculados**, marca los proyectos que deseas desvincular.
+</Step>
+<Step title="Confirmar">
+Haga clic en **Desvincular proyectos** y confirme.
+</Step>
+</Steps>
+
+Cuando se desvinculen, esos proyectos ya no tendrán acceso a **Perplexity** a través de esta conexión. Si un proyecto vuelve a necesitar **Perplexity**, puedes vincularlo a cualquier conexión disponible.
+
+## Cómo eliminar una conexión
+
+Los administradores y propietarios de Workspace pueden eliminar conexiones de **Perplejidad**.
+
+<Warning>
+La eliminación de una conexión es permanente y no se puede deshacer. Eliminará las credenciales de todos los proyectos vinculados y cualquier aplicación que utilice esta conexión dejará de funcionar hasta que se agregue una nueva conexión.
+</Warning>
+
+Antes de eliminar, revise la sección **Proyectos vinculados** para ver qué proyectos están utilizando actualmente la conexión.
+
+Para eliminar una conexión:
+
+<Steps>
+<Step title="Navegar a conectores">
+Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **Perplejidad**.
+</Step>
+<Step title="Abre la conexión">
+Abra la conexión que desea eliminar.
+</Step>
+<Step title="Revisar proyectos vinculados">
+Revise la sección **Proyectos vinculados**.
+</Step>
+<Step title="Eliminar">
+En **Eliminar esta conexión**, haz clic en **Eliminar** y confirma.
+</Step>
+</Steps>

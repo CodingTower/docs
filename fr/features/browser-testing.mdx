@@ -1,0 +1,116 @@
+---
+title: "Testez votre application dans un navigateur"
+description: "Découvrez comment ZenOpus utilise les tests du navigateur pour vérifier votre application en cliquant sur des boutons, en remplissant des formulaires, en testant les flux et en vérifiant le comportement sur toutes les tailles d'écran."
+---
+Les tests du navigateur permettent à ZenOpus d'interagir avec votre application dans un navigateur réel exécuté dans un environnement virtuel. L'agent peut cliquer sur des boutons, remplir des formulaires, parcourir des pages et vérifier le comportement réel des utilisateurs avec des captures d'écran au lieu de se fier uniquement au code.
+
+Utilisez les tests du navigateur pour valider les flux d'utilisateurs, déboguer les problèmes visuels ou comportementaux et confirmer que les modifications fonctionnent comme prévu sur différentes tailles d'écran.
+
+## Ce que les tests de navigateur peuvent faire
+
+Lors de l'exécution des tests du navigateur, l'agent peut :
+
+- Capturer des captures d'écran de l'application
+- Cliquez sur les boutons et les liens
+- Remplissez les entrées et soumettez les formulaires
+- Naviguer entre les pages
+- Lire les journaux de la console et les requêtes réseau
+- Détectez les erreurs d'exécution lors de l'interaction avec votre application
+- Testez différentes tailles d'écran, y compris les dispositions sur mobile, tablette et ordinateur de bureau. Par défaut, il utilise la même taille que votre aperçu.
+
+## Comment fonctionnent les tests de navigateur
+
+ZenOpus utilise les tests du navigateur de manière sélective, après avoir d'abord essayé des méthodes de vérification plus rapides.
+
+Les tests du navigateur peuvent être exécutés lorsque :
+
+- Vous demandez explicitement de vérifier que quelque chose fonctionne. Les phrases déclencheurs courantes incluent :  
+"vérifiez que ça marche", "assurez-vous que ça marche", "testez ça", "vérifiez si ça marche"
+- Les problèmes visuels ou d’interface utilisateur ne peuvent pas être identifiés via les journaux ou l’inspection du code
+- Il y a un changement de fonctionnalité plus important, et ZenOpus propose de tester le flux et vous confirmez
+
+<Tip>
+Évitez de demander à ZenOpus de *faire un changement important et de le tester* dans la même invite.
+
+Si le test du navigateur reste bloqué et que vous l'arrêtez, tout le travail effectué au cours de cette étape peut être perdu.
+
+Un flux plus sûr consiste à créer d’abord, puis à tester dans une invite de suivi.
+</Tip>
+
+### Où ça court
+
+Le navigateur s'exécute à distance dans un environnement virtuel sécurisé. Il ne s'agit pas de votre navigateur personnel et ne reprend pas votre session locale.
+
+- Les tests du navigateur s'exécutent toujours sur l'aperçu du projet sur lequel vous travaillez actuellement et testent exactement la version de l'application que vous consultez.
+- Si votre application utilise l'authentification, les tests du navigateur s'exécutent en utilisant le même utilisateur d'application auquel vous êtes actuellement connecté que dans l'aperçu. Soyez explicite s'il y a des actions ou des zones sur lesquelles il ne faut pas cliquer ou déclencher.
+- Certaines applications ZenOpus Cloud utilisent la fonctionnalité [environnements de test et en direct](/fr/features/environments). Lorsque cette fonctionnalité est activée, les tests du navigateur s'exécutent sur l'aperçu du projet dans l'environnement **test**.
+
+### Que se passe-t-il lors d'un test de navigateur ?
+
+Vous pouvez suivre le processus de test dans une **Vue détaillée** dédiée, dans laquelle l'agent :
+
+- Affiche les étapes qu'il suit, telles que cliquer sur des boutons ou parcourir des pages
+- Capture des captures d'écran de l'application
+- Affiche les URL et les résultats des interactions
+- Résume ce qui a fonctionné et ce qui n'a pas fonctionné
+
+Les tests du navigateur sont plus lents que les actions normales, car l'agent interagit avec un vrai navigateur et vérifie les résultats.
+
+### Exemple : Déclencher manuellement les tests du navigateur
+
+L'exemple ci-dessous montre comment déclencher manuellement le test du navigateur après avoir découvert un problème avec la page de profil. Demandez à ZenOpus de reproduire le problème, de le corriger, puis de vérifier le correctif. Par exemple :
+
+```text
+La page plante lorsque je clique sur mon profil. Reproduisez dans le navigateur, corrigez-le, puis vérifiez que votre correctif a fonctionné.
+```
+
+![Déclenchement manuel des tests du navigateur](/images/zenopus/features/browser-testing/build-browser-testing.png)
+
+## Limites
+
+- Il ne peut pas interagir avec les outils basés sur le canevas ou les outils de dessin.
+- Il ne peut pas télécharger ou télécharger des fichiers
+- Il ne peut pas effectuer d'interactions par clic droit
+- Il peut effectuer des interactions par glisser-déposer, mais elles sont moins fiables que les clics
+- Il peut effectuer des actions dans le presse-papiers et une sélection de texte, mais celles-ci ne sont pas fiables.
+- Il n'est pas fiable pour évaluer les détails subtils de la conception visuelle ou les différences de couleur.
+- Il peut avoir des difficultés à interagir avec les boutons contenant uniquement des icônes par rapport aux boutons libellés en texte.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Les tests du navigateur s'exécutent-ils automatiquement ?">
+Oui, dans certains cas. ZenOpus peut automatiquement suggérer ou utiliser des tests de navigateur lorsqu'une vérification est nécessaire, mais il est conservateur par défaut et essaie d'abord des méthodes plus légères.
+</Accordion>
+<Accordion title="Comment puis-je m'assurer que ZenOpus utilise les tests du navigateur ?">
+Vous pouvez toujours demander explicitement un test du navigateur à tout moment. Les expressions de déclenchement courantes incluent : « vérifiez que cela fonctionne », « assurez-vous que cela fonctionne », « testez ceci », « vérifiez si cela fonctionne ».
+
+Par exemple :
+
+```text
+Utilisez les tests du navigateur pour vérifier ce flux.
+```
+</Accordion>
+<Accordion title="Dans quel environnement les tests de navigateur s'exécutent-ils ?">
+Les tests du navigateur s'exécutent toujours sur l'aperçu du projet sur lequel vous travaillez actuellement. Il teste exactement la version de l'application que vous consultez.
+
+Si votre projet utilise la **séparation des environnements de test et en direct**, les tests du navigateur s'exécutent sur l'aperçu de l'environnement de test.
+</Accordion>
+<Accordion title="Les tests du navigateur utilisent-ils les autorisations de mon application ?">
+Oui. Si votre application utilise l'authentification, l'agent est connecté en tant qu'utilisateur de l'application avec lequel vous êtes actuellement connecté et les tests du navigateur s'exécutent en utilisant le même utilisateur de l'application.
+
+Soyez explicite si quelque chose ne doit pas être cliqué ou déclenché.
+</Accordion>
+<Accordion title="Est-ce mon vrai navigateur ?">
+Non. Les tests de navigateur utilisent un vrai navigateur exécuté dans un environnement virtuel distant. Il ne prend pas en charge votre navigateur ou votre session locale.
+</Accordion>
+<Accordion title="Que se passe-t-il si les tests du navigateur échouent toujours à la même action ?">
+Si l'agent ne parvient pas à interagir à plusieurs reprises avec le même élément, cela peut être dû à des limitations d'interaction du navigateur (plus probable) ou à un problème sous-jacent dans votre application, tel qu'un élément masqué, un état défectueux ou une présentation inattendue.
+
+Essayez ce qui suit :
+
+1. Consultez les captures d'écran et les journaux de l'exécution des tests dans la vue Détails.
+1. Demandez à ZenOpus de rendre l'élément plus facile à interagir (par exemple, en ajoutant du texte visible ou une étiquette d'accessibilité)
+1. Si le problème persiste, demandez explicitement à l'agent d'éviter d'interagir avec cet élément
+</Accordion>
+</AccordionGroup>

@@ -1,0 +1,181 @@
+---
+title: "Project security view"
+description: "Review security findings, fix vulnerabilities, and manage dependency risks for a single project before publishing."
+---
+## What is the Security view?
+
+The Security view shows security findings for a single project. It brings together results from **four automated security scanners** that analyze different parts of your application:
+
+- [RLS analysis](/features/security#protecting-data-access-with-row-level-security-rls): Reviews row-level security policies on database tables
+- [Database security check](/features/security#identifying-database-security-risks): Reviews database schema and RLS configuration for unsafe patterns
+- [Code security review](/features/security#identifying-vulnerabilities-in-application-code): Analyzes application code for common vulnerabilities
+- [Dependency audit](/features/security#identifying-vulnerabilities-in-dependencies): Scans `npm` dependencies for known security vulnerabilities
+
+The results from these scanners are presented together in the Security view so you can understand risks, take action, and verify that your project is ready to publish.
+
+For details on how each scanner works and when scans run, see [Security overview](/features/security).
+
+You’ll find the **Security tab** inside any ZenOpus project by clicking the `+` button next to **Preview**.
+
+<Tip>
+The Security view focuses on a single project.
+
+- To monitor security findings and dependency risks across multiple projects, use the [Security center](/features/security-center).
+- For practical guidance on writing secure code and avoiding common security mistakes, see [Security best practices for ZenOpus apps](/tips-tricks/security-best-practices).
+</Tip>
+
+## Why use the Security view?
+
+- **Catch issues early**  
+Security issues are easier to fix during development than after deployment. The Security view helps identify common problems such as misconfigured database access, insecure code patterns, or vulnerable dependencies before your app goes live.
+- **Focus on what matters**  
+Not all security findings carry the same risk. Findings are categorized by severity so you can prioritize critical issues first and review lower-risk recommendations later.
+- **Save time with guided fixes**  
+Many findings include automated remediation options or clear guidance. You can ask ZenOpus to fix specific issues directly and review the resulting changes.
+- **Track security as your project evolves**  
+As your project changes, previous scan results may become outdated. The Security view clearly shows when scans need to be refreshed so you always know your project’s current security state.
+
+## Improving scan accuracy with context
+
+Click **Add context** to describe your project’s security context. This helps AI scanners tailor recommendations and reduce false positives.
+
+Useful context includes:
+
+- The purpose of the project
+- Who uses the app
+- Whether data is sensitive
+- Whether the environment is development, staging, or production
+
+Context is stored in your project’s [Knowledge](/features/knowledge) and applies to future scans. Security context should describe facts about your project, not justify ignoring legitimate risks.
+
+## Understanding scan status
+
+The scan status at the top of the Security view shows whether your security results reflect your latest changes.
+
+- **Up to date**: All scanners reflect the current version of your project.
+- **Out of date**: One or more scanners have not run since the project changed.
+- **Scanning**: Scans are currently running.
+
+Scan results are tied to a specific version of your code. When your project changes, earlier results may no longer be accurate and are marked as outdated.
+
+## Updating scans
+
+Click **Update** to refresh all outdated scanners. This action is **free and does not consume credits**. Only scanners that need updating will run.
+
+<Note>
+The Code security review scanner only runs when you click Update and does not run automatically.
+</Note>
+
+You should update scans:
+
+- Before publishing
+- After significant code or database changes
+- When adding or updating dependencies
+- Periodically for production applications
+
+## Addressing security findings
+
+All findings appear under **Detected issues** and are grouped by **severity level**. If any errors exist, the view defaults to showing them first.
+
+- **Error**: Critical problems that need your attention right away
+- **Warning**: Issues you should review and fix if necessary
+- **Info**: Suggestions to consider implementing
+
+Click a finding to expand it and review full details, including:
+
+- Which scanner produced the finding
+- A detailed explanation of the issue
+- Why the issue matters for security
+- Suggested remediation steps
+
+You can address findings in several ways:
+
+- **Fix a specific finding**  
+Use the inline chat within a finding to ask ZenOpus to analyze or fix that issue. This action is free and does not consume credits.
+- **Fix multiple findings at once**  
+Use **Try to fix all** to attempt automatic remediation for all findings in the current filter. This action is free and does not consume credits. Automatic fixes require the **Code security review** scan to be up to date. Always review the changes ZenOpus makes and test them thoroughly.
+
+If a finding does not apply to your use case, you can **ignore** it by providing a reason. Ignored findings remain visible, are marked with an ignored label, and can be restored at any time.
+
+Ignoring findings should be a deliberate decision. If you are unsure whether a finding applies, ask ZenOpus for clarification before ignoring it.
+
+All actions within the Security view are free. Conversational security reviews in chat consume credits. See [Security overview](/features/security) for details.
+
+## Advanced features
+
+When **Advanced view** is enabled, the Security view exposes additional tools and details for deeper inspection and control.
+
+### Per-scanner status
+
+Toggle **Advanced view** and click the scan status badge to see detailed information about each scanner, including:
+
+- When each scanner last ran
+- Whether results are up to date
+- Which scanners are currently outdated
+
+This helps you understand exactly what has been checked, what may be stale, and whether you need to refresh scans.
+
+### Managing dependencies
+
+With **Advanced view** enabled, the Security view shows a **Project dependencies** section listing all production `npm` dependencies and known vulnerabilities.
+
+For each dependency, you can see:
+
+- Package name and version
+- Vulnerability counts by severity, including critical, high, and medium
+- A **Fix here** action for vulnerable packages
+
+You can also:
+
+- Filter to show only vulnerable packages
+- Trigger a fresh dependency audit
+- Download a JSON report of all dependencies and vulnerabilities for audits or compliance reviews
+
+Keeping dependencies up to date is one of the most effective ways to reduce security risk over time, especially as new vulnerabilities are disclosed.
+
+## Best practices for using the Security view
+
+The Security view is designed for ongoing use throughout development, not just a final check before publishing. The following best practices reflect how builders commonly use it.
+
+- **Keep security findings current**  
+Review findings regularly and refresh scans when results become outdated, especially after adding features, changing database access, or updating dependencies.
+- **Prioritize critical issues**  
+Address error-level findings before warnings or informational items. Critical findings often represent exploitable vulnerabilities.
+- **Use both scanning approaches**  
+Use automated scans in the Security view for structured checks and targeted fixes. Complement them by periodically asking ZenOpus to “review my app’s security” in chat for a narrative analysis that may catch issues the automated scanners miss.
+- **Manage dependency risk proactively**  
+Regularly review the dependency section and address high-severity vulnerabilities promptly.
+- **Review and verify fixes**  
+Automated fixes can save time, but always review the changes and test your app before continuing development.
+- **Be deliberate when ignoring findings**  
+Ignore findings only when they clearly do not apply. Revisit ignored findings as your project evolves.
+- **Continue monitoring after publishing**  
+Publishing is not the end of security work. Monitor new findings as your app changes over time.
+
+<Warning>
+Automated scans help catch common issues, but they cannot guarantee complete security. For apps handling sensitive data or critical functionality, consider an additional professional security review.
+</Warning>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="How do I access the Security view?">
+You’ll find the **Security tab** inside any ZenOpus project by clicking the `+` button next to **Preview**.
+</Accordion>
+<Accordion title="What does outdated mean?">
+A scanner’s results are outdated when your project has changed since the last scan. Click **Update** to refresh results. Actions on outdated findings are disabled to prevent acting on stale information.
+</Accordion>
+<Accordion title="What is the difference between Update and asking ZenOpus to review security?">
+**Update** refreshes the automated security scanners and updates the findings shown in the Security view. This action is free and does not consume credits.
+
+**Asking ZenOpus to review your app’s security** in chat triggers a separate AI-driven review that provides a narrative report and recommendations. It does not update scanner results or scan status. Conversational security reviews in chat consume credits.
+
+Both approaches are complementary.
+</Accordion>
+<Accordion title="Can I use the Security view for published projects?">
+Yes. Continue monitoring security after publishing, especially when adding features or updating dependencies.
+</Accordion>
+<Accordion title="What happens if I publish with critical findings?">
+ZenOpus warns you before publishing if critical issues exist. You can choose to publish anyway, but this is strongly discouraged since critical findings typically represent exploitable vulnerabilities.
+</Accordion>
+</AccordionGroup>

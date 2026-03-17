@@ -1,0 +1,257 @@
+---
+title: "Configura i pagamenti con Stripe"
+description: "Aggiungi pagamenti o abbonamenti una tantum alla tua app utilizzando l'integrazione Stripe basata sulla chat con Supabase Edge Functions."
+---
+ZenOpus ora ti consente di configurare Stripe interamente tramite **chat**.
+
+**Configurazione automatica basata sulla chat (consigliata)**  
+
+ Dopo aver connesso **Supabase** e salvato la tua **Stripe Secret Key** tramite **Aggiungi chiave API**, descrivi semplicemente ciò di cui hai bisogno:
+
+- "Aggiungi tre livelli di abbonamento..."
+- "Crea un pagamento una tantum per il mio e-book a $ 29"  
+ZenOpus genera le funzioni di checkout/portale, tabelle di database con RLS e pulsanti dell'interfaccia utente: nessuna codifica manuale o webhook a meno che tu non li richieda.
+
+<Note>
+- Per le **vendite una tantum**, assicurati che il carrello o la pagina del prodotto funzionino già.
+- Per gli **abbonamenti**, conferma che Supabase Auth sia attiva in modo che ZenOpus possa collegare i clienti Stripe all'**id** di ciascun utente
+</Note>
+
+### Punti chiave
+
+- Utilizza il **flusso basato sulla chat** sia per gli abbonamenti che per i pagamenti una tantum.
+- **Non incollare mai la chiave segreta Stripe nella chat.** Configurala tramite il modulo **Aggiungi chiave API** in chat.
+- **I webhook sono attivabili.** ZenOpus si basa sul polling delle funzioni edge a meno che tu non richieda i webhook.
+- Eseguire il debug in **Console del browser → Rete/Errori**, **Supabase → Funzioni Edge → Registri** e **Dashboard Stripe → Registri**.
+- Esegui sempre il test in **modalità test Stripe**, quindi esegui il deploy.
+
+## Requisiti
+
+Prima di integrare Stripe, assicurati che siano soddisfatti i seguenti prerequisiti:
+
+- Il progetto **deve** essere connesso a Supabase. [Ulteriori informazioni su Supabase](/it/integrations/supabase)
+- Un **account Stripe** con prodotti correttamente configurati.
+- Un **frontend e backend** funzionanti:
+    - Per le vendite di singoli prodotti, assicurati che il carrello e la pagina di pagamento siano funzionanti.
+    - Per gli abbonamenti, imposta funzionalità di accesso e diversi livelli di prezzo.
+
+<Note>
+**Nota** L'integrazione di Stripe non funziona in anteprima. Per testare l'integrazione, assicurati di eseguire la distribuzione. Dovresti anche assicurarti di essere in modalità test in Stripe quando provi la funzionalità. Durante il test del pagamento, il numero della carta: 4242 4242 4242 4242, qualsiasi 3 cifre come CVC e qualsiasi data futura funzioneranno come una carta.
+</Note>
+
+## Configurazione del pagamento Stripe (flusso di chat senza codice)
+
+ZenOpus ora genera tutta la logica Stripe per te. Una volta che la tua **chiave segreta Stripe** è stata configurata tramite il modulo **Aggiungi chiave API** in chat e il tuo progetto è **connesso a Supabase**, comunica semplicemente a ZenOpus ciò di cui hai bisogno in chat: non sono richiesti collegamenti di pagamento manuali.
+
+<Steps>
+<Step title="Passaggio 1">
+**Prepara il tuo progetto**
+
+- Supabase connesso
+- Chiave segreta Stripe aggiunta tramite il modulo **Aggiungi chiave API** in chat
+- (Facoltativo) Prezzi o ID prodotto a portata di mano
+</Step>
+<Step title="Passaggio 2">
+Esempi:
+
+- Crea un pagamento una tantum per il mio "Corso digitale" a $ 29
+- Imposta un piano Premium annuale per $ 99, legato all'ID di ciascun utente
+</Step>
+<Step title="Passaggio 3">
+**Rivedi e applica** ZenOpus supporta automaticamente le funzioni Edge, le tabelle del database e i componenti dell'interfaccia utente (tutti legati all'ID dell'utente in Supabase). Controlla l'anteprima, quindi fai clic su **Applica** per eseguire la distribuzione.
+</Step>
+</Steps>
+
+<Note>
+- Gli abbonamenti devono sempre essere collegati al `id` dell'utente autenticato in Supabase per un accesso sicuro e basato sul ruolo.
+</Note>
+
+## Integrazione avanzata: Webhook e Supabase
+
+Per strutture di pagamento complesse come **abbonamenti e accesso basato sui ruoli**, ZenOpus consiglia di utilizzare **Supabase** per gestire in modo sicuro l'integrazione di Stripe. Ciò consente la corretta gestione dei webhook, la gestione degli abbonamenti e il controllo degli accessi basato sui ruoli in base ai livelli di pagamento.
+
+<Note>
+La funzione Edge che gestisce le modifiche necessarie all'account utente dovrebbe essere impostata automaticamente dall'intelligenza artificiale.
+</Note>
+
+<Steps>
+<Step title="Connetti Supabase al tuo progetto">
+Iniziare è semplice. ZenOpus semplifica la connessione di Supabase con un'integrazione nativa integrata:
+
+1. Fai clic sul **pulsante Supabase** nell'angolo in alto a destra di ZenOpus.
+1. Segui le istruzioni per collegare il tuo progetto.
+1. Una volta connesso, Supabase consente l'elaborazione sicura dei pagamenti, la gestione degli abbonamenti, la gestione dei webhook, l'archiviazione dei dati dei clienti e la gestione degli errori.
+</Step>
+<Step title="Elaborazione sicura dei pagamenti">
+Avviare il processo richiedendo ZenOpus:
+
+<Note>
+Colleghiamo Stripe al mio progetto. Inizieremo con l'elaborazione sicura dei pagamenti.
+</Note>
+
+ZenOpus genererà lo schema SQL necessario per la gestione dei pagamenti. Ciò include le tabelle del database per utenti, abbonamenti e pagamenti. Puoi rivedere e personalizzare queste tabelle per adattarle alle esigenze specifiche del tuo prodotto prima di applicare le modifiche.
+</Step>
+<Step title="Implementare le funzioni Edge per i webhook">
+Le **Funzioni Edge** in Supabase agiscono come piccole funzioni serverless ad alte prestazioni che vengono eseguite vicino all'utente, garantendo risposte rapide. Aiutano a elaborare gli eventi webhook, come le conferme di pagamento, prima di aggiornare il database.
+
+<Steps>
+<Step title="Passaggio 1">
+**Recupera l'URL dell'endpoint** dalla funzione Edge in Supabase.
+</Step>
+<Step title="Passaggio 2">
+**Vai su Stripe Dashboard** > Sviluppatori > Webhook > Crea una destinazione evento.
+
+![Dashboard di Stripe che mostra la sezione Sviluppatori con la scheda Webhook e il pulsante Crea una destinazione evento](/images/zenopus/integrations/stripe/stripe-api.png)
+</Step>
+<Step title="Passaggio 3">
+**Seleziona eventi webhook** in linea con le esigenze del tuo progetto:
+
+- __CODICE0__
+- __CODICE0__
+- __CODICE0__
+- __CODICE0__
+- __CODICE0__
+</Step>
+<Step title="Passaggio 4">
+**Inserisci l'URL dell'endpoint** da Supabase.
+</Step>
+<Step title="Passaggio 5">
+**Copia il segreto del webhook** e archivialo in modo sicuro in **Supabase → Funzioni Edge → Gestisci segreti → Aggiungi nuovo segreto**.
+
+<Info>
+Se non sei sicuro di nominare il segreto, chiedi indicazioni a ZenOpus in **Plan mode**.
+</Info>
+</Step>
+</Steps>
+</Step>
+<Step title="Passaggio 1">
+**Recupera l'URL dell'endpoint** dalla funzione Edge in Supabase.
+</Step>
+<Step title="Passaggio 2">
+**Vai su Stripe Dashboard** > Sviluppatori > Webhook > Crea una destinazione evento.
+
+![Dashboard di Stripe che mostra la sezione Sviluppatori con la scheda Webhook e il pulsante Crea una destinazione evento](/images/zenopus/integrations/stripe/stripe-api.png)
+</Step>
+<Step title="Passaggio 3">
+**Seleziona eventi webhook** in linea con le esigenze del tuo progetto:
+
+- __CODICE0__
+- __CODICE0__
+- __CODICE0__
+- __CODICE0__
+- __CODICE0__
+</Step>
+<Step title="Passaggio 4">
+**Inserisci l'URL dell'endpoint** da Supabase.
+</Step>
+<Step title="Passaggio 5">
+**Copia il segreto del webhook** e archivialo in modo sicuro in **Supabase → Funzioni Edge → Gestisci segreti → Aggiungi nuovo segreto**.
+
+<Info>
+Se non sei sicuro di nominare il segreto, chiedi indicazioni a ZenOpus in **Plan mode**.
+</Info>
+</Step>
+<Step title="Aggiungi in modo sicuro le chiavi API">
+Per integrare Stripe in modo sicuro, evita di condividere la tua chiave API direttamente in chat. Invece:
+
+![ZenOpus interfaccia che mostra il modulo Aggiungi chiave API per archiviare in modo sicuro le credenziali Stripe](/images/zenopus/integrations/stripe/ConnectZenOpustoStripe-1-.png)
+
+<Steps>
+<Step title="Passaggio 1">
+**Vai su Stripe Dashboard** > Sviluppatori > Chiavi API.
+</Step>
+<Step title="Passaggio 2">
+**Copia la chiave segreta** (NON incollarla direttamente nella chat ZenOpus).
+</Step>
+<Step title="Passaggio 3">
+**Utilizza la funzione ZenOpus "Aggiungi chiave API"** per archiviarla in modo sicuro.
+
+<Warning>
+**Avviso importante di sicurezza**
+
+Non incollare mai la tua **Chiave segreta** direttamente nella chat ZenOpus. Trattale come le chiavi di casa tua: esporle potrebbe consentire l'accesso non autorizzato al tuo account Stripe. Conservalo invece in modo sicuro utilizzando la funzionalità della chiave API di ZenOpus.
+</Warning>
+</Step>
+</Steps>
+</Step>
+<Step title="Passaggio 1">
+**Vai su Stripe Dashboard** > Sviluppatori > Chiavi API.
+</Step>
+<Step title="Passaggio 2">
+**Copia la chiave segreta** (NON incollarla direttamente nella chat ZenOpus).
+</Step>
+<Step title="Passaggio 3">
+**Utilizza la funzione ZenOpus "Aggiungi chiave API"** per archiviarla in modo sicuro.
+
+<Warning>
+**Avviso importante di sicurezza**
+
+Non incollare mai la tua **Chiave segreta** direttamente nella chat ZenOpus. Trattale come le chiavi di casa tua: esporle potrebbe consentire l'accesso non autorizzato al tuo account Stripe. Conservalo invece in modo sicuro utilizzando la funzionalità della chiave API di ZenOpus.
+</Warning>
+</Step>
+<Step title="Testare la tua integrazione">
+- **Utilizza la modalità test di Stripe** per testare i pagamenti in tutta sicurezza.
+- **Dettagli della scheda di prova**:
+    - Numero della carta: `4242 4242 4242 4242`
+    - Qualsiasi data di scadenza futura
+    - Qualsiasi CVC a 3 cifre
+- **Distribuisci la tua app**: l'integrazione di Stripe non funziona in modalità anteprima.
+</Step>
+</Steps>
+
+## Debug e risoluzione dei problemi
+
+<AccordionGroup>
+<Accordion title="Controlla i registri della console">
+<Steps>
+<Step title="Passaggio 1">
+Apri **Strumenti per sviluppatori** (fai clic con il pulsante destro del mouse > Ispeziona > Console in Chrome).
+</Step>
+<Step title="Passaggio 2">
+Cerca gli errori ed esamina i registri eventi del webhook.
+</Step>
+<Step title="Passaggio 3">
+Copia i messaggi di errore e chiedi a ZenOpus assistenza per il debug.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Esamina i log di Supabase">
+<Steps>
+<Step title="Passaggio 1">
+Vai a **Dashboard Supabase**
+</Step>
+<Step title="Passaggio 2">
+Funzioni dei bordi
+</Step>
+<Step title="Passaggio 3">
+Log per verificare la presenza di errori webhook.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Verifica gli eventi webhook in Stripe">
+<Steps>
+<Step title="Passaggio 1">
+Vai a **Stripe Dashboard**
+</Step>
+<Step title="Passaggio 2">
+Registri del webhook
+</Step>
+<Step title="Passaggio 3">
+Conferma che Stripe sta inviando i dati correttamente.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Utilizza ZenOpus Plan mode">
+<Steps>
+<Step title="Passaggio 1">
+Passa alla **modalità Pianifica** e poni ZenOpus domande di follow-up.
+</Step>
+<Step title="Passaggio 2">
+Fai ZenOpus domande di follow-up.
+</Step>
+<Step title="Passaggio 3">
+Utilizza il **Metodo Rubber Duck** e spiega il tuo problema passo dopo passo per chiarirlo.
+</Step>
+</Steps>
+</Accordion>
+</AccordionGroup>

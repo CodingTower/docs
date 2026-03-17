@@ -1,0 +1,235 @@
+---
+title: "Integra un backend con Supabase"
+description: "Connetti ZenOpus con Supabase per funzioni di configurazione backend, database, autenticazione, archiviazione, tempo reale e serverless senza soluzione di continuità."
+---
+L'**integrazione** nativa** di ZenOpus [Supabase](https://supabase.com/) ti consente di gestire sia l'interfaccia utente front-end che il database back-end attraverso un'unica interfaccia di chat facile da usare. In altre parole, puoi progettare le schermate della tua app *e* configurare un database PostgreSQL cloud senza uscire da ZenOpus. Questo approccio unificato rende lo sviluppo di app potente accessibile a tutti: gli utenti non tecnici possono fare affidamento sulla guida di ZenOpus, mentre gli sviluppatori esperti possono sfruttare le funzionalità avanzate di Supabase secondo necessità.
+
+## Panoramica
+
+<iframe src="https://www.youtube.com/embed/-sSOyO0FiPE?si=WljVA-E0YU4LObMY" title="Lettore video di YouTube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+Supabase è un'alternativa open source a Firebase, che fornisce un database PostgreSQL ospitato con funzionalità in tempo reale, autenticazione utente, archiviazione di file e funzioni serverless. Collegando Supabase alla tua app ZenOpus, ottieni immediatamente un backend pronto per la produzione senza scrivere alcun codice boilerplate o configurare manualmente i server. L'intuitiva dashboard web di Supabase semplifica la gestione dei dati e degli utenti, mentre la sua solida base SQL ti consente di mantenere tutta la potenza e la scalabilità di un database PostgreSQL.
+
+### Funzionalità principali sbloccate dall'integrazione di Supabase:
+
+- **Database (PostgreSQL)** – Archivia ed esegui query sui dati della tua app con SQL completo Support. ZenOpus può generare automaticamente le tabelle e lo schema necessari in base alle tue richieste.
+- **Autenticazione utente**: gestisci in modo sicuro le iscrizioni, gli accessi e il controllo degli accessi degli utenti. ZenOpus può aggiungere flussi di autenticazione predefiniti (e-mail/password, ecc.) alla tua app con una semplice richiesta.
+- **Archiviazione file**: carica e offri immagini o altri file tramite Supabase Storage. Ottimo per foto del profilo utente, caricamenti o qualsiasi supporto statico che la tua app deve gestire.
+- **Aggiornamenti in tempo reale** – Supabase può trasmettere in streaming le modifiche ai dati in tempo reale sulla tua app. Ciò abilita funzionalità come chat dal vivo, feed di attività o dashboard collaborativi che si aggiornano istantaneamente per tutti gli utenti.
+- **Funzioni Edge (Serverless)** – Esegui logica di backend personalizzata (in JavaScript/TypeScript) sull'infrastruttura di Supabase. ZenOpus creerà e distribuirà queste funzioni per attività come l'invio di e-mail, l'elaborazione di pagamenti o l'integrazione con API esterne.
+
+### Perché utilizzare l'integrazione Supabase di ZenOpus?
+
+Con ZenOpus, non devi destreggiarti tra strumenti separati per la progettazione front-end e la configurazione back-end. Conversando semplicemente con l'intelligenza artificiale di ZenOpus, puoi creare la tua interfaccia utente *e* creare automaticamente il database sottostante e le funzioni del server. Ciò significa uno sviluppo più rapido e meno problemi di integrazione. Ad esempio, se prompt ZenOpus con "Aggiungi un modulo di feedback utente e salva le risposte nel database", ZenOpus genererà l'interfaccia utente del modulo **e** imposterà una tabella Supabase per archiviare il feedback, tutto in una volta. Questa generazione end-to-end senza soluzione di continuità è il punto di forza unico di ZenOpus, poiché consente ai principianti di creare app complesse e consente agli utenti esperti di muoversi più velocemente.
+
+## Per iniziare: connessione di Supabase a ZenOpus
+
+Connettere un backend Supabase al tuo progetto ZenOpus è semplice. Avrai bisogno di un account Supabase (il livello gratuito va bene) e di un progetto ZenOpus pronto. Se non disponi ancora di un account Supabase, puoi registrarti sul sito Web Supabase: per il livello gratuito non è richiesta alcuna carta di credito.
+
+<iframe src="https://www.youtube.com/embed/V_2aZCjrTJo" title="Lettore video di YouTube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Crea un account Supabase">
+Registra un nuovo account Supabase [qui](https://app.supabase.com/sign-up) o [accedi](https://app.supabase.com/sign-in) se ne hai già uno.
+
+<iframe src="https://www.youtube.com/embed/g8CvOq3b-sg" title="Lettore video di YouTube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+</Step>
+<Step title="Crea un nuovo progetto in Supabase.">
+Fai clic su + Nuovo progetto, completa i campi necessari e attendi qualche minuto per la configurazione.
+
+<iframe src="https://www.youtube.com/embed/z6eDOn1613U?si=OhuL1AdNObVYFkbY" title="Lettore video di YouTube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+</Step>
+<Step title="Connetti Supabase a ZenOpus">
+<Steps>
+<Step title="Avvia la connessione Supabase in ZenOpus.">
+Nell'editor del progetto, vai alle impostazioni del progetto. Trova la scheda Supabase in Integrazioni. Fare clic su **Connetti Supabase**. ZenOpus ti chiederà di accedere al tuo account Supabase. Accedi al tuo account Supabase e autorizza ZenOpus.
+</Step>
+<Step title="Autorizza e seleziona o crea un progetto.">
+Successivamente, ti verrà chiesto di scegliere una **organizzazione** e un **progetto** Supabase da collegare alla tua app ZenOpus. Puoi selezionare un progetto esistente o crearne uno nuovo sul posto (la chat di ZenOpus ti guiderà attraverso la creazione di un nuovo progetto Supabase, se necessario).
+</Step>
+<Step title="Attendi il completamento della configurazione.">
+Dopo aver selezionato il progetto, ZenOpus configurerà automaticamente la connessione. Entro pochi secondi dovresti vedere un messaggio di conferma nella chat (es. “✅ Supabase connesso”). A questo punto, la tua app ZenOpus è ora collegata al database Supabase, pronta per l'uso dell'autenticazione, dell'archiviazione dei dati e di altre funzionalità di backend.
+</Step>
+</Steps>
+
+<Tip>
+Sia ZenOpus che Supabase offrono generosi livelli gratuiti per lo sviluppo. Se la tua app cresce o richiede funzionalità avanzate, potresti eventualmente aver bisogno di piani a pagamento per ciascun servizio separatamente. Per ora puoi sperimentare senza sostenere costi.
+</Tip>
+</Step>
+<Step title="Avvia la connessione Supabase in ZenOpus.">
+Nell'editor del progetto, vai alle impostazioni del progetto. Trova la scheda Supabase in Integrazioni. Fare clic su **Connetti Supabase**. ZenOpus ti chiederà di accedere al tuo account Supabase. Accedi al tuo account Supabase e autorizza ZenOpus.
+</Step>
+<Step title="Autorizza e seleziona o crea un progetto.">
+Successivamente, ti verrà chiesto di scegliere una **organizzazione** e un **progetto** Supabase da collegare alla tua app ZenOpus. Puoi selezionare un progetto esistente o crearne uno nuovo sul posto (la chat di ZenOpus ti guiderà attraverso la creazione di un nuovo progetto Supabase, se necessario).
+</Step>
+<Step title="Attendi il completamento della configurazione.">
+Dopo aver selezionato il progetto, ZenOpus configurerà automaticamente la connessione. Entro pochi secondi dovresti vedere un messaggio di conferma nella chat (es. “✅ Supabase connesso”). A questo punto, la tua app ZenOpus è ora collegata al database Supabase, pronta per l'uso dell'autenticazione, dell'archiviazione dei dati e di altre funzionalità di backend.
+</Step>
+</Steps>
+
+## Aggiunta dell'autenticazione utente
+
+Una delle prime cose che probabilmente vorrai è l'autenticazione dell'utente (in modo che le persone possano registrarsi e accedere alla tua app). L'integrazione Supabase di ZenOpus rende banale la configurazione tramite chat.
+
+<iframe src="https://www.youtube.com/embed/LHpMUj-Jf_k" title="Lettore video di YouTube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+### Email e password (configurazione di base)
+
+Una volta che il tuo progetto è connesso a Supabase, ZenOpus può generare pagine di autenticazione per te. Ad esempio, puoi semplicemente chiedere: **"Aggiungi login"**. Questo in genere creerà una pagina di accesso di base (e il relativo flusso di registrazione) nella tua app, collegata al sistema di autenticazione di Supabase.
+
+Dopo che ZenOpus ha aggiunto l'interfaccia utente di accesso, hai un paio di modi per creare utenti per il test:
+
+<Note>
+Richiesta di esempio:
+
+```text
+Aggiungi accesso
+```
+</Note>
+
+- **Tramite il modulo di registrazione della tua app:** Utilizza l'interfaccia appena aggiunta nella tua app per registrare un utente (questo comunicherà con Supabase per creare l'account).
+- **Tramite la dashboard di Supabase:** vai alla dashboard del tuo progetto Supabase, vai su **Autenticazione > Utenti** e aggiungi manualmente un nuovo utente (e-mail e password). Questo è utile per impostare rapidamente un account di prova.
+
+<Tip>
+Per comodità di sviluppo, ti consigliamo di disabilitare la conferma via email in Supabase durante il test. In questo modo, gli utenti possono accedere immediatamente senza dover verificare un'e-mail. Per fare ciò, apri la dashboard di Supabase e vai su **Autenticazione > Impostazioni (o Provider) > Email**, quindi **disabilita il requisito "Conferma email"**. È possibile riattivare le conferme più avanti nella produzione per motivi di sicurezza.
+</Tip>
+
+ZenOpus avrà già configurato la tua app ZenOpus per riconoscere gli utenti autenticati (ad esempio, riservando determinate pagine solo agli utenti che hanno effettuato l'accesso, se appropriato). Puoi personalizzare ulteriormente l'aspetto delle pagine di accesso/registrazione utilizzando l'editor o le istruzioni di ZenOpus. Supabase Integration 2.0 consente anche di aggiungere campi extra al modulo di registrazione o di modellare il modulo in modo che corrisponda al tuo marchio.
+
+### Login social (ad es. Google)
+
+<iframe src="https://www.youtube.com/embed/W6-_0-Eekio?si=8WkxiJn0oe4wfSbe" title="Lettore video di YouTube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+Supabase supporta gli accessi OAuth come Google, GitHub, Twitter e altri. Puoi integrarli anche nella tua app ZenOpus:
+
+1. **Abilita il provider in Supabase:** Nella dashboard di Supabase, vai a **Autenticazione > Provider**. Vedrai un elenco di provider di accesso esterni. Attiva **Google** (ad esempio) e segui le istruzioni per fornire l'ID client OAuth e il segreto richiesti da Google. *(Supabase ti guiderà su come ottenere queste credenziali dalla console per sviluppatori di Google.)* Salva le impostazioni: il tuo progetto Supabase ora sa come gestire gli accessi a Google.
+1. **Aggiorna l'interfaccia utente della tua app ZenOpus:** Successivamente, puoi prompt ZenOpus aggiungere un'opzione di accesso social. Ad esempio: **"Aggiungi un pulsante "Accedi con Google" alla pagina di accesso."** ZenOpus modificherà la pagina di autenticazione, aggiungendo un pulsante di accesso a Google e il codice necessario per avviare il flusso OAuth tramite Supabase.
+
+Una volta fatto ciò, gli utenti della tua app potranno fare clic su "Accedi con Google", essere reindirizzati a Google per l'autenticazione e quindi tornare alla tua app come utenti che hanno effettuato l'accesso. Puoi abilitare altri provider (GitHub, Facebook, ecc.) in modo simile: ricorda solo di configurarli ciascuno in Supabase e quindi modificare di conseguenza la tua interfaccia utente ZenOpus.
+
+## Gestione dei dati con Supabase
+
+Oltre all'autenticazione, il fulcro della maggior parte delle app è la lettura e la scrittura dei dati. Con ZenOpus e Supabase, puoi creare tabelle di database e collegarle alla tua interfaccia utente senza lasciare il prompt della chat.
+
+<iframe src="https://www.youtube.com/embed/V5LdDEuCli4" title="Lettore video di YouTube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+### Creazione di tabelle di database tramite ZenOpus
+
+Dopo aver connesso Supabase, ogni volta che hai bisogno di archiviare dati in modo persistente, puoi istruire ZenOpus e lui coordinerà la configurazione del database per te. Il processo in genere è simile al seguente:
+
+<Steps>
+<Step title="Descrivi la funzionalità e i dati di cui hai bisogno">
+Nella chat di ZenOpus, richiedi una funzionalità che implica l'archiviazione dei dati. Ad esempio, potresti dire: **"Aggiungi un modulo di feedback e salva le risposte in una tabella di database."** Sii il più chiaro possibile su quali dati desideri archiviare (ad esempio il feedback degli utenti con un messaggio e una valutazione o un articolo di inventario con nome, prezzo, ecc.). ZenOpus utilizzerà queste informazioni per determinare quale struttura di database è richiesta.
+</Step>
+<Step title="Esamina lo snippet SQL generato">
+L'intelligenza artificiale di ZenOpus proporrà aggiornamenti alla tua app. Poiché la tua richiesta prevede la memorizzazione di dati, ZenOpus produrrà anche uno snippet di schema SQL, essenzialmente i comandi per creare le tabelle o le colonne necessarie in Supabase. Ad esempio, potrebbe dire qualcosa del tipo: _"Creerò una tabella *`feedback`*con le colonne _ `id`*, *`message`* e *`rating`*"* e fornirò il codice SQL per questo. Questo snippet viene visualizzato nella chat o nella barra laterale affinché tu possa copiarlo.
+</Step>
+<Step title="Esegui l'SQL in Supabase">
+Apri la dashboard di Supabase e vai all'**editor SQL**. Incolla lo snippet SQL da ZenOpus ed eseguilo, che creerà la nuova tabella (o modificherà una tabella esistente) nel tuo database. Puoi verificare nell'**Editor di tabella** di Supabase che la tabella ora esista con le colonne specificate.
+</Step>
+<Step title="Conferma e lascia che ZenOpus termini l'integrazione">
+Tornando a ZenOpus, conferma di aver eseguito l'SQL (la chat potrebbe chiedere conferma oppure puoi semplicemente dire a ZenOpus "fatto" o fare clic su una conferma fornita). ZenOpus finalizzerà quindi l'integrazione: aggiorna l'interfaccia utente della tua app per associare input, elenchi o altri componenti del modulo alla nuova tabella Supabase. Continuando il nostro esempio, il modulo di feedback nella tua app è ora connesso: quando un utente invia un feedback, verrà salvato nella tabella `feedback` e potrai recuperare e visualizzare anche quelle voci.
+</Step>
+</Steps>
+
+Questo è tutto\! Non è stato necessario progettare manualmente uno schema di database o scrivere alcun codice backend: ZenOpus e Supabase lo hanno gestito dalla tua descrizione. Puoi ripetere questo processo per qualsiasi nuova funzionalità di dati (post di blog, commenti, prodotti, ecc.).
+
+Ad esempio, se desideri che gli utenti siano in grado di pubblicare articoli nella tua app, potresti chiedere: **"Consenti agli utenti di creare post con un titolo e contenuto e memorizzarli nel database."** ZenOpus genererebbe una tabella `posts` (con campi per titolo, contenuto, autore, timestamp, ecc.), ti fornirebbe l'SQL per aggiungerlo a Supabase e quindi collegherebbe i moduli e le pagine front-end a quella tabella.
+
+<Note>
+La dashboard di Supabase offre una ricca interfaccia per gestire i tuoi dati. Puoi visualizzare e modificare le righe della tabella in un'interfaccia utente simile a un foglio di calcolo, definire le relazioni tra le tabelle e persino importare dati da CSV o Excel. Dietro al cofano c'è tutto PostgreSQL, il che significa che puoi eseguire query complesse o utilizzare funzionalità SQL secondo necessità. Supabase fornisce anche un **Assistente SQL AI** nel suo editor SQL per aiutarti a scrivere query se non hai familiarità con SQL. Questo può essere utile per l'analisi avanzata o la risoluzione dei problemi.
+</Note>
+
+### Archiviazione di file (immagini e contenuti multimediali)
+
+Quando la tua app ZenOpus deve gestire i caricamenti di file (ad esempio, immagini del profilo utente, allegati o qualsiasi supporto), l'integrazione di Supabase ti copre. Supabase include un servizio di **Archiviazione** per ospitare file (immagini, video, PDF, ecc.) comodamente insieme al tuo database.
+
+Se aggiungi un componente **Carica** o una funzione di caricamento immagini nella tua app ZenOpus, ZenOpus utilizzerà Supabase Storage dietro le quinte. I file caricati verranno archiviati in un bucket di archiviazione all'interno del tuo progetto Supabase e riceverai un URL o un riferimento da utilizzare per visualizzare o scaricare il file in un secondo momento.
+
+Per impostazione predefinita, il livello gratuito di Supabase consente di caricare file fino a **50 MB** ciascuno. Questo è sufficiente per la maggior parte delle immagini o dei brevi video. Se la tua app deve gestire file più grandi, i piani a pagamento di Supabase Support caricamenti più grandi (inclusi **caricamenti ripristinabili** per file molto grandi). Puoi organizzare i file in cartelle (bucket) e gestire le autorizzazioni di accesso tramite la dashboard di Supabase secondo necessità.
+
+<Note>
+Supponiamo che la tua app disponga di profili utente e desideri che gli utenti aggiungano un'immagine del profilo. Potresti prompt ZenOpus: *"Aggiungi il caricamento di un'immagine del profilo alla pagina delle impostazioni dell'account."* ZenOpus creerà l'interfaccia utente per caricare un'immagine. Grazie all'integrazione Supabase, quando un utente carica un file, questo viene salvato nel tuo spazio di archiviazione Supabase (in un bucket, ad esempio `public/avatar-images`) e ZenOpus gestirà il recupero dell'URL dell'immagine per visualizzare l'immagine del profilo nella tua app. Tutto ciò avviene senza che tu scriva alcun codice per la gestione dello storage.
+</Note>
+
+## Memorizzazione dei segreti (chiavi API e configurazione)
+
+Molte applicazioni richiedono chiavi segrete o credenziali API per connettersi a servizi di terze parti, ad esempio Stripe per i pagamenti o OpenAI per le funzionalità AI. Quando Supabase è connesso, ZenOpus offre un modo sicuro per gestire e utilizzare questi segreti.
+
+ZenOpus rileva automaticamente quando una funzionalità richiede un segreto e richiede tramite un'interfaccia utente di inserire i valori necessari.
+
+Questi segreti sono archiviati in modo sicuro nel gestore dei segreti Edge Function di Supabase per il tuo progetto. Sono crittografati e mantenuti al sicuro nel backend. Quando distribuisci Edge Functions (vedi la sezione successiva), possono accedere a questi segreti per connettersi con servizi esterni.
+
+<Tip>
+Ad esempio, se integri Stripe per i pagamenti, memorizzerai la tua chiave segreta Stripe come segreta. Quando ZenOpus distribuisce una funzione di elaborazione dei pagamenti su Supabase, includerà automaticamente quella chiave dall'archivio segreto in modo che la funzione possa autenticarsi con Stripe. In questo modo non dovrai mai codificare i segreti nella tua app ed eviterai di esporli pubblicamente.
+</Tip>
+
+## Logica backend con Edge Functions
+
+<iframe src="https://www.youtube.com/embed/p_hKIDlxXp0" title="Lettore video di YouTube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+A volte la tua app necessita di una logica di backend personalizzata oltre al CRUD dei dati di base (Crea, Leggi, Aggiorna, Elimina). **Supabase Edge Functions** sono funzioni serverless (simili ad AWS Lambda) che consentono di eseguire codice sul backend attivato da eventi o richieste. L'integrazione di ZenOpus significa che puoi definire il comportamento del backend desiderato in un linguaggio semplice e ZenOpus scriverà e distribuirà il codice Edge Function necessario su Supabase per te.
+
+I casi d'uso tipici per le funzioni Edge in ZenOpus includono:
+
+- **Utilizzo dei servizi AI:** ad es. elaborazione di alcuni input con API OpenAI o Anthropic (con la chiave API archiviata come segreta come descritto sopra).
+- **Invio di email o notifiche:** ad es. invio di un'e-mail di benvenuto quando un utente si iscrive, tramite un'API di posta elettronica come Resend.
+- **Elaborazione dei pagamenti:** ad es. creare una sessione di pagamento o evadere un ordine utilizzando l'API di Stripe.
+- **Attività pianificate:** ad es. eseguire un lavoro di pulizia o di riepilogo ogni ora/giorno (le Supabase Edge Functions possono essere attivate in base a una pianificazione).
+- **Calcoli complessi o integrazioni di terze parti:** qualsiasi codice che non desideri eseguire sul lato client può essere eseguito in una funzione Edge.
+
+Per aggiungere una funzione di backend, descrivi semplicemente ciò di cui hai bisogno nella chat ZenOpus. Ad esempio: *"Quando un utente invia il modulo di feedback, analizza il testo utilizzando OpenAI e memorizza un punteggio di sentiment."* ZenOpus genererà il codice per questa logica come funzione Edge Supabase (in questo caso, chiamando l'API OpenAI) e lo distribuirà al tuo progetto Supabase. Aggiornerà inoltre la tua app ZenOpus per chiamare questa funzione al momento giusto (ad esempio, all'invio del modulo) e gestire la risposta.
+
+Puoi trovare e monitorare le tue Funzioni Edge nella dashboard di Supabase in **Funzioni**. Ogni funzione avrà registri che mostrano le esecuzioni recenti e qualsiasi output o errore. Supabase Integration 2.0 di ZenOpus migliora questa esperienza leggendo automaticamente i registri quando qualcosa va storto: se la tua funzione presenta un errore, ZenOpus mostrerà il messaggio di errore nella chat per aiutarti a risolvere il problema. Naturalmente, puoi sempre controllare tu stesso i registri di Supabase per maggiori dettagli o per tranquillità.
+
+<Warning>
+**Prima della pubblicazione:** le regole di sicurezza predefinite di Supabase sono permissive per lo sviluppo, ma è necessario impostare le policy di **Row Level Security (RLS)** per proteggere i dati in produzione. La RLS ti consente di definire chi può leggere o scrivere ogni riga nelle tabelle del tuo database (ad esempio, garantendo che gli utenti possano accedere solo ai propri dati). ZenOpus può aiutare a generare policy RLS di base se richiesto (ad esempio, "Applica policy di sicurezza in modo che gli utenti possano modificare solo il proprio feedback"). Tuttavia, rivedi e testa sempre queste politiche nella dashboard di Supabase in **Autenticazione > Politiche**. Una corretta configurazione della sicurezza è fondamentale prima di invitare utenti reali alla tua app.
+</Warning>
+
+### Domande frequenti
+
+<AccordionGroup>
+<Accordion title="Cosa fa effettivamente per me l'integrazione di Supabase?">
+Fornisce alla tua app ZenOpus un backend completamente gestito. Senza di esso, ZenOpus può comunque creare la tua interfaccia utente, ma non avresti un posto dove rendere persistenti i dati o gestire gli utenti immediatamente. Con Supabase connesso, ZenOpus può creare account utente (autenticazione), archiviare e recuperare dati in un database, caricare file, eseguire codice lato server e altro ancora, tutto automaticamente. In sostanza, Supabase fornisce i database e i server dietro la tua app e ZenOpus la guida attraverso le richieste.
+</Accordion>
+<Accordion title="Ho bisogno di account separati per ZenOpus e Supabase?">
+SÌ. ZenOpus e Supabase sono due piattaforme separate. Avrai bisogno di un account su Supabase (per ospitare il tuo database) oltre al tuo account ZenOpus. La buona notizia è che entrambi hanno livelli gratuiti, quindi puoi iniziare senza alcun costo. Ricorda solo che se in seguito esegui l'aggiornamento per un maggiore utilizzo o funzionalità, gestirai la fatturazione per ciascun servizio individualmente.
+</Accordion>
+<Accordion title="Come collego ZenOpus con Supabase?">
+1. Nell'editor ZenOpus, vai alla sezione **Integrazioni**.
+1. Fai clic su **Connetti a Supabase** e segui i passaggi di autenticazione.
+1. Se necessario, crea un nuovo progetto Supabase in ZenOpus.
+1. ZenOpus genererà automaticamente lo schema del database necessario e lo collegherà al tuo progetto.
+</Accordion>
+<Accordion title="Posso integrare la mia app ZenOpus connessa a Supabase con strumenti di automazione esterni?">
+Assolutamente. Quando usi ZenOpus + Supabase, i tuoi dati risiedono nel database di Supabase e Supabase fornisce anche API RESTful generate automaticamente per le tue tabelle (oltre a una libreria client). Ciò significa che puoi utilizzare strumenti come Zapier, [Make.com](http://Make.com) o qualsiasi altro servizio per interagire con i dati di backend della tua app tramite richieste HTTP. Ad esempio, Zapier potrebbe recuperare o aggiungere record a una tabella Supabase della tua app. Inoltre, puoi creare endpoint API personalizzati utilizzando Supabase Edge Functions (che ZenOpus può aiutare a creare) per attivare flussi di lavoro più complessi. In breve, l’integrazione con servizi di automazione di terze parti è fattibile: potrebbe richiedere solo un po’ di configurazione con le chiavi API o i webhook di Supabase.
+</Accordion>
+<Accordion title="Quanto è scalabile Supabase quando la mia app cresce?">
+Supabase è basato su **PostgreSQL**, che può gestire grandi quantità di dati e traffico elevato. Fuori dagli schemi, il tuo database gratuito può gestire un carico di lavoro decente (milioni di righe, connessioni multiple). Man mano che le tue esigenze crescono, puoi aggiornare il tuo piano Supabase per più spazio di archiviazione, velocità effettiva e funzionalità. Molte app di produzione funzionano interamente su Supabase, quindi sei in buone mani. Tieni solo presente i limiti di utilizzo del livello gratuito (che Supabase documenta sul loro sito) e pianifica di aumentare se ti avvicini a tali limiti.
+</Accordion>
+<Accordion title="Come posso aggiungere funzionalità in tempo reale come una chat o un feed live alla mia app?">
+Supabase ha abbonamenti in tempo reale integrati nel tuo database. Ciò significa che la tua app può rilevare modifiche (inserimenti, aggiornamenti, eliminazioni) su tabelle specifiche e reagire immediatamente. Per sfruttare questo, progetteresti la funzionalità dell'app ZenOpus come al solito (ad esempio una chat room che scrive messaggi su una tabella `messages`). ZenOpus conosce le capacità in tempo reale di Supabase, quindi può configurare il front-end per sottoscrivere le modifiche di quella tabella. In pratica, dopo aver creato una tabella, ad esempio, per i messaggi di chat, puoi prompt ZenOpus per **"abilitare gli aggiornamenti in tempo reale per la chat"** e utilizzerà l'API in tempo reale di Supabase sotto il cofano. Gli utenti vedranno quindi i nuovi messaggi apparire in tempo reale senza bisogno di aggiornare. Funziona per qualsiasi scenario in cui gli aggiornamenti in tempo reale sono utili (commenti, notifiche, dashboard, ecc.).
+</Accordion>
+<Accordion title="Esiste un limite al caricamento di file con l'archiviazione Supabase?">
+Nel livello gratuito, Supabase limita la dimensione di caricamento dei singoli file a **50 MB**. Questo copre la maggior parte dei casi d'uso come immagini, audio o brevi video. Se devi gestire file più grandi (come video lunghi o set di dati di grandi dimensioni), l'aggiornamento a un piano a pagamento consente caricamenti più grandi e persino ripristinabili. Tieni inoltre presente che esiste una quota di archiviazione complessiva per progetto (ad esempio quanti GB totali puoi archiviare) che aumenta con piani più alti.
+</Accordion>
+<Accordion title="Come posso configurare l'autenticazione in Supabase?">
+ZenOpus imposta automaticamente l'autenticazione, ma potrebbe essere necessario:
+
+- Vai su **Dashboard Supabase > Autenticazione**.
+- Abilita **Accesso/Registrazione via e-mail**.
+- Disabilita la conferma via email per facilitare i test locali.
+</Accordion>
+<Accordion title="Posso utilizzare un database Supabase per più progetti ZenOpus?">
+Sì, puoi. Potresti creare più applicazioni front-end in ZenOpus che si connettono tutte allo stesso progetto Supabase (e quindi condividono lo stesso database e autenticazione). Si tratta di una soluzione avanzata, ma è possibile: ad esempio, un'app principale e un dashboard di amministrazione come progetti ZenOpus separati utilizzando un database comune. Quando colleghi Supabase in ciascun progetto, seleziona semplicemente lo stesso progetto Supabase. Tieni presente che tutte queste app leggeranno/scriveranno gli stessi dati, quindi progetta di conseguenza.
+</Accordion>
+<Accordion title="Cosa succede se voglio testare le modifiche al mio database senza influire sull'app live?">
+Al momento, ogni progetto ZenOpus si connette a un progetto Supabase e ZenOpus non ha una modalità di gestione temporanea incorporata. Se desideri un terreno di gioco sicuro in cui sperimentare, Supabase offre una funzionalità chiamata **Branching** che ti consente di creare una copia temporanea del tuo database (come un ramo git) per testare le modifiche. Potresti connettere un progetto ZenOpus separato a un ramo o un duplicato del tuo database per testarlo. In generale, per progetti seri dovresti prestare attenzione nell'apportare modifiche allo schema su un'app live, magari creare un backup o utilizzare la ramificazione, quindi unire le modifiche quando sei pronto. L'integrazione di ZenOpus è in evoluzione, quindi gli aggiornamenti futuri potrebbero introdurre flussi di lavoro di gestione temporanea più fluidi.
+</Accordion>
+<Accordion title="Supabase o ZenOpus mi aiutano a scrivere logica SQL o database personalizzata?">
+SÌ. L'interfaccia web di Supabase include un **Assistente SQL AI** in grado di generare query SQL dal linguaggio naturale. Quindi, se hai bisogno di una query complessa o non ti senti a tuo agio nello scrivere SQL, puoi provare questo strumento nell'editor SQL di Supabase. Da parte di ZenOpus, in genere non è necessario scrivere manualmente l'SQL: l'intelligenza artificiale gestisce la maggior parte della creazione dello schema e delle query per te. Ma se sei un utente avanzato e desideri fare qualcosa di personalizzato, puoi sempre utilizzare l'integrazione GitHub di ZenOpus per ispezionare o modificare il codice oppure eseguire SQL raw sul database secondo necessità.
+</Accordion>
+<Accordion title="Come gestisco i pagamenti nella mia app ZenOpus?">
+I pagamenti vengono gestiti tramite integrazioni come Stripe, che puoi utilizzare insieme a Supabase Edge Functions. Ad esempio, potresti prompt ZenOpus: "Aggiungi un pulsante di pagamento ed elabora i pagamenti con Stripe". ZenOpus creerebbe quindi una funzione Edge che comunica con l'API di Stripe (utilizzando la chiave segreta Stripe archiviata come segreto) e forse memorizzerebbe i dettagli della transazione nel tuo database Supabase. L'interfaccia utente verrà aggiornata per includere il pulsante di pagamento/pagamento. In sostanza, Supabase fornisce l'ambiente (Edge Functions, database) per implementare i pagamenti e ZenOpus può supportare il codice per te. Per maggiori dettagli, puoi anche fare riferimento alla guida all'integrazione di Stripe & Payments nella documentazione di ZenOpus, che tratta specificamente la configurazione di Stripe.
+</Accordion>
+</AccordionGroup>

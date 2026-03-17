@@ -1,0 +1,161 @@
+---
+title: "Testez et vérifiez votre application"
+description: "ZenOpus fournit des tests de navigateur, des tests frontaux et une vérification des fonctions Edge pour aider à comprendre le comportement du système, valider les flux de travail des utilisateurs et garantir que la logique backend fonctionne comme prévu."
+---
+ZenOpus vous propose plusieurs façons de vérifier que votre application se comporte comme prévu. Ces outils vous aident à reproduire les problèmes, à confirmer les correctifs et à éviter les régressions dans le comportement du front-end et du back-end.
+
+<Tip>
+**Choisissez le bon test**
+
+Si vous ne savez pas quel outil de test utiliser, commencez par le type de comportement que vous souhaitez vérifier.
+
+- Si le problème est visible pour les utilisateurs, utilisez les tests du navigateur.
+- Si le comportement de l’interface utilisateur doit rester correct au fil du temps, utilisez des tests frontaux.
+- Si le problème concerne la logique backend, appelez directement la fonction Edge, puis ajoutez un test Edge.
+</Tip>
+
+## Ce que ZenOpus peut observer lors de la vérification
+
+ZenOpus collecte des informations lorsque l'agent exécute des outils de vérification. Ces informations sont collectées automatiquement dans le cadre de ces outils et sont utilisées pour comprendre ce qui se passe dans votre application.
+
+ZenOpus peut capturer :
+
+- journaux de la console du navigateur pendant les tests du navigateur
+- requêtes réseau effectuées lors des tests du navigateur
+- échecs de test et erreurs de génération à partir des exécutions de tests
+- données de requête et de réponse lors de l'appel direct des fonctions backend
+
+Ces signaux sont disponibles chaque fois que les outils appropriés sont utilisés et suffisent souvent à diagnostiquer les problèmes sans débogage manuel supplémentaire.
+
+ZenOpus prend en charge plusieurs approches de test, chacune conçue pour un type de vérification différent. La plupart des tests appartiennent à l'une des deux catégories suivantes :
+
+- vérifier les flux d'utilisateurs complets
+- vérifier des règles ou des comportements spécifiques de manière isolée
+
+## Test du navigateur
+
+[Test du navigateur](/fr/features/browser-testing) vérifie le comportement réel des utilisateurs en interagissant avec votre application dans un navigateur. L'agent peut parcourir les pages, cliquer sur des boutons, remplir des formulaires et soumettre des demandes. Ce faisant, il peut capturer des captures d’écran, inspecter les éléments de l’interface utilisateur et observer l’activité de la console et du réseau.
+
+Utilisez les tests du navigateur lorsque :
+
+- quelqu'un signale un comportement d'interface utilisateur défectueux ou inattendu
+- vous devez vérifier un flux en plusieurs étapes tel que l'intégration ou le paiement
+- le problème peut dépendre du routage, de l'authentification, du timing ou de l'état
+- vous souhaitez confirmer les modifications du point de vue d'un utilisateur
+
+Les tests du navigateur sont plus lents que les autres méthodes, mais ils donnent l’image la plus claire de ce qu’un utilisateur vit réellement.
+
+Les tests du navigateur peuvent être lancés par l'agent pendant l'enquête. Vous pouvez également le demander explicitement.
+
+**Exemple**
+
+```text
+Utilisez les tests du navigateur pour vérifier le flux de paiement.
+```
+
+## Tests frontaux
+
+Les tests frontend vérifient le comportement de l'interface utilisateur de manière isolée à l'aide d'assertions claires. Ils sont utiles pour garantir que la logique spécifique de l’interface utilisateur continue de fonctionner comme prévu au fil du temps.
+
+Les tests frontaux s'exécutent dans un environnement de navigateur simulé, s'exécutent rapidement et donnent des résultats cohérents, et se trouvent généralement à côté des composants sous forme de fichiers `.test.tsx`.
+
+**Pile de tests**
+
+- Vitester
+- Bibliothèque de tests de réaction
+- jsdom
+
+Utilisez des tests frontaux lorsque :
+
+- le problème peut être décrit comme une règle ou une attente claire
+- vous corrigez une régression de l'interface utilisateur et souhaitez l'empêcher de revenir
+- vous travaillez avec un rendu conditionnel ou des états complexes tels que des formulaires, des tableaux et des filtres
+- vous voulez un retour rapide sans exécuter l'application complète
+
+Les tests frontaux s'exécutent uniquement sur demande.
+
+**Exemple**
+
+```text
+Écrivez et exécutez des tests frontaux pour le formulaire de connexion.
+```
+
+## Vérification du backend avec des fonctions Edge
+
+ZenOpus fournit deux méthodes complémentaires pour vérifier le comportement du backend dans les fonctions Edge : les appels directs et les tests automatisés. Ces approches sont souvent utilisées ensemble.
+
+### Appels de fonctions de bord direct
+
+Les appels directs permettent à l'agent d'exécuter une fonction Edge avec des entrées spécifiques et d'inspecter le résultat immédiatement. Cela évite la complexité liée à l’interface utilisateur et est utile pour une isolation rapide. Si vous êtes connecté, les appels authentifiés peuvent utiliser votre session en cours.
+
+Utilisez les appels directs lorsque :
+
+- vous soupçonnez un problème de backend et souhaitez le séparer de l'interface utilisateur
+- vous devez vérifier des paramètres ou des entrées spécifiques
+- vous souhaitez comparer le comportement avant et après un changement
+- vous déboguez un comportement authentifié
+
+Les appels de fonction Direct Edge s’exécutent uniquement sur demande.
+
+**Exemple**
+
+```text
+Appelez directement la fonction Edge d'inscription avec un e-mail invalide.
+```
+
+### Tests de bord
+
+Les tests Edge sont des tests automatisés qui vérifient les règles backend au fil du temps. Ils contribuent à garantir que la logique importante ne s’effondre pas silencieusement.
+
+**Pile de tests**
+
+- Lanceur de test intégré Deno
+- TypeScript natif Support
+
+Utilisez des tests de bord lorsque :
+
+- vous modifiez une fonction Edge et souhaitez une protection contre la régression
+- vous validez des règles métier ou des autorisations
+- le problème est subtil et difficile à vérifier manuellement
+
+Les tests Edge s'exécutent uniquement sur demande.
+
+**Exemple**
+
+```text
+Écrivez des tests de pointe pour la fonction de traitement des paiements.
+```
+
+### Comment les outils de vérification backend fonctionnent ensemble
+
+Les appels directs et les tests Edge sont souvent utilisés ensemble lors du débogage du comportement du backend.
+
+Une séquence courante ressemble à ceci :
+
+1. Appelez directement la fonction Edge pour reproduire le problème avec une entrée spécifique.
+1. Appliquez le correctif une fois le comportement compris.
+1. Appelez à nouveau la fonction avec la même entrée pour confirmer la modification.
+1. Ajoutez un test de périphérie pour garantir que le comportement ne régresse pas avec le temps.
+
+Cette approche permet une itération rapide tout en fournissant une vérification à long terme.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Dois-je exécuter tous les tests pour chaque modification ?">
+Non. La plupart des problèmes peuvent être compris et vérifiés à l’aide d’un seul outil. Les tests du navigateur sont utiles pour les problèmes visibles par l'utilisateur, les tests frontend aident à verrouiller le comportement spécifique de l'interface utilisateur et la vérification backend est la meilleure pour la logique métier. Choisissez l'outil qui correspond au type de problème sur lequel vous étudiez.
+</Accordion>
+<Accordion title="Que dois-je faire si un problème ne se résout pas après quelques tentatives ?">
+Lorsqu'un problème n'est pas résolu après quelques tentatives, vous pouvez demander à ZenOpus d'utiliser plusieurs outils de vérification. ZenOpus exécute ces outils et utilise leurs résultats pour guider l'étape suivante.
+
+- L’examen des journaux ou des échecs de test des exécutions précédentes permet souvent d’en identifier la cause.
+- Les problèmes de backend sont généralement plus faciles à isoler en appelant directement la fonction Edge.
+- Les problèmes rencontrés par les utilisateurs sont mieux explorés avec les tests du navigateur.
+- Une fois le comportement compris, l’ajout de tests automatisés permet de le maintenir stable dans le temps.
+
+Si le problème n’est toujours pas résolu, revenez à la dernière version stable.
+</Accordion>
+<Accordion title="ZenOpus exécute-t-il automatiquement les outils de vérification ?">
+La plupart des outils de vérification ne s'exécutent que lorsque vous les demandez. Dans certains cas, l'agent peut suggérer ou lancer un outil pendant l'enquête, mais la vérification ne s'exécute pas silencieusement en arrière-plan.
+</Accordion>
+</AccordionGroup>

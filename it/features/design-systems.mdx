@@ -1,0 +1,277 @@
+---
+title: "Sistemi di progettazione"
+description: "Crea sistemi di progettazione riutilizzabili in ZenOpus per standardizzare le librerie dei componenti React, le linee guida per lo stile e la configurazione nei progetti aziendali."
+---
+<Info>
+I sistemi di progettazione ZenOpus sono disponibili sui **piani Enterprise** e funzionano in modo nativo con i sistemi di progettazione implementati come componenti React.
+</Info>
+
+I **sistemi di progettazione** ti consentono di definire una sola volta la libreria dei componenti, le linee guida di stile e le istruzioni di installazione e di riutilizzarli in ogni progetto nel tuo Workspace. A differenza dei modelli che copiano i file all'inizio del progetto, i sistemi di progettazione forniscono istruzioni continue che ZenOpus legge e applica durante ogni generazione del progetto.
+
+In ZenOpus, un sistema di progettazione viene creato come **progetto dedicato**. Questo progetto funge da fonte di verità per il tuo sistema di progettazione e può essere collegato ad altri progetti nel tuo Workspace.
+
+### Cosa ottieni
+
+- Fonte di verità centralizzata per i componenti e gli stili dell'interfaccia utente
+- Propagazione automatica degli aggiornamenti a tutti i progetti collegati
+- Linee guida di progettazione e codice chiare e applicabili durante la generazione
+
+## Come funzionano i sistemi di progettazione
+
+Un sistema di progettazione in ZenOpus definisce il modo in cui componenti, stili e istruzioni di installazione vengono applicati ai progetti. I sistemi di progettazione sono normali progetti ZenOpus e possono essere aperti e modificati come qualsiasi altro progetto.
+
+### In cosa consiste un sistema di progettazione
+
+Un sistema di progettazione in ZenOpus combina tre parti fondamentali:
+
+1. **Componenti**: la tua libreria di componenti React (pacchetti npm pubblici o privati)
+1. **Linee guida**: regole di stile, modelli di utilizzo e specifiche dei componenti
+1. **Installazione**: istruzioni di installazione e configurazione richiesta
+
+Se li hai già predisposti, puoi creare un **progetto del sistema di progettazione** in ZenOpus e fare riferimento ai materiali esistenti. Se la tua documentazione è dispersa o incompleta, puoi creare e migliorare il sistema di progettazione direttamente all'interno di ZenOpus.
+
+### Il progetto del design system e la cartella .zenopus
+
+Il progetto del sistema di progettazione possiede una cartella speciale `.zenopus`. Questa cartella contiene le istruzioni che ZenOpus utilizza durante la generazione del codice nei progetti connessi, tra cui:
+
+- `system.md`: istruzioni di installazione di base e linee guida di alto livello sempre caricate per i progetti connessi
+- `rules/`: file Markdown individuali con specifiche dei componenti, linee guida e modelli a cui ZenOpus può fare riferimento durante la generazione del progetto.
+
+### Come i sistemi di progettazione vengono applicati ai progetti
+
+Quando un progetto è connesso a un sistema di progettazione, ZenOpus legge il contenuto della cartella `.zenopus` del sistema di progettazione e applica tali regole durante la generazione del progetto.
+
+Gli aggiornamenti apportati al progetto del sistema di progettazione vengono raccolti da tutti i progetti connessi la prossima volta che ZenOpus genera codice.
+
+### Note chiave e limitazioni
+
+- La cartella `.zenopus` è di proprietà del progetto del sistema di progettazione e non può essere modificata dai progetti collegati.
+- Gli aggiornamenti a un sistema di progettazione si applicano automaticamente a tutti i progetti ad esso collegati nella generazione successiva.
+- I sistemi di progettazione non hanno ancora la versione. Contatta il team del tuo account se ciò è necessario per il tuo flusso di lavoro.
+- Se i server o i pacchetti MCP contengono tutto ciò di cui hai bisogno, puoi creare un sistema di progettazione di sola installazione.
+- I sistemi di progettazione funzionano in modo nativo con le librerie dei componenti React.
+- Qualsiasi progetto può essere trasformato in un sistema di progettazione dalle impostazioni del progetto. Quando un progetto è contrassegnato come sistema di progettazione, diventa disponibile per la connessione di altri progetti nel Workspace.
+- Se il tuo sistema di progettazione o la relativa documentazione sono ospitati nel tuo VPC, contatta il team del tuo account per ricevere assistenza.
+
+## Creare un sistema di progettazione
+
+<Steps>
+<Step title="Preparare l'accesso (solo pacchetti privati)">
+Se la libreria dei componenti o i pacchetti sono privati, vai a **Workspace impostazioni → Crea segreti** e aggiungi i segreti di compilazione richiesti (ad esempio, token npm).
+</Step>
+<Step title="Creare un progetto di sistema di progettazione">
+Dal menu a discesa `+` della finestra di dialogo [zenopus.dev](https://zenopus.dev), vai a **Sistemi di progettazione** e seleziona **Crea sistema di progettazione**.
+
+![Ds Crea sistema di progettazione](/images/zenopus/features/design-systems/ds-create-design-system.png)
+
+Questo crea un nuovo progetto di sistema di progettazione. ZenOpus assegna un nome al tuo progetto, che puoi modificare dalle impostazioni del progetto.
+
+Dai al tuo sistema di progettazione un nome significativo. Questo nome viene utilizzato quando si collega il sistema di progettazione ai progetti in un secondo momento.
+</Step>
+<Step title="Configura il sistema di progettazione chattando con ZenOpus">
+Puoi impostare il tuo sistema di progettazione in due modi principali.
+
+**Opzione A: recupera automaticamente una libreria React esistente**
+
+Se il tuo sistema di progettazione è implementato come componenti React, condividi l'URL del repository o della documentazione nella chat.
+
+- Se pubblico, ZenOpus lo recupera automaticamente
+- Se privato, ZenOpus lo recupera utilizzando i segreti configurati
+
+Oltre a importare i componenti, devi indicare a ZenOpus **come utilizzare tali componenti** correttamente. Questa guida può provenire da:
+
+- Siti o repository di documentazione esistenti
+- PDF importati, file Markdown o screenshot
+- Server MCP che espongono la documentazione del sistema di progettazione
+- Istruzioni dirette fornite nella chat
+
+<Info>
+Quando recuperi una libreria esistente, ignora le domande guidate e procedi con l'inserimento dell'URL.
+</Info>
+
+**Opzione B: crea il tuo sistema di progettazione con istruzioni strutturate**
+
+Se la tua documentazione è sparsa o incompleta, guida ZenOpus esplicitamente per costruire il tuo sistema di progettazione. Questo approccio ti consente di:
+
+- Importa PDF, file Markdown, screenshot e altre risorse
+- Definire componenti, modelli, token e linee guida di stile
+- Scrivere le istruzioni di installazione e configurazione
+- Aggiorna tutto in modo dinamico attraverso progetti connessi
+
+**Struttura del prompt suggerita**
+
+```text
+[Obiettivo di alto livello]
+
+[Istruzioni per l'installazione]
+
+[Altro contesto per impostare il sistema, ad esempio stack tecnologico e vincoli]
+
+[Richiesta libreria componenti]
+
+[Collegamenti a documentazione, siti, PDF, MCP per ulteriori informazioni. ZenOpus può eseguire la scansione dei siti web, quindi sentiti libero di includere un ampio contesto qui.]
+```
+
+Dopo la prima esecuzione, ZenOpus genererà un progetto di sistema di progettazione funzionante, ad esempio: [https://design-system-demo.zenopus.app/](https://design-system-demo.zenopus.app/)
+</Step>
+</Steps>
+
+## Collegare un sistema di progettazione ai progetti
+
+Nelle impostazioni di ciascun progetto, puoi vedere quali sistemi di progettazione sono connessi o disponibili per la connessione.
+
+È possibile connettere più sistemi di progettazione a un progetto. L'ordine dei sistemi di progettazione connessi determina il modo in cui l'agente assegna loro la priorità durante la generazione del progetto. È possibile riordinare i sistemi di progettazione connessi nelle impostazioni del progetto.
+
+Puoi rimuovere un sistema di progettazione connesso in qualsiasi momento dalle impostazioni del progetto. I sistemi di progettazione rimossi non si applicano più alle generazioni future di quel progetto.
+
+### Connetti un sistema di progettazione a nuovi progetti
+
+Dal menu a discesa `+` della finestra di messaggio [zenopus.dev](https://zenopus.dev), vai a **Sistemi di progettazione** e seleziona un sistema di progettazione dall'elenco di quelli disponibili, quindi inserisci il tuo messaggio. ZenOpus genera il tuo nuovo progetto utilizzando il sistema di progettazione selezionato.
+
+![Ds Seleziona sistema di progettazione](/images/zenopus/features/design-systems/ds-select-design-system.png)
+
+### Connetti un sistema di progettazione a progetti esistenti
+
+Per connettere un sistema di progettazione a un progetto esistente, attenersi alla seguente procedura:
+
+1. Vai a **Impostazioni progetto → Sistemi di progettazione.**
+1. In **Disponibile**, seleziona un sistema di progettazione e fai clic su **Aggiungi**.
+1. Fai clic su **Salva.**
+
+## Perfeziona il tuo sistema di progettazione
+
+I sistemi di progettazione sono destinati ad evolversi. Dopo la configurazione iniziale, ripetere il contenuto della cartella `.zenopus`.
+
+1. **Verifica la struttura**  
+Apri la cartella `.zenopus` per vedere come ZenOpus ha interpretato il tuo sistema di progettazione. Questi file sono ciò che viene applicato a tutti i progetti connessi.
+1. **Correggi le incoerenze**  
+Se i componenti non vengono visualizzati correttamente, chiedi a ZenOpus di risolverli e contemporaneamente aggiornare la cartella `.zenopus`.
+1. **Aggiungi dettaglio**  
+Richiedi documentazione aggiuntiva sui componenti, definizioni di token o modelli di utilizzo secondo necessità.
+
+## .struttura di cartelle amabile
+
+ZenOpus di solito lo genera automaticamente, ma comprendere la struttura aiuta con il debug. Se noti un comportamento imprevisto, verifica che questa struttura venga generalmente seguita.
+
+```text
+.adorabile/
+├── system.md (max ~500 righe)
+│ ├── Istruzioni di installazione (10 righe)
+│ │ - Configurazione del pacchetto privato
+│ │ - Variabili d'ambiente
+│ │ - Esempio .npmrc
+│ ├── Collegamenti alle risorse (caratteri, icone e simili)
+│ ├── Guida Directory (20 righe)
+│ │ - Quali file esistono
+│ │ - Quando farvi riferimento
+│ └── Linee guida generali (righe rimanenti)
+│ - Modelli di codice
+│ - Principi di progettazione
+│ - Alberi decisionali
+└── regole/
+    ├── componenti/
+    │ ├── pulsante.md
+    │ ├── input.md
+    │ └── modale.md
+    ├── modelli/
+    │ ├── forme.md
+    │ └── navigazione.md
+    └── stile/
+        ├── colori.md
+        └── tipografia.md
+```
+
+## Recupera la documentazione del sistema di progettazione esterno con i server MCP
+
+I server MCP possono essere utilizzati per recuperare la documentazione del sistema di progettazione archiviata separatamente dai pacchetti npm. Per ulteriori informazioni, consulta [Integrazione con i tuoi strumenti utilizzando connettori personali (server MCP)](/it/integrations/mcp-servers).
+
+## Scegli tra modelli e sistemi di progettazione
+
+I [modelli](/it/features/business/design-templates) sono copie complete del progetto utilizzate come punto di partenza.
+
+Utilizza i **modelli** quando:
+
+- È richiesta una configurazione complessa (pacchetti multipli, configurazioni personalizzate)
+- Hai bisogno di varianti del framework (React, Vue, Vite)
+- C'è una piastra pesante che non dovrebbe rigenerarsi
+
+Utilizza i **sistemi di progettazione** quando:
+
+- Desideri una guida continua e coerenza
+- Modelli e componenti si evolvono nel tempo
+- Gli aggiornamenti dovrebbero propagarsi automaticamente
+
+**Approccio consigliato**:
+
+- Utilizza un **modello** per l'impalcatura del progetto iniziale
+- Utilizza un **sistema di progettazione** per l'interfaccia utente e le regole di progettazione continue
+
+## Risoluzione dei problemi
+
+<AccordionGroup>
+<Accordion title="Mancata corrispondenza della versione di React">
+Se il tuo sistema di progettazione utilizza React 19 ma il progetto utilizza React 18 per impostazione predefinita, o viceversa, comunicalo esplicitamente all'agente. Ad esempio:
+
+```text
+Il mio sistema di progettazione richiede React 19. Aggiorna di conseguenza le dipendenze del progetto.
+```
+</Accordion>
+<Accordion title="Dipendenze contrastanti">
+Se il tuo sistema di progettazione non utilizza `shadcn/ui` o Tailwind CSS, chiedi all'agente di rimuoverli per evitare conflitti. Ad esempio:
+
+```text
+Disinstallare shadcn/ui e Tailwind CSS da questo progetto. Il mio sistema di progettazione utilizza invece [la tua soluzione di stile].
+```
+</Accordion>
+<Accordion title="Componente non trovato">
+Assicurati che il progetto del sistema di progettazione esporti e documenti i componenti correttamente nella cartella `.zenopus/rules/`. L'agente si basa su questi file di regole per comprendere come utilizzare i componenti.
+</Accordion>
+<Accordion title="Stili non applicabili">
+Verifica che i CSS o i token del tema del tuo sistema di progettazione siano importati nel file di voce principale del progetto, come `index.css` o `App.tsx`.
+</Accordion>
+</AccordionGroup>
+
+## Domande frequenti
+
+<AccordionGroup>
+<Accordion title="Un sistema di progettazione è solo un progetto ZenOpus?">
+Sì, un sistema di progettazione è un normale progetto ZenOpus contrassegnato come sistema di progettazione. Può essere aperto e modificato come qualsiasi altro progetto e altri progetti possono connettersi ad esso per utilizzare le sue regole durante la generazione.
+</Accordion>
+<Accordion title="Posso collegare più di un sistema di progettazione a un progetto?">
+Sì, un progetto può avere più sistemi di progettazione collegati. L'ordine dei sistemi di progettazione connessi determina il modo in cui l'agente assegna loro la priorità durante la generazione del progetto.
+</Accordion>
+<Accordion title="Qualsiasi progetto può essere trasformato in un sistema di progettazione?">
+Sì, qualsiasi progetto può essere contrassegnato come sistema di progettazione dalle impostazioni del progetto. Una volta contrassegnato, diventa disponibile per altri progetti nel Workspace a cui connettersi.
+</Accordion>
+<Accordion title="Come posso vedere quali sistemi di progettazione sono collegati al mio progetto?">
+Per visualizzare i sistemi di progettazione connessi, vai a **Impostazioni progetto → Sistemi di progettazione**.
+
+Questa scheda mostra tutti i sistemi di progettazione attualmente collegati al tuo progetto. Da qui puoi:
+
+- Collega ulteriori sistemi di progettazione dal tuo Workspace
+- Riordina la loro priorità
+- Seleziona se il progetto corrente deve essere utilizzato come sistema di progettazione per altri progetti nel tuo Workspace
+</Accordion>
+<Accordion title="Cosa succede se due sistemi di progettazione definiscono regole sovrapposte?">
+Quando sono collegati più sistemi di progettazione, ZenOpus li applica in ordine. I sistemi di progettazione precedenti nell'elenco hanno la priorità rispetto a quelli successivi nell'elenco.
+
+È possibile riordinare i sistemi di progettazione connessi nelle impostazioni del progetto per modificarne la priorità durante la generazione.
+</Accordion>
+<Accordion title="Posso rimuovere un sistema di progettazione da un progetto?">
+Sì, un sistema di progettazione connesso può essere rimosso in qualsiasi momento dalle impostazioni del progetto. Una volta rimosso, non si applica più alle generazioni future di quel progetto.
+</Accordion>
+<Accordion title="Posso modificare il sistema di progettazione da un progetto connesso?">
+No, la cartella `.zenopus` è di proprietà del progetto del sistema di progettazione e non può essere modificata dai progetti collegati. Per modificare il sistema di progettazione, aprire e modificare il progetto del sistema di progettazione stesso.
+</Accordion>
+<Accordion title="I sistemi di progettazione sono dotati di versione?">
+Non ancora. I sistemi di progettazione attualmente non supportano il Support controllo delle versioni integrato. Contatta il team dedicato al tuo account se il controllo delle versioni è importante per il tuo flusso di lavoro.
+</Accordion>
+<Accordion title="Quali tecnologie progettano i sistemi Support?">
+ZenOpus sistemi di progettazione Support **Librerie di componenti basate su React** pronte all'uso.
+
+Se il tuo sistema di progettazione è costruito con altri framework come Vue, Angular o Svelte, contatta il tuo CSM o FDE per discutere le opzioni di compatibilità.
+</Accordion>
+<Accordion title="I sistemi di progettazione sostituiscono i modelli?">
+No, i sistemi di progettazione non sostituiscono i modelli. I modelli e i sistemi di progettazione hanno scopi diversi e vengono spesso utilizzati insieme. I modelli sono ideali per l'impalcatura del progetto iniziale, mentre i sistemi di progettazione forniscono un'interfaccia utente continua e indicazioni di progettazione per tutti i progetti.
+</Accordion>
+</AccordionGroup>

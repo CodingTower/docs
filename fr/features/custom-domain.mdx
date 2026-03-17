@@ -1,0 +1,217 @@
+---
+title: "Connecter un domaine personnalisé"
+description: "Découvrez comment connecter, vérifier, dépanner et gérer des domaines personnalisés dans ZenOpus."
+---
+Un **domaine personnalisé** vous permet d'utiliser votre propre domaine ou sous-domaine pour votre projet ZenOpus publié. Lorsque vous connectez un domaine personnalisé, les visiteurs peuvent accéder à votre application à l'aide d'une URL de marque au lieu de l'URL du projet `xxx.zenopus.app` par défaut.
+
+La connexion d'un domaine personnalisé améliore les performances de votre site :
+
+- **Identité de marque** - paraissez plus digne de confiance et plus professionnel
+- **Visibilité des moteurs de recherche** – meilleur référencement et meilleure visibilité
+- **Mémorabilité** : plus facile à partager et à mémoriser pour les utilisateurs
+
+## Conditions préalables
+
+Pour connecter un domaine personnalisé, assurez-vous que :
+
+- Vous bénéficiez d'un forfait ZenOpus payant.
+- Votre projet est publié. Voir [Publier votre application](/fr/features/publish) pour plus d'informations.
+- Vous possédez un nom de domaine. Vous pouvez **en acheter un directement dans ZenOpus** (via IONOS).
+- Vous avez **accès aux paramètres DNS** du domaine ou du sous-domaine auquel vous souhaitez vous connecter. **La vérification de la propriété** nécessite l'ajout des enregistrements DNS `A` et `TXT` fournis par ZenOpus lors de la configuration.
+- Aucun enregistrement `AAAA` n'est défini pour le domaine auquel vous vous connectez. Avoir un enregistrement `AAAA` peut interférer avec la configuration du domaine et entraîner un acheminement incorrect du trafic.
+
+<Note>
+**Remarque sur la terminologie du domaine**
+
+- **DNS** détermine où pointe votre domaine sur Internet.
+- Un **fournisseur DNS** est le service dans lequel vous gérez les enregistrements DNS de votre domaine, tels que les enregistrements `A`, `TXT` ou `AAAA`.
+- Un **enregistrement A** pointe un domaine ou un sous-domaine vers une adresse IP.
+- Un **enregistrement TXT** est utilisé pour vérifier la propriété du domaine.
+- Un **enregistrement AAAA** pointe un domaine vers une adresse IPv6 et peut interférer avec la configuration du domaine s'il est présent.
+- Un **certificat SSL** active HTTPS et permet aux navigateurs de se connecter en toute sécurité à votre site.
+</Note>
+
+## Connecter un domaine personnalisé
+
+Vous pouvez connecter un domaine à votre projet ZenOpus publié à l'aide de la configuration **automatique** (optimisée par Entri) ou de la configuration DNS **manuelle**. Les deux méthodes nécessitent de vérifier la propriété de votre domaine.
+
+Vous pouvez connecter un domaine à partir de deux emplacements :
+
+- **Projet → Paramètres → Domaines**
+- **Publier modal → Domaine personnalisé** (peut être fait après la publication de votre projet)
+
+Suivez les étapes ci-dessous pour connecter un domaine personnalisé :
+
+1. Cliquez sur **Connecter le domaine**.
+1. Saisissez votre domaine ou sous-domaine (par exemple, `yourdomain.com` ou `blog.yourdomain.com`), cliquez sur **Connecter le domaine**, puis cliquez sur **Continuer**.
+    <Info>
+    Lors de l'ajout d'un domaine, ZenOpus n'ajoute pas automatiquement le sous-domaine `www`. Vous pouvez l'ajouter séparément si vous voulez les deux.
+    </Info>
+1. Désormais, vous pouvez connecter votre domaine de deux manières :
+    - **Configuration automatique avec Entri** : sélectionnez votre fournisseur de domaine dans la liste, connectez-vous et autorisez Entri à mettre à jour vos enregistrements DNS.
+    - **Configuration manuelle** : si votre fournisseur DNS n'est pas répertorié, faites défiler vers le bas de la fenêtre modale **Sélectionnez votre fournisseur de domaine** et choisissez **Accédez à notre configuration manuelle**. Copiez l'enregistrement `A` et l'enregistrement `TXT` et saisissez-les directement dans votre registraire de domaine ou votre fournisseur DNS.
+        <Note>
+        **Remarque sur le nom d'hôte de l'enregistrement A**
+
+        Lors de la connexion d'un domaine, nous suggérons un nom d'hôte par défaut pour l'enregistrement `A`.  Cependant, certains fournisseurs DNS gèrent cela différemment. En fonction de votre fournisseur, le nom d'hôte peut devoir être :
+
+        - `@`
+        - laissé vide
+        - ou défini sur votre nom de domaine (par exemple, `example.com`)
+
+        Par exemple, Amazon Route 53 exige que le nom d'hôte soit laissé vide ou défini sur le nom de domaine.
+        </Note>
+1. Cliquez sur **Terminé**. Attendez la vérification et l'émission du certificat SSL. Une fois terminé, le domaine deviendra **Live** et votre application ZenOpus sera active sur votre domaine personnalisé.
+
+<Info>
+Les modifications DNS peuvent prendre jusqu'à **72 heures pour se propager**, bien que la plupart des mises à jour soient disponibles en quelques heures.
+</Info>
+
+## Statuts de domaine
+
+Les domaines ont des statuts clairs qui reflètent la progression de la vérification, la propagation DNS, la préparation du certificat SSL et l'action requise de l'utilisateur.
+
+| Statut | Descriptif | Action de l'utilisateur |
+| --- | --- | --- |
+| Inédit | Affiché uniquement pour l'URL de votre projet xxx.zenopus.app lorsque le projet n'est pas encore publié. | Publiez le projet. |
+| Prêt | Le domaine est prêt mais le projet était inédit. Lors de la nouvelle publication, le statut devient automatiquement Live . | Publiez le projet. |
+| Action requise | La configuration du domaine personnalisé n'est pas terminée. | Cliquez sur Terminer la configuration pour terminer la connexion. |
+| Vérification | En attente de propagation des enregistrements DNS. | Cliquez sur Vérifier l'état pour vérifier le dernier état et vérifier les enregistrements DNS. Vérifiez que vos enregistrements A et TXT sont ajoutés correctement chez votre fournisseur DNS, en particulier la valeur TXT complète. |
+| Impossible de vérifier | La vérification DNS n'a pas été terminée dans l'heure. Cela signifie généralement que vos enregistrements DNS sont incorrects ou continuent de se propager. Remarque : la propagation DNS peut prendre jusqu'à 72 heures, bien que la plupart des mises à jour soient appliquées en quelques heures. | Cliquez sur Vérifier l'état pour actualiser l'état et revérifier vos enregistrements DNS. Vérifiez que vos enregistrements A et TXT sont ajoutés correctement chez votre fournisseur DNS, en particulier la valeur TXT complète. |
+| Mise en place | Vérification terminée ; Des certificats SSL sont en cours d'émission. | Aucune action requise ; le domaine sera automatiquement déplacé vers Live ou Failed. |
+| Échec | Propriété vérifiée, mais le certificat SSL n'a pas pu être fourni. | Cliquez sur Réessayer pour réessayer. |
+| En direct | Le domaine est en ligne et sert votre projet. | Aucune action requise. |
+| Hors ligne | Le domaine était actif mais les enregistrements DNS ne sont plus valides. Votre domaine ne pointe plus vers votre projet. | Cliquez sur Récupérer . Examinez les enregistrements DNS affichés et mettez-les à jour auprès de votre fournisseur DNS pour reconnecter votre domaine. |
+| Supprimé | Ce domaine a été supprimé car il a été ajouté à un autre projet ou la vérification DNS n'a jamais été terminée (les enregistrements DNS n'ont pas été ajoutés correctement ou n'ont pas fini de se propager). | Cliquez sur Reconnecter pour connecter à nouveau le domaine. |
+
+Vous pouvez supprimer un domaine à tout moment, quel que soit son statut.
+
+## Domaine principal
+
+ZenOpus vous permet de définir **un domaine comme domaine principal**.
+
+- Le statut du domaine doit être **Live** afin de le marquer comme principal. Cliquez sur le menu à trois points à côté de votre domaine et cliquez sur **Définir comme domaine principal**.
+- Le premier domaine personnalisé que vous ajoutez à un projet devient automatiquement le domaine principal (pour les domaines ajoutés après le 29 octobre 2025).
+- Si un domaine est principal, tous les autres domaines y redirigent.
+- Un seul domaine peut être principal à la fois.
+- Vous pouvez supprimer le domaine principal ; dans ce cas, tous les domaines connectés servent le projet de la même manière. Cliquez sur le menu à trois points à côté de votre domaine principal, puis cliquez sur **Ne plus définir comme domaine principal**.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="ZenOpus fournit-il un certificat SSL pour mon domaine personnalisé ?">
+Oui. Lorsque vous connectez un domaine personnalisé à votre application ZenOpus, nous générons et installons automatiquement un certificat SSL pour celui-ci. Cela garantit que votre site est servi via HTTPS, garantissant ainsi la sécurité des données de vos visiteurs et améliorant le classement SEO de votre site. S'il n'a pas été émis après 72 heures, veuillez contacter [ZenOpus Support](https://zenopus.dev/support).
+</Accordion>
+<Accordion title="Puis-je acheter un domaine via ZenOpus ?">
+Oui. Vous pouvez acheter un domaine personnalisé dans ZenOpus via notre partenaire IONOS. Allez dans **Projet → Paramètres → Domaines** et cliquez sur **Acheter un nouveau domaine** pour acheter un domaine via IONOS. Ceci est disponible uniquement sur les forfaits payants.
+</Accordion>
+<Accordion title="La connexion d'un domaine personnalisé affectera-t-elle mon référencement ?">
+Oui, connecter un domaine personnalisé affecte positivement votre référencement. Un domaine personnalisé améliore la visibilité de votre site dans les moteurs de recherche et le rend plus digne de confiance aux yeux des utilisateurs.
+
+Consultez [Mise en œuvre des meilleures pratiques SEO et GEO](/fr/tips-tricks/seo-geo) pour plus d'informations.
+</Accordion>
+<Accordion title="Puis-je connecter un sous-domaine au lieu d’un domaine complet ?">
+Oui. Vous pouvez connecter un sous-domaine (par exemple, `blog.yourdomain.com` ou `app.yourdomain.com`) au lieu du domaine racine. Lorsque vous saisissez votre domaine dans le flux de configuration, incluez simplement le sous-domaine que vous souhaitez utiliser.
+</Accordion>
+<Accordion title="Puis-je connecter plusieurs sous-domaines à mon projet ZenOpus ?">
+Oui. Vous pouvez connecter plusieurs sous-domaines, mais chacun doit être ajouté et configuré individuellement dans **Projet → Paramètres → Domaines**. Par exemple, vous pouvez connecter `blog.yourdomain.com`, `shop.yourdomain.com` et `app.yourdomain.com`.
+</Accordion>
+<Accordion title="Où puis-je voir mes domaines connectés ?">
+Vous pouvez voir vos domaines connectés à deux endroits :
+
+- **Projet → Paramètres → Domaines** - ici vous voyez tous les domaines, quel que soit leur statut
+- **Publier modal** - vous voyez ici tous les domaines **Live**
+</Accordion>
+<Accordion title="Puis-je connecter un domaine utilisé par un autre projet ?">
+Oui. Tant que vous pouvez vérifier la propriété, vous pouvez connecter un domaine ou un sous-domaine utilisé par un autre projet, même si le projet a été supprimé.
+</Accordion>
+<Accordion title="Comment définir un domaine principal ?">
+Le statut du domaine doit être **Live** afin de le définir comme principal.
+
+Accédez à **Projet → Paramètres → Domaines**, cliquez sur le menu à trois points à côté d'un domaine **Live**, puis cliquez sur **Définir comme domaine principal**.
+</Accordion>
+<Accordion title="Comment supprimer un domaine principal ?">
+Accédez à **Projet → Paramètres → Domaines**, cliquez sur le menu à trois points à côté de votre domaine principal, puis cliquez sur **Désactiver le domaine principal**.
+</Accordion>
+<Accordion title="Comment supprimer un domaine personnalisé ?">
+Vous pouvez supprimer un domaine à tout moment quel que soit son statut.
+
+1. Accédez à **Projet → Paramètres → Domaines.**
+1. Cliquez sur le menu à trois points à côté de votre domaine, cliquez sur **Supprimer**, puis cliquez à nouveau sur **Supprimer** pour confirmer.
+
+Cela déconnectera le domaine du projet. Assurez-vous d'effacer les paramètres DNS de votre fournisseur de domaine pour effacer complètement la connexion.
+</Accordion>
+<Accordion title="Puis-je supprimer l’URL du projet xxx.zenopus.app ?">
+Actuellement, il n'existe aucun moyen de supprimer l'URL du projet `xxx.zenopus.app` de votre projet. Cependant, vous pouvez ajouter un domaine personnalisé et le définir comme domaine principal. Cela permet aux visiteurs d'accéder à votre application à partir d'une URL de marque au lieu de l'URL du projet `xxx.zenopus.app` par défaut.
+</Accordion>
+<Accordion title="Dois-je connecter un sous-domaine www séparément ?">
+Oui, vous devez l'ajouter séparément et il sera répertorié séparément. Le sous-domaine **www** n'est pas inclus lorsque vous configurez votre domaine.
+</Accordion>
+<Accordion title="Comment utiliser un CDN ou un proxy inverse avec mon domaine personnalisé ?">
+Si vous utilisez un CDN ou un proxy inverse (tel que Cloudflare, CloudFront ou Fastly), vous ne devez **pas connecter le domaine dans Projet → Paramètres → Domaines**. Au lieu de cela, configurez votre DNS pour qu'il pointe vers l'URL de votre projet ZenOpus. Votre CDN ou proxy gérera le SSL et le routage.
+
+Un CDN (Content Delivery Network) ou un proxy inverse se trouve entre vos utilisateurs et ZenOpus. Il reçoit les demandes concernant votre domaine et les transmet à votre application. Il peut être utilisé pour la mise en cache, la sécurité ou le routage personnalisé.
+
+Pour configurer cette configuration :
+
+1. Si vous avez déjà connecté le domaine dans ZenOpus, supprimez-le de **Projet → Paramètres → Domaines**. Si vous ne l'avez pas connecté, vous pouvez ignorer cette étape.
+1. Mettez à jour vos enregistrements DNS pour qu'ils pointent vers l'URL de votre projet ZenOpus (par exemple, `your-project.zenopus.app`).
+
+**Pour les sous-domaines** (par exemple, `www.example.com`) :
+
+- Utilisez un enregistrement `CNAME` pointant vers l'URL de votre projet ZenOpus.
+
+**Pour les domaines racine/apex** (par exemple, `example.com`) :
+
+- Utilisez un enregistrement `ALIAS` ou `ANAME` (si pris en charge par votre fournisseur DNS), ou
+- Utilisez l'aplatissement CNAME (pris en charge par des fournisseurs tels que Cloudflare).
+
+Votre CDN ou proxy inverse gérera ensuite SSL et transférera le trafic vers ZenOpus.
+
+ZenOpus ne configure ni ne gère les configurations de domaine basées sur un proxy.
+</Accordion>
+</AccordionGroup>
+
+## Dépannage
+
+<AccordionGroup>
+<Accordion title="Mon domaine personnalisé est connecté, mais il ne devient jamais actif">
+Cela signifie généralement que ZenOpus attend toujours la configuration DNS correcte ou que les modifications se propagent complètement.
+
+Essayez ce qui suit :
+
+- Utilisez un outil de recherche DNS tel que [dnschecker.org](https://dnschecker.org/all-dns-records-of-domain.php) pour confirmer que votre domaine correspond aux enregistrements attendus. La propagation des modifications DNS peut prendre jusqu'à **72 heures**.
+- Accédez à **Projet → Paramètres → Domaines** et confirmez les enregistrements DNS attendus par ZenOpus.
+- Videz le cache de votre navigateur ou testez le site dans une fenêtre de navigation privée.
+- Essayez de supprimer et de rajouter le domaine dans **Projet → Paramètres → Domaines**.
+</Accordion>
+<Accordion title="Mon domaine affiche le mauvais site ou une version obsolète">
+Cela se produit souvent lorsque le trafic est acheminé de manière incorrecte en raison d'un enregistrement IPv6 (`AAAA`).
+
+Vérifiez si votre domaine a des enregistrements `AAAA` configurés. Un enregistrement `AAAA` peut interférer avec le routage du domaine et amener le trafic à contourner la destination attendue.
+
+Pour résoudre ce problème :
+
+- Vérifiez vos paramètres DNS auprès de votre fournisseur DNS.
+- Supprimez tous les enregistrements `AAAA` pour le domaine.
+- Réessayez de connecter le domaine une fois la modification propagée.
+</Accordion>
+<Accordion title="Mon domaine reste à l'état « Vérification » lors de la configuration manuelle">
+Lors de la connexion d'un domaine personnalisé dans ZenOpus à l'aide d'une configuration manuelle, ZenOpus fournit les enregistrements DNS exacts requis pour la vérification. Ces enregistrements doivent rester inchangés jusqu'à ce que la vérification soit terminée.
+
+Si l'enregistrement `A` fourni est modifié avant la fin de la vérification, ZenOpus ne peut pas vérifier le domaine ni émettre de certificats SSL.
+
+**Pendant la vérification est en cours :**
+
+- N'activez pas le proxy sur l'enregistrement `A`.
+- Ne pointez pas l’enregistrement `A` vers un CDN ou un proxy inverse.
+
+Si l'un de ces cas se produit, le domaine reste à l'état **Vérification**.
+
+**Pour résoudre ce problème :**
+
+1. Désactivez le proxy (DNS uniquement) sur l’enregistrement `A` fourni.
+1. Assurez-vous que l'enregistrement `A` pointe directement vers l'adresse IP de **ZenOpus.**
+1. Attendez que l'état du domaine passe à **Live.**
+</Accordion>
+</AccordionGroup>

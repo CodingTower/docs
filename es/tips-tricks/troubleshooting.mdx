@@ -1,0 +1,90 @@
+---
+title: "Solución de problemas"
+description: "Corrija errores de compilación, depure comportamientos inesperados, resuelva problemas de vista previa y recupérese de problemas comunes paso a paso."
+---
+## Errores de compilación
+
+Construir con ZenOpus hace que la codificación sea más rápida e intuitiva, pero incluso las mejores herramientas de desarrollo de IA pueden ocasionalmente tener problemas. A veces, su código no se ejecuta como se esperaba o puede notar un comportamiento inesperado en el que la IA interpreta su intención incorrectamente.
+
+A continuación se incluye una guía paso a paso que le ayudará a resolver los problemas y retomar el rumbo:
+
+<iframe src="https://www.youtube.com/embed/0W8bsbHh2p8?si=p4kWhkdu0PEbgGXm" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Utilice el botón Intentar arreglar primero">
+Haga clic en el botón **Intentar arreglar** cuando aparezca un error. ZenOpus escaneará sus registros, detectará el problema e intentará solucionarlo rápidamente. Es tu primer movimiento más rápido. Si eso no funciona, es hora de profundizar más.
+</Step>
+<Step title="Diagnosticar un comportamiento inesperado">
+Es posible que su código se ejecute sin errores pero no se comporte según lo previsto. Se trata de un **comportamiento inesperado**, más difícil de detectar y de solucionar. Prueba esto:
+
+- **Revertir y volver a preguntar**: regrese justo antes de que ocurriera el problema y luego intente con un mensaje revisado y más claro.
+</Step>
+<Step title="Escriba indicaciones más efectivas">
+Las indicaciones claras y estructuradas conducen a mejores resultados. Utilice este formato:
+
+1. **Utilice Plan mode** y pregunte: "¿Puede describir los pasos o planificar esta función?"
+1. **Revise el plan** que sugiere ZenOpus, solicite cambios o aclaraciones si es necesario.
+1. **Prompt ZenOpus**: "Ahora, construyamos esto paso a paso".
+</Step>
+<Step title="Construir en orden lógico">
+La estructura importa. Siga este flujo recomendado:
+
+1. Crea diseños y páginas.
+1. Conéctese a ZenOpus Cloud o una conexión Supabase externa.
+1. Configure la autenticación y los roles de usuario.
+1. Planificar y organizar la lógica de funciones.
+1. Prompt ZenOpus para implementar funciones.
+</Step>
+</Steps>
+
+### Cuestiones generales
+
+<AccordionGroup>
+<Accordion title="¿Necesitas ayuda rápida?">
+Vaya al modo de solo chat y escriba: "Esta función específica no funciona. ¿Puede explicarme qué está sucediendo y qué ha probado?"
+</Accordion>
+<Accordion title="Problemas de interfaz de usuario o diseño">
+- Proporcione capturas de pantalla del problema de la interfaz de usuario directamente a la IA para un diagnóstico más claro.
+- Utilice la herramienta Editar para seleccionar y resaltar funciones específicas de la interfaz de usuario que desea cambiar y luego describa el ajuste que desea.
+- Por ejemplo: "¿Ves el elemento resaltado? Céntralo verticalmente y aumenta el relleno".
+</Accordion>
+<Accordion title="Cuando está completamente estancado">
+- Mensaje: "Da un paso atrás. Analiza el error y sugiere un enfoque diferente".
+- Divida la tarea en partes más pequeñas.
+- Utilice el botón de revertir si los errores persisten.
+</Accordion>
+<Accordion title="Vista previa no encontrada o zona de pruebas activada">
+Los problemas con la vista previa no encontrada o con el entorno sandbox funcionando pueden estar relacionados con el entorno sandbox o con su conexión. Los problemas de la zona de pruebas suelen ser temporales; primero intente realizar una actualización completa. Si esto continúa, puede indicar una sincronización rota con GitHub o un problema de conexión. Para problemas persistentes, revise nuestra [guía de integración de GitHub](/es/integrations/github).
+</Accordion>
+</AccordionGroup>
+
+### Funcionalidades principales
+
+<AccordionGroup>
+<Accordion title="La vista previa es blanca">
+- Estos suelen ser el resultado de problemas en el archivo vite.config.ts o de que se han introducido encabezados de seguridad en el proyecto.
+- Errores de compilación o errores de sintaxis en el código.
+- Errores de tiempo de ejecución de JavaScript que provocan fallos
+- Dependencias faltantes o componentes rotos
+- Problemas de autenticación o enrutamiento que bloquean la página
+
+Para solucionar problemas: pídale a ZenOpus que revise el archivo vite.config.ts o elimine los encabezados de seguridad. Verifique la consola del navegador en busca de errores, vuelva a una versión anterior o solicite a ZenOpus que investigue el problema de la pantalla en blanco.
+</Accordion>
+<Accordion title="Anular la publicación o desactivar proyectos">
+Puede cancelar la publicación o eliminar su proyecto en Configuración del proyecto.
+</Accordion>
+<Accordion title="Error con funciones perimetrales">
+Consulte la pestaña Nube -> Registros para ver mensajes de error específicos. Verifique que todos los secretos requeridos y las variables de entorno estén configurados correctamente. Intente volver a implementar realizando un pequeño cambio en el código de la función perimetral solicitando ZenOpus. Asegúrese de que la conexión de su base de datos esté funcionando. Pídale a ZenOpus que investigue el error específico y solucione cualquier problema encontrado en los registros.
+</Accordion>
+<Accordion title="Proyecto no encontrado">
+Generalmente esto significa que el proyecto fue eliminado. Si no lo eliminó a propósito, comuníquese con Support para obtener ayuda para restaurar su proyecto.
+</Accordion>
+</AccordionGroup>
+
+### ¿Necesitas más ayuda?
+
+¿Sigues estancado? Prueba esto:
+
+1. Utilice Plan mode para obtener ayuda paso a paso.
+1. Si se trata de un problema con la interfaz de usuario o una función, vuelva a un estado estable.
+1. Si es un cliente pago y desea informar un problema en toda la plataforma, comuníquese con [Support](https://zenopus.dev/support).

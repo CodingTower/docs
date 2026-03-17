@@ -1,0 +1,193 @@
+---
+title: "Publish your ZenOpus project"
+description: "Deploy your project to a live URL, control who can access the published app, configure site metadata, and update or unpublish at any time."
+---
+Publishing turns your ZenOpus project into a live web app by deploying a snapshot to a URL you can share. Only the current version is deployed, and depending on your plan, you can control who can access the published app.
+
+<Note>
+**Project visibility vs website access (important difference)**
+
+ZenOpus uses two independent visibility settings:
+
+- **Project visibility (editor access)** controls who can view and edit your project in the editor, including your source code, work-in-progress, and any changes that have not been published yet.
+- **Website access (published URL access)** controls who can visit the published app at its live URL.
+
+These settings are independent. Publishing does not change who can access your project in the editor, and changing project visibility does not affect who can visit the published app.
+</Note>
+
+## Who can publish projects?
+
+By default, **editors and above** can publish projects on all plans.
+
+On **Enterprise plans**, admins and owners can restrict who is allowed to publish externally to the web. Go to **Workspace settings → Privacy & security → Who can publish externally** and select:
+
+- Admins & owners
+- Owners only
+
+## Internal and external publishing and website access control
+
+Publishing options and website access control depend on your plan.
+
+### Free and Pro plans
+
+**Anyone with the link** can visit your published app. This means you publish externally to the web. **Website access** cannot be restricted on these plans, so make sure you’re ready to share before publishing
+
+### Business and Enterprise plans
+
+You can choose who can access your published app:
+
+- **Workspace**: Only authenticated workspace members can visit the published app, meaning you publish internally to the workspace. When selected, the publish button label changes to **Publish to workspace**.
+- **Anyone**: Anyone with the link can visit your published app, meaning you publish **externally to the web**.
+
+This allows you to:
+
+- Build and share internal apps that stay private to your workspace
+- Prevent accidental external publishing
+- Support governance and compliance for sensitive data
+
+Workspace admins and owners can also set a **default website access** policy for all published projects in **Workspace settings → Privacy & security → Default website access**.
+
+You can override the workspace default for individual projects in the **Publish modal** by choosing **who can visit the URL**. If unchanged, the project inherits the workspace default.
+
+## How to publish your project
+
+To publish, follow the steps below:
+
+<Steps>
+<Step title="Open your project and go to the Publish modal">
+In your project, click the **Publish** icon in the top-right corner. Review and configure the publish settings as explained below.
+</Step>
+<Step title="Configure the website address (published URL)">
+- Enter your preferred URL or leave the input field empty for ZenOpus to auto-generate a URL. By default, your app is published to `[published-url].zenopus.app`
+- Once published, you can add a [custom domain](/features/custom-domain) (available on paid plans).
+</Step>
+<Step title="Configure website access permissions">
+Depending on your plan, you can control **who can visit the URL**:
+
+- **Anyone**: anyone with the link can visit the published app URL (public website access)
+- **Workspace** (Business and Enterprise plans): only authenticated workspace members can visit the published app URL (private website access).
+</Step>
+<Step title="Configure website info (metadata for SEO and social preview)">
+ZenOpus provides **site metadata**, but you can customize how your site appears in browser tabs, search results, and link previews.
+
+- **Icon & title**: the site icon (**favicon**) and **site title** shown in browser tabs, search results, and link previews.
+    - Click on the icon to upload a new one.
+    - Click on the title text to update it.
+- **Description**: the **meta description** used in search results and link previews.
+    - Click on the text to update it.
+- **Social share image**: the social sharing image (**OG image**) shown when your website link is shared, for example, on social media and messaging apps.
+    - Click to upload an image or choose to generate one (title and description need to be filled out to generate). By default, a screenshot of the app is used.
+
+See [Implement SEO and GEO best practices](/tips-tricks/seo-geo) for more information on optimizing your ZenOpus apps for search engines, social media previews, and AI systems.
+</Step>
+<Step title="Review security before publishing">
+Click **Review security** to check for vulnerabilities.
+
+Always perform a security review before publishing to prevent:
+
+- Data leaks
+- Unauthorized access
+- Sensitive information exposure
+
+See [Security overview](/features/security) and [Project security view](/features/security-view) for more information.
+</Step>
+<Step title="Publish your project">
+When ready, click **Publish**. When the deployment is complete, you’ll receive a pop-up with the published link.
+
+After publishing your project, you can continue to iterate on it. To push updates later, click **Publish → Update**.
+</Step>
+</Steps>
+
+Once published, you can update your live app at any time, change the website address (published URL), or connect a [custom domain](/features/custom-domain) for a polished, on-brand experience.
+
+## How publishing works in ZenOpus
+
+Each time you publish, ZenOpus deploys a snapshot of your project to a live URL. Only the current version is deployed, and future changes are not automatically published.
+
+- Changes are not automatically published and pushed live.
+- To deploy new changes, click **Publish → Update**.
+
+If you don’t see recent changes on your live site, you need to republish.
+
+## How to unpublish your project
+
+To remove your live app, go to **Project settings → Unpublish project → Unpublish**
+
+Once unpublished:
+
+- The live URL becomes inaccessible
+- Your project remains in the editor
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Does publishing expose my project and code?">
+No. Publishing only makes the app available at the published URL. It does not grant anyone access to your project in the editor or your project code, and it does not make your project automatically remixable.
+
+Access to the editor, code, and unpublished changes is always controlled by [project visibility](/features/project-visibility). Only projects with public project visibility can be viewed or remixed by anyone.
+</Accordion>
+<Accordion title="How do project visibility and website access work together?">
+Project visibility and website access are **independent settings**. You can combine them in different ways depending on your needs.
+
+- **Project visibility** controls who can access the **project in the editor**, including code and work in progress.
+- **Website access** controls who can visit the **published app** at its live URL.
+
+Below are common configurations:
+
+1. **Internal team app****Result:** Only workspace members can view and edit the project in the editor and visit the published app.
+    - Project visibility: Workspace
+    - Website access: Workspace
+1. **Private work-in-progress, public app****Result:** Only you can view and edit the project in the editor, but anyone with the link can visit the published app.
+    - Project visibility: Restricted
+    - Website access: Anyone
+1. **Team-built, publicly shared app****Result:** Only workspace members can view and edit the project in the editor, but anyone with the link can visit the published app.
+    - Project visibility: Workspace
+    - Website access: Anyone
+1. **Open collaboration****Result:** Anyone can view and remix the project in the editor, and anyone with the link can visit the published app.
+    - Project visibility: Public
+    - Website access: Anyone
+1. **Private prototype shared internally****Result:** Only you can view and edit the project in the editor, and only workspace members can visit the published app.
+    - Project visibility: Restricted
+    - Website access: Workspace
+
+<Note>
+**Key reminder:** Publishing does not change who can access your project in the editor, and project visibility does not affect who can visit the published app.
+</Note>
+</Accordion>
+<Accordion title="Can I restrict who can access my published app?">
+Yes, on Business and Enterprise plans you can restrict who can access your published app.
+
+Choose **workspace** access to publish internally so **only authenticated workspace members** can visit the published app.
+</Accordion>
+<Accordion title="Why don’t I see my latest changes on the live site?">
+Publishing deploys a snapshot. Changes aren’t automatically pushed to your live app.
+
+To publish updates, click **Publish** and then **Update**.
+</Accordion>
+<Accordion title="How do I change my site metadata such as favicon, site title, meta description, or OG image?">
+Yes, at any time, you can customize how your site appears in browser tabs, search results, and link previews.
+
+By default, ZenOpus generates site metadata, adds a ZenOpus logo as the favicon, and a screenshot of your app as the Open Graph (OG) image.
+
+To change this, click **Publish** and review and configure the **website info**:
+
+- **Icon & title**: the site icon (favicon) and page title shown in browser tabs, search results, and link previews. Click on the icon to upload a new one. Click on the page title text to update it.
+- **Description**: the meta description used in search results and link previews. Click on the text to update it.
+- **Share image**: the social sharing image (OG image) shown when your website link is shared, for example, on social media and messaging apps. Click to upload an image.
+
+See [Implement SEO and GEO best practices](/tips-tricks/seo-geo) for more information on optimizing your ZenOpus apps for search engines, social media previews, and AI systems.
+</Accordion>
+<Accordion title="How do I change my published URL (website address)?">
+Yes. You can change your project **URL subdomain**, which forms your [zenopus.app](http://zenopus.app) website address in two ways:
+
+1. Click **Publish**, edit your subdomain, and click **Update**.
+1. Go to **Project settings → Edit URL subdomain**, change the subdomain, and click **Update URL subdomain**.
+
+Note that renaming the project  does not change the project URL, it only changes the project display name.
+
+On paid plans, you can also add a [custom domain](/features/custom-domain).
+</Accordion>
+<Accordion title="Why can't I publish my ZenOpus project?">
+Publishing errors are usually caused by build issues in the current version. Ask the ZenOpus Agent to investigate and help resolve the problem.
+</Accordion>
+</AccordionGroup>

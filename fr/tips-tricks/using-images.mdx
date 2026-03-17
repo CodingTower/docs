@@ -1,0 +1,104 @@
+---
+title: "Utiliser des images dans ZenOpus"
+description: "Téléchargez des images pour discuter, remplacez-les par des modifications visuelles, utilisez des URL externes ou ajoutez des fichiers à partir de votre répertoire public GitHub."
+---
+Pour ajouter des images, vous pouvez effectuer l'une des quatre opérations suivantes :
+
+<AccordionGroup>
+<Accordion title="Téléchargez l'image sur le chat d'invite">
+Téléchargez-les simplement dans le chat et expliquez à l'agent de ZenOpus où et comment vous souhaitez qu'ils apparaissent dans votre projet. Par exemple :
+
+> Remplacez le logo dans la barre de navigation par cette image
+</Accordion>
+<Accordion title="Remplacez-le sur l'éditeur visuel">
+Vous pouvez remplacer une image existante directement à l'aide de la fonctionnalité [éditeur visuel](/fr/features/design) :
+
+<Steps>
+<Step title="Étape 1">
+Cliquez sur l'outil « Modifier ».
+</Step>
+<Step title="Étape 2">
+Sélectionnez le Support d'image que vous souhaitez modifier.
+
+![Éditeur visuel affichant un élément d'image sélectionné avec le panneau d'édition ouvert](/images/zenopus/tips-tricks/using-images/visual-edit-replace.png)
+</Step>
+<Step title="Étape 3">
+Changez l'image.
+
+![Boîte de dialogue de remplacement d'image dans l'éditeur visuel avec options de téléchargement et d'URL](/images/zenopus/tips-tricks/using-images/visual-edit-image.png)
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Utiliser une URL d'image externe">
+Une façon d'ajouter des images à votre projet consiste à référencer une image à partir d'une URL externe. Cette méthode vous permet d'utiliser des images hébergées sur des plateformes externes comme Unsplash, Imgur ou tout autre service d'hébergement d'images. Attention aux droits d'auteur !
+
+Voici comment prompt ZenOpus utiliser une image externe :
+
+<Steps>
+<Step title="Étape 1">
+Recherchez l'image que vous souhaitez utiliser.
+
+Par exemple, vous pouvez visiter un site comme Unsplash, sélectionner une image et copier son URL.
+</Step>
+<Step title="Étape 2">
+Dans l'invite de votre projet, dites simplement à ZenOpus d'utiliser cette image en spécifiant l'URL. Par exemple :
+
+```text
+Utilisez l'image de cette URL 
+https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Pale_Blue_Dot.png/442px-Pale_Blue_Dot.png 
+pour l'image de la section héros.
+```
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Utiliser des images de votre répertoire public GitHub">
+Une autre méthode pour ajouter des images à votre projet ZenOpus consiste à utiliser des images téléchargées dans le répertoire `public` de votre référentiel GitHub connecté. Voici comment procéder :
+
+<Steps>
+<Step title="Connectez votre référentiel GitHub">
+Assurez-vous que votre projet est connecté à votre dépôt GitHub. [Voici comment connecter votre dépôt](/fr/integrations/git-integration).
+</Step>
+<Step title="Localisez le dossier public">
+Dans votre référentiel GitHub, accédez au répertoire `public`. Ce dossier est généralement utilisé pour héberger des ressources telles que des images pouvant être référencées dans votre projet.
+</Step>
+<Step title="Ajouter un fichier">
+Cliquez sur **Ajouter un fichier**, puis dans une liste déroulante, sélectionnez l'option **Télécharger des fichiers**. ![Sélection des fichiers à télécharger](/images/zenopus/tips-tricks/using-images/using-images-github-upload.png)
+</Step>
+<Step title="Télécharger une image">
+L'étape suivante consiste à transférer votre image vers votre dépôt :
+
+- Faites glisser et déposez l'image dans le dossier public, ou
+- Cliquez sur le lien **« choisissez vos fichiers »** pour parcourir et sélectionner le fichier image.
+    ![Sélection des fichiers à télécharger](/images/zenopus/tips-tricks/using-images/using-images-github-commiting.png)
+</Step>
+<Step title="Valider les modifications">
+Après avoir sélectionné votre image, écrivez un simple message de validation (par exemple, « Ajout de fichiers image à utiliser dans l'application ») et cliquez sur ** « Valider les modifications »** pour enregistrer le fichier dans votre dépôt.
+</Step>
+<Step title="Obtenez le chemin de l'image">
+Une fois le fichier téléchargé, sélectionnez-le puis cliquez sur l'icône de copie à côté du nom du fichier pour copier le chemin de l'image. Ce chemin sera utilisé dans votre invite ZenOpus. ![Sélection des fichiers à télécharger](/images/zenopus/tips-tricks/using-images/using-images-github-selecting.png)
+</Step>
+<Step title="Utilisez l'image dans ZenOpus">
+Vous pouvez désormais référencer cette image dans votre projet en utilisant une invite comme celle-ci :
+
+```text
+Ajoutez une image supplémentaire à la section héros. 
+Cette fois, utilisez celui-ci de mon dépôt local : public/c-64-close-up.jpg.jpeg
+```
+
+Assurez-vous d'utiliser le nom de votre image et le chemin que vous avez copiés à l'étape précédente.
+
+<Warning>
+Le téléchargement d'images volumineuses sur votre dépôt GitHub peut entraîner une augmentation de sa taille, ce qui peut affecter les performances de ZenOpus (temps de clonage du dépôt plus longs, démarrage plus lent des aperçus/du bac à sable).
+
+Essayez d'optimiser vos images avant de les télécharger dans votre dossier `public` en les compressant et en utilisant des dimensions adaptées à votre cas d'utilisation. Par exemple, n’utilisez pas une image au format Full HD si elle ne sera affichée que sous la forme d’une petite icône.
+</Warning>
+</Step>
+</Steps>
+
+Pour vous aider à mieux comprendre comment intégrer des images à l'aide des méthodes décrites ci-dessus, nous avons un projet que vous pouvez explorer : [Exemple de projet ZenOpus](https://zenopus.dev/projects/e823fedf-238d-4313-86a8-1fd4bfc2a9ba). Dans ce projet, vous pouvez voir les invites réelles et comment chaque méthode fonctionne dans la pratique.
+
+De plus, voici un référentiel GitHub public qui comprend les validations, les images téléchargées et les détails complets de mise en œuvre. Vous pouvez consulter le référentiel ici : [GitHub : exemple d'ajout d'images] (https://github.com/viborc/adding-images-example).
+
+N'hésitez pas à explorer le projet et le référentiel pour approfondir votre compréhension et améliorer vos compétences de mise en œuvre.
+</Accordion>
+</AccordionGroup>

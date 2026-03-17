@@ -1,0 +1,118 @@
+---
+title: "Workspace Sicherheitscenter"
+description: "Ein zentrales Workspace-Sicherheits-Dashboard zur Überwachung von Sicherheitsergebnissen, Scan-Abdeckung und Abhängigkeitsrisiken in allen Projekten."
+---
+Das **Sicherheitszentrum** hilft Teams, Risiken zu identifizieren, Fehlerbehebungen zu priorisieren und die Sicherheitsabdeckung projektübergreifend im großen Maßstab zu verfolgen.
+
+- **Verfügbar am:** Business und Enterprise-Pläne
+- **Zugriff:** Workspace Administratoren und Eigentümer
+- **Ort:** Einstellungen → Workspace → Sicherheitscenter
+
+<Tip>
+Das Sicherheitscenter bietet eine **Workspace-weite Ansicht des Sicherheitsstatus aller Projekte**.
+
+- Um Ergebnisse für ein einzelnes Projekt zu überprüfen, zu korrigieren oder zu aktualisieren, öffnen Sie die [Projektsicherheitsansicht](/de/features/security-view).
+- Eine Übersicht über das Sicherheitsmodell und den Scan-Ansatz von ZenOpus finden Sie in der [Sicherheitsübersicht](/de/features/security).
+- Praktische Anleitungen zum Schreiben von sicherem Code und zur Vermeidung häufiger Sicherheitsfehler finden Sie unter [Bewährte Sicherheitsmethoden für ZenOpus-Apps](/de/tips-tricks/security-best-practices).
+</Tip>
+
+## Was das Sicherheitscenter anzeigt
+
+Das Sicherheitscenter ist in zwei Hauptabschnitte unterteilt, die sich jeweils auf einen anderen Aspekt der Sicherheit konzentrieren. Es kombiniert Codeanalyse und Lieferkettensicherheit in einer einzigen Ansicht auf Workspace-Ebene.
+
+### Code-Analyse
+
+Überprüfen Sie die Sicherheitsergebnisse aus **automatisierten Sicherheitsscans** für alle Projekte in Ihrem Workspace. Zusammenfassungskarten bieten einen Überblick über die gesamten Projekte, Projekte mit Ergebnissen und Scan-Abdeckung.
+
+- **Fehler**: Kritische Sicherheitsprobleme, die sofortige Aufmerksamkeit erfordern
+- **Warnungen**: Wichtige Sicherheitsbedenken, die überprüft werden sollten
+- **Info**: Informationsbefunde, die zusätzlichen Kontext liefern
+- **Scan-Status**: Wann Projekte zuletzt gescannt wurden, einschließlich Live-Scan-Anzeigen
+- **Sichtbarkeit**: Der Veröffentlichungsstatus des Projekts, ob Entwurf (nicht veröffentlicht), Workspace (intern im Workspace veröffentlicht) oder öffentlich (öffentlich veröffentlicht)
+
+Sie können Projekte nach Sicherheitsstatus, Sichtbarkeit (Veröffentlichungsstatus), Scan-Status oder Namen suchen, filtern und sortieren, um sich schnell auf das Wesentliche zu konzentrieren.
+
+### Sicherheit der Lieferkette
+
+Überwachen Sie Abhängigkeitsschwachstellen in Ihrem gesamten Workspace. Zusammenfassungskarten heben die Anzahl der Schwachstellen nach Schweregrad und Gesamtscanabdeckung hervor.
+
+- **Zwei Ansichten**: Überprüfen Sie Schwachstellen **nach Projekt** oder **nach Schwachstelle**
+- **Schwachstellen nach Schweregrad**: Kategorisiert als kritisch, hoch oder mittel
+- **Betroffene Projekte**: Welche Projekte verwenden anfällige Abhängigkeiten?
+- **Anfällige Pakete**: Paketnamen, betroffene Versionen und behobene Versionen, sofern verfügbar
+- **CSV-Export**: Exportieren Sie eine Workspace-weite Abhängigkeitsliste als CSV-Datei für Audits oder Berichte (verfügbar in der **Projektansicht** in der Lieferkettensicherheit).
+
+Sie können Schwachstellen nach Schweregrad, Sichtbarkeit (Veröffentlichungsstatus), CVE, Paketname oder Schwachstellentitel filtern und durchsuchen.
+
+## Warum das Sicherheitscenter nutzen?
+
+Das Sicherheitscenter hilft Teams, den Überblick über Sicherheitsprobleme zu behalten, indem es Risiken projektübergreifend sichtbar, vergleichbar und umsetzbar macht.
+
+- **Zentralisierte Aufsicht**  
+Überprüfen Sie die Sicherheitsergebnisse im gesamten Workspace, ohne Projekte einzeln zu öffnen.
+- **Klare Priorisierung**  
+Konzentrieren Sie sich auf Projekte mit kritischen Fehlern, Schwachstellen mit hohem Schweregrad oder veralteten Scans.
+- **Einblick in die Scanabdeckung**  
+Sehen Sie, welche Projekte auf dem neuesten Stand sind und welche möglicherweise Sicherheitsüberprüfungen erfordern.
+- **Bewusstsein für Abhängigkeitsrisiken**  
+Verstehen Sie, wie sich anfällige Abhängigkeiten auf mehrere Projekte auswirken, und koordinieren Sie Aktualisierungen effizient.
+
+## Häufige Anwendungsfälle
+
+Das Sicherheitszentrum unterstützt sowohl Routineüberprüfungen als auch zeitkritische Sicherheitsarbeiten, darunter:
+
+- **Release-Bereitschaft und Audits**  
+Bestätigen Sie vor dem Versand oder den Compliance-Prüfungen, dass Projekte die Sicherheitsstandards erfüllen.
+- **Projekt-Onboarding und Übergaben**  
+Stellen Sie sicher, dass übernommene oder übertragene Projekte gescannt wurden und keine Sicherheitsrisiken mit sich bringen.
+- **Reaktion auf kritische Sicherheitslücken**  
+Identifizieren Sie schnell betroffene Projekte, wenn neue Abhängigkeitsprobleme bekannt werden.
+- **Laufende Überwachung**  
+Überprüfen Sie die Ergebnisse regelmäßig und gehen Sie im wöchentlichen oder monatlichen Rhythmus auf neue Probleme ein.
+
+## Best Practices für die Verwendung des Sicherheitscenters
+
+Das Sicherheitscenter ist für eine laufende Überprüfung und nicht für einen festen Arbeitsablauf konzipiert. Die folgenden Best Practices spiegeln die häufige Verwendung durch Teams wider.
+
+- **Beginnen Sie mit der Workspace-Übersicht**  
+Überprüfen Sie den allgemeinen Sicherheitsstatus, um zu verstehen, wie viele Projekte Fehler, Warnungen oder veraltete Scans aufweisen.
+- **Priorisieren Sie Projekte, die Aufmerksamkeit benötigen**  
+Verwenden Sie Filter, um sich auf Projekte mit kritischen Fehlern, Schwachstellen mit hohem Schweregrad oder aktuellen Warnungen zu konzentrieren.
+- **Überprüfen Sie die Aktualität des Scans**  
+Identifizieren Sie Projekte, die in letzter Zeit nicht gescannt wurden und möglicherweise aktualisierte Sicherheitsüberprüfungen benötigen.
+- **Überprüfen Sie Abhängigkeitsschwachstellen**  
+Untersuchen Sie anfällige Pakete nach Schweregrad, um zu sehen, welche Probleme mehrere Projekte betreffen und koordinierte Updates erfordern.
+- **Ergreifen Sie Maßnahmen innerhalb einzelner Projekte**  
+Verwenden Sie die Aktion **Anzeigen** für ein Projekt, um dessen Sicherheitsdetails zu öffnen, neue Scans auszuführen, Abhängigkeiten zu aktualisieren und Ergebnisse in der [Projektsicherheitsansicht](/de/features/security-view) aufzulösen.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Wer kann auf das Sicherheitscenter zugreifen?">
+Workspace-Administratoren und Besitzer von Business- und Enterprise-Plänen können unter **Einstellungen → Workspace → Sicherheitscenter** auf das Sicherheitscenter zugreifen.
+</Accordion>
+<Accordion title="Führt das Sicherheitscenter automatisch Scans durch?">
+Nein. Es werden die neuesten Scanergebnisse für jedes Projekt angezeigt. Um das, was Sie sehen, zu aktualisieren, führen Sie einen neuen Sicherheitsscan im Projekt durch.
+</Accordion>
+<Accordion title="Was ist der Unterschied zwischen Fehlern, Warnungen und Informationen?">
+- **Fehler** sind kritische Sicherheitsprobleme, die vor der Veröffentlichung behoben werden sollten.
+- **Warnungen** sind wichtige Bedenken, die möglicherweise nicht kritisch sind, aber überprüft werden sollten.
+- **Info**-Ergebnisse liefern zusätzlichen Kontext, um Teams dabei zu helfen, ihre Sicherheitslage besser zu verstehen.
+</Accordion>
+<Accordion title="Was bedeutet „Sichtbarkeit“?">
+Die Sichtbarkeit spiegelt den **Veröffentlichungsstatus** eines Projekts wider:
+
+- **Entwurf**: Nicht veröffentlicht
+- **Workspace**: Wird intern veröffentlicht und ist nur für Workspace-Mitglieder zugänglich
+- **Öffentlich**: Öffentlich veröffentlicht und für jeden mit dem Link zugänglich
+</Accordion>
+<Accordion title="Warum werden manche Projekte als nie gescannt angezeigt?">
+Projekte werden als nie gescannt angezeigt, wenn für sie noch kein Sicherheitsscan durchgeführt wurde. Führen Sie einen Sicherheitsscan im Projekt durch, um Ergebnisse zu generieren.
+</Accordion>
+<Accordion title="Zeigt das Sicherheitscenter historische Daten an?">
+Nein. Derzeit zeigt das Sicherheitscenter nur die neuesten Scanergebnisse für jedes Projekt an.
+</Accordion>
+<Accordion title="Kann ich Sicherheitsdaten exportieren?">
+Ja. Sie können eine Workspace-weite Abhängigkeitsliste als CSV-Datei aus dem Abschnitt „Sicherheit der Lieferkette“ (Projektansicht) exportieren.
+</Accordion>
+</AccordionGroup>

@@ -1,0 +1,183 @@
+---
+title: "Meilleures pratiques"
+description: "Utilisez efficacement les fichiers de connaissances, Plan mode, les modifications visuelles et le contrôle de version pour créer plus rapidement et éviter les pièges courants."
+---
+Ce guide aide tous les utilisateurs, nouveaux ou expérimentés, à se mettre rapidement à niveau et à éviter les pièges courants lors de la construction sur ZenOpus.
+
+## 1. Posez vos bases : utilisez le fichier de connaissances
+
+**Pourquoi c'est important :** Le fichier [Knowledge](/fr/features/knowledge) est le cerveau de votre projet. Il est envoyé avec chaque invite et aide l'IA à comprendre le contexte complet.
+
+**Ce qu'il faut inclure :**
+
+- Votre vision du produit (pensez-y comme un PRD)
+- Parcours utilisateur et personas
+- Principales caractéristiques et fonctionnalités
+- Systèmes de conception et conseils pour l'interface utilisateur
+- Comportement spécifique au rôle (par exemple administrateur, utilisateur, investisseur)
+
+<Tip>
+Vous pouvez générer automatiquement un fichier Knowledge via Plan mode :
+
+```text
+Générer des connaissances pour mon projet à T=0 en fonction des fonctionnalités que j'ai déjà implémentées.
+```
+</Tip>
+
+## 2. Inviter les meilleures pratiques
+
+**Des invites claires et détaillées = un meilleur résultat.** Considérez l'IA comme votre partenaire d'ingénierie : elle ne sait que ce que vous lui dites.
+
+**Conseils d'incitation :**
+
+- Soyez précis : mentionnez la page exacte (par exemple `/dashboard`) et le comportement attendu.
+- Utiliser le langage naturel
+    ```text
+    Je souhaite que les utilisateurs ayant le rôle d'investisseur accèdent à ce composant, mais pas aux administrateurs.
+    ```
+- Ajouter des captures d'écran : particulièrement utile pour décrire des bugs ou des problèmes UX.
+- Ajoutez des garde-corps : indiquez à l'IA ce qu'elle ne doit **pas** toucher. Par ex.
+    ```text
+    Ne modifiez pas /shared/Layout.tsx.
+    ```
+- Répétez les instructions importantes dans les invites. La mémoire de l’IA peut être limitante.
+- Évitez d'essayer de mettre en œuvre 5 choses à la fois. Divisez le travail en morceaux plus petits et testables. Utilisez Plan mode entre chaque bloc pour valider avant de continuer.
+    ```text
+    **Modèle de répartition des fonctionnalités :**
+    Créer la nouvelle page
+    Ajouter une disposition de l'interface utilisateur
+    Connectez les données
+    Ajouter de la logique + des cas extrêmes
+    Test par rôle
+    ```
+- Si votre application a plusieurs rôles (par exemple, administrateur, investisseur, startup), définissez toujours *à quel rôle* l'invite s'applique. Cela permet d'éviter les bogues causés par une logique/des composants partagés.
+    ```text
+    En tant qu'investisseur, je souhaite consulter le tableau de bord de l'entreprise, mais je ne devrais pas pouvoir le modifier. Veuillez isoler cette fonctionnalité uniquement pour le rôle d'investisseur.
+    ```
+
+## 3. Utilisez Plan mode tôt et souvent
+
+[**Plan mode**](/fr/features/plan-mode) = votre copilote IA. Il vous aide à déboguer, réfléchir et planifier les implémentations, sans modifier votre code tant que vous n'êtes pas prêt.
+
+**Quand passer à Plan mode :**
+
+- Après 2 à 3 tentatives infructueuses de type « Essayer de réparer »
+- Lors du débogage de problèmes de logique ou de base de données complexes
+- Lors de la planification de nouvelles fonctionnalités
+    ```text
+    Suggérer 3 façons d'implémenter X
+    ```
+
+<Tip>
+**Conseil sur le flux de travail :**
+
+Certains utilisateurs aiment utiliser Plan mode pendant 60 à 70 % de leur temps. Ne cliquez sur « Mettre en œuvre le plan » que lorsque vous êtes pleinement satisfait.
+</Tip>
+
+<Tip>
+Si vous oubliez d'utiliser le Plan mode, ce format améliore la cohérence de la sortie et empêche les modifications collatérales.
+
+```text
+Sur la page /settings, implémentez [fonctionnalité]. Le comportement attendu est [XYZ]. Veuillez ne pas toucher au composant A, à la disposition B ou à la logique partagée, sauf si cela est nécessaire. Suivez les meilleures pratiques de Tailwind / Supabase / X.
+```
+</Tip>
+
+<Tip>
+Pour éviter l'exécution de code indésirable :
+
+```text
+Enquêtez mais n’écrivez pas encore de code.
+```
+
+```text
+Suggérez 3 façons de résoudre ce problème sans rien changer.
+```
+
+Cela permet de garder le contrôle entre vos mains.
+</Tip>
+
+<Tip>
+Lorsque l’IA entre dans une « boucle », utilisez cette séquence pour éviter des cycles interminables de correction de code défectueux :
+
+1. Passer à Plan mode
+1. Collez la capture d'écran d'erreur
+1. Dites :
+    ```text
+    Veuillez enquêter sur cela sans casser d'autres fonctionnalités. Si nécessaire, revenez à la dernière version fonctionnelle et corrigez à partir de là.
+    ```
+</Tip>
+
+## 4. Évitez les pièges courants avec Supabase
+
+**Attention :** [Supabase](/fr/integrations/supabase) ne revient pas proprement. Si vous rétablissez une version, le schéma de votre base de données peut être interrompu.
+
+**Bonnes pratiques :**
+
+- Connecter Supabase **après** le front-end est stable
+- Si vous devez revenir en arrière, demandez à l'IA :
+    ```text
+    Veuillez valider le schéma SQL à T=0 et vous assurer qu'aucune modification avec rupture n'a eu lieu.
+    ```
+- Testez toujours les fonctionnalités liées à la base de données avant de publier
+
+## 5. Utilisez Visual Edit pour des correctifs rapides de l'interface utilisateur
+
+L'[**outil d'édition visuelle**](/fr/features/visual-edit) est gratuit et rapide. Utilisez-le à la place des invites pour :
+
+- Modification du texte, des couleurs, des polices, ajustements de mise en page
+- Modification de plusieurs petits éléments à la fois
+- Validations sécurisées et sans crédit (avec annulation disponible)
+
+## 6. Utilisez judicieusement le contrôle de version GitHub +
+
+- Chaque modification est un commit. Utilisez **épinglage** pour marquer les versions stables. Après chaque fonctionnalité fonctionnelle : **Épinglez-le**
+- Après chaque bug : **Comparez visuellement les versions.** Vous pouvez demander :
+    ```text
+    Comparez la version à T-1 à T-0. Qu'est-ce qui a changé ? Qu'est-ce qui pourrait casser ?
+    ```
+- Revenez à une version stable si vous sentez que l'IA a trop cassé.
+- Utilisez le **branchement GitHub** à vos propres risques. Évitez de supprimer des branches avant de revenir à `main` dans ZenOpus pour éviter les problèmes de synchronisation du projet.
+
+## 7. Quand tout le reste échoue, remixez
+
+De nombreux utilisateurs s’en rendent compte : tout recommencer prend moins de temps la deuxième fois.
+
+- [Remix](/fr/introduction/faq#comment-copier-remixer-un-projet) crée une copie propre de votre projet à T=0.
+- Reconstruire avec de meilleures incitations + des connaissances plus claires
+- Utilisez votre ancien projet comme référence uniquement
+
+**Cas d'utilisation :**
+
+- Vous êtes coincé dans une boucle de buggy
+- Vous souhaitez redémarrer proprement avec un historique préservé
+- Vous devez déconnecter Supabase et essayer un nouveau chemin
+
+<Tip>
+Le remixage nécessite d'abord de déconnecter Supabase.
+</Tip>
+
+## 8. Restez patient, restez calme
+
+Vous n'êtes pas seul. L’IA peut être magique à un moment donné et frustrante le lendemain. Les 5 % restants de toute construction sont souvent les plus lents, mais les plus importants.
+
+<Tip>
+**Règle d'or :**
+
+Prenez votre temps avec les invites. Revérifiez tout. Divisez le travail en petits blocs testables. Plus vos entrées sont précises, meilleurs sont vos résultats.
+</Tip>
+
+## 9. Utilisez la documentation et demandez de l'aide
+
+- [Documentation](/) contient des procédures pas à pas, des modèles, des conseils SEO, des intégrations et bien plus encore. Vous pouvez poser des questions directement dans l’assistant doc AI.
+- Rejoignez la [communauté Discord](https://discord.gg/zenopus-dev) pour votre homologue Support.
+
+## 10. Conseils bonus
+
+- Ajoutez une invite de note vocale à l'aide de la dictée (par exemple, sur Mac, utilisez le micro pour dicter de longues invites) pour les invites longues. Vous rédigerez plus rapidement de meilleures contributions, ce qui est particulièrement utile lorsque vous êtes frustré ou fatigué.
+- Utilisez le modèle d'invite « `I am frustrated…` » pour mieux vous concentrer sur l'IA
+- Après une modification majeure, revérifiez toujours plusieurs rôles et leur comportement (en particulier avec la logique conditionnelle)
+- Stockez les versions stables comme solutions de secours pour un débogage rapide
+- Si vous constatez des effets secondaires inattendus, cela permet d’éviter les bugs causés par une logique trop générique.
+    ```text
+    Créez un composant spécifiquement pour [rôle X] et ne réutilisez pas les composants partagés à moins que leur portée soit clairement définie.
+    ```

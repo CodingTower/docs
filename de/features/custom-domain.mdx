@@ -1,0 +1,217 @@
+---
+title: "Verbinden Sie eine benutzerdefinierte Domäne"
+description: "Erfahren Sie in ZenOpus, wie Sie benutzerdefinierte Domänen verbinden, überprüfen, Fehler beheben und verwalten."
+---
+Mit einer **benutzerdefinierten Domäne** können Sie Ihre eigene Domäne oder Subdomäne für Ihr veröffentlichtes ZenOpus-Projekt verwenden. Wenn Sie eine benutzerdefinierte Domäne verbinden, können Besucher über eine Marken-URL anstelle der Standard-Projekt-URL `xxx.zenopus.app` auf Ihre App zugreifen.
+
+Das Verbinden einer benutzerdefinierten Domain verbessert Folgendes:
+
+- **Markenidentität** – wirken Sie vertrauenswürdiger und professioneller
+- **Sichtbarkeit in Suchmaschinen** – bessere SEO und Auffindbarkeit
+- **Einprägsamkeit** – für Benutzer leichter zu teilen und zu merken
+
+## Voraussetzungen
+
+Um eine benutzerdefinierte Domäne zu verbinden, stellen Sie sicher, dass:
+
+- Sie haben einen kostenpflichtigen ZenOpus-Plan.
+- Ihr Projekt ist veröffentlicht. Weitere Informationen finden Sie unter [App veröffentlichen](/de/features/publish).
+- Sie besitzen einen Domainnamen. Sie können **direkt innerhalb von ZenOpus** (über IONOS) erwerben.
+- Sie haben **Zugriff auf die DNS-Einstellungen** für die Domain oder Subdomain, die Sie verbinden möchten. Zur **Eigentumsüberprüfung** müssen während der Einrichtung die von ZenOpus bereitgestellten DNS-Einträge `A` und `TXT` hinzugefügt werden.
+- Für die Domäne, die Sie verbinden, sind keine `AAAA`-Einträge festgelegt. Ein `AAAA`-Eintrag kann die Domäneneinrichtung beeinträchtigen und dazu führen, dass der Datenverkehr falsch weitergeleitet wird.
+
+<Note>
+**Hinweis zur Domänenterminologie**
+
+- **DNS** bestimmt, wohin Ihre Domain im Internet verweist.
+- Ein **DNS-Anbieter** ist der Dienst, über den Sie DNS-Einträge für Ihre Domain verwalten, z. B. `A`-, `TXT`- oder `AAAA`-Einträge.
+- Ein **A-Eintrag** verweist eine Domain oder Subdomain auf eine IP-Adresse.
+- Zur Verifizierung des Domänenbesitzes wird ein **TXT-Eintrag** verwendet.
+- Ein **AAAA-Eintrag** verweist eine Domäne auf eine IPv6-Adresse und kann, sofern vorhanden, die Domäneneinrichtung beeinträchtigen.
+- Ein **SSL-Zertifikat** ermöglicht HTTPS und ermöglicht Browsern eine sichere Verbindung zu Ihrer Website.
+</Note>
+
+## Verbinden Sie eine benutzerdefinierte Domäne
+
+Sie können eine Domäne mit Ihrem veröffentlichten ZenOpus-Projekt verbinden, indem Sie die **automatische** Einrichtung (unterstützt von Entri) oder die **manuelle** DNS-Konfiguration verwenden. Bei beiden Methoden ist eine Bestätigung der Inhaberschaft Ihrer Domain erforderlich.
+
+Sie können eine Domain von zwei Standorten aus verbinden:
+
+- **Projekt → Einstellungen → Domänen**
+- **Modal veröffentlichen → Benutzerdefinierte Domäne** (kann nach der Veröffentlichung Ihres Projekts erfolgen)
+
+Führen Sie die folgenden Schritte aus, um eine benutzerdefinierte Domäne zu verbinden:
+
+1. Klicken Sie auf **Domäne verbinden**.
+1. Geben Sie Ihre Domain oder Subdomain ein (z. B. `yourdomain.com` oder `blog.yourdomain.com`), klicken Sie auf **Domain verbinden** und dann auf **Weiter**.
+    <Info>
+    Beim Hinzufügen einer Domain fügt ZenOpus nicht automatisch die Subdomain `www` hinzu. Sie können es separat hinzufügen, wenn Sie beides möchten.
+    </Info>
+1. Jetzt können Sie Ihre Domain auf zwei Arten verbinden:
+    - **Automatische Einrichtung mit Entri**: Wählen Sie Ihren Domain-Anbieter aus der Liste aus, melden Sie sich an und autorisieren Sie Entri, Ihre DNS-Einträge zu aktualisieren.
+    - **Manuelle Einrichtung**: Wenn Ihr DNS-Anbieter nicht aufgeführt ist, scrollen Sie zum Ende des Modalfensters **Wählen Sie Ihren Domain-Anbieter aus** und wählen Sie **Zu unserer manuellen Einrichtung gehen**. Kopieren Sie den `A`-Eintrag und den `TXT`-Eintrag und geben Sie sie direkt in Ihren Domain-Registrar oder DNS-Anbieter ein.
+        <Note>
+        **Hinweis zum A-Record-Hostnamen**
+
+        Beim Verbinden einer Domäne empfehlen wir einen Standard-Hostnamen für den `A`-Eintrag.  Allerdings handhaben einige DNS-Anbieter dies anders. Abhängig von Ihrem Anbieter muss der Hostname möglicherweise wie folgt lauten:
+
+        - `@`
+        - leer gelassen
+        - oder auf Ihren Domainnamen setzen (z. B. `example.com`)
+
+        Beispielsweise erfordert Amazon Route 53, dass der Hostname leer bleibt oder auf den Domänennamen festgelegt wird.
+        </Note>
+1. Klicken Sie auf **Fertig**. Warten Sie auf die Ausstellung der Verifizierung und des SSL-Zertifikats. Wenn der Vorgang abgeschlossen ist, wird die Domain **Live** und Ihre ZenOpus-App wird in Ihrer benutzerdefinierten Domain live sein.
+
+<Info>
+Die Verbreitung von DNS-Änderungen kann bis zu **72 Stunden dauern**, obwohl die meisten Updates innerhalb weniger Stunden live sind.
+</Info>
+
+## Domainstatus
+
+Domänen verfügen über eindeutige Status, die den Verifizierungsfortschritt, die DNS-Weitergabe, die SSL-Zertifikatsbereitschaft und erforderliche Benutzeraktionen widerspiegeln.
+
+| Status | Beschreibung | Benutzeraktion |
+| --- | --- | --- |
+| Unveröffentlicht | Wird nur für die URL Ihres xxx.zenopus.app-Projekts angezeigt, wenn das Projekt noch nicht veröffentlicht ist. | Veröffentlichen Sie das Projekt. |
+| Bereit | Die Domain ist bereit, aber das Projekt wurde nicht veröffentlicht. Bei erneuter Veröffentlichung wird der Status automatisch auf „Live“ gesetzt. | Veröffentlichen Sie das Projekt. |
+| Aktion erforderlich | Die Einrichtung der benutzerdefinierten Domäne wurde nicht abgeschlossen. | Klicken Sie auf „Einrichtung abschließen“, um die Verbindung abzuschließen. |
+| Verifizieren | Warten auf die Weitergabe von DNS-Einträgen. | Klicken Sie auf Status prüfen, um den neuesten Status zu überprüfen und die DNS-Einträge zu überprüfen. Überprüfen Sie, ob Ihre A- und TXT-Einträge bei Ihrem DNS-Anbieter korrekt hinzugefügt wurden, insbesondere der vollständige TXT-Wert. |
+| Überprüfung nicht möglich | Die DNS-Überprüfung wurde nicht innerhalb einer Stunde abgeschlossen. Dies bedeutet normalerweise, dass Ihre DNS-Einträge falsch sind oder sich immer noch verbreiten. Hinweis: Die DNS-Weitergabe kann bis zu 72 Stunden dauern, obwohl die meisten Updates innerhalb weniger Stunden angewendet werden. | Klicken Sie auf Status prüfen, um den Status zu aktualisieren und Ihre DNS-Einträge erneut zu überprüfen. Überprüfen Sie, ob Ihre A- und TXT-Einträge bei Ihrem DNS-Anbieter korrekt hinzugefügt wurden, insbesondere der vollständige TXT-Wert. |
+| Einrichten | Verifizierung abgeschlossen; Es werden SSL-Zertifikate ausgestellt. | Keine Aktion erforderlich; Die Domain wird automatisch in „Live“ oder „Fehlgeschlagen“ verschoben. |
+| Fehlgeschlagen | Der Besitz wurde bestätigt, aber das SSL-Zertifikat konnte nicht bereitgestellt werden. | Klicken Sie auf „Wiederholen“, um es noch einmal zu versuchen. |
+| Live | Die Domain ist aktiv und dient Ihrem Projekt. | Keine Aktion erforderlich. |
+| Offline | Die Domain war Live, aber die DNS-Einträge sind nicht mehr gültig. Ihre Domain verweist nicht mehr auf Ihr Projekt. | Klicken Sie auf Wiederherstellen. Überprüfen Sie die angezeigten DNS-Einträge und aktualisieren Sie sie bei Ihrem DNS-Anbieter, um Ihre Domain erneut zu verbinden. |
+| Entfernt | Diese Domain wurde entfernt, weil sie einem anderen Projekt hinzugefügt wurde oder die DNS-Überprüfung nie abgeschlossen wurde (DNS-Einträge wurden nicht korrekt hinzugefügt oder die Weitergabe wurde nicht abgeschlossen). | Klicken Sie auf „Erneut verbinden“, um die Domäne erneut zu verbinden. |
+
+Sie können eine Domain jederzeit entfernen, unabhängig von ihrem Status.
+
+## Primäre Domäne
+
+Mit ZenOpus können Sie **eine Domäne als primäre Domäne festlegen**.
+
+- Der Domänenstatus muss **Live** sein, um sie als primär zu markieren. Klicken Sie auf das Drei-Punkte-Menü neben Ihrer Domain und dann auf **Als primär festlegen**.
+- Die erste benutzerdefinierte Domäne, die Sie einem Projekt hinzufügen, wird automatisch zur primären Domäne (für Domänen, die nach dem 29. Oktober 2025 hinzugefügt werden).
+- Wenn eine Domäne primär ist, werden alle anderen Domänen dorthin weitergeleitet.
+- Es kann jeweils nur eine Domäne primär sein.
+- Sie können die primäre Domäne deaktivieren. In diesem Fall dienen alle verbundenen Domänen dem Projekt gleichermaßen. Klicken Sie auf das Drei-Punkte-Menü neben Ihrer primären Domain und dann auf **Als primäre Domain aufheben**.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Bietet ZenOpus ein SSL-Zertifikat für meine benutzerdefinierte Domäne?">
+Ja. Wenn Sie eine benutzerdefinierte Domäne mit Ihrer ZenOpus-App verbinden, generieren und installieren wir automatisch ein SSL-Zertifikat dafür. Dadurch wird sichergestellt, dass Ihre Website über HTTPS bereitgestellt wird, die Daten Ihrer Besucher geschützt bleiben und das SEO-Ranking Ihrer Website verbessert wird. Wenn es nach 72 Stunden noch nicht ausgestellt wurde, wenden Sie sich bitte an [ZenOpus Support](https://zenopus.dev/support).
+</Accordion>
+<Accordion title="Kann ich eine Domain über ZenOpus kaufen?">
+Ja. Sie können innerhalb von ZenOpus eine individuelle Domain über unseren Partner IONOS kaufen. Gehen Sie zu **Projekt → Einstellungen → Domains** und klicken Sie auf **Neue Domain kaufen**, um eine Domain über IONOS zu kaufen. Dies ist nur bei kostenpflichtigen Plänen verfügbar.
+</Accordion>
+<Accordion title="Wird sich die Verbindung einer benutzerdefinierten Domain auf meine SEO auswirken?">
+Ja, die Anbindung einer benutzerdefinierten Domain wirkt sich positiv auf Ihre SEO aus. Eine benutzerdefinierte Domain verbessert die Auffindbarkeit Ihrer Website in Suchmaschinen und lässt sie für Benutzer vertrauenswürdiger erscheinen.
+
+Weitere Informationen finden Sie unter [Best Practices für SEO und GEO implementieren](/de/tips-tricks/seo-geo).
+</Accordion>
+<Accordion title="Kann ich eine Subdomain anstelle einer vollständigen Domain verbinden?">
+Ja. Sie können eine Subdomäne (z. B. `blog.yourdomain.com` oder `app.yourdomain.com`) anstelle der Stammdomäne verbinden. Geben Sie bei der Eingabe Ihrer Domain im Einrichtungsablauf einfach die Subdomain ein, die Sie verwenden möchten.
+</Accordion>
+<Accordion title="Kann ich mehrere Subdomains mit meinem ZenOpus-Projekt verbinden?">
+Ja. Sie können mehrere Subdomains verbinden, aber jede muss einzeln unter **Projekt → Einstellungen → Domains** hinzugefügt und konfiguriert werden. Beispielsweise können Sie `blog.yourdomain.com`, `shop.yourdomain.com` und `app.yourdomain.com` verbinden.
+</Accordion>
+<Accordion title="Wo kann ich meine verbundenen Domains sehen?">
+Sie können Ihre verbundenen Domänen an zwei Orten sehen:
+
+- **Projekt → Einstellungen → Domains** – hier sehen Sie alle Domains, unabhängig von ihrem Status
+- **Modal veröffentlichen** – hier sehen Sie alle **Live**-Domains
+</Accordion>
+<Accordion title="Kann ich eine Domäne verbinden, die von einem anderen Projekt verwendet wird?">
+Ja. Solange Sie den Besitz bestätigen können, können Sie eine Verbindung zu einer Domäne oder Subdomäne herstellen, die von einem anderen Projekt verwendet wird, auch wenn das Projekt gelöscht wurde.
+</Accordion>
+<Accordion title="Wie lege ich eine primäre Domain fest?">
+Der Domänenstatus muss **Live** sein, um sie als primär festzulegen.
+
+Gehen Sie zu **Projekt → Einstellungen → Domänen**, klicken Sie auf das Drei-Punkte-Menü neben einer **Live**-Domäne und dann auf **Als primär festlegen**.
+</Accordion>
+<Accordion title="Wie kann ich eine primäre Domäne deaktivieren?">
+Gehen Sie zu **Projekt → Einstellungen → Domänen**, klicken Sie auf das Drei-Punkte-Menü neben Ihrer primären Domäne und dann auf **Als primäre Domäne aufheben**.
+</Accordion>
+<Accordion title="Wie entferne ich eine benutzerdefinierte Domäne?">
+Sie können eine Domain unabhängig von ihrem Status jederzeit entfernen.
+
+1. Gehen Sie zu **Projekt → Einstellungen → Domänen.**
+1. Klicken Sie auf das Drei-Punkte-Menü neben Ihrer Domain, klicken Sie auf **Entfernen** und dann zur Bestätigung erneut auf **Entfernen**.
+
+Dadurch wird die Domäne vom Projekt getrennt. Stellen Sie sicher, dass Sie die DNS-Einstellungen Ihres Domain-Anbieters löschen, um die Verbindung vollständig zu trennen.
+</Accordion>
+<Accordion title="Kann ich die Projekt-URL xxx.zenopus.app entfernen?">
+Derzeit gibt es keine Möglichkeit, die Projekt-URL `xxx.zenopus.app` aus Ihrem Projekt zu entfernen. Sie können jedoch eine benutzerdefinierte Domäne hinzufügen und diese als Ihre primäre Domäne festlegen. Dadurch können Besucher über eine Marken-URL auf Ihre App zugreifen, anstatt über die Standard-Projekt-URL `xxx.zenopus.app`.
+</Accordion>
+<Accordion title="Muss ich eine www-Subdomain separat verbinden?">
+Ja, Sie müssen es separat hinzufügen und es wird separat aufgeführt. Die Subdomain **www** ist bei der Einrichtung Ihrer Domain nicht enthalten.
+</Accordion>
+<Accordion title="Wie verwende ich ein CDN oder einen Reverse-Proxy mit meiner benutzerdefinierten Domain?">
+Wenn Sie ein CDN oder einen Reverse-Proxy (wie Cloudflare, CloudFront oder Fastly) verwenden, sollten Sie **die Domäne nicht unter Projekt → Einstellungen → Domänen verbinden**. Konfigurieren Sie stattdessen Ihren DNS so, dass er auf die URL Ihres ZenOpus-Projekts verweist. Ihr CDN oder Proxy verwaltet SSL und Routing.
+
+Zwischen Ihren Benutzern und ZenOpus befindet sich ein CDN (Content Delivery Network) oder Reverse-Proxy. Es empfängt Anfragen für Ihre Domain und leitet sie an Ihre App weiter. Es kann für Caching, Sicherheit oder benutzerdefiniertes Routing verwendet werden.
+
+So konfigurieren Sie dieses Setup:
+
+1. Wenn Sie die Domäne zuvor in ZenOpus verbunden haben, entfernen Sie sie aus **Projekt → Einstellungen → Domänen**. Wenn Sie es nicht angeschlossen haben, können Sie diesen Schritt überspringen.
+1. Aktualisieren Sie Ihre DNS-Einträge so, dass sie auf die URL Ihres ZenOpus-Projekts verweisen (z. B. `your-project.zenopus.app`).
+
+**Für Subdomains** (zum Beispiel `www.example.com`):
+
+- Verwenden Sie einen `CNAME`-Eintrag, der auf die URL Ihres ZenOpus-Projekts verweist.
+
+**Für Root-/Apex-Domänen** (z. B. `example.com`):
+
+- Verwenden Sie einen `ALIAS`- oder `ANAME`-Eintrag (sofern von Ihrem DNS-Anbieter unterstützt), oder
+- Verwenden Sie die CNAME-Reduzierung (unterstützt von Anbietern wie Cloudflare).
+
+Ihr CDN oder Reverse-Proxy verwaltet dann SSL und leitet den Datenverkehr an ZenOpus weiter.
+
+ZenOpus konfiguriert oder verwaltet keine Proxy-basierten Domänen-Setups.
+</Accordion>
+</AccordionGroup>
+
+## Fehlerbehebung
+
+<AccordionGroup>
+<Accordion title="Meine benutzerdefinierte Domäne ist verbunden, wird jedoch nie live geschaltet">
+Dies bedeutet normalerweise, dass ZenOpus immer noch auf die korrekte DNS-Konfiguration oder auf die vollständige Weitergabe von Änderungen wartet.
+
+Versuchen Sie Folgendes:
+
+- Verwenden Sie ein DNS-Suchtool wie [dnschecker.org](https://dnschecker.org/all-dns-records-of-domain.php), um zu bestätigen, dass Ihre Domain in die erwarteten Datensätze aufgelöst wird. Es kann bis zu **72 Stunden** dauern, bis DNS-Änderungen wirksam werden.
+- Gehen Sie zu **Projekt → Einstellungen → Domänen** und bestätigen Sie die DNS-Einträge, die ZenOpus erwartet.
+- Leeren Sie Ihren Browser-Cache oder testen Sie die Website in einem Inkognito-Fenster.
+- Versuchen Sie, die Domäne unter **Projekt → Einstellungen → Domänen** zu entfernen und erneut hinzuzufügen.
+</Accordion>
+<Accordion title="Auf meiner Domain wird die falsche Website oder eine veraltete Version angezeigt">
+Dies geschieht häufig, wenn der Datenverkehr aufgrund eines IPv6-Eintrags (`AAAA`) falsch weitergeleitet wird.
+
+Überprüfen Sie, ob für Ihre Domain `AAAA`-Einträge konfiguriert sind. Ein `AAAA`-Eintrag kann das Domänenrouting stören und dazu führen, dass der Datenverkehr das erwartete Ziel umgeht.
+
+Um dieses Problem zu beheben:
+
+- Überprüfen Sie Ihre DNS-Einstellungen bei Ihrem DNS-Anbieter.
+- Entfernen Sie alle `AAAA`-Einträge für die Domäne.
+- Versuchen Sie erneut, die Domäne zu verbinden, nachdem die Änderung wirksam wurde.
+</Accordion>
+<Accordion title="Meine Domain bleibt während der manuellen Einrichtung im Status „Wird überprüft“.">
+Wenn Sie eine benutzerdefinierte Domäne in ZenOpus mithilfe der manuellen Einrichtung verbinden, stellt ZenOpus genau die DNS-Einträge bereit, die für die Überprüfung erforderlich sind. Diese Aufzeichnungen müssen bis zum Abschluss der Überprüfung unverändert bleiben.
+
+Wenn der bereitgestellte `A`-Eintrag geändert wird, bevor die Überprüfung abgeschlossen ist, kann ZenOpus die Domäne nicht überprüfen oder SSL-Zertifikate ausstellen.
+
+**Während die Verifizierung läuft:**
+
+- Aktivieren Sie das Proxying nicht für den Datensatz `A`.
+- Verweisen Sie den `A`-Eintrag nicht auf ein CDN oder einen Reverse-Proxy.
+
+Wenn einer dieser Fälle eintritt, verbleibt die Domäne im Status **Überprüfen**.
+
+**Um dies zu beheben:**
+
+1. Deaktivieren Sie das Proxying (nur DNS) für den bereitgestellten `A`-Eintrag.
+1. Stellen Sie sicher, dass der Datensatz `A` direkt auf die IP-Adresse von **ZenOpus verweist.**
+1. Warten Sie, bis sich der Domänenstatus in **Live** ändert.
+</Accordion>
+</AccordionGroup>

@@ -1,0 +1,235 @@
+---
+title: "Impulsando mejores prácticas"
+description: "Planifique antes de solicitar, cree por componente, utilice contenido real y aplique palabras de moda en el diseño para obtener resultados consistentes y de alta calidad."
+---
+![ZenOpus cuadro de aviso](/images/zenopus/prompting/prompting-one/prompting-prompt-box.png)
+
+Este manual reúne las técnicas, estrategias y principios más eficaces para obtener los mejores resultados posibles con ZenOpus. Ya sea que sea nuevo en el mundo de las indicaciones o esté listo para perfeccionar sus habilidades, encontrará consejos prácticos y ejemplos claros que lo ayudarán a convertir ideas en una interfaz de usuario pulida de manera rápida y consistente.
+
+## Haz que ZenOpus haga preguntas aclaratorias
+
+Una de las formas más efectivas de obtener mejores resultados con ZenOpus es dejar que llene los vacíos antes de escribir el código. Después de indicar qué característica o cambio desea, agregue una línea al final del mensaje como:
+
+> "Hazme cualquier pregunta que necesites para comprender completamente lo que quiero de esta función y cómo la imagino".
+
+Se recomienda utilizar Plan mode para este enfoque.
+
+ZenOpus responderá con preguntas de seguimiento centradas y, a menudo, esclarecedoras, a veces preguntas que no habría pensado especificar. Este proceso ayuda a aclarar sus requisitos desde el principio y evita malentendidos o esfuerzos desperdiciados más adelante.
+
+Si no ha intentado solicitar mensajes de esta manera, inténtelo: probablemente notará que las nuevas funciones se acercan más a su verdadera intención, con menos idas y venidas.
+
+## Fase 1: sentar las bases
+
+### 1. Planifique antes de avisar
+
+Antes de usar ZenOpus, define lo que estás creando. Saltarse este paso es como comenzar a pintar sin decidir qué estás pintando. Utilice una sesión de planificación rápida (lápiz y papel, notas de voz, ChatGPT, lo que sea que funcione) para responder estas cuatro preguntas:
+
+- ¿Qué es este producto o característica?
+- ¿Para quién es?
+- ¿Por qué lo usarán?
+- ¿Cuál es la acción clave que debe realizar el usuario?
+
+No estás escribiendo un documento de especificaciones. Estás marcando la dirección. Cuanto más alineado esté su pensamiento, más claras serán sus indicaciones. Las ideas vagas producen resultados vagos. El pensamiento claro conduce a resultados claros.
+
+**Ejemplo rápido**
+
+```text
+Cree un sitio de una página para una aplicación de presupuesto dirigida a autónomos de la Generación Z. La CTA principal debería ser "Empiece a ahorrar de forma más inteligente". Concéntrese en una estética audaz y expresiva con texto grande y colores llamativos.
+```
+
+### 2. Mapee visualmente el recorrido del usuario
+
+El diseño no se trata de pantallas individuales, sino de lo que sucede entre ellas. Los mejores resultados en ZenOpus provienen de un flujo claro y lógico. Mapee el recorrido que realiza su usuario desde que llega a la página hasta que completa una acción clave.
+
+Piensa en las transiciones:
+
+- ¿Qué ve el usuario primero?
+- ¿Qué genera confianza?
+- ¿Qué les da confianza para actuar?
+- ¿A dónde conduce esa acción?
+
+<Info>
+Incluso un simple boceto de tres pasos (Héroe → Funciones → CTA) puede hacer que tus indicaciones sean 10 veces más efectivas.
+</Info>
+
+> "No estás apilando bloques. Estás guiando el comportamiento. Cada sección debe tener una razón para existir y una razón para conducir a la siguiente".
+
+### 3. Primero haz el diseño correcto
+
+Tu lenguaje visual es una base, no una capa de pulido. ZenOpus necesita saber la apariencia que desea, desde el principio. De lo contrario, su interfaz podría funcionar pero sentirse totalmente mal. No solucione los problemas de diseño más adelante. Decídelos desde el principio.
+
+Elija una dirección, por ejemplo:
+
+- tranquilo y elegante
+- Audaz y disruptivo
+- Premium y elegante
+
+Luego, introduzca ese estilo directamente en su mensaje utilizando palabras de moda, descriptores de tono y patrones de interfaz de usuario. Incluso puede crear un "mensaje de estilo inicial" y reutilizarlo en todas las secciones para mantener la coherencia.
+
+> "No es necesario impulsar el camino hacia un buen diseño. Se impulsa a partir de él".
+
+**Ejemplo rápido**
+
+```text
+Utilice un diseño tranquilo inspirado en el bienestar. Degradados suaves, tonos tierra apagados, esquinas redondeadas y acolchado generoso. La fuente es "Inter". El tono general debe ser suave y tranquilizador.
+```
+
+## Fase 2: Pensar en sistemas
+
+### 4. Solicitar por componente, no por página
+
+ZenOpus funciona mejor cuando construyes tu interfaz de usuario en partes modulares, no en páginas completas a la vez. Pedirle que genere una página de destino completa es como tirar una receta a una licuadora. Obtendrás algo, pero no será utilizable.
+
+En su lugar, aborde sus indicaciones como si construyera con ladrillos Lego. Cada bloque debe tener un propósito y una estructura claros: una sección de héroe, una cuadrícula de funciones, un control deslizante de testimonios y una tabla de precios. Cree uno, revíselo, perfeccionelo y luego pase al siguiente.
+
+Cuando solicita por componente, obtiene claridad, control y flexibilidad. Si algo no se ve bien, puede corregir solo ese bloque en lugar de volver a mostrar una página completa. Esto también le ayuda a ampliar su pensamiento de diseño en varias páginas: los componentes se pueden reutilizar y adaptar sin tener que volver a escribirlos desde cero.
+
+> "Un mensaje de página completa te da ruido. Un mensaje basado en secciones te da señal".
+
+**Ejemplo rápido**
+
+```text
+Crea una barra de menú flotante con efecto de morfismo de vidrio. Incluya los íconos de Inicio, Búsqueda, Música, Favoritos, Agregar, Perfil y Configuración. Agregue una animación flotante suave e interacciones fluidas al pasar el mouse.
+```
+
+### 5. Diseñar con contenido real
+
+ZenOpus no funciona bien con contenido de marcador de posición como "lorem ipsum" o "característica 1/característica 2". El modelo está entrenado para responder a la estructura y la intención, y la forma más rápida de mostrar la intención es utilizar palabras reales.
+
+Incluso si su copia final no está lista, utilice una copia que refleje su mensaje. Si estás creando una página para una aplicación de meditación, escribe lo que un usuario realmente leería. No finjas.
+
+Esto no sólo ayuda a ZenOpus a generar mejores diseños y espacios, sino que también le ayuda a tomar decisiones de diseño más inteligentes. Un titular real puede necesitar dos líneas en lugar de una. Una CTA podría funcionar mejor si es un verbo en lugar de un sustantivo. El texto de marcador de posición oculta esos problemas. El contenido real los revela temprano.
+
+> "El diseño ama las limitaciones. El contenido real crea las correctas".
+
+**Ejemplo rápido**
+
+```text
+Sección de héroe con título: "Diseña con calma". Subtexto: "Convierta la tensión en estructura con ZenOpus". CTA: "Empiece a crear Free". Utilice un diseño centrado en la copia con un generoso espacio vertical.
+```
+
+### 6. Habla atómicamente: botones, tarjetas, modales.
+
+ZenOpus piensa en átomos. Cuanto más pequeño y específico sea el idioma de la interfaz de usuario, mejor funcionará. En lugar de solicitar una "sección con registro", diga "Agregue un formulario con un campo de entrada para correo electrónico y un botón de CTA redondeado". Estas instrucciones atómicas se interpretan como patrones nativos.
+
+Piensa como un sistema. Describe tarjetas, insignias, conmutadores, chips, campos de formulario, menús desplegables, etc. No digas "una interfaz de usuario" cuando puedes decir "un modal con un brindis exitoso después del envío".
+
+Este vocabulario atómico también le permite superponer la complejidad gradualmente. Comience con una tarjeta. Luego agregue una insignia. Luego agregue estados de desplazamiento. Cada capa se construye naturalmente sobre la anterior. Esto le brinda más control y resultados de mayor fidelidad, sin tener que reescribir indicaciones.
+
+> "Cuanto más pequeña sea la pieza, más inteligente será la respuesta".
+
+**Ejemplo rápido**
+
+```text
+Crea una tarjeta con una imagen de perfil de usuario, un nombre y un botón de seguimiento. Agregue una insignia para los usuarios verificados y muestre información sobre herramientas al pasar el cursor sobre la insignia.
+```
+
+### 7. Utilice palabras de moda para marcar la estética.
+
+El estilo visual es una de las partes más importantes (y más incomprendidas) de las indicaciones en ZenOpus. No basta con describir el diseño. Debe guiar la herramienta en vibración. Las palabras de moda son la forma más rápida de hacerlo.
+
+ZenOpus entiende términos como "mínimo", "expresivo", "cinematográfico", "lúdico", "premium" y "centrado en el desarrollador". Estos no son tonterías: son parámetros que influyen en la tipografía, el espaciado, la sombra, el radio del borde y la paleta de colores.
+
+Utilice estas palabras al principio de sus indicaciones. Mejor aún, inclúyelos en cada sección. Obtendrá diseños coherentes en todos los ámbitos y evitará la temida apariencia de "IU predeterminada".
+
+También puedes mezclar y combinar palabras de moda para mejorar tu tono. Una página puede comenzar como “audaz y disruptiva” en el héroe y volverse “tranquila y tranquilizadora” en la sección de precios. No estás estancado en un estilo: estás diseñando con intención.
+
+> "El diseño no es sólo estructura. Es tono. Las palabras de moda lo definen".
+
+**Ejemplo rápido**
+
+```text
+Diseñe un héroe de página de destino que se sienta premium y cinematográfico. Utilice profundidad en capas, superficies translúcidas, desenfoque de movimiento suave y un contraste espectacular entre el título y el fondo.
+```
+
+## Fase 3: construir con precisión
+
+### 8. Utilice patrones de indicaciones para los diseños.
+
+Las indicaciones son más fáciles de escribir (y mucho más efectivas) cuando se utilizan patrones estructurados y repetibles. Piense en ellos como recetas de diseño. En lugar de intentar explicar tu diseño desde cero cada vez, descríbelo usando un ritmo constante.
+
+Un buen mensaje de diseño divide la sección en partes visuales, aclara su orden y define su estilo. La mayoría de los patrones siguen una estructura de “encabezado → contenido → acción”, pero puedes personalizar ese flujo según lo que estés diseñando.
+
+Comience a crear una biblioteca de mensajes personales. Por ejemplo, escriba una estructura de acceso para una cuadrícula de funciones, un control deslizante de testimonios o una tabla de precios. Reutilice y mezcle estos patrones con ligeras modificaciones para que coincidan con diferentes páginas.
+
+No se trata de ser rígido. Se trata de ser eficiente. ZenOpus responde mejor a un lenguaje estructurado, con alcance y predecible. Los patrones rápidos lo hacen más rápido y su producción más consistente en todas las pantallas.
+
+**Ejemplo rápido**
+
+```text
+Cree una sección de funciones con un título centrado, seguido de tres tarjetas alineadas horizontalmente. Cada tarjeta incluye un ícono en la parte superior, un título y una breve descripción. Las tarjetas deben tener sombras suaves y levantarse al pasar el cursor.
+```
+
+### 9. Agregue imágenes a través de URL
+
+¿Quieres que tu diseño parezca real? Introduzca demostraciones de productos, clips generados por Midjourney o vídeos tutoriales mediante URL. ZenOpus admite la inserción de vídeo cuando se le solicita claramente.
+
+Solicite ubicación (por ejemplo, debajo del héroe o dentro de una tarjeta destacada), estilo (por ejemplo, esquinas redondeadas, reproducción automática, silenciado) y contexto (por qué está ahí).
+
+**Ejemplo rápido**
+
+```text
+Inserte un vídeo de demostración del producto de Midjourney. Utilice esta URL: https://cdn.midjourney.com/video/cb84f296-92a0-4a37-a0e3-1c9c95299488/0.mp4. Colóquelo debajo de la sección de funciones en una tarjeta de ancho completo con una sombra suave.
+```
+
+### 10. Contexto de capa con el botón Editar
+
+El botón Editar es una de las funciones más poderosas de ZenOpus, pero solo si lo usa correctamente. En lugar de reescribir mensajes completos cuando algo necesita cambiar, use la función de edición para centrarse en capas o elementos específicos. Esto le permite iterar rápidamente sin alterar lo que ya está funcionando.
+
+Piense en las ediciones como anulaciones de diseño. No son reemplazos, son ajustes. Por ejemplo, puedes seleccionar un botón CTA y cambiar solo la copia, o modificar el diseño de una tarjeta sin afectar la tipografía de toda la sección.
+
+Esto mantiene su proyecto limpio y modular. Evitas la hinchazón rápida, te mueves más rápido y reduces el riesgo de romper algo que ya estaba bien. La edición también te da más confianza para experimentar, ya que no tendrás que empezar de nuevo cada vez.
+
+Al editar, sea preciso en su idioma. Di exactamente qué quieres cambiar y qué debería permanecer igual. Utilice instrucciones como "reemplazar", "actualizar" o "ajustar" en lugar de declaraciones generales como "mejorar esto".
+
+**Ejemplo de solicitud (dentro de edición)**
+
+```text
+Cambie el texto del botón CTA a "Comenzar" y aumente el relleno a 24 píxeles horizontal. Mantenga el color de fondo y la fuente existentes.
+```
+
+## Fase 4: Iterar y enviar
+
+### 11. Construya con ZenOpus Cloud en mente
+
+Diseñar un diseño es solo una parte de la creación de un producto. Si desea que sus proyectos ZenOpus hagan más que verse bien, debe pensar en cómo funcionarán realmente, y nuestra nube integrada es un excelente lugar para comenzar.
+
+La nube maneja la autenticación de usuarios, las bases de datos, el almacenamiento e incluso las funciones perimetrales, todo de una manera que combina bien con las interfaces modernas. Y ZenOpus le permite configurar su interfaz de usuario para que coincida con estos comportamientos del mundo real desde el mensaje.
+
+Cuando diseñes teniendo en cuenta la nube, empieza por anticipar:
+
+- **Lógica de autenticación**: ¿Qué debería mostrar la interfaz de usuario si el usuario ha iniciado sesión o si ha cerrado sesión?
+- **Contenido dinámico**: ¿extraes datos de usuario, publicaciones, elementos o métricas de una tabla?
+- **Estados**: ¿Qué sucede si los datos están vacíos, aún se cargan o fallan?
+
+Este pensamiento temprano le ayuda a generar secciones más inteligentes y hace que el desarrollo sea más fluido en el futuro.
+
+**Ejemplo rápido**
+
+```text
+Si el usuario ha iniciado sesión a través de la nube, muestra su imagen de perfil y su nombre en la parte superior derecha. De lo contrario, muestre el botón "Iniciar sesión" y diríjalos a la pantalla de autenticación.
+```
+
+> Consejo: No necesita un backend que funcione durante el diseño, pero darle forma a su interfaz de usuario como si ya existiera es la manera de preparar su diseño para el futuro.
+
+### 12. El control de versiones es tu amigo
+
+ZenOpus guarda automáticamente tus cambios, pero eso no significa que debas moverte rápido sin pensar. Si no realiza un seguimiento de lo que cambió y por qué, solo estará haciendo ruido y perderá el control rápidamente.
+
+Un buen control de versiones no se trata de nombrar archivos. Se trata de pensar en iteraciones. Haga un cambio significativo a la vez. Actualiza tu copia de héroe. Agregue una cuadrícula de funciones. Ajusta el diseño. Comprueba el resultado. Entonces sigue adelante.
+
+Así es como se construyen los sistemas de diseño reales: capa por capa, con intención.
+
+Aunque ZenOpus gestiona las versiones en segundo plano, adopta tu propio sistema:
+
+- Piense en hitos (por ejemplo, diseño bloqueado, contenido agregado, lógica conectada)
+- Utilice notas en sus indicaciones (por ejemplo, "Se modificó el texto de la CTA y se ajustó el espaciado de las tarjetas")
+- Obtenga una vista previa antes de cambios importantes y duplíquela si está a punto de dar un salto arriesgado.
+
+> "Guardar automáticamente no significa organizarse automáticamente. Construya intencionalmente. Itere con conciencia".
+
+**Hábito rápido**
+
+```text
+Antes de realizar un cambio importante, duplique la versión actual y etiquétela. Pequeño costo, gran red de seguridad.
+```

@@ -1,0 +1,277 @@
+---
+title: "Designsysteme"
+description: "Erstellen Sie in ZenOpus wiederverwendbare Designsysteme, um React-Komponentenbibliotheken, Stilrichtlinien und die Einrichtung in Unternehmensprojekten zu standardisieren."
+---
+<Info>
+ZenOpus-Designsysteme sind in **Enterprise-Plänen** verfügbar und funktionieren nativ mit Designsystemen, die als React-Komponenten implementiert sind.
+</Info>
+
+Mit **Designsystemen** können Sie Ihre Komponentenbibliothek, Stilrichtlinien und Installationsanweisungen einmal definieren und sie in jedem Projekt in Ihrem Workspace wiederverwenden. Im Gegensatz zu Vorlagen, die Dateien beim Projektstart kopieren, stellen Designsysteme fortlaufende Anweisungen bereit, die ZenOpus bei jeder Projektgenerierung liest und anwendet.
+
+In ZenOpus wird ein Designsystem als **dediziertes Projekt** erstellt. Dieses Projekt dient als Quelle der Wahrheit für Ihr Designsystem und kann mit anderen Projekten in Ihrem Workspace verbunden werden.
+
+### Was Sie bekommen
+
+- Zentralisierte Quelle der Wahrheit für UI-Komponenten und -Stile
+- Automatische Weitergabe von Updates an alle verbundenen Projekte
+- Klare, durchsetzbare Design- und Coderichtlinien während der Generierung
+
+## Wie Designsysteme funktionieren
+
+Ein Designsystem in ZenOpus definiert, wie Komponenten, Stile und Einrichtungsanweisungen projektübergreifend angewendet werden. Designsysteme sind reguläre ZenOpus-Projekte und können wie jedes andere Projekt geöffnet und bearbeitet werden.
+
+### Woraus ein Designsystem besteht
+
+Ein Designsystem in ZenOpus kombiniert drei Kernteile:
+
+1. **Komponenten**: Ihre React-Komponentenbibliothek (öffentliche oder private npm-Pakete)
+1. **Richtlinien**: Stilregeln, Verwendungsmuster und Komponentenspezifikationen
+1. **Installation**: Einrichtungsanweisungen und erforderliche Konfiguration
+
+Wenn Sie diese bereits eingerichtet haben, können Sie in ZenOpus ein **Designsystemprojekt** erstellen und auf Ihre vorhandenen Materialien verweisen. Wenn Ihre Dokumentation verstreut oder unvollständig ist, können Sie das Designsystem direkt in ZenOpus erstellen und verbessern.
+
+### Das Design-System-Projekt und der .zenopus-Ordner
+
+Das Designsystemprojekt besitzt einen speziellen Ordner `.zenopus`. Dieser Ordner enthält die Anweisungen, die ZenOpus beim Generieren von Code in verbundenen Projekten verwendet, einschließlich:
+
+- `system.md`: Grundlegende Installationsanweisungen und allgemeine Richtlinien, die für verbundene Projekte immer geladen werden
+- `rules/`: Einzelne Markdown-Dateien mit Komponentenspezifikationen, Richtlinien und Mustern, auf die ZenOpus während der Projektgenerierung verweisen kann.
+
+### Wie Designsysteme auf Projekte angewendet werden
+
+Wenn ein Projekt mit einem Designsystem verbunden ist, liest ZenOpus den Inhalt des Ordners `.zenopus` des Designsystems und wendet diese Regeln während der Projektgenerierung an.
+
+Am Entwurfssystemprojekt vorgenommene Aktualisierungen werden von allen verbundenen Projekten übernommen, wenn ZenOpus das nächste Mal Code generiert.
+
+### Wichtige Hinweise und Einschränkungen
+
+- Der Ordner `.zenopus` ist Eigentum des Design-System-Projekts und kann nicht von verbundenen Projekten aus bearbeitet werden.
+- Aktualisierungen eines Designsystems gelten automatisch für alle damit verbundenen Projekte der nächsten Generation.
+- Designsysteme sind noch nicht versioniert. Wenden Sie sich an Ihr Account-Team, wenn dies für Ihren Workflow erforderlich ist.
+- Wenn MCP-Server oder -Pakete alles enthalten, was Sie benötigen, können Sie ein Designsystem nur für die Installation erstellen.
+- Designsysteme arbeiten nativ mit React-Komponentenbibliotheken.
+- Jedes Projekt kann über die Projekteinstellungen in ein Designsystem umgewandelt werden. Wenn ein Projekt als Designsystem markiert ist, steht es für andere Projekte im Workspace zur Verfügung, mit denen eine Verbindung hergestellt werden kann.
+- Wenn Ihr Designsystem oder die zugehörige Dokumentation in Ihrer VPC gehostet wird, wenden Sie sich an Ihr Account-Team, um Rat zu erhalten.
+
+## Erstellen Sie ein Designsystem
+
+<Steps>
+<Step title="Zugang vorbereiten (nur private Pakete)">
+Wenn Ihre Komponentenbibliothek oder Pakete privat sind, gehen Sie zu **Workspace-Einstellungen → Build-Geheimnisse** und fügen Sie die erforderlichen Build-Geheimnisse hinzu (z. B. npm-Tokens).
+</Step>
+<Step title="Erstellen Sie ein Designsystemprojekt">
+Gehen Sie im Dropdown-Menü `+` des Eingabeaufforderungsfelds [zenopus.dev](https://zenopus.dev) zu **Designsysteme** und wählen Sie **Designsystem erstellen**.
+
+![Ds Create Design System](/images/zenopus/features/design-systems/ds-create-design-system.png)
+
+Dadurch wird ein neues Designsystemprojekt erstellt. ZenOpus weist Ihrem Projekt einen Namen zu, den Sie in den Projekteinstellungen ändern können.
+
+Geben Sie Ihrem Designsystem einen aussagekräftigen Namen. Dieser Name wird verwendet, wenn das Designsystem später mit Projekten verbunden wird.
+</Step>
+<Step title="Konfigurieren Sie das Designsystem, indem Sie mit ZenOpus chatten">
+Sie können Ihr Designsystem im Wesentlichen auf zwei Arten einrichten.
+
+**Option A: Automatisches Abrufen einer vorhandenen React-Bibliothek**
+
+Wenn Ihr Designsystem als React-Komponenten implementiert ist, teilen Sie die Repository- oder Dokumentations-URL im Chat.
+
+- Wenn es öffentlich ist, ruft ZenOpus es automatisch ab
+- Wenn es privat ist, ruft ZenOpus es mithilfe der von Ihnen konfigurierten Geheimnisse ab
+
+Zusätzlich zum Importieren der Komponenten müssen Sie ZenOpus mitteilen, **wie diese Komponenten korrekt verwendet werden**. Diese Anleitung kann stammen von:
+
+- Vorhandene Dokumentationsseiten oder Repositorys
+- Importierte PDFs, Markdown-Dateien oder Screenshots
+- MCP-Server, die die Dokumentation des Designsystems verfügbar machen
+- Direkte Anweisungen im Chat
+
+<Info>
+Ignorieren Sie beim Abrufen einer vorhandenen Bibliothek die geführten Fragen und fahren Sie mit der Eingabe der URL fort.
+</Info>
+
+**Option B: Erstellen Sie Ihr Designsystem mit strukturierten Anweisungen**
+
+Wenn Ihre Dokumentation verstreut oder unvollständig ist, leiten Sie ZenOpus explizit an, Ihr Designsystem zu erstellen. Mit diesem Ansatz können Sie:
+
+- Importieren Sie PDFs, Markdown-Dateien, Screenshots und andere Assets
+- Definieren Sie Komponenten, Muster, Token und Styling-Richtlinien
+- Schreiben Sie Installations- und Einrichtungsanweisungen
+- Aktualisieren Sie alles dynamisch über verbundene Projekte hinweg
+
+**Vorgeschlagene Eingabeaufforderungsstruktur**
+
+```text
+[Hochrangiges Ziel]
+
+[Installationsanweisungen]
+
+[Anderer Kontext zum Einrichten des Systems, zum Beispiel Tech-Stack und Einschränkungen]
+
+[Komponentenbibliotheksanforderung]
+
+[Links zu Dokumentation, Websites, PDFs, MCPs für mehr Kontext. ZenOpus kann Websites crawlen, also können Sie hier gerne einen breiten Kontext einbeziehen.]
+```
+
+Nach der ersten Ausführung generiert ZenOpus ein funktionierendes Designsystemprojekt, zum Beispiel: [https://design-system-demo.zenopus.app/](https://design-system-demo.zenopus.app/)
+</Step>
+</Steps>
+
+## Verbinden Sie ein Designsystem mit Projekten
+
+In den Einstellungen jedes Projekts können Sie sehen, welche Designsysteme verbunden sind oder zur Verbindung verfügbar sind.
+
+Sie können mehrere Designsysteme mit einem Projekt verbinden. Die Reihenfolge der verbundenen Designsysteme bestimmt, wie der Agent sie während der Projektgenerierung priorisiert. Sie können verbundene Designsysteme in den Projekteinstellungen neu anordnen.
+
+Sie können ein verbundenes Designsystem jederzeit aus den Projekteinstellungen entfernen. Entfernte Designsysteme gelten nicht mehr für zukünftige Generationen dieses Projekts.
+
+### Verbinden Sie ein Designsystem mit neuen Projekten
+
+Gehen Sie im Dropdown-Menü `+` des Eingabeaufforderungsfelds [zenopus.dev](https://zenopus.dev) zu **Designsysteme**, wählen Sie ein Designsystem aus der Liste der verfügbaren aus und geben Sie dann Ihre Eingabe ein. ZenOpus generiert Ihr neues Projekt mit dem ausgewählten Designsystem.
+
+![Ds Select Design System](/images/zenopus/features/design-systems/ds-select-design-system.png)
+
+### Verbinden Sie ein Designsystem mit bestehenden Projekten
+
+Um ein Designsystem mit einem bestehenden Projekt zu verbinden, führen Sie die folgenden Schritte aus:
+
+1. Gehen Sie zu **Projekteinstellungen → Designsysteme.**
+1. Wählen Sie unter **Verfügbar** ein Designsystem aus und klicken Sie auf **Hinzufügen**.
+1. Klicken Sie auf **Speichern**.
+
+## Verfeinern Sie Ihr Designsystem
+
+Designsysteme sollen sich weiterentwickeln. Iterieren Sie nach der Ersteinrichtung den Inhalt des Ordners `.zenopus`.
+
+1. **Überprüfen Sie die Struktur**  
+Öffnen Sie den Ordner `.zenopus`, um zu sehen, wie ZenOpus Ihr Designsystem interpretiert. Diese Dateien werden auf alle verbundenen Projekte angewendet.
+1. **Inkonsistenzen beheben**  
+Wenn Komponenten nicht korrekt gerendert werden, bitten Sie ZenOpus, das Problem zu beheben und gleichzeitig den Ordner `.zenopus` zu aktualisieren.
+1. **Detail hinzufügen**  
+Fordern Sie bei Bedarf zusätzliche Komponentendokumentation, Tokendefinitionen oder Nutzungsmuster an.
+
+## .liebenswerte Ordnerstruktur
+
+ZenOpus generiert dies normalerweise automatisch, aber das Verständnis der Struktur hilft beim Debuggen. Wenn Sie unerwartetes Verhalten bemerken, überprüfen Sie, ob diese Struktur allgemein eingehalten wird.
+
+```text
+.liebenswert/
+├── system.md (max. ~500 Zeilen)
+│ ├── Installationsanleitung (10 Zeilen)
+│ │ - Privates Paket-Setup
+│ │ - Umgebungsvariablen
+│ │ - Beispiel .npmrc
+│ ├── Asset-Links (Schriftarten, Symbole und ähnliches)
+│ ├── Verzeichnisführer (20 Zeilen)
+│ │ - Welche Dateien existieren
+│ │ - Wann sollte man darauf verweisen?
+│ └── Allgemeine Richtlinien (verbleibende Zeilen)
+│ - Codemuster
+│ - Gestaltungsprinzipien
+│ - Entscheidungsbäume
+└── Regeln/
+    ├── Komponenten/
+    │ ├── button.md
+    │ ├── input.md
+    │ └── modal.md
+    ├── Muster/
+    │ ├── Formen.md
+    │ └── navigation.md
+    └──Styling/
+        ├── farben.md
+        └── typografie.md
+```
+
+## Rufen Sie die Dokumentation eines externen Designsystems mit MCP-Servern ab
+
+MCP-Server können zum Abrufen der Designsystemdokumentation verwendet werden, die getrennt von Ihren npm-Paketen gespeichert ist. Weitere Informationen finden Sie unter [Integration mit Ihren Tools über persönliche Connectors (MCP-Server)](/de/integrations/mcp-servers).
+
+## Wählen Sie zwischen Vorlagen und Designsystemen
+
+[Vorlagen](/de/features/business/design-templates) sind vollständige Projektkopien, die als Ausgangspunkt dienen.
+
+Verwenden Sie **Vorlagen**, wenn:
+
+- Komplexe Einrichtung ist erforderlich (mehrere Pakete, benutzerdefinierte Konfigurationen)
+- Sie benötigen Framework-Varianten (React, Vue, Vite)
+- Es gibt schwere Kesselplatten, die sich nicht regenerieren sollten
+
+Verwenden Sie **Designsysteme**, wenn:
+
+- Sie wünschen sich fortlaufende Anleitung und Konsistenz
+- Muster und Komponenten entwickeln sich im Laufe der Zeit
+- Updates sollten automatisch verbreitet werden
+
+**Empfohlener Ansatz**:
+
+- Verwenden Sie eine **Vorlage** für das erste Projektgerüst
+- Verwenden Sie ein **Designsystem** für fortlaufende UI- und Designregeln
+
+## Fehlerbehebung
+
+<AccordionGroup>
+<Accordion title="Nicht übereinstimmende Reaktionsversion">
+Wenn Ihr Designsystem React 19 verwendet, das Projekt jedoch standardmäßig React 18 verwendet oder umgekehrt, teilen Sie dies dem Agenten ausdrücklich mit. Zum Beispiel:
+
+```text
+Mein Designsystem erfordert React 19. Bitte aktualisieren Sie die Projektabhängigkeiten entsprechend.
+```
+</Accordion>
+<Accordion title="Widersprüchliche Abhängigkeiten">
+Wenn Ihr Designsystem weder `shadcn/ui` noch Tailwind CSS verwendet, bitten Sie den Agenten, diese zu entfernen, um Konflikte zu vermeiden. Zum Beispiel:
+
+```text
+Bitte deinstallieren Sie shadcn/ui und Tailwind CSS aus diesem Projekt. Mein Designsystem verwendet stattdessen [Ihre Styling-Lösung].
+```
+</Accordion>
+<Accordion title="Komponente nicht gefunden">
+Stellen Sie sicher, dass Ihr Designsystem-Projekt Komponenten korrekt im Ordner `.zenopus/rules/` exportiert und dokumentiert. Der Agent verlässt sich auf diese Regeldateien, um zu verstehen, wie Ihre Komponenten verwendet werden.
+</Accordion>
+<Accordion title="Stile gelten nicht">
+Stellen Sie sicher, dass die CSS- oder Design-Tokens Ihres Designsystems in die Haupteintragsdatei des Projekts importiert werden, z. B. `index.css` oder `App.tsx`.
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Ist ein Designsystem nur ein ZenOpus-Projekt?">
+Ja, ein Designsystem ist ein reguläres ZenOpus-Projekt, das als Designsystem gekennzeichnet ist. Es kann wie jedes andere Projekt geöffnet und bearbeitet werden, und andere Projekte können sich damit verbinden, um seine Regeln während der Generierung zu verwenden.
+</Accordion>
+<Accordion title="Kann ich mehr als ein Designsystem mit einem Projekt verbinden?">
+Ja, ein Projekt kann mehrere verbundene Designsysteme haben. Die Reihenfolge der verbundenen Designsysteme bestimmt, wie der Agent sie während der Projektgenerierung priorisiert.
+</Accordion>
+<Accordion title="Kann jedes Projekt in ein Designsystem umgewandelt werden?">
+Ja, jedes Projekt kann in den Projekteinstellungen als Designsystem markiert werden. Sobald es markiert ist, steht es anderen Projekten im Workspace zur Verfügung, mit denen eine Verbindung hergestellt werden kann.
+</Accordion>
+<Accordion title="Wie sehe ich, welche Designsysteme mit meinem Projekt verbunden sind?">
+Um verbundene Designsysteme anzuzeigen, gehen Sie zu **Projekteinstellungen → Designsysteme**.
+
+Auf dieser Registerkarte werden alle derzeit mit Ihrem Projekt verknüpften Designsysteme angezeigt. Von hier aus können Sie:
+
+- Verbinden Sie zusätzliche Designsysteme von Ihrem Workspace
+- Ordnen Sie ihre Priorität neu
+- Wählen Sie aus, ob das aktuelle Projekt als Designsystem für andere Projekte in Ihrem Workspace verwendet werden soll.
+</Accordion>
+<Accordion title="Was passiert, wenn zwei Designsysteme überlappende Regeln definieren?">
+Wenn mehrere Designsysteme verbunden sind, wendet ZenOpus sie der Reihe nach an. Entwurfssysteme, die weiter oben in der Liste stehen, haben Vorrang vor denen, die später in der Liste aufgeführt sind.
+
+Sie können verbundene Designsysteme in den Projekteinstellungen neu anordnen, um ihre Priorität während der Generierung zu ändern.
+</Accordion>
+<Accordion title="Kann ich ein Designsystem aus einem Projekt entfernen?">
+Ja, ein verbundenes Designsystem kann jederzeit aus den Projekteinstellungen entfernt werden. Sobald es entfernt wurde, gilt es nicht mehr für zukünftige Generationen dieses Projekts.
+</Accordion>
+<Accordion title="Kann ich das Designsystem von einem verbundenen Projekt aus bearbeiten?">
+Nein, der Ordner `.zenopus` ist Eigentum des Design-System-Projekts und kann nicht von verbundenen Projekten aus bearbeitet werden. Um das Designsystem zu ändern, öffnen und bearbeiten Sie das Designsystemprojekt selbst.
+</Accordion>
+<Accordion title="Sind Designsysteme versioniert?">
+Noch nicht. Designsysteme verfügen derzeit nicht über eine integrierte Versionierung. Wenden Sie sich an Ihr Account-Team, wenn die Versionierung für Ihren Workflow wichtig ist.
+</Accordion>
+<Accordion title="Welche Technologien entwerfen Systeme Support?">
+ZenOpus Designsysteme Support **Reaktionsbasierte Komponentenbibliotheken** sofort einsatzbereit.
+
+Wenn Ihr Designsystem mit anderen Frameworks wie Vue, Angular oder Svelte erstellt wurde, wenden Sie sich an Ihren CSM oder FDE, um Kompatibilitätsoptionen zu besprechen.
+</Accordion>
+<Accordion title="Ersetzen Designsysteme Vorlagen?">
+Nein, Designsysteme ersetzen keine Vorlagen. Vorlagen und Designsysteme dienen unterschiedlichen Zwecken und werden oft zusammen verwendet. Vorlagen eignen sich am besten für die erste Projektgerüststruktur, während Designsysteme fortlaufende Benutzeroberflächen- und Designanleitungen für alle Projekte bereitstellen.
+</Accordion>
+</AccordionGroup>

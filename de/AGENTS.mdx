@@ -1,0 +1,167 @@
+---
+title: "AGENTEN"
+description: ""
+---
+Anweisungen des Dokumentationsagenten
+
+ZenOpus ist eine Full-Stack-App-Entwicklungsplattform, mit der Benutzer Webanwendungen über Eingabeaufforderungen in natürlicher Sprache erstellen können.
+
+Diese Anweisungen definieren, wie der Mintlify AI-Agent die Dokumentation in docs.zenopus.dev erstellen und aktualisieren soll. Befolgen Sie diese konsequent, sofern nicht ausdrücklich anders angegeben.
+
+## Genauigkeit und Sicherheit
+
+- Erfinden oder übernehmen Sie kein Produktverhalten, keine Beschränkungen, Preise, Planverfügbarkeit oder UI-Elemente.
+- Geben Sie immer an, welche Planfunktionen verfügbar sind (Free, Pro, Business, Enterprise oder „alle Pläne“).
+- Unterscheiden Sie zwischen Workspace-Credits (für die Erstellung) und Cloud-/KI-Guthaben (für bereitgestellte Apps).
+- Wenn Informationen nicht klar dokumentiert oder bereitgestellt werden, raten Sie nicht.
+- Lassen Sie lieber Details weg, anstatt unsichere oder spekulative Inhalte hinzuzufügen.
+- Bitten Sie bei Bedarf um Klarstellung, anstatt Annahmen zu treffen oder Lücken zu schließen.
+- Machen Sie ggf. unumkehrbare Maßnahmen, Einschränkungen und Unbekannte deutlich deutlich.
+
+## Erforderlicher Informationsfluss (Kernregel)
+
+Befolgen Sie beim Erstellen oder Aktualisieren von Dokumentationsseiten die folgende Reihenfolge:
+
+1. **Was**: Erklären Sie die Funktion, den Anschluss oder das Konzept.
+    - Keep this to 1–2 short paragraphs.
+1. **Why**: Explain why it matters.
+    - Konzentrieren Sie sich auf den Wert, die Ergebnisse und darauf, wann Sie ihn nutzen (oder nicht nutzen).
+1. **Who**: Explain who it’s for.
+    - Nutzen Sie konkrete Anwendungsfälle, Beispiel-Apps, Szenarien oder Tabellen.
+1. **How**: Explain how it works or how to use it.
+    - Beziehen Sie Einrichtungsschritte, Konfiguration, Anforderungen (Konten, Anmeldeinformationen), Rechnungs- und Nutzungshinweise, Einschränkungen und unumkehrbare Aktionen ein.
+    - Bei **konzeptionellen oder Referenzinhalten** kann „Wie“ eher beschreiben, wie das Konzept auf hohem Niveau funktioniert, als Schritt-für-Schritt-Anleitungen.
+1. **FAQs**: Fügen Sie häufig gestellte Fragen hinzu, um die Übersichtlichkeit, den Abruf durch den KI-Assistenten und das Suchranking zu verbessern.
+
+## Erforderliche Abschnittsreihenfolge (Standard)
+
+Verwenden Sie genau diese Überschriftenreihenfolge, es sei denn, der Inhalt trifft eindeutig nicht zu:
+
+- Einführung (Was)
+- Warum und wann man es verwenden sollte
+- Häufige Anwendungsfälle und Beispiel-Apps (Wer)
+- Anforderungen & Abrechnung
+- Einrichtung / Konfiguration (Wie)
+- FAQs
+- Einschränkungen und Fehlerbehebung (optional)
+
+## Was enthalten sein sollte (Inhaltscheckliste)
+
+- Fügen Sie **Voraussetzungen** hinzu, wenn Benutzer API-Schlüssel, Konten, Umgebungseinstellungen oder Abhängigkeiten benötigen.
+- Fügen Sie **FAQs** hinzu, um Suchmaschinen und dem Mintlify AI-Assistenten zu helfen, Inhalte zu verstehen und einzustufen.
+- Fügen Sie **Abschnitte zur Fehlerbehebung** für häufige Probleme hinzu, die in Support-Tickets auftreten.
+- Geben Sie ggf. deutlich **Abrechnungseigentum**, **Nutzungsverbrauch** und **unumkehrbare Aktionen** an.
+
+## FAQs (erforderlich)
+
+- Fügen Sie auf den meisten Seiten **3–6 FAQs** hinzu (abhängig von der Seitengröße).
+- Schreiben Sie FAQs als **Fragen in natürlicher Sprache**, die Benutzer tatsächlich stellen würden.
+- Priorisieren Sie Fragen zu:
+    - Abrechnung und Eigentum (ZenOpus vs. externer Anbieter)
+    - Konto-, Anmeldeinformationen- oder API-Schlüsselanforderungen
+    - Limits, Kontingente oder Ratenlimits
+    - Löschung, Widerruf oder unwiderrufliche Maßnahmen
+    - Häufige Missverständnisse oder Fehlerfälle
+- Halten Sie die Antworten prägnant, sachlich und überschaubar.
+- Vermeiden Sie Marketingsprache; Optimierung für Klarheit und Abrufgenauigkeit.
+
+## Schreibprinzipien (global)
+
+- Halten Sie Intros übersichtlich und kurz.
+- Bevorzugen Sie Ergebnisse gegenüber Funktionen im Abschnitt „Warum“.
+- Verwenden Sie konkrete, realistische Beispiele in „Wer“ und „Wie“.
+- Machen Sie alle Schritte eindeutig, einschließlich der genauen UI-Pfade, sofern relevant.
+
+## SEO und Barrierefreiheit
+
+- Verwenden Sie beschreibende, schlüsselwortreiche Überschriften, die auf die Suchanfragen der Benutzer abgestimmt sind.
+- Stellen Sie sicher, dass Frontmatter `title` und `description` klar, spezifisch und benutzerorientiert sind.
+- Fügen Sie ein `keywords`-Array in Frontmatter hinzu, wenn es die Auffindbarkeit verbessert (verwenden Sie relevante, spezifische Begriffe, nach denen Benutzer suchen würden; vermeiden Sie Keyword-Stuffing).
+- Bevorzugen Sie handlungsorientierte Seitentitel. Titel können länger und aussagekräftiger sein, wenn sie hilfreich sind.
+- Wenn der Seitentitel lang ist, fügen Sie `sidebarTitle` mit einer kürzeren Version für die Navigation hinzu.
+- Verwenden Sie einen spezifischen, umsetzbaren Linktext (vermeiden Sie „hier klicken“).
+- Behalten Sie eine logische Überschriftenhierarchie bei (überspringen Sie keine Ebenen).
+- Fügen Sie beschreibenden Alternativtext für alle Bilder und Diagramme hinzu.
+- Strukturieren Sie Inhalte so, dass sie leicht lesbar sind, indem Sie kurze Absätze, Listen und klare Abschnittsumbrüche verwenden.
+
+## Mintlify-Komponenten (wann man sie verwendet)
+
+Verwenden Sie Mintlify-Komponenten bewusst, um die Klarheit und Lesbarkeit zu verbessern. Überbeanspruchen Sie die Komponenten nicht.
+
+### Hinweise
+
+- Verwenden Sie `<Note>` für hilfreichen Kontext, der den Hauptinhalt unterstützt.
+- Verwenden Sie `<Tip>` für Best Practices oder Expertenratschläge.
+- Verwenden Sie `<Warning>` für destruktive Aktionen, irreversible Schritte, Sicherheitsbedenken oder kritische Einschränkungen.
+- Verwenden Sie `<Check>`, um den Erfolg zu bestätigen oder Verifizierungsschritte bereitzustellen.
+
+### Schritte
+
+- Verwenden Sie `<Steps>` und `<Step>` für mehrstufige Verfahren, insbesondere Einrichtung und Konfiguration.
+- Bevorzugen Sie Schritte, bei denen Aktionen in der richtigen Reihenfolge ausgeführt werden müssen.
+- Fügen Sie nach Möglichkeit einen Verifizierungsschritt oder einen Erfolgsindikator ein.
+
+### Tabs
+
+- Verwenden Sie `<Tabs>` für plattformspezifische Anweisungen oder sich gegenseitig ausschließende Alternativen.
+- Verwenden Sie keine Tabulatoren für aufeinanderfolgende Schritte.
+
+### Akkordeons
+
+- Verwenden Sie `<AccordionGroup>` für Fehlerbehebung, FAQs, Randfälle oder erweiterte Konfiguration.
+- Kernströme sichtbar halten; verbergen tiefe Details hinter Akkordeons.
+
+### Codegruppen
+
+- Verwenden Sie `<CodeGroup>`, wenn Sie dasselbe Beispiel in mehreren Sprachen anzeigen.
+- Verwenden Sie einen einzelnen Codeblock, wenn nur eine Sprache relevant ist.
+
+## Publikum und Ton
+
+- Schreiben Sie in erster Linie für ein **nicht technisch versiertes Publikum**.
+- Vereinfachen Sie nicht zu stark, sondern erklären Sie nicht offensichtliche Konzepte.
+- Verwenden Sie **aktive Stimme** und **zweite Person** („Sie“).
+- Konzentrieren Sie sich auf Klarheit, Korrektheit und Nützlichkeit gegenüber der Marketingsprache.
+
+## Stil und Formatierung
+
+- **Aktive Stimme**: Bevorzugen Sie die aktive Stimme, um deutlich zu machen, wer die Aktion ausführt.
+    - Richtig: „Projekt löschen.“
+    - Falsch: „Das Projekt wurde gelöscht.“
+    - Ausnahme: Verwenden Sie Passiv, wenn Sie den Zustand oder das Ergebnis hervorheben.
+        - Beispiel: „Das Projekt ist gespeichert.“
+- **Präsens**:
+    - Verwenden Sie die Gegenwartsform für allgemeines Verhalten.
+        - Richtig: „Klicken Sie auf Speichern, um die Einstellungen zu aktualisieren.“
+    - Verwenden Sie die Zukunftsform nur für zukünftige Konsequenzen.
+        - Richtig: „Ihre Änderungen gehen verloren.“
+- **Satzfall**:
+    - Verwenden Sie für alle Überschriften die Groß-/Kleinschreibung.
+    - Schreiben Sie nur das erste Wort, Eigennamen und Akronyme groß.
+    - Richtig: „Projekteinstellungen“
+    - Falsch: „Projekteinstellungen“
+- **Serienkomma (Oxford)**:
+    - Fügen Sie immer ein Komma vor dem abschließenden „und“ oder „oder“ ein.
+    - Beispiel: „Projekte bearbeiten, teilen und löschen.“
+- **Termine**:
+    - Verwenden Sie *Monat, Tag, Jahr* (z. B. *31. Juli 2025*).
+    - Verwenden Sie keine Ordnungszahlen (1., 2., 3.).
+- **UI-Referenzen**:
+    - Fettgedruckte UI-Elemente: **Einstellungen**, **Projekt löschen**.
+    - Verwenden Sie Inline-Code für Werte, Felder oder Bezeichner: `project_id`.
+    - Verwenden Sie genaue UI-Pfade mit → Trennzeichen: **Einstellungen → Datenschutz und Sicherheit → Standardprojektsichtbarkeit**
+
+## Schnelle Beispiele
+
+- Fügen Sie alle Eingabeaufforderungsbeispiele in **Klartext-Codeblöcke** ein.
+- Verwenden Sie `text wrap`, um die Lesbarkeit zu gewährleisten.
+
+Beispiel:
+
+```text
+Integrieren Sie die OpenWeatherMap-API. 
+Basis-URL: https://api.openweathermap.org/data/2.5. 
+Auth: API-Schlüssel, der als Abfrageparameter-App-ID übergeben wird. 
+Ich benötige einen Endpunkt, um das aktuelle Wetter abzurufen: GET /weather?q={city}&units=metric&appid={API_KEY}. 
+Dokumente: https://openweathermap.org/current
+```

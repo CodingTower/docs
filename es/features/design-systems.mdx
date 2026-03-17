@@ -1,0 +1,277 @@
+---
+title: "Sistemas de diseño"
+description: "Cree sistemas de diseño reutilizables en ZenOpus para estandarizar las bibliotecas de componentes de React, las pautas de estilo y la configuración en todos los proyectos empresariales."
+---
+<Info>
+Los sistemas de diseño ZenOpus están disponibles en **planes empresariales** y funcionan de forma nativa con sistemas de diseño que se implementan como componentes de React.
+</Info>
+
+**Los sistemas de diseño** te permiten definir tu biblioteca de componentes, pautas de estilo e instrucciones de instalación una vez, y reutilizarlos en cada proyecto de tu Workspace. A diferencia de las plantillas que copian archivos al inicio del proyecto, los sistemas de diseño brindan instrucciones continuas que ZenOpus lee y aplica durante cada generación del proyecto.
+
+En ZenOpus, se crea un sistema de diseño como **proyecto dedicado**. Este proyecto sirve como fuente de verdad para su sistema de diseño y se puede conectar a otros proyectos en su Workspace.
+
+### lo que obtienes
+
+- Fuente de verdad centralizada para componentes y estilos de interfaz de usuario
+- Propagación automática de actualizaciones a todos los proyectos conectados.
+- Directrices de código y diseño claras y ejecutables durante la generación
+
+## Cómo funcionan los sistemas de diseño
+
+Un sistema de diseño en ZenOpus define cómo se aplican los componentes, estilos e instrucciones de configuración en los proyectos. Los sistemas de diseño son proyectos ZenOpus normales y se pueden abrir y editar como cualquier otro proyecto.
+
+### En que consiste un sistema de diseño
+
+Un sistema de diseño en ZenOpus combina tres partes principales:
+
+1. **Componentes**: Su biblioteca de componentes de React (paquetes npm públicos o privados)
+1. **Pautas**: reglas de estilo, patrones de uso y especificaciones de componentes
+1. **Instalación**: instrucciones de instalación y configuración requerida
+
+Si ya los tiene implementados, puede crear un **proyecto de sistema de diseño** en ZenOpus y hacer referencia a sus materiales existentes. Si su documentación está dispersa o incompleta, puede crear y mejorar el sistema de diseño directamente dentro de ZenOpus.
+
+### El proyecto del sistema de diseño y la carpeta .zenopus
+
+El proyecto del sistema de diseño posee una carpeta especial `.zenopus`. Esta carpeta contiene las instrucciones que utiliza ZenOpus al generar código en proyectos conectados, que incluyen:
+
+- `system.md`: instrucciones de instalación principales y pautas de alto nivel que siempre están cargadas para proyectos conectados
+- `rules/`: archivos Markdown individuales con especificaciones, pautas y patrones de componentes a los que ZenOpus puede hacer referencia durante la generación del proyecto.
+
+### Cómo se aplican los sistemas de diseño a los proyectos
+
+Cuando un proyecto está conectado a un sistema de diseño, ZenOpus lee el contenido de la carpeta `.zenopus` del sistema de diseño y aplica esas reglas durante la generación del proyecto.
+
+Las actualizaciones realizadas en el proyecto del sistema de diseño serán recogidas por todos los proyectos conectados la próxima vez que ZenOpus genere código.
+
+### Notas clave y limitaciones
+
+- La carpeta `.zenopus` es propiedad del proyecto del sistema de diseño y no se puede editar desde proyectos conectados.
+- Las actualizaciones de un sistema de diseño se aplican automáticamente a todos los proyectos conectados a él en la próxima generación.
+- Los sistemas de diseño aún no tienen versiones. Comuníquese con su equipo de cuentas si esto es necesario para su flujo de trabajo.
+- Si los servidores o paquetes MCP contienen todo lo que necesita, puede crear un sistema de diseño de solo instalación.
+- Los sistemas de diseño funcionan de forma nativa con las bibliotecas de componentes de React.
+- Cualquier proyecto se puede convertir en un sistema de diseño desde la configuración del proyecto. Cuando un proyecto se marca como sistema de diseño, queda disponible para que otros proyectos en Workspace se conecten.
+- Si su sistema de diseño o documentación relacionada está alojada en su VPC, comuníquese con su equipo de cuentas para obtener orientación.
+
+## Crear un sistema de diseño.
+
+<Steps>
+<Step title="Preparar acceso (solo paquetes privados)">
+Si su biblioteca de componentes o paquetes son privados, vaya a **Workspace configuración → Secretos de compilación** y agregue los secretos de compilación necesarios (por ejemplo, tokens npm).
+</Step>
+<Step title="Crear un proyecto de sistema de diseño.">
+Desde el menú desplegable `+` del cuadro de aviso [zenopus.dev](https://zenopus.dev), vaya a **Sistemas de diseño** y seleccione **Crear sistema de diseño**.
+
+![Ds Crear sistema de diseño](/images/zenopus/features/design-systems/ds-create-design-system.png)
+
+Esto crea un nuevo proyecto de sistema de diseño. ZenOpus asigna un nombre a su proyecto, que puede cambiar desde la configuración del proyecto.
+
+Dale a tu sistema de diseño un nombre significativo. Este nombre se utiliza al conectar el sistema de diseño a proyectos posteriores.
+</Step>
+<Step title="Configura el sistema de diseño chateando con ZenOpus">
+Puede configurar su sistema de diseño de dos formas principales.
+
+**Opción A: buscar automáticamente una biblioteca React existente**
+
+Si su sistema de diseño está implementado como componentes de React, comparta el repositorio o la URL de documentación en el chat.
+
+- Si es público, ZenOpus lo recupera automáticamente
+- Si es privado, ZenOpus lo recupera usando los secretos que configuró
+
+Además de importar los componentes, debe indicarle a ZenOpus **cómo utilizar esos componentes** correctamente. Esta orientación puede provenir de:
+
+- Sitios o repositorios de documentación existentes
+- Archivos PDF, archivos Markdown o capturas de pantalla importados
+- Servidores MCP que exponen la documentación del sistema de diseño.
+- Instrucciones directas proporcionadas en el chat.
+
+<Info>
+Al buscar una biblioteca existente, ignore las preguntas guiadas y proceda a ingresar la URL.
+</Info>
+
+**Opción B: Construya su sistema de diseño con instrucciones estructuradas**
+
+Si su documentación está dispersa o incompleta, guíe a ZenOpus explícitamente para construir su sistema de diseño. Este enfoque le permite:
+
+- Importe archivos PDF, archivos Markdown, capturas de pantalla y otros activos
+- Definir componentes, patrones, tokens y pautas de estilo.
+- Escribir instrucciones de instalación y configuración.
+- Actualice todo dinámicamente en los proyectos conectados
+
+**Estructura de aviso sugerida**
+
+```text
+[Objetivo de alto nivel]
+
+[Instrucciones de instalación]
+
+[Otro contexto para configurar el sistema, por ejemplo, pila tecnológica y restricciones]
+
+[Solicitud de biblioteca de componentes]
+
+[Enlaces a documentación, sitios, archivos PDF, MCP para obtener más contexto. ZenOpus puede rastrear sitios web, así que no dudes en incluir un contexto amplio aquí.]
+```
+
+Después de la primera ejecución, ZenOpus generará un proyecto de sistema de diseño funcional, por ejemplo: [https://design-system-demo.zenopus.app/](https://design-system-demo.zenopus.app/)
+</Step>
+</Steps>
+
+## Conecte un sistema de diseño a proyectos
+
+En la configuración de cada proyecto, puede ver qué sistemas de diseño están conectados o disponibles para conectarse.
+
+Puede conectar varios sistemas de diseño a un proyecto. El orden de los sistemas de diseño conectados determina cómo el Agente los prioriza durante la generación del proyecto. Puede reordenar los sistemas de diseño conectados en la configuración del proyecto.
+
+Puede eliminar un sistema de diseño conectado en cualquier momento desde la configuración del proyecto. Los sistemas de diseño eliminados ya no se aplican a las generaciones futuras de ese proyecto.
+
+### Conecte un sistema de diseño a nuevos proyectos
+
+Desde el menú desplegable `+` del cuadro de mensaje [zenopus.dev](https://zenopus.dev), vaya a **Sistemas de diseño** y seleccione un sistema de diseño de la lista de disponibles, luego ingrese su mensaje. ZenOpus genera su nuevo proyecto utilizando el sistema de diseño seleccionado.
+
+![Sistema de diseño de selección Ds](/images/zenopus/features/design-systems/ds-select-design-system.png)
+
+### Conecte un sistema de diseño a proyectos existentes
+
+Para conectar un sistema de diseño a un proyecto existente, siga los pasos a continuación:
+
+1. Vaya a **Configuración del proyecto → Sistemas de diseño.**
+1. En **Disponible**, seleccione un sistema de diseño y haga clic en **Agregar**.
+1. Haga clic en **Guardar.**
+
+## Refina tu sistema de diseño
+
+Los sistemas de diseño están destinados a evolucionar. Después de la configuración inicial, repita el contenido de la carpeta `.zenopus`.
+
+1. **Consulta la estructura**  
+Abra la carpeta `.zenopus` para ver cómo ZenOpus interpretó su sistema de diseño. Estos archivos son los que se aplican a todos los proyectos conectados.
+1. **Reparar inconsistencias**  
+Si los componentes no se representan correctamente, solicite a ZenOpus que los arregle y actualice la carpeta `.zenopus` al mismo tiempo.
+1. **Agregar detalle**  
+Solicite documentación de componentes adicionales, definiciones de tokens o patrones de uso según sea necesario.
+
+## .adorable estructura de carpetas
+
+ZenOpus generalmente genera esto automáticamente, pero comprender la estructura ayuda con la depuración. Si nota un comportamiento inesperado, verifique que generalmente se siga esta estructura.
+
+```text
+.adorable/
+├── system.md (máximo ~500 líneas)
+│ ├── Instrucciones de instalación (10 líneas)
+│ │ - Configuración de paquete privado
+│ │ - Variables de entorno
+│ │ - Muestra .npmrc
+│ ├── Enlaces de activos (fuentes, iconos y similares)
+│ ├── Guía de directorio (20 líneas)
+│ │ - Qué archivos existen
+│ │ - Cuándo hacer referencia a ellos
+│ └── Pautas generales (resto de líneas)
+│ - Patrones de código
+│ - Principios de diseño
+│ - Árboles de decisión
+└── reglas/
+    ├── componentes/
+    │ ├── botón.md
+    │ ├── entrada.md
+    │ └── modal.md
+    ├── patrones/
+    │ ├── formularios.md
+    │ └── navegación.md
+    └── estilismo/
+        ├── colores.md
+        └── tipografía.md
+```
+
+## Obtenga documentación del sistema de diseño externo con servidores MCP
+
+Los servidores MCP se pueden utilizar para recuperar la documentación del sistema de diseño que se almacena por separado de sus paquetes npm. Consulte [Integre con sus herramientas mediante conectores personales (servidores MCP)](/es/integrations/mcp-servers) para obtener más información.
+
+## Elige entre plantillas y sistemas de diseño.
+
+Las [Plantillas](/es/features/business/design-templates) son copias completas del proyecto que se utilizan como puntos de partida.
+
+Utilice **plantillas** cuando:
+
+- Se requiere una configuración compleja (múltiples paquetes, configuraciones personalizadas)
+- Necesita variantes de framework (React, Vue, Vite)
+- Hay muchos textos estándar que no deberían regenerarse.
+
+Utilice **sistemas de diseño** cuando:
+
+- Quiere orientación y coherencia continuas
+- Los patrones y componentes evolucionan con el tiempo.
+- Las actualizaciones deberían propagarse automáticamente
+
+**Enfoque recomendado**:
+
+- Utilice una **plantilla** para la estructuración inicial del proyecto
+- Utilice un **sistema de diseño** para la interfaz de usuario y las reglas de diseño continuas.
+
+## Solución de problemas
+
+<AccordionGroup>
+<Accordion title="La versión de React no coincide">
+Si su sistema de diseño usa React 19 pero el proyecto tiene por defecto React 18, o viceversa, infórmeselo explícitamente al agente. Por ejemplo:
+
+```text
+Mi sistema de diseño requiere React 19. Actualice las dependencias del proyecto en consecuencia.
+```
+</Accordion>
+<Accordion title="Dependencias en conflicto">
+Si su sistema de diseño no utiliza `shadcn/ui` o Tailwind CSS, pídale al agente que los elimine para evitar conflictos. Por ejemplo:
+
+```text
+Desinstale shadcn/ui y Tailwind CSS de este proyecto. Mi sistema de diseño utiliza [su solución de estilo] en su lugar.
+```
+</Accordion>
+<Accordion title="Componente no encontrado">
+Asegúrese de que el proyecto de su sistema de diseño exporte y documente los componentes correctamente en la carpeta `.zenopus/rules/`. El agente se basa en estos archivos de reglas para comprender cómo utilizar sus componentes.
+</Accordion>
+<Accordion title="Estilos que no se aplican">
+Verifique que el CSS o los tokens de tema de su sistema de diseño se importen en el archivo de entrada principal del proyecto, como `index.css` o `App.tsx`.
+</Accordion>
+</AccordionGroup>
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Es un sistema de diseño solo un proyecto ZenOpus?">
+Sí, un sistema de diseño es un proyecto ZenOpus normal que está marcado como sistema de diseño. Se puede abrir y editar como cualquier otro proyecto, y otros proyectos pueden conectarse a él para usar sus reglas durante la generación.
+</Accordion>
+<Accordion title="¿Puedo conectar más de un sistema de diseño a un proyecto?">
+Sí, un proyecto puede tener múltiples sistemas de diseño conectados. El orden de los sistemas de diseño conectados determina cómo el Agente los prioriza durante la generación del proyecto.
+</Accordion>
+<Accordion title="¿Se puede convertir cualquier proyecto en un sistema de diseño?">
+Sí, cualquier proyecto se puede marcar como sistema de diseño desde la configuración del proyecto. Una vez marcado, estará disponible para que otros proyectos en Workspace se conecten.
+</Accordion>
+<Accordion title="¿Cómo veo qué sistemas de diseño están conectados a mi proyecto?">
+Para ver los sistemas de diseño conectados, vaya a **Configuración del proyecto → Sistemas de diseño**.
+
+Esta pestaña muestra todos los sistemas de diseño actualmente vinculados a su proyecto. Desde aquí podrás:
+
+- Conecte sistemas de diseño adicionales desde su Workspace
+- Reordenar su prioridad
+- Seleccione si el proyecto actual debe usarse como sistema de diseño para otros proyectos en su Workspace
+</Accordion>
+<Accordion title="¿Qué sucede si dos sistemas de diseño definen reglas superpuestas?">
+Cuando se conectan varios sistemas de diseño, ZenOpus los aplica en orden. Los sistemas de diseño que aparecen al principio de la lista tienen prioridad sobre los que aparecen más adelante en la lista.
+
+Puede reordenar los sistemas de diseño conectados en la configuración del proyecto para cambiar su prioridad durante la generación.
+</Accordion>
+<Accordion title="¿Puedo eliminar un sistema de diseño de un proyecto?">
+Sí, un sistema de diseño conectado se puede eliminar en cualquier momento desde la configuración del proyecto. Una vez eliminado, ya no se aplica a las generaciones futuras de ese proyecto.
+</Accordion>
+<Accordion title="¿Puedo editar el sistema de diseño desde un proyecto conectado?">
+No, la carpeta `.zenopus` es propiedad del proyecto del sistema de diseño y no se puede editar desde proyectos conectados. Para cambiar el sistema de diseño, abra y edite el proyecto del sistema de diseño.
+</Accordion>
+<Accordion title="¿Están versionados los sistemas de diseño?">
+Todavía no. Los sistemas de diseño actualmente no tienen Support control de versiones integrado. Comuníquese con su equipo de cuentas si el control de versiones es importante para su flujo de trabajo.
+</Accordion>
+<Accordion title="¿Qué tecnologías diseñan los sistemas Support?">
+ZenOpus sistemas de diseño Support **Bibliotecas de componentes basadas en React** listas para usar.
+
+Si su sistema de diseño está construido con otros marcos como Vue, Angular o Svelte, comuníquese con su CSM o FDE para analizar las opciones de compatibilidad.
+</Accordion>
+<Accordion title="¿Los sistemas de diseño reemplazan a las plantillas?">
+No, los sistemas de diseño no reemplazan las plantillas. Las plantillas y los sistemas de diseño tienen diferentes propósitos y, a menudo, se utilizan juntos. Las plantillas son mejores para la estructuración inicial del proyecto, mientras que los sistemas de diseño brindan una interfaz de usuario continua y una guía de diseño en todos los proyectos.
+</Accordion>
+</AccordionGroup>

@@ -1,0 +1,93 @@
+---
+title: "ZenOpus AI"
+description: "Aggiungi potenti funzionalità IA alle tue app ZenOpus con ZenOpus AI. Non sono necessarie chiavi API o configurazione. Abilita riepiloghi, chatbot, domande e risposte sui documenti, traduzione, automazione e altro ancora."
+---
+Normalmente, aggiungere l'intelligenza artificiale a un'app significa cercare le chiavi API, impostare la fatturazione con i fornitori e collegare tutto da solo. ZenOpus L'intelligenza artificiale semplifica l'aggiunta rapida di potenti funzionalità AI alla tua app, così puoi iniziare subito a creare app più intelligenti e coinvolgenti.
+
+Alcuni esempi includono:
+
+- **Riepiloghi AI**: condensa automaticamente il testo lungo in riassunti chiari
+- **Chatbot o agente AI**: crea assistenti conversazionali nella tua app
+- **Rilevamento del sentiment**: comprendi il feedback degli utenti su larga scala
+- **Domande e risposte sui documenti**: consenti agli utenti di porre domande direttamente sui tuoi contenuti
+- **Generazione creativa**: brainstorming, stesura di testi o espansione di idee
+- **Traduzione multilingue**: servi gli utenti globali senza problemi
+- **Completamento attività**: automatizza flussi di lavoro ripetitivi o in più fasi (funzionalità agente)
+- **Analisi di immagini e documenti**: estrai, riassumi e interpreta rapidamente le informazioni chiave da immagini e documenti, trasformando i contenuti non strutturati in informazioni strategiche
+- **Automazione del flusso di lavoro**: gestisci attività ripetitive, prendi decisioni e ottimizza i processi per risparmiare tempo e ridurre gli errori.
+
+## Abilitazione ZenOpus AI
+
+<Note>
+Per un'esperienza ottimale, ti consigliamo di utilizzare ZenOpus AI con [ZenOpus Cloud](/it/integrations/cloud).
+</Note>
+
+Per impostazione predefinita, ZenOpus AI è abilitato per Workspace e nelle autorizzazioni dello strumento ZenOpus AI. Ciò significa che ZenOpus aggiunge automaticamente funzionalità AI quando richiesto. Puoi gestire il comportamento ZenOpus AI per i tuoi progetti in **Impostazioni → Connettori → Connettori condivisi → ZenOpus AI → Gestisci autorizzazioni**.
+
+### Modello AI predefinito
+
+ZenOpus AI utilizza **Gemini 3 Flash** come modello predefinito. Se desideri utilizzare un modello diverso o una combinazione di modelli, puoi specificare la tua scelta direttamente nel prompt quando richiedi la funzionalità AI. Per una panoramica dei modelli AI supportati, consulta [Modelli AI supportati](/it/features/ai#supported-ai-models).
+
+### Preferenze di autorizzazione
+
+L'impostazione predefinita per l'integrazione AI è **Consenti sempre**, il che significa che ZenOpus AI verrà utilizzato automaticamente nei tuoi progetti. Puoi modificare le tue preferenze in qualsiasi momento da **Impostazioni → Connettori → Connettori condivisi → ZenOpus AI → Gestisci autorizzazioni.**
+
+Scegli tra:
+
+- **Consenti sempre**: ZenOpus esegue automaticamente l'azione, senza chiedere revisione o approvazione.
+- **Chiedi ogni volta**: ZenOpus richiede la tua approvazione ogni volta che l'azione è necessaria. Ad esempio, se desideri aggiungere un chatbot, puoi:
+    - **Consenti**: abilita l'integrazione per il progetto corrente.
+    - **Rifiuta**: rifiuta l'integrazione per questa richiesta (potrebbe essere richiesto nuovamente in seguito).
+    - **Regola preferenze**: modifica il comportamento predefinito per i progetti futuri (non influisce sul progetto corrente).
+- **Non consentire mai**: ZenOpus blocca l'azione, ti informa che l'AI è richiesta e ti chiede di abilitare ZenOpus AI.
+
+## Utilizzo e prezzi
+
+ZenOpus L'intelligenza artificiale funziona secondo un **modello di prezzi basato sull'utilizzo**. Ciò significa che i costi aumentano in base all'utilizzo e non sono coperti dal tuo abbonamento.
+
+Il costo dell'utilizzo di ZenOpus AI è esattamente lo stesso di quello del passaggio diretto al fornitore LLM. Non ci sono costi nascosti. Per verificare i costi, fare riferimento alle fonti ufficiali collegate nel nostro elenco di modelli AI supportati di seguito.
+
+Ogni Workspace include **$ 1 di utilizzo gratuito dell'IA al mese** per iniziare. Successivamente, gli utenti con piani a pagamento possono ricaricare il proprio saldo, con costi che dipendono dal modello sottostante scelto.
+
+<Note>
+**Offerta temporanea, soggetta a modifiche:** Fino alla fine del primo trimestre del 2026, ogni Workspace riceve $ 25 Cloud e $ 1 AI al mese, anche per gli utenti del piano Free.
+</Note>
+
+Puoi monitorare e gestire i costi di utilizzo dell'IA in **Impostazioni → Bilancio Cloud e AI.** Per ulteriori dettagli ed esempi, consulta [Prezzi cloud e AI basati sull'utilizzo](/it/features/cloud#usage-based-cloud-and-ai-pricing).
+
+## Modelli di intelligenza artificiale supportati
+
+ZenOpus AI utilizza **Gemini 3 Flash** come modello predefinito, ma puoi richiedere all'agente di utilizzare un modello diverso o una combinazione di modelli.
+
+| Modello | Descrizione | Ideale per |
+| --- | --- | --- |
+| Gemini 3 Flash (predefinito) | Un modello Gemini veloce ed efficiente, ottimizzato per flussi di lavoro reattivi e generici e con agenti interattivi. Trova un equilibrio tra velocità, costi e ragionamenti efficaci per uno sviluppo iterativo e incentrato sulla chat. | Build interattive veloci, flussi di lavoro degli agenti e casi d'uso generali in cui la reattività è importante |
+| Gemelli 3.1 Pro | Il modello Gemini 3 più potente di Google, realizzato per migliorare le prestazioni e l'affidabilità della serie Gemini 3 Pro. Fornisce un ragionamento più forte, una migliore efficienza dei token e risposte più fondate e coerenti con i fatti. Ottimizzato per flussi di lavoro di ingegneria del software, utilizzo preciso degli strumenti ed esecuzione affidabile in più fasi in attività complesse. Più lento e costoso. | Flussi di lavoro agentici, codifica avanzata, comprensione del contesto lungo, ragionamento multimodale e sviluppo algoritmico |
+| Nano Banana 2 (Immagine Flash Gemini 3.1) | Modello rapido di generazione e modifica delle immagini basato sulla più recente architettura di immagini di Gemini. Combina una forte qualità visiva con generazione e iterazione più veloci, migliore coerenza del soggetto, rendering accurato del testo e Support per output ad alta risoluzione. | Generazione rapida di immagini, editing visivo iterativo, prototipi di prodotti, risorse di marketing e flussi di lavoro creativi che richiedono tempi di consegna rapidi |
+| Nanobanana Pro | Modello di generazione e modifica di immagini di alta qualità basato sull'architettura delle immagini di Gemini 3, ottimizzato per immagini dettagliate, rendering del testo nelle immagini e composizione di più immagini. | Creazione di risorse visive, flussi di lavoro di immagini ad alto volume, infografiche, prototipazione rapida di contenuti di design/creativi |
+| Gemelli 2.5 Pro | I Gemelli più intelligenti e complessi. Ragionamento elevato, contesto ampio, più lento e più costoso. | Ragionamento profondo, codifica avanzata, ricerca, compiti multimodali complessi |
+| Gemelli 2.5 Flash | Un modello Gemini bilanciato che offre buone prestazioni di ragionamento con latenza e costi inferiori rispetto a Pro. | Assistenti, analisi, flussi di lavoro generali in cui conta l'equilibrio tra velocità e intelligenza |
+| Gemini 2.5 Flash Lite | L'opzione Gemini più veloce ed economica, progettata per attività semplici e ad alto rendimento con profondità di ragionamento limitata. | Attività leggere e ad alto volume come classificazione, riepilogo, traduzione |
+| Immagine Flash Gemini 2.5 | Ottimizzato per la generazione di immagini. Molto economico per immagine, non pensato per il ragionamento del testo. | Generazione di immagini, output visivi rapidi |
+| GPT-5.2 | L'ultimo modello di punta della serie GPT-5 di OpenAI, progettato per lavori di conoscenza professionale, ragionamenti complessi e attività in più fasi, con una migliore comprensione del codice e coerenza a lungo termine. | Ragionamento complesso, codifica approfondita e flussi di lavoro analitici e attività di conoscenza a lungo contesto |
+| GPT-5 | Modello per uso generale ad alta precisione con forti capacità di ragionamento. Latenza e costi più elevati rispetto alle varianti GPT-5 più piccole. | Compiti critici per la precisione, processi decisionali complessi e ragionamento di alta qualità |
+| GPT-5 Mini | GPT-5 bilanciato. Più economico e più veloce del GPT-5, meno complesso ma di forte utilizzo generale. | Assistenti, ragionamento di media complessità, flussi di lavoro aziendali |
+| GPT-5 Nano | GPT-5 più economico e veloce. Ragionamento molto elementare, ideale per risposte rapide o semplici. | Riepiloghi, classificazione, estrazione, compiti semplici ad alto volume |
+
+### Le scelte migliori e più convenienti
+
+- **Migliore intelligenza complessiva**: GPT-5.2, Gemini 3.1 Pro e Gemini 2.5 Pro (ragionamento profondo, ma più costoso)
+- **Miglior equilibrio (velocità + costo + intelligenza)**: Gemini 3 Flash, GPT-5 Mini e Gemini 2.5 Flash
+- **Il più conveniente su scala**: GPT-5 Nano e Gemini 2.5 Flash Lite (semplice, veloce, economico)
+- **Ideale per le immagini**: Nano Banana 2, Nano Banana Pro e Gemini 2.5 Flash Image
+
+## Workspace limiti di tariffa
+
+Per garantire prestazioni affidabili e un accesso equo per tutti gli utenti, ZenOpus AI applica limiti di velocità per Workspace. Questi limiti aiutano a mantenere la stabilità del sistema, prevenire abusi, controllare i costi e fornire un'esperienza coerente per tutti.
+
+Se le tue richieste superano la percentuale consentita, il server restituisce un codice di stato **429 Too Many Requests** e la richiesta non verrà elaborata.
+
+I limiti tariffari sono più restrittivi per gli utenti gratuiti, mentre i piani a pagamento includono soglie più elevate e maggiore flessibilità.
+
+- **Free utenti del piano**: aggiorna in qualsiasi momento per aumentare i tuoi limiti.
+- **Utenti con piano a pagamento**: contatta [ZenOpus Support](https://zenopus.dev/support) se hai bisogno di capacità aggiuntiva.

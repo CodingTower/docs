@@ -1,0 +1,104 @@
+---
+title: "ZenOpus での画像の使用"
+description: "画像をチャットにアップロードしたり、視覚的な編集で置き換えたり、外部 URL を使用したり、GitHub パブリック ディレクトリからファイルを追加したりできます。"
+---
+画像を追加するには、次の 4 つのいずれかを実行できます。
+
+<AccordionGroup>
+<Accordion title="画像をプロンプトチャットにアップロードします">
+チャットにそれらをアップロードし、プロジェクト内のどこにどのように表示したいかを ZenOpus のエージェントに説明するだけです。たとえば:
+
+> ナビゲーションバーのロゴをこの画像に置き換えます
+</Accordion>
+<Accordion title="ビジュアルエディタ上で置き換える">
+[ビジュアル エディター](/jp/features/design) 機能を使用して、既存の画像を直接置き換えることができます。
+
+<Steps>
+<Step title="ステップ1">
+「編集」ツールをクリックします。
+</Step>
+<Step title="ステップ2">
+変更したい画像ホルダーを選択します。
+
+![編集パネルを開いた状態で選択された画像要素を表示するビジュアル エディタ](/images/zenopus/tips-tricks/using-images/visual-edit-replace.png)
+</Step>
+<Step title="ステップ3">
+イメージを変更します。
+
+![アップロードおよび URL オプションを備えたビジュアル エディターの画像置換ダイアログ](/images/zenopus/tips-tricks/using-images/visual-edit-image.png)
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="外部画像 URL の使用">
+プロジェクトに画像を追加する 1 つの方法は、外部 URL から画像を参照することです。この方法を使用すると、Unsplash、Imgur、またはその他の画像ホスティング サービスなどの外部プラットフォームでホストされている画像を使用できます。著作権に注意して使用してください。
+
+外部画像を prompt ZenOpus して使用する方法は次のとおりです。
+
+<Steps>
+<Step title="ステップ1">
+使用したい画像を見つけます。
+
+たとえば、Unsplash などのサイトにアクセスし、画像を選択して、その URL をコピーできます。
+</Step>
+<Step title="ステップ2">
+プロジェクト プロンプトで、URL を指定してその画像を使用するように ZenOpus に指示するだけです。たとえば:
+
+```text
+このURLの画像を使用してください 
+https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Pale_Blue_Dot.png/442px-Pale_Blue_Dot.png 
+ヒーローセクションの画像用。
+```
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="GitHub パブリック ディレクトリの画像を使用する">
+ZenOpus プロジェクトに画像を追加するもう 1 つの方法は、接続された GitHub リポジトリの `public` ディレクトリにアップロードされた画像を使用することです。その方法は次のとおりです。
+
+<Steps>
+<Step title="GitHub リポジトリに接続する">
+プロジェクトが GitHub リポジトリに接続されていることを確認します。 [リポジトリに接続する方法は次のとおりです](/jp/integrations/git-integration)。
+</Step>
+<Step title="パブリックフォルダーを見つけます">
+GitHub リポジトリ内で、`public` ディレクトリに移動します。このフォルダーは通常、プロジェクト内で参照できる画像などのアセットをホストするために使用されます。
+</Step>
+<Step title="ファイルを追加">
+[**ファイルを追加**] をクリックし、ドロップダウンから **ファイルをアップロード** オプションを選択します。 ![アップロードするファイルを選択しています](/images/zenopus/tips-tricks/using-images/using-images-github-upload.png)
+</Step>
+<Step title="画像をアップロードする">
+次のステップは、イメージをリポジトリに転送することです。
+
+- 画像をパブリック フォルダーにドラッグ アンド ドロップするか、
+- **「ファイルを選択」** リンクをクリックして、画像ファイルを参照して選択します。
+    ![アップロードするファイルを選択しています](/images/zenopus/tips-tricks/using-images/using-images-github-commiting.png)
+</Step>
+<Step title="変更をコミットする">
+画像を選択した後、簡単なコミット メッセージ (例: 「アプリで使用する画像ファイルを追加する」) を作成し、**「変更をコミット」** をクリックしてファイルをリポジトリに保存します。
+</Step>
+<Step title="画像のパスを取得する">
+ファイルがアップロードされたら、それを選択し、ファイル名の横にあるコピー アイコンをクリックして画像のパスをコピーします。このパスは ZenOpus プロンプトで使用されます。 ![アップロードするファイルを選択しています](/images/zenopus/tips-tricks/using-images/using-images-github-selecting.png)
+</Step>
+<Step title="ZenOpus の画像を使用してください">
+これで、次のようなプロンプトを使用して、プロジェクト内でこのイメージを参照できるようになります。
+
+```text
+追加の画像をヒーローセクションに追加します。 
+今回は、ローカル リポジトリのこれを使用します: public/c-64-close-up.jpg.jpeg
+```
+
+前の手順でコピーしたイメージ名とパスを必ず使用してください。
+
+<Warning>
+大きな画像を GitHub リポジトリにアップロードすると、サイズが大きくなり、ZenOpus のパフォーマンスに影響を与える可能性があります (リポジトリのクローン作成時間が長くなり、プレビュー/サンドボックスの起動が遅くなります)。
+
+`public` フォルダーにアップロードする前に、画像を圧縮し、ユースケースに関連するサイズを使用して、画像を最適化してください。たとえば、小さなアイコンとしてのみ表示される場合は、フル HD サイズの画像を使用しないでください。
+</Warning>
+</Step>
+</Steps>
+
+上記で概説した方法を使用して画像を統合する方法をより深く理解できるように、[ZenOpus プロジェクトの例](https://zenopus.dev/projects/e823fedf-238d-4313-86a8-1fd4bfc2a9ba) というプロジェクトを検討してください。このプロジェクトでは、実際のプロンプトと各メソッドが実際にどのように機能するかを確認できます。
+
+さらに、ここには、コミット、アップロードされたイメージ、完全な実装の詳細が含まれるパブリック GitHub リポジトリがあります。リポジトリは、[GitHub: 画像の追加の例](https://github.com/viborc/adding-images-example) で参照できます。
+
+理解を深め、実装スキルを向上させるために、プロジェクトとリポジトリを自由に探索してください。
+</Accordion>
+</AccordionGroup>

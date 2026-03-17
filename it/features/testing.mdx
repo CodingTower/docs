@@ -1,0 +1,161 @@
+---
+title: "Testa e verifica la tua app"
+description: "ZenOpus fornisce test del browser, test frontend e verifica delle funzioni edge per aiutare a comprendere il comportamento del sistema, convalidare i flussi di lavoro degli utenti e garantire che la logica backend funzioni come previsto."
+---
+ZenOpus ti offre diversi modi per verificare che la tua applicazione si comporti come previsto. Questi strumenti ti aiutano a riprodurre i problemi, confermare le correzioni ed evitare regressioni nel comportamento di frontend e backend.
+
+<Tip>
+**Scegli il test giusto**
+
+Se non sei sicuro di quale strumento di test utilizzare, inizia con il tipo di comportamento che desideri verificare.
+
+- Se il problema è visibile agli utenti, utilizza il test del browser.
+- Se il comportamento dell'interfaccia utente deve rimanere corretto nel tempo, utilizzare i test frontend.
+- Se il problema riguarda la logica di backend, chiama direttamente la funzione edge, quindi aggiungi un test edge.
+</Tip>
+
+## Cosa può osservare ZenOpus durante la verifica
+
+ZenOpus raccoglie informazioni quando l'agente esegue strumenti di verifica. Queste informazioni vengono raccolte automaticamente come parte di tali strumenti e vengono utilizzate per comprendere cosa sta succedendo nella tua app.
+
+ZenOpus può acquisire:
+
+- log della console del browser durante il test del browser
+- richieste di rete effettuate durante il test del browser
+- testare gli errori e creare errori dalle esecuzioni dei test
+- dati di richiesta e risposta quando si chiamano direttamente le funzioni di backend
+
+Questi segnali sono disponibili ogni volta che vengono utilizzati gli strumenti pertinenti e spesso sono sufficienti per diagnosticare i problemi senza ulteriore debug manuale.
+
+ZenOpus supporta diversi approcci di test, ciascuno progettato per un diverso tipo di verifica. La maggior parte dei test rientra in una delle due categorie:
+
+- controllare i flussi completi degli utenti
+- controllare regole o comportamenti specifici in modo isolato
+
+## Test del browser
+
+[Test del browser](/it/features/browser-testing) verifica il comportamento reale degli utenti interagendo con la tua app in un browser. L'agente può navigare tra le pagine, fare clic sui pulsanti, compilare moduli e inviare richieste. Mentre lo fa, può acquisire screenshot, ispezionare gli elementi dell'interfaccia utente e osservare l'attività della console e della rete.
+
+Utilizza il test del browser quando:
+
+- qualcuno segnala un comportamento dell'interfaccia utente non funzionante o imprevisto
+- è necessario controllare un flusso in più fasi come l'onboarding o il checkout
+- il problema può dipendere dal routing, dall'autenticazione, dalla tempistica o dallo stato
+- vuoi confermare le modifiche dal punto di vista dell'utente
+
+Il test del browser è più lento rispetto ad altri metodi, ma fornisce il quadro più chiaro di ciò che effettivamente sperimenta un utente.
+
+Il test del browser può essere avviato dall'agente durante l'indagine. Puoi anche richiederlo esplicitamente.
+
+**Esempio**
+
+```text
+Utilizza il test del browser per verificare il flusso di pagamento.
+```
+
+## Test del frontend
+
+I test del frontend verificano il comportamento dell'interfaccia utente in modo isolato utilizzando asserzioni chiare. Sono utili per garantire che la logica specifica dell'interfaccia utente continui a funzionare come previsto nel tempo.
+
+I test frontend vengono eseguiti in un ambiente browser simulato, vengono eseguiti rapidamente, forniscono risultati coerenti e di solito risiedono accanto ai componenti come file `.test.tsx`.
+
+**Pila di prova**
+
+- Vitest
+- Libreria di test di reazione
+- jsdom
+
+Utilizza i test frontend quando:
+
+- il problema può essere descritto come una regola o aspettativa chiara
+- stai correggendo una regressione dell'interfaccia utente e vuoi evitare che si ripeta
+- stai lavorando con il rendering condizionale o stati complessi come moduli, tabelle e filtri
+- desideri un feedback rapido senza eseguire l'app completa
+
+I test del frontend vengono eseguiti solo quando richiesto.
+
+**Esempio**
+
+```text
+Scrivi ed esegui test frontend per il modulo di accesso.
+```
+
+## Verifica del backend con funzioni edge
+
+ZenOpus fornisce due modi complementari per verificare il comportamento del backend nelle funzioni edge: chiamate dirette e test automatizzati. Questi approcci vengono spesso utilizzati insieme.
+
+### Chiamate dirette di funzioni edge
+
+Le chiamate dirette consentono all'agente di eseguire una funzione edge con input specifici e di ispezionare immediatamente il risultato. Ciò evita la complessità legata all'interfaccia utente ed è utile per un rapido isolamento. Se hai effettuato l'accesso, le chiamate autenticate possono utilizzare la sessione corrente.
+
+Utilizza le chiamate dirette quando:
+
+- sospetti un problema di backend e desideri separarlo dall'interfaccia utente
+- è necessario controllare parametri o input specifici
+- vuoi confrontare il comportamento prima e dopo un cambiamento
+- stai eseguendo il debug del comportamento autenticato
+
+Le chiamate di funzione edge dirette vengono eseguite solo quando richiesto.
+
+**Esempio**
+
+```text
+Chiama direttamente la funzione di registrazione Edge con un'e-mail non valida.
+```
+
+### Prove sui bordi
+
+I test sugli edge sono test automatizzati che controllano le regole di backend nel tempo. Aiutano a garantire che la logica importante non venga interrotta silenziosamente.
+
+**Pila di prova**
+
+- Deno test runner integrato
+- TypeScript nativo Support
+
+Utilizzare i test sui bordi quando:
+
+- si modifica una funzione edge e si desidera protezione dalla regressione
+- stai convalidando regole o autorizzazioni aziendali
+- il problema è sottile e difficile da verificare manualmente
+
+I test sui bordi vengono eseguiti solo quando richiesto.
+
+**Esempio**
+
+```text
+Scrivere test sui fronti per la funzione di elaborazione dei pagamenti.
+```
+
+### Come funzionano insieme gli strumenti di verifica del backend
+
+Le chiamate dirette e i test edge vengono spesso utilizzati insieme durante il debug del comportamento del backend.
+
+Una sequenza comune è simile alla seguente:
+
+1. Chiama direttamente la funzione edge per riprodurre il problema con un input specifico.
+1. Applicare la correzione una volta compreso il comportamento.
+1. Richiamare nuovamente la funzione con lo stesso input per confermare la modifica.
+1. Aggiungi un test edge per garantire che il comportamento non regredisca nel tempo.
+
+Questo approccio mantiene l'iterazione rapida pur fornendo una verifica a lungo termine.
+
+## Domande frequenti
+
+<AccordionGroup>
+<Accordion title="Devo eseguire tutti i test per ogni modifica?">
+No. La maggior parte dei problemi può essere compresa e verificata utilizzando un unico strumento. I test del browser sono utili per i problemi visibili all'utente, i test del frontend aiutano a bloccare il comportamento specifico dell'interfaccia utente e la verifica del backend è la soluzione migliore per la logica aziendale. Scegli lo strumento che corrisponde al tipo di problema che stai esaminando.
+</Accordion>
+<Accordion title="Cosa devo fare se un problema non si risolve dopo alcuni tentativi?">
+Quando un problema non si risolve dopo alcuni tentativi, puoi chiedere a ZenOpus di utilizzare più strumenti di verifica. ZenOpus esegue questi strumenti e utilizza il relativo output per guidare il passaggio successivo.
+
+- La revisione dei registri o degli errori dei test delle esecuzioni precedenti spesso aiuta a restringere la causa.
+- I problemi di backend sono generalmente più facili da isolare chiamando direttamente la funzione edge.
+- I problemi rivolti agli utenti vengono esplorati al meglio con il test del browser.
+- Una volta compreso il comportamento, l'aggiunta di test automatizzati aiuta a mantenerlo stabile nel tempo.
+
+Se il problema persiste, ripristina l'ultima versione stabile.
+</Accordion>
+<Accordion title="ZenOpus esegue automaticamente gli strumenti di verifica?">
+La maggior parte degli strumenti di verifica vengono eseguiti solo quando li richiedi. In alcuni casi, l'agente può suggerire o avviare uno strumento durante l'indagine, ma la verifica non viene eseguita silenziosamente in background.
+</Accordion>
+</AccordionGroup>

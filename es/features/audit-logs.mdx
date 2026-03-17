@@ -1,0 +1,92 @@
+---
+title: "Registros de auditoría"
+description: "Supervise la actividad de Workspace con registros de auditoría empresarial. Filtre por acción, miembro o rango de tiempo para revisar eventos como cambios de membresía, acciones de proyecto, eventos de autenticación y Workspace ajustes o cambios de configuración."
+---
+Los registros de auditoría proporcionan un seguimiento de auditoría de la actividad en su Workspace. Muestran quién realizó una acción, cuándo sucedió, qué cambió y qué recurso se vio afectado.
+
+Utilice registros de auditoría para revisar Workspace ajustes y cambios de configuración, realizar un seguimiento de las actualizaciones de acceso e investigar comportamientos inesperados. Los registros de auditoría también pueden Support flujos de trabajo de seguridad y cumplimiento cuando sea necesario.
+
+- **Disponible en:** Planes empresariales
+- **Acceso:** Workspace administradores y propietarios
+- **Ubicación:** Configuración → Workspace → Registros de auditoría
+
+## Eventos del registro de auditoría
+
+Los registros de auditoría Workspace incluyen eventos en categorías como:
+
+| Categoría | Eventos de ejemplo |
+| --- | --- |
+| Workspace membresía | Miembro agregado, eliminado o rol actualizado |
+| Workspace gestión | Workspace configuración actualizada Workspace eliminada |
+| Workspace grupos | Grupo creado, actualizado o eliminado Miembros del grupo agregados o eliminados |
+| Identidad y acceso | Dominio verificado agregado o eliminado Proveedor de SSO agregado, actualizado o eliminado Acciones de aprovisionamiento SCIM |
+| Secretos e integraciones | Aplicación GitHub o Slack instalada o eliminada en Workspace Servidor MCP personalizado creado o eliminado Secretos cambiados |
+| Proyectos | Proyecto creado, eliminado, anulado de publicación o movido Colaboradores agregados, unidos, eliminados o actualizado su rol Dominios personalizados creados o eliminados Proyecto Supabase o tienda Shopify conectada o desconectada Mensaje enviado |
+| Autenticación | Acceso SSO Workspace |
+
+## tabla de registro de auditoría
+
+De forma predeterminada, la página muestra registros de **Todas las acciones**, **Todos los miembros** y **Todo el tiempo**. El número total de registros coincidentes aparece en la parte superior derecha de la tabla.
+
+La tabla está organizada en cuatro columnas:
+
+| Columna | Descripción |
+| --- | --- |
+| Marca de tiempo | Cuándo ocurrió el evento, como hace 4 minutos o hace aproximadamente 11 horas. Pase el cursor para ver la fecha y hora exactas. |
+| Actor | El miembro que realizó la acción. Al hacer clic en el nombre del miembro, se abre una ventana emergente que muestra su ID de usuario, dirección IP y agente de usuario. Desde esta ventana emergente, puede copiar estos detalles o filtrar la tabla por ese usuario. |
+| Acción | El tipo de actividad, que se muestra como una etiqueta como Mensaje enviado, Workspace actualizado, Miembro agregado o Proyecto creado. |
+| Recurso | El objeto afectado, como un proyecto, Workspace o usuario. Se puede hacer clic en algunos recursos. Por ejemplo, al hacer clic en el nombre de un proyecto se abre ese proyecto. |
+
+Haga clic en cualquier fila para expandirla y ver detalles JSON estructurados que describen el evento. Esto incluye los metadatos asociados con esa acción, como los ID de mensajes para la actividad de aviso o campos específicos que se actualizaron en una configuración Workspace.
+
+## Filtrar registros de auditoría
+
+Puede combinar los tres filtros para centrarse en una actividad específica:
+
+- **Todas las acciones** le permite filtrar por un tipo de acción específico, como `Member added`, `Member removed`, `Workspace updated`, `Project created` o `Prompt sent`.
+- **Todos los miembros** le permite seleccionar un miembro Workspace utilizando el selector de miembros con capacidad de búsqueda.
+- **Rango de tiempo** incluye ajustes preestablecidos como **Todo el tiempo**, **Últimos 7 días**, **Últimos 30 días**, **Últimos 90 días**, **Este mes** y **Último mes**.
+
+## Cómo utilizar registros de auditoría
+
+Un flujo de trabajo típico:
+
+1. Establezca un **intervalo de tiempo** relevante.
+1. Filtre por **miembro** para revisar la actividad de un usuario específico.
+1. Filtre por **tipo de acción** para limitar los resultados a un tipo específico de cambio.
+1. Expanda las entradas para inspeccionar los detalles completos de JSON.
+1. Abra los proyectos afectados o salte a mensajes relacionados para revisar el contexto.
+1. Utilice la ventana emergente de miembro para copiar detalles como ID de usuario, dirección IP o agente de usuario, si es necesario.
+
+## Retención de datos del registro de auditoría
+
+Los registros se conservan durante 13 semanas, o aproximadamente 90 días. Los eventos anteriores a esa fecha se eliminan automáticamente.
+
+<Note>
+Los registros anteriores al 26 de febrero de 2026 pueden estar incompletos.
+</Note>
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Quién puede acceder a los registros de auditoría?">
+Los registros de auditoría están disponibles en los planes Enterprise y son visibles para los propietarios y administradores de Workspace.
+</Accordion>
+<Accordion title="¿Cuánto tiempo se conservan los registros de auditoría?">
+Los registros de auditoría se conservan durante 13 semanas, o aproximadamente 90 días. Los eventos anteriores a esa fecha se eliminan automáticamente.
+</Accordion>
+<Accordion title="¿Puedo exportar registros de auditoría?">
+Actualmente, los registros de auditoría no realizan Support exportación de autoservicio.
+
+Las entradas del registro de auditoría se pueden ampliar para ver detalles JSON estructurados, que se pueden copiar si es necesario.
+
+Si necesita integrar registros de auditoría con un SIEM o un sistema de monitoreo externo, comuníquese con su equipo de cuentas para analizar las opciones de integración empresarial.
+</Accordion>
+<Accordion title="¿Por qué no veo los registros de auditoría?">
+Si los registros de auditoría no están disponibles o no aparecen como se esperaba:
+
+- Confirma que tu Workspace esté en un plan Enterprise.
+- Confirme que su función incluye permiso para ver registros de auditoría. Debes ser administrador o propietario de Workspace.
+- Borre los filtros y pruebe con un rango de tiempo más amplio.
+</Accordion>
+</AccordionGroup>

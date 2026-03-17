@@ -1,0 +1,184 @@
+---
+title: "Collega la tua app a Slack"
+description: "Collega la tua app a Slack per inviare messaggi, leggere canali, automatizzare avvisi, generare riassunti e integrare flussi di lavoro Workspace utilizzando bot o accesso personale."
+---
+[Slack](https://slack.com/) è una piattaforma di messaggistica e collaborazione che consente alla tua app ZenOpus di funzionare con le comunicazioni, i canali e i dati Workspace del team. Il connettore Slack consente l'integrazione di Slack per la tua app, consentendoti di inviare notifiche ai team, riepilogare le conversazioni e inviare aggiornamenti strutturati direttamente a Slack.
+
+Con Slack, la tua app può:
+
+- Invia messaggi a canali e messaggi diretti
+- Leggere messaggi da canali pubblici e privati (con permessi)
+- Elenca gli utenti Workspace e le informazioni sul canale
+- Reagisci ai messaggi con emoji
+- Cerca contenuti Slack (connessione personale)
+- Gestisci i canali ed esegui l'amministrazione Workspace (con autorizzazioni di amministratore)
+
+Ogni connessione Slack è autorizzata per un singolo Slack Workspace. Puoi creare più connessioni per lavorare su più aree di lavoro.
+
+## Casi d'uso comuni e app di esempio
+
+| Applicazione di esempio | Esempio di richiesta | Descrizione |
+| --- | --- | --- |
+| Notifiche dei clienti a Slack | Costruisci un modulo di richiesta preventivo. Quando qualcuno lo invia, salva i dati e pubblica un riepilogo su #new-deals in Slack. | Avvisa il tuo team in Slack quando i clienti eseguono un'azione nella tua app. L'app acquisisce l'invio, formatta i dettagli chiave e li pubblica sul canale appropriato in modo che qualcuno possa rispondere immediatamente. |
+| Dashboard degli incidenti con escalation di Slack | Crea una dashboard interna degli incidenti e aggiungi un pulsante "Pubblica avviso" che invia un avviso strutturato a #ops-alerts in Slack. | Consolida i dati operativi da più fonti in un unico dashboard interno. Quando qualcosa richiede attenzione, l'app pubblica un avviso strutturato su Slack in modo che il team giusto possa rispondere immediatamente. |
+| App digest settimanale di Slack | Riepiloga #prodotto e #Support degli ultimi 7 giorni, lasciami rivedere il riepilogo, quindi pubblicalo su #leadership. | Trasforma i canali Slack più affollati in riepiloghi strutturati. L'app legge i messaggi recenti, estrae temi chiave e punti salienti e pubblica un riepilogo pulito per la leadership o i team interfunzionali. |
+| Rapporti KPI automatizzati | Ogni lunedì alle 9:00, genera un riepilogo dei KPI e pubblicalo su #team-updates. | Invia report ricorrenti direttamente ai canali Slack. L'app compila metriche selezionate in base a una pianificazione e pubblica aggiornamenti formattati per mantenere allineato il team. |
+| Notifiche multiple-Workspace | Al termine di una distribuzione, avvisa il nostro Slack interno Workspace e il nostro partner Workspace. | Invia notifiche su più aree di lavoro Slack da un'unica app. L'app instrada i messaggi a diverse aree di lavoro in base all'evento o al pubblico. |
+| Ricerca della conoscenza con motore lento | Crea un'interfaccia di ricerca che mi consenta di effettuare ricerche nei miei messaggi Slack con filtri per data e mittente. | Crea un'esperienza di ricerca strutturata per le conversazioni Slack. L'app consente agli utenti di cercare messaggi e filtrare i risultati per trovare rapidamente discussioni e decisioni passate. |
+| Dashboard delle attività del team | Costruisci una dashboard che mostri dove sono stato menzionato e quali messaggi necessitano di follow-up. | Attività Slack di superficie in una vista interna focalizzata. L'app aggrega menzioni e attività recenti in modo che gli utenti possano tenere traccia delle conversazioni e dare seguito alle attività. |
+| Flussi di lavoro di onboarding automatizzati | Quando inizia un nuovo progetto, crea automaticamente canali Slack, aggiungi membri del team e invia un messaggio di benvenuto. | Automatizza la configurazione di Slack come parte di flussi di lavoro di onboarding più ampi. L'app fornisce canali, assegna membri e pubblica messaggi di benvenuto senza coordinamento manuale. |
+
+## Come funzionano le connessioni Slack
+
+ZenOpus utilizza un'app gestita centralmente per Slack per alimentare tutte le integrazioni Slack negli spazi di lavoro.
+
+Entro il tuo ZenOpus Workspace:
+
+- Puoi creare più connessioni Slack.
+- Ogni connessione è un'autorizzazione OAuth separata.
+- Ogni connessione può:
+    - Utilizza ambiti diversi
+    - Avere diversi tipi di accesso (bot o personale)
+    - Connettiti a un altro Slack Workspace
+- Più progetti all'interno di un singolo Workspace possono utilizzare la stessa connessione.
+
+Ciò semplifica la separazione degli ambienti (ad esempio, sviluppo e produzione) o la gestione di più spazi di lavoro Slack.
+
+Slack utilizza l'architettura gateway di ZenOpus per la gestione sicura di OAuth e l'aggiornamento automatico dei token. Consulta [Connettori basati su gateway](/it/integrations/introduction#connettori-basati-su-gateway) per dettagli sull'autenticazione e sui limiti di utilizzo.
+
+## Come connettere Slack
+
+Workspace **amministratori** e **proprietari** possono connettersi a Slack.
+
+Quando viene creata una connessione, Slack diventa disponibile in tutti i progetti in Workspace.
+
+### Prerequisiti
+
+- Uno Slack Workspace in cui puoi installare app (o richiedere l'approvazione dell'amministratore)
+- ZenOpus Workspace ruolo di amministratore o proprietario
+- Per gli ambiti di amministrazione: autorizzazioni di amministratore Slack Workspace
+
+### Configura la tua connessione Slack
+
+<Steps>
+<Step title="Passare al connettore Slack">
+Vai a **Impostazioni → Connettori → Connettori condivisi** e seleziona **Slack**.
+</Step>
+<Step title="Aggiungi una nuova connessione">
+Fai clic su **Aggiungi connessione**.
+</Step>
+<Step title="Assegna un nome alla connessione">
+In **Nome visualizzato**, assegna un nome alla connessione (ad esempio, `Slack Prod`).
+</Step>
+<Step title="Scegli il tipo di accesso">
+- **Connettiti come bot** (consigliato): le operazioni vengono eseguite come bot. È sufficiente una connessione bot per Slack Workspace. Puoi personalizzare il nome visualizzato e l'icona del bot all'interno dei tuoi progetti ZenOpus.
+- **Connettiti come te stesso** (personale): le operazioni vengono eseguite come amministratore ZenOpus Workspace che crea la connessione, utilizzando il proprio account Slack e le proprie autorizzazioni personali. Utilizzalo quando hai bisogno dell'accesso ai dati personali o delle funzionalità di amministrazione di Workspace.
+</Step>
+<Step title="Configurare gli ambiti (facoltativo)">
+Espandi **Impostazioni avanzate** per visualizzare e configurare gli ambiti: le autorizzazioni API Slack necessarie per la tua app. Gli ambiti predefiniti sono preselezionati per i casi d'uso comuni.
+
+- **Connessioni bot**: ambiti predefiniti Support invio di messaggi, lettura di canali e messaggi diretti, visualizzazione di utenti, aggiunta di reazioni e personalizzazione dell'identità del bot.
+- **Connessioni personali (tu)**: ambiti predefiniti Support lettura e ricerca di contenuti Slack utilizzando le tue autorizzazioni Slack. L'amministrazione di Workspace richiede ambiti di amministrazione aggiuntivi e autorizzazioni di amministratore di Slack Workspace.
+
+<Tip>
+Seleziona solo gli ambiti necessari alla tua app. È possibile aggiornare gli ambiti in un secondo momento modificando la connessione e facendo clic su **Riconnetti**. Per la documentazione completa sull'ambito, vedere [riferimento sull'ambito di Slack](https://docs.slack.dev/reference/scopes/).
+</Tip>
+</Step>
+<Step title="Connettiti a Slack e autorizza la connessione">
+- Fare clic su **Connetti**. Si apre la finestra di autorizzazione di Slack: assicurati che il tuo browser non blocchi i popup.
+- Seleziona il Workspace che desideri connettere, controlla le autorizzazioni richieste e fai clic su **Consenti**. Verrai reindirizzato a ZenOpus con una conferma.
+</Step>
+</Steps>
+
+Una volta connesse, le tue app ZenOpus possono iniziare a utilizzare Slack per inviare messaggi, leggere canali e integrarsi con Workspace del tuo team.
+
+## Comportamento lento del bot e accesso al canale
+
+Quando colleghi Slack come **bot**, i messaggi vengono inviati dall'app **ZenOpus gestita centralmente per Slack**.
+
+Ogni progetto può definire il proprio nome visualizzato e la propria icona del bot. Ciò significa che progetti diversi possono apparire come bot diversi in Slack, anche se tutti inviano messaggi tramite la stessa app ZenOpus per Slack.
+
+### Personalizzazione del bot
+
+Puoi personalizzare il modo in cui i messaggi del tuo progetto appaiono in Slack chiedendo a ZenOpus di impostare un nome e un'icona personalizzati per il bot.
+
+Ad esempio:
+
+```text
+Invia messaggi come bot "Distribuisci bot" con l'icona emoji di un razzo.
+```
+
+L'utilizzo di un nome e di un'icona del bot coerenti aiuta i membri del team a riconoscere rapidamente quale progetto sta inviando messaggi.
+
+### Accesso al canale pubblico
+
+Il bot ha automaticamente accesso a tutti i canali pubblici nel Workspace. Non è richiesto alcun invito.
+
+### Accesso al canale privato
+
+Devi invitare il bot prima che possa leggere o pubblicare messaggi utilizzando `/invite @ZenOpus`
+
+Se la tua app non può pubblicare su un canale privato, invita prima il bot.
+
+## Limitazioni
+
+Il connettore Slack non può:
+
+- Ricevi eventi Slack in arrivo (nessun webhook o abbonamento a eventi)
+- Crea comandi barra
+- Rispondi a pulsanti o modalità interattive in tempo reale
+- Support Accesso a Slack per utente (ogni utente finale collega il proprio Slack)
+
+## Come scollegare i progetti da una connessione
+
+Gli editor e i livelli superiori possono rimuovere progetti specifici da una connessione senza eliminare completamente la connessione. La connessione rimarrà disponibile per altri progetti.
+
+Per scollegare i progetti:
+
+<Steps>
+<Step title="Passare ai connettori">
+Vai a **Impostazioni → Connettori → Connettori condivisi** e seleziona **Slack**.
+</Step>
+<Step title="Apri la connessione">
+Apri la connessione che desideri gestire.
+</Step>
+<Step title="Seleziona progetti">
+In **Progetti collegati**, seleziona i progetti che desideri scollegare.
+</Step>
+<Step title="Conferma">
+Fai clic su **Scollega progetti** e conferma.
+</Step>
+</Steps>
+
+Una volta scollegati, tali progetti non avranno più accesso a **Slack** tramite questa connessione. Se un progetto necessita nuovamente di **Slack**, puoi collegarlo a qualsiasi connessione disponibile.
+
+## Come eliminare una connessione
+
+Gli amministratori e i proprietari Workspace possono eliminare le connessioni **Slack**.
+
+<Warning>
+L'eliminazione di una connessione è permanente e non può essere annullata. Rimuoverà le credenziali da tutti i progetti collegati e tutte le app che utilizzano questa connessione smetteranno di funzionare finché non verrà aggiunta una nuova connessione.
+</Warning>
+
+Prima dell'eliminazione, esamina la sezione **Progetti collegati** per vedere quali progetti stanno attualmente utilizzando la connessione.
+
+Per eliminare una connessione:
+
+<Steps>
+<Step title="Passare ai connettori">
+Vai a **Impostazioni → Connettori → Connettori condivisi** e seleziona **Slack**.
+</Step>
+<Step title="Apri la connessione">
+Apri la connessione che desideri rimuovere.
+</Step>
+<Step title="Esaminare i progetti collegati">
+Consulta la sezione **Progetti collegati**.
+</Step>
+<Step title="Elimina">
+In **Elimina questa connessione**, fai clic su **Elimina** e conferma.
+</Step>
+</Steps>
+
+## Divulgazione dell'IA
+
+ZenOpus è una piattaforma basata sull'intelligenza artificiale. Le app create con ZenOpus possono generare contenuti assistiti dall'intelligenza artificiale come riepiloghi o notifiche. Gli output generati dall'intelligenza artificiale possono occasionalmente contenere imprecisioni e devono essere esaminati prima dell'uso.

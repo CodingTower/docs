@@ -1,0 +1,167 @@
+---
+title: "AGENTS"
+description: ""
+---
+Documentation agent instructions
+
+ZenOpus is a full-stack app development platform that lets users build web applications through natural language prompts.
+
+These instructions define how the Mintlify AI agent should create and update documentation across docs.zenopus.dev. Follow them consistently unless explicitly instructed otherwise.
+
+## Accuracy and safety
+
+- Do not invent or assume product behavior, limits, pricing, plan availability, or UI elements.
+- Always specify which plans features are available on (Free, Pro, Business, Enterprise, or “all plans”).
+- Distinguish between workspace credits (for building) and Cloud/AI balance (for deployed apps).
+- If information is not clearly documented or provided, do not guess.
+- Prefer omitting details over adding uncertain or speculative content.
+- When necessary, ask for clarification instead of making assumptions or filling gaps.
+- Clearly call out irreversible actions, limitations, and unknowns when applicable.
+
+## Required information flow (core rule)
+
+When creating or updating documentation pages, follow this narrative order:
+
+1. **What**: Explain what the feature, connector, or concept is.
+    - Keep this to 1–2 short paragraphs.
+1. **Why**: Explain why it matters.
+    - Focus on value, outcomes, and when to use (or not to use) it.
+1. **Who**: Explain who it’s for.
+    - Use concrete use cases, example apps, scenarios, or tables.
+1. **How**: Explain how it works or how to use it.
+    - Include setup steps, configuration, requirements (accounts, credentials), billing and usage notes, limitations, and irreversible actions.
+    - For **conceptual or reference content**, “How” may describe how the concept works at a high level rather than step-by-step instructions.
+1. **FAQs**: Add frequently asked questions to improve clarity, AI assistant retrieval, and search ranking.
+
+## Required section order (default)
+
+Use this heading order exactly unless the content clearly does not apply:
+
+- Intro (What)
+- Why & when to use it
+- Common use cases & example apps (Who)
+- Requirements & billing
+- Setup / configuration (How)
+- FAQs
+- Limitations & troubleshooting (optional)
+
+## What to include (content checklist)
+
+- Add **prerequisites** when users need API keys, accounts, environment setup, or dependencies.
+- Add **FAQs** to help search engines and the Mintlify AI assistant understand and rank content.
+- Add **troubleshooting sections** for common issues seen in support tickets.
+- Clearly call out **billing ownership**, **usage consumption**, and **irreversible actions** when applicable.
+
+## FAQs (required)
+
+- Include **3–6 FAQs** on most pages (depending on page size).
+- Write FAQs as **natural-language questions** users would actually ask.
+- Prioritize questions about:
+    - Billing and ownership (ZenOpus vs external provider)
+    - Account, credentials, or API key requirements
+    - Limits, quotas, or rate limits
+    - Deletion, revocation, or irreversible actions
+    - Common misconceptions or failure cases
+- Keep answers concise, factual, and skimmable.
+- Avoid marketing language; optimize for clarity and retrieval accuracy.
+
+## Writing principles (global)
+
+- Keep intros scannable and short.
+- Prefer outcomes over features in the “Why” section.
+- Use concrete, realistic examples in “Who” and “How”.
+- Make all steps unambiguous, including exact UI paths when relevant.
+
+## SEO and accessibility
+
+- Use descriptive, keyword-rich headings aligned with what users search for.
+- Ensure frontmatter `title` and `description` are clear, specific, and user-focused.
+- Add a `keywords` array in frontmatter when it improves discoverability (use relevant, specific terms users would search for; avoid keyword stuffing).
+- Prefer action-oriented page titles. Titles can be longer and more descriptive when helpful.
+- If the page title is long, add `sidebarTitle` with a shorter version for navigation.
+- Use specific, actionable link text (avoid “click here”).
+- Maintain a logical heading hierarchy (don’t skip levels).
+- Add descriptive alt text for all images and diagrams.
+- Structure content for scannability using short paragraphs, lists, and clear section breaks.
+
+## Mintlify components (when to use them)
+
+Use Mintlify components intentionally to improve clarity and readability. Do not overuse components.
+
+### Callouts
+
+- Use `<Note>` for helpful context that supports the main content.
+- Use `<Tip>` for best practices or expert guidance.
+- Use `<Warning>` for destructive actions, irreversible steps, security concerns, or critical limitations.
+- Use `<Check>` to confirm success or provide verification steps.
+
+### Steps
+
+- Use `<Steps>` and `<Step>` for multi-step procedures, especially setup and configuration.
+- Prefer steps when actions must be completed in order.
+- Include a verification step or success indicator when possible.
+
+### Tabs
+
+- Use `<Tabs>` for platform-specific instructions or mutually exclusive alternatives.
+- Do not use tabs for sequential steps.
+
+### Accordions
+
+- Use `<AccordionGroup>` for troubleshooting, FAQs, edge cases, or advanced configuration.
+- Keep core flows visible; hide deep detail behind accordions.
+
+### Code groups
+
+- Use `<CodeGroup>` when showing the same example in multiple languages.
+- Use a single code block when only one language is relevant.
+
+## Audience and tone
+
+- Write primarily for a **non-technical audience**.
+- Don’t oversimplify, but explain non-obvious concepts.
+- Use **active voice** and **second person** (“you”).
+- Focus on clarity, correctness, and usefulness over marketing language.
+
+## Style and formatting
+
+- **Active voice**: Prefer active voice to make it clear who performs the action.
+    - Correct: “Delete the project.”
+    - Incorrect: “The project is deleted.”
+    - Exception: Use passive voice when emphasizing the state or outcome.
+        - Example: “The project is saved.”
+- **Present tense**:
+    - Use present tense for general behavior.
+        - Correct: “Click Save to update settings.”
+    - Use future tense only for future consequences.
+        - Correct: “Your changes will be lost.”
+- **Sentence case**:
+    - Use sentence case for all headings.
+    - Capitalize only the first word, proper nouns, and acronyms.
+    - Correct: “Project settings”
+    - Incorrect: “Project Settings”
+- **Serial (Oxford) comma**:
+    - Always include a comma before the final “and” or “or.”
+    - Example: “Edit, share, and delete projects.”
+- **Dates**:
+    - Use *month day, year* (e.g., *July 31, 2025*).
+    - Don’t use ordinal numbers (1st, 2nd, 3rd).
+- **UI references**:
+    - Bold UI elements: **Settings**, **Delete project**.
+    - Use inline code for values, fields, or identifiers: `project_id`.
+    - Use exact UI paths with → separators: **Settings → Privacy & security → Default project visibility**
+
+## Prompt examples
+
+- Put all prompt examples in **plain-text code blocks**.
+- Use `text wrap` to preserve readability.
+
+Example:
+
+```text
+Integrate the OpenWeatherMap API. 
+Base URL: https://api.openweathermap.org/data/2.5. 
+Auth: API key passed as a query parameter appid. 
+I need an endpoint to fetch the current weather: GET /weather?q={city}&units=metric&appid={API_KEY}. 
+Docs: https://openweathermap.org/current
+```

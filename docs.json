@@ -1,142 +1,1906 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "ZenOpus Documentation",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#0095FF",
+    "light": "#1AA3FF",
+    "dark": "#0084E6"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/images/zenopus/_site/favicon-32x32.png",
   "navigation": {
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "icon": "book-open-cover",
-          "href": "https://mintlify.com/docs"
-        },
-        {
-          "anchor": "Blog",
-          "icon": "newspaper",
-          "href": "https://mintlify.com/blog"
+    "languages": [
+      {
+        "language": "en",
+        "tabs": [
+          {
+            "tab": "Introduction",
+            "groups": [
+              {
+                "group": "Getting started",
+                "pages": [
+                  "introduction/welcome",
+                  "introduction/plans-and-credits",
+                  "prompting/prompting-one",
+                  "introduction/getting-started"
+                ]
+              },
+              {
+                "group": "Reference",
+                "pages": [
+                  "introduction/faq",
+                  "introduction/video-tutorials",
+                  "glossary",
+                  "introduction/support-policy"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Features",
+            "groups": [
+              {
+                "group": "Build",
+                "pages": [
+                  "features/plan-mode",
+                  "features/agent-mode",
+                  "features/code-mode",
+                  "features/knowledge",
+                  "features/cross-project-referencing",
+                  "features/google-auth",
+                  "features/custom-emails",
+                  "features/testing",
+                  "features/browser-testing",
+                  "features/environments"
+                ]
+              },
+              {
+                "group": "Design",
+                "pages": [
+                  "features/design",
+                  "features/business/design-templates",
+                  "features/design-systems"
+                ]
+              },
+              {
+                "group": "Collaborate",
+                "pages": [
+                  "features/workspace",
+                  "features/collaboration",
+                  "features/project-visibility"
+                ]
+              },
+              {
+                "group": "Deploy & Host",
+                "pages": [
+                  "features/publish",
+                  "features/custom-domain"
+                ]
+              },
+              {
+                "group": "Optimize",
+                "pages": [
+                  "features/analytics",
+                  "features/labs"
+                ]
+              },
+              {
+                "group": "Security & Privacy",
+                "pages": [
+                  "features/security",
+                  "features/security-view",
+                  "features/security-center",
+                  "features/audit-logs",
+                  "features/business/data-opt-out",
+                  "features/business/sso",
+                  "features/business/scim"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Integrations",
+            "groups": [
+              {
+                "group": "About integrations",
+                "pages": [
+                  "integrations/introduction"
+                ]
+              },
+              {
+                "group": "Shared connectors",
+                "pages": [
+                  "integrations/cloud",
+                  "integrations/ai",
+                  "integrations/contentful",
+                  "integrations/eleven-labs",
+                  "integrations/firecrawl",
+                  "integrations/linear",
+                  "integrations/perplexity",
+                  "integrations/shopify",
+                  "integrations/slack",
+                  "integrations/stripe",
+                  "integrations/supabase",
+                  "integrations/telegram",
+                  "integrations/twilio",
+                  "integrations/twitch"
+                ]
+              },
+              {
+                "group": "Personal connectors (MCP servers)",
+                "pages": [
+                  "integrations/mcp-servers"
+                ]
+              },
+              {
+                "group": "Other platform tools",
+                "pages": [
+                  "integrations/github",
+                  "integrations/build-with-url"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Tips & Tricks",
+            "groups": [
+              {
+                "group": "How to use ZenOpus",
+                "pages": [
+                  "tips-tricks/best-practice",
+                  "tips-tricks/from-idea-to-app",
+                  "tips-tricks/chatgpt-app"
+                ]
+              },
+              {
+                "group": "Improve results",
+                "pages": [
+                  "tips-tricks/seo-geo",
+                  "tips-tricks/using-images",
+                  "tips-tricks/using-videos"
+                ]
+              },
+              {
+                "group": "Setup and integrations",
+                "pages": [
+                  "tips-tricks/npm-packages",
+                  "tips-tricks/custom-fonts",
+                  "tips-tricks/resend",
+                  "tips-tricks/21stdev",
+                  "tips-tricks/deployment-hosting-ownership",
+                  "tips-tricks/external-deployment-hosting"
+                ]
+              },
+              {
+                "group": "Account",
+                "pages": [
+                  "tips-tricks/linkedin-certification"
+                ]
+              },
+              {
+                "group": "Troubleshooting and safety",
+                "pages": [
+                  "tips-tricks/troubleshooting",
+                  "tips-tricks/security-best-practices",
+                  "prompting/prompting-debugging"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Changelog",
+            "pages": [
+              "changelog"
+            ]
+          }
+        ],
+        "default": true
+      },
+      {
+        "language": "de",
+        "tabs": [
+          {
+            "tab": "Einf\u00fchrung",
+            "groups": [
+              {
+                "group": "Erste Schritte",
+                "pages": [
+                  "de/introduction/welcome",
+                  "de/introduction/plans-and-credits",
+                  "de/prompting/prompting-one",
+                  "de/introduction/getting-started"
+                ]
+              },
+              {
+                "group": "Referenz",
+                "pages": [
+                  "de/introduction/faq",
+                  "de/introduction/video-tutorials",
+                  "de/glossary",
+                  "de/introduction/support-policy"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Funktionen",
+            "groups": [
+              {
+                "group": "Bauen",
+                "pages": [
+                  "de/features/plan-mode",
+                  "de/features/agent-mode",
+                  "de/features/code-mode",
+                  "de/features/knowledge",
+                  "de/features/cross-project-referencing",
+                  "de/features/google-auth",
+                  "de/features/custom-emails",
+                  "de/features/testing",
+                  "de/features/browser-testing",
+                  "de/features/environments"
+                ]
+              },
+              {
+                "group": "Design",
+                "pages": [
+                  "de/features/design",
+                  "de/features/business/design-templates",
+                  "de/features/design-systems"
+                ]
+              },
+              {
+                "group": "Zusammenarbeiten",
+                "pages": [
+                  "de/features/workspace",
+                  "de/features/collaboration",
+                  "de/features/project-visibility"
+                ]
+              },
+              {
+                "group": "Bereitstellen und hosten",
+                "pages": [
+                  "de/features/publish",
+                  "de/features/custom-domain"
+                ]
+              },
+              {
+                "group": "Optimieren",
+                "pages": [
+                  "de/features/analytics",
+                  "de/features/labs"
+                ]
+              },
+              {
+                "group": "Sicherheit und Datenschutz",
+                "pages": [
+                  "de/features/security",
+                  "de/features/security-view",
+                  "de/features/security-center",
+                  "de/features/audit-logs",
+                  "de/features/business/data-opt-out",
+                  "de/features/business/sso",
+                  "de/features/business/scim"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Integrationen",
+            "groups": [
+              {
+                "group": "\u00dcber Integrationen",
+                "pages": [
+                  "de/integrations/introduction"
+                ]
+              },
+              {
+                "group": "Gemeinsame Anschl\u00fcsse",
+                "pages": [
+                  "de/integrations/cloud",
+                  "de/integrations/ai",
+                  "de/integrations/contentful",
+                  "de/integrations/eleven-labs",
+                  "de/integrations/firecrawl",
+                  "de/integrations/linear",
+                  "de/integrations/perplexity",
+                  "de/integrations/shopify",
+                  "de/integrations/slack",
+                  "de/integrations/stripe",
+                  "de/integrations/supabase",
+                  "de/integrations/telegram",
+                  "de/integrations/twilio",
+                  "de/integrations/twitch"
+                ]
+              },
+              {
+                "group": "Pers\u00f6nliche Konnektoren (MCP-Server)",
+                "pages": [
+                  "de/integrations/mcp-servers"
+                ]
+              },
+              {
+                "group": "Andere Plattform-Tools",
+                "pages": [
+                  "de/integrations/github",
+                  "de/integrations/build-with-url"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Tipps & Tricks",
+            "groups": [
+              {
+                "group": "So verwenden Sie ZenOpus",
+                "pages": [
+                  "de/tips-tricks/best-practice",
+                  "de/tips-tricks/from-idea-to-app",
+                  "de/tips-tricks/chatgpt-app"
+                ]
+              },
+              {
+                "group": "Ergebnisse verbessern",
+                "pages": [
+                  "de/tips-tricks/seo-geo",
+                  "de/tips-tricks/using-images",
+                  "de/tips-tricks/using-videos"
+                ]
+              },
+              {
+                "group": "Einrichtung und Integrationen",
+                "pages": [
+                  "de/tips-tricks/npm-packages",
+                  "de/tips-tricks/custom-fonts",
+                  "de/tips-tricks/resend",
+                  "de/tips-tricks/21stdev",
+                  "de/tips-tricks/deployment-hosting-ownership",
+                  "de/tips-tricks/external-deployment-hosting"
+                ]
+              },
+              {
+                "group": "Konto",
+                "pages": [
+                  "de/tips-tricks/linkedin-certification"
+                ]
+              },
+              {
+                "group": "Fehlerbehebung und Sicherheit",
+                "pages": [
+                  "de/tips-tricks/troubleshooting",
+                  "de/tips-tricks/security-best-practices",
+                  "de/prompting/prompting-debugging"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "\u00c4nderungsprotokoll",
+            "pages": [
+              "de/changelog"
+            ]
+          }
+        ],
+        "navbar": {
+          "links": [
+            {
+              "label": "Support",
+              "href": "https://zenopus.dev/support"
+            },
+            {
+              "label": "Blog",
+              "href": "https://zenopus.dev/blog"
+            }
+          ]
         }
-      ]
-    },
-    "tabs": [
+      },
       {
-        "tab": "Introduction",
-        "groups": [
+        "language": "fr",
+        "tabs": [
           {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
+            "tab": "Introduction",
+            "groups": [
+              {
+                "group": "Commencer",
+                "pages": [
+                  "fr/introduction/welcome",
+                  "fr/introduction/plans-and-credits",
+                  "fr/prompting/prompting-one",
+                  "fr/introduction/getting-started"
+                ]
+              },
+              {
+                "group": "R\u00e9f\u00e9rence",
+                "pages": [
+                  "fr/introduction/faq",
+                  "fr/introduction/video-tutorials",
+                  "fr/glossary",
+                  "fr/introduction/support-policy"
+                ]
+              }
             ]
           },
           {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+            "tab": "Caract\u00e9ristiques",
+            "groups": [
+              {
+                "group": "Construire",
+                "pages": [
+                  "fr/features/plan-mode",
+                  "fr/features/agent-mode",
+                  "fr/features/code-mode",
+                  "fr/features/knowledge",
+                  "fr/features/cross-project-referencing",
+                  "fr/features/google-auth",
+                  "fr/features/custom-emails",
+                  "fr/features/testing",
+                  "fr/features/browser-testing",
+                  "fr/features/environments"
+                ]
+              },
+              {
+                "group": "Conception",
+                "pages": [
+                  "fr/features/design",
+                  "fr/features/business/design-templates",
+                  "fr/features/design-systems"
+                ]
+              },
+              {
+                "group": "Collaborer",
+                "pages": [
+                  "fr/features/workspace",
+                  "fr/features/collaboration",
+                  "fr/features/project-visibility"
+                ]
+              },
+              {
+                "group": "D\u00e9ployer et h\u00e9berger",
+                "pages": [
+                  "fr/features/publish",
+                  "fr/features/custom-domain"
+                ]
+              },
+              {
+                "group": "Optimiser",
+                "pages": [
+                  "fr/features/analytics",
+                  "fr/features/labs"
+                ]
+              },
+              {
+                "group": "S\u00e9curit\u00e9 et confidentialit\u00e9",
+                "pages": [
+                  "fr/features/security",
+                  "fr/features/security-view",
+                  "fr/features/security-center",
+                  "fr/features/audit-logs",
+                  "fr/features/business/data-opt-out",
+                  "fr/features/business/sso",
+                  "fr/features/business/scim"
+                ]
+              }
             ]
           },
           {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+            "tab": "Int\u00e9grations",
+            "groups": [
+              {
+                "group": "\u00c0 propos des int\u00e9grations",
+                "pages": [
+                  "fr/integrations/introduction"
+                ]
+              },
+              {
+                "group": "Connecteurs partag\u00e9s",
+                "pages": [
+                  "fr/integrations/cloud",
+                  "fr/integrations/ai",
+                  "fr/integrations/contentful",
+                  "fr/integrations/eleven-labs",
+                  "fr/integrations/firecrawl",
+                  "fr/integrations/linear",
+                  "fr/integrations/perplexity",
+                  "fr/integrations/shopify",
+                  "fr/integrations/slack",
+                  "fr/integrations/stripe",
+                  "fr/integrations/supabase",
+                  "fr/integrations/telegram",
+                  "fr/integrations/twilio",
+                  "fr/integrations/twitch"
+                ]
+              },
+              {
+                "group": "Connecteurs personnels (serveurs MCP)",
+                "pages": [
+                  "fr/integrations/mcp-servers"
+                ]
+              },
+              {
+                "group": "Autres outils de la plateforme",
+                "pages": [
+                  "fr/integrations/github",
+                  "fr/integrations/build-with-url"
+                ]
+              }
             ]
           },
           {
-            "group": "AI tools",
+            "tab": "Trucs et astuces",
+            "groups": [
+              {
+                "group": "Comment utiliser ZenOpus",
+                "pages": [
+                  "fr/tips-tricks/best-practice",
+                  "fr/tips-tricks/from-idea-to-app",
+                  "fr/tips-tricks/chatgpt-app"
+                ]
+              },
+              {
+                "group": "Am\u00e9liorer les r\u00e9sultats",
+                "pages": [
+                  "fr/tips-tricks/seo-geo",
+                  "fr/tips-tricks/using-images",
+                  "fr/tips-tricks/using-videos"
+                ]
+              },
+              {
+                "group": "Configuration et int\u00e9grations",
+                "pages": [
+                  "fr/tips-tricks/npm-packages",
+                  "fr/tips-tricks/custom-fonts",
+                  "fr/tips-tricks/resend",
+                  "fr/tips-tricks/21stdev",
+                  "fr/tips-tricks/deployment-hosting-ownership",
+                  "fr/tips-tricks/external-deployment-hosting"
+                ]
+              },
+              {
+                "group": "Compte",
+                "pages": [
+                  "fr/tips-tricks/linkedin-certification"
+                ]
+              },
+              {
+                "group": "D\u00e9pannage et s\u00e9curit\u00e9",
+                "pages": [
+                  "fr/tips-tricks/troubleshooting",
+                  "fr/tips-tricks/security-best-practices",
+                  "fr/prompting/prompting-debugging"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Changelog",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "fr/changelog"
             ]
           }
-        ]
+        ],
+        "navbar": {
+          "links": [
+            {
+              "label": "Support",
+              "href": "https://zenopus.dev/support"
+            },
+            {
+              "label": "Blogue",
+              "href": "https://zenopus.dev/blog"
+            }
+          ]
+        }
       },
       {
-        "tab": "Features"
-      },
-      {
-        "tab": "Integrations"
-      },
-      {
-        "tab": "Tips and Tricks"
-      },
-      {
-        "tab": "API reference",
-        "groups": [
+        "language": "it",
+        "tabs": [
           {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
+            "tab": "Introduzione",
+            "groups": [
+              {
+                "group": "Iniziare",
+                "pages": [
+                  "it/introduction/welcome",
+                  "it/introduction/plans-and-credits",
+                  "it/prompting/prompting-one",
+                  "it/introduction/getting-started"
+                ]
+              },
+              {
+                "group": "Riferimento",
+                "pages": [
+                  "it/introduction/faq",
+                  "it/introduction/video-tutorials",
+                  "it/glossary",
+                  "it/introduction/support-policy"
+                ]
+              }
             ]
           },
           {
-            "group": "Endpoint examples",
+            "tab": "Caratteristiche",
+            "groups": [
+              {
+                "group": "Costruisci",
+                "pages": [
+                  "it/features/plan-mode",
+                  "it/features/agent-mode",
+                  "it/features/code-mode",
+                  "it/features/knowledge",
+                  "it/features/cross-project-referencing",
+                  "it/features/google-auth",
+                  "it/features/custom-emails",
+                  "it/features/testing",
+                  "it/features/browser-testing",
+                  "it/features/environments"
+                ]
+              },
+              {
+                "group": "Progettazione",
+                "pages": [
+                  "it/features/design",
+                  "it/features/business/design-templates",
+                  "it/features/design-systems"
+                ]
+              },
+              {
+                "group": "Collaborare",
+                "pages": [
+                  "it/features/workspace",
+                  "it/features/collaboration",
+                  "it/features/project-visibility"
+                ]
+              },
+              {
+                "group": "Distribuisci e ospita",
+                "pages": [
+                  "it/features/publish",
+                  "it/features/custom-domain"
+                ]
+              },
+              {
+                "group": "Ottimizza",
+                "pages": [
+                  "it/features/analytics",
+                  "it/features/labs"
+                ]
+              },
+              {
+                "group": "Sicurezza e privacy",
+                "pages": [
+                  "it/features/security",
+                  "it/features/security-view",
+                  "it/features/security-center",
+                  "it/features/audit-logs",
+                  "it/features/business/data-opt-out",
+                  "it/features/business/sso",
+                  "it/features/business/scim"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Integrazioni",
+            "groups": [
+              {
+                "group": "A proposito di integrazioni",
+                "pages": [
+                  "it/integrations/introduction"
+                ]
+              },
+              {
+                "group": "Connettori condivisi",
+                "pages": [
+                  "it/integrations/cloud",
+                  "it/integrations/ai",
+                  "it/integrations/contentful",
+                  "it/integrations/eleven-labs",
+                  "it/integrations/firecrawl",
+                  "it/integrations/linear",
+                  "it/integrations/perplexity",
+                  "it/integrations/shopify",
+                  "it/integrations/slack",
+                  "it/integrations/stripe",
+                  "it/integrations/supabase",
+                  "it/integrations/telegram",
+                  "it/integrations/twilio",
+                  "it/integrations/twitch"
+                ]
+              },
+              {
+                "group": "Connettori personali (server MCP)",
+                "pages": [
+                  "it/integrations/mcp-servers"
+                ]
+              },
+              {
+                "group": "Altri strumenti della piattaforma",
+                "pages": [
+                  "it/integrations/github",
+                  "it/integrations/build-with-url"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Suggerimenti e trucchi",
+            "groups": [
+              {
+                "group": "Come utilizzare ZenOpus",
+                "pages": [
+                  "it/tips-tricks/best-practice",
+                  "it/tips-tricks/from-idea-to-app",
+                  "it/tips-tricks/chatgpt-app"
+                ]
+              },
+              {
+                "group": "Migliora i risultati",
+                "pages": [
+                  "it/tips-tricks/seo-geo",
+                  "it/tips-tricks/using-images",
+                  "it/tips-tricks/using-videos"
+                ]
+              },
+              {
+                "group": "Configurazione e integrazioni",
+                "pages": [
+                  "it/tips-tricks/npm-packages",
+                  "it/tips-tricks/custom-fonts",
+                  "it/tips-tricks/resend",
+                  "it/tips-tricks/21stdev",
+                  "it/tips-tricks/deployment-hosting-ownership",
+                  "it/tips-tricks/external-deployment-hosting"
+                ]
+              },
+              {
+                "group": "Conto",
+                "pages": [
+                  "it/tips-tricks/linkedin-certification"
+                ]
+              },
+              {
+                "group": "Risoluzione dei problemi e sicurezza",
+                "pages": [
+                  "it/tips-tricks/troubleshooting",
+                  "it/tips-tricks/security-best-practices",
+                  "it/prompting/prompting-debugging"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Changelog",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "it/changelog"
             ]
           }
-        ]
+        ],
+        "navbar": {
+          "links": [
+            {
+              "label": "Support",
+              "href": "https://zenopus.dev/support"
+            },
+            {
+              "label": "Blog",
+              "href": "https://zenopus.dev/blog"
+            }
+          ]
+        }
       },
       {
-        "tab": "Changelog",
-        "versions": [
+        "language": "es",
+        "tabs": [
           {
-            "version": "Version 1.0",
+            "tab": "Introducci\u00f3n",
+            "groups": [
+              {
+                "group": "Empezando",
+                "pages": [
+                  "es/introduction/welcome",
+                  "es/introduction/plans-and-credits",
+                  "es/prompting/prompting-one",
+                  "es/introduction/getting-started"
+                ]
+              },
+              {
+                "group": "Referencia",
+                "pages": [
+                  "es/introduction/faq",
+                  "es/introduction/video-tutorials",
+                  "es/glossary",
+                  "es/introduction/support-policy"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Caracter\u00edsticas",
+            "groups": [
+              {
+                "group": "construir",
+                "pages": [
+                  "es/features/plan-mode",
+                  "es/features/agent-mode",
+                  "es/features/code-mode",
+                  "es/features/knowledge",
+                  "es/features/cross-project-referencing",
+                  "es/features/google-auth",
+                  "es/features/custom-emails",
+                  "es/features/testing",
+                  "es/features/browser-testing",
+                  "es/features/environments"
+                ]
+              },
+              {
+                "group": "Dise\u00f1o",
+                "pages": [
+                  "es/features/design",
+                  "es/features/business/design-templates",
+                  "es/features/design-systems"
+                ]
+              },
+              {
+                "group": "Colaborar",
+                "pages": [
+                  "es/features/workspace",
+                  "es/features/collaboration",
+                  "es/features/project-visibility"
+                ]
+              },
+              {
+                "group": "Implementar y alojar",
+                "pages": [
+                  "es/features/publish",
+                  "es/features/custom-domain"
+                ]
+              },
+              {
+                "group": "Optimizar",
+                "pages": [
+                  "es/features/analytics",
+                  "es/features/labs"
+                ]
+              },
+              {
+                "group": "Seguridad y privacidad",
+                "pages": [
+                  "es/features/security",
+                  "es/features/security-view",
+                  "es/features/security-center",
+                  "es/features/audit-logs",
+                  "es/features/business/data-opt-out",
+                  "es/features/business/sso",
+                  "es/features/business/scim"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Integraciones",
+            "groups": [
+              {
+                "group": "Acerca de las integraciones",
+                "pages": [
+                  "es/integrations/introduction"
+                ]
+              },
+              {
+                "group": "Conectores compartidos",
+                "pages": [
+                  "es/integrations/cloud",
+                  "es/integrations/ai",
+                  "es/integrations/contentful",
+                  "es/integrations/eleven-labs",
+                  "es/integrations/firecrawl",
+                  "es/integrations/linear",
+                  "es/integrations/perplexity",
+                  "es/integrations/shopify",
+                  "es/integrations/slack",
+                  "es/integrations/stripe",
+                  "es/integrations/supabase",
+                  "es/integrations/telegram",
+                  "es/integrations/twilio",
+                  "es/integrations/twitch"
+                ]
+              },
+              {
+                "group": "Conectores personales (servidores MCP)",
+                "pages": [
+                  "es/integrations/mcp-servers"
+                ]
+              },
+              {
+                "group": "Otras herramientas de la plataforma",
+                "pages": [
+                  "es/integrations/github",
+                  "es/integrations/build-with-url"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Consejos y trucos",
+            "groups": [
+              {
+                "group": "C\u00f3mo utilizar ZenOpus",
+                "pages": [
+                  "es/tips-tricks/best-practice",
+                  "es/tips-tricks/from-idea-to-app",
+                  "es/tips-tricks/chatgpt-app"
+                ]
+              },
+              {
+                "group": "Mejorar resultados",
+                "pages": [
+                  "es/tips-tricks/seo-geo",
+                  "es/tips-tricks/using-images",
+                  "es/tips-tricks/using-videos"
+                ]
+              },
+              {
+                "group": "Configuraci\u00f3n e integraciones",
+                "pages": [
+                  "es/tips-tricks/npm-packages",
+                  "es/tips-tricks/custom-fonts",
+                  "es/tips-tricks/resend",
+                  "es/tips-tricks/21stdev",
+                  "es/tips-tricks/deployment-hosting-ownership",
+                  "es/tips-tricks/external-deployment-hosting"
+                ]
+              },
+              {
+                "group": "cuenta",
+                "pages": [
+                  "es/tips-tricks/linkedin-certification"
+                ]
+              },
+              {
+                "group": "Soluci\u00f3n de problemas y seguridad",
+                "pages": [
+                  "es/tips-tricks/troubleshooting",
+                  "es/tips-tricks/security-best-practices",
+                  "es/prompting/prompting-debugging"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Registro de cambios",
             "pages": [
-              ""
+              "es/changelog"
             ]
           }
-        ]
+        ],
+        "navbar": {
+          "links": [
+            {
+              "label": "Support",
+              "href": "https://zenopus.dev/support"
+            },
+            {
+              "label": "Blog",
+              "href": "https://zenopus.dev/blog"
+            }
+          ]
+        }
+      },
+      {
+        "language": "jp",
+        "tabs": [
+          {
+            "tab": "\u306f\u3058\u3081\u306b",
+            "groups": [
+              {
+                "group": "\u306f\u3058\u3081\u306b",
+                "pages": [
+                  "jp/introduction/welcome",
+                  "jp/introduction/plans-and-credits",
+                  "jp/prompting/prompting-one",
+                  "jp/introduction/getting-started"
+                ]
+              },
+              {
+                "group": "\u53c2\u8003\u8cc7\u6599",
+                "pages": [
+                  "jp/introduction/faq",
+                  "jp/introduction/video-tutorials",
+                  "jp/glossary",
+                  "jp/introduction/support-policy"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "\u7279\u9577",
+            "groups": [
+              {
+                "group": "\u30d3\u30eb\u30c9\u3059\u308b",
+                "pages": [
+                  "jp/features/plan-mode",
+                  "jp/features/agent-mode",
+                  "jp/features/code-mode",
+                  "jp/features/knowledge",
+                  "jp/features/cross-project-referencing",
+                  "jp/features/google-auth",
+                  "jp/features/custom-emails",
+                  "jp/features/testing",
+                  "jp/features/browser-testing",
+                  "jp/features/environments"
+                ]
+              },
+              {
+                "group": "\u30c7\u30b6\u30a4\u30f3",
+                "pages": [
+                  "jp/features/design",
+                  "jp/features/business/design-templates",
+                  "jp/features/design-systems"
+                ]
+              },
+              {
+                "group": "\u30b3\u30e9\u30dc\u30ec\u30fc\u30b7\u30e7\u30f3\u3059\u308b",
+                "pages": [
+                  "jp/features/workspace",
+                  "jp/features/collaboration",
+                  "jp/features/project-visibility"
+                ]
+              },
+              {
+                "group": "\u5c0e\u5165\u3068\u30db\u30b9\u30c8",
+                "pages": [
+                  "jp/features/publish",
+                  "jp/features/custom-domain"
+                ]
+              },
+              {
+                "group": "\u6700\u9069\u5316",
+                "pages": [
+                  "jp/features/analytics",
+                  "jp/features/labs"
+                ]
+              },
+              {
+                "group": "\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u3068\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc",
+                "pages": [
+                  "jp/features/security",
+                  "jp/features/security-view",
+                  "jp/features/security-center",
+                  "jp/features/audit-logs",
+                  "jp/features/business/data-opt-out",
+                  "jp/features/business/sso",
+                  "jp/features/business/scim"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "\u7d71\u5408",
+            "groups": [
+              {
+                "group": "\u7d71\u5408\u306b\u3064\u3044\u3066",
+                "pages": [
+                  "jp/integrations/introduction"
+                ]
+              },
+              {
+                "group": "\u5171\u6709\u30b3\u30cd\u30af\u30bf",
+                "pages": [
+                  "jp/integrations/cloud",
+                  "jp/integrations/ai",
+                  "jp/integrations/contentful",
+                  "jp/integrations/eleven-labs",
+                  "jp/integrations/firecrawl",
+                  "jp/integrations/linear",
+                  "jp/integrations/perplexity",
+                  "jp/integrations/shopify",
+                  "jp/integrations/slack",
+                  "jp/integrations/stripe",
+                  "jp/integrations/supabase",
+                  "jp/integrations/telegram",
+                  "jp/integrations/twilio",
+                  "jp/integrations/twitch"
+                ]
+              },
+              {
+                "group": "\u30d1\u30fc\u30bd\u30ca\u30eb \u30b3\u30cd\u30af\u30bf (MCP \u30b5\u30fc\u30d0\u30fc)",
+                "pages": [
+                  "jp/integrations/mcp-servers"
+                ]
+              },
+              {
+                "group": "\u305d\u306e\u4ed6\u306e\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u30c4\u30fc\u30eb",
+                "pages": [
+                  "jp/integrations/github",
+                  "jp/integrations/build-with-url"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "\u30d2\u30f3\u30c8\u3068\u30b3\u30c4",
+            "groups": [
+              {
+                "group": "ZenOpus \u306e\u4f7f\u7528\u65b9\u6cd5",
+                "pages": [
+                  "jp/tips-tricks/best-practice",
+                  "jp/tips-tricks/from-idea-to-app",
+                  "jp/tips-tricks/chatgpt-app"
+                ]
+              },
+              {
+                "group": "\u7d50\u679c\u3092\u6539\u5584\u3059\u308b",
+                "pages": [
+                  "jp/tips-tricks/seo-geo",
+                  "jp/tips-tricks/using-images",
+                  "jp/tips-tricks/using-videos"
+                ]
+              },
+              {
+                "group": "\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3068\u7d71\u5408",
+                "pages": [
+                  "jp/tips-tricks/npm-packages",
+                  "jp/tips-tricks/custom-fonts",
+                  "jp/tips-tricks/resend",
+                  "jp/tips-tricks/21stdev",
+                  "jp/tips-tricks/deployment-hosting-ownership",
+                  "jp/tips-tricks/external-deployment-hosting"
+                ]
+              },
+              {
+                "group": "\u30a2\u30ab\u30a6\u30f3\u30c8",
+                "pages": [
+                  "jp/tips-tricks/linkedin-certification"
+                ]
+              },
+              {
+                "group": "\u30c8\u30e9\u30d6\u30eb\u30b7\u30e5\u30fc\u30c6\u30a3\u30f3\u30b0\u3068\u5b89\u5168\u6027",
+                "pages": [
+                  "jp/tips-tricks/troubleshooting",
+                  "jp/tips-tricks/security-best-practices",
+                  "jp/prompting/prompting-debugging"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "\u5909\u66f4\u5c65\u6b74",
+            "pages": [
+              "jp/changelog"
+            ]
+          }
+        ],
+        "navbar": {
+          "links": [
+            {
+              "label": "Support",
+              "href": "https://zenopus.dev/support"
+            },
+            {
+              "label": "\u30d6\u30ed\u30b0",
+              "href": "https://zenopus.dev/blog"
+            }
+          ]
+        }
       }
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/images/zenopus/_site/logoblack.svg",
+    "dark": "/images/zenopus/_site/logowhite.svg"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "https://zenopus.dev/support"
+      },
+      {
+        "label": "Blog",
+        "href": "https://zenopus.dev/blog"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/ZenOpus",
+      "github": "https://github.com/zenopuslabs",
+      "linkedin": "https://linkedin.com/company/zenopus-dev",
+      "youtube": "https://youtube.com/@zenopus",
+      "discord": "https://discord.gg/zenopus-dev",
+      "reddit": "https://www.reddit.com/r/zenopus"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/introduction",
+      "destination": "/introduction/welcome"
+    },
+    {
+      "source": "/features",
+      "destination": "/features/plan-mode"
+    },
+    {
+      "source": "/integrations",
+      "destination": "/integrations/introduction"
+    },
+    {
+      "source": "/tips-tricks",
+      "destination": "/tips-tricks/best-practice"
+    },
+    {
+      "source": "/prompting",
+      "destination": "/prompting/prompting-one"
+    },
+    {
+      "source": "/user-guides/credits",
+      "destination": "/introduction/plans-and-credits"
+    },
+    {
+      "source": "/user-guides/teams",
+      "destination": "/features/collaboration"
+    },
+    {
+      "source": "/user-guides/messaging-limits",
+      "destination": "/introduction/plans-and-credits"
+    },
+    {
+      "source": "/user-guides/quickstart",
+      "destination": "/introduction/getting-started"
+    },
+    {
+      "source": "/integrations/git-integration",
+      "destination": "/integrations/github"
+    },
+    {
+      "source": "/features/deploy",
+      "destination": "/features/publish"
+    },
+    {
+      "source": "/features/business/personal-projects",
+      "destination": "/features/project-visibility"
+    },
+    {
+      "source": "/features/private-projects",
+      "destination": "/features/project-visibility"
+    },
+    {
+      "source": "/features/visual-edit",
+      "destination": "/features/design"
+    },
+    {
+      "source": "/features/precision-edit",
+      "destination": "/features/design"
+    },
+    {
+      "source": "/features/seo",
+      "destination": "/tips-tricks/seo-geo"
+    },
+    {
+      "source": "/features/project-analytics",
+      "destination": "/features/analytics"
+    },
+    {
+      "source": "/integrations/resend",
+      "destination": "/tips-tricks/resend"
+    },
+    {
+      "source": "/integrations/21stdev",
+      "destination": "/tips-tricks/21stdev"
+    },
+    {
+      "source": "/features/cloud",
+      "destination": "/integrations/cloud"
+    },
+    {
+      "source": "/features/modes",
+      "destination": "/features/agent-mode"
+    },
+    {
+      "source": "/features/ai",
+      "destination": "/integrations/ai"
+    },
+    {
+      "source": "/faq",
+      "destination": "/introduction/faq"
+    },
+    {
+      "source": "/prompting/prompting-library",
+      "destination": "/prompting/prompting-one"
+    },
+    {
+      "source": "/use-case/video-tutorials",
+      "destination": "/introduction/video-tutorials"
+    },
+    {
+      "source": "/tips-tricks/support-policy",
+      "destination": "/introduction/support-policy"
+    },
+    {
+      "source": "/tips-tricks/self-hosting",
+      "destination": "/tips-tricks/deployment-hosting-ownership"
+    },
+    {
+      "source": "/tips-tricks/avoiding-security-pitfalls",
+      "destination": "/tips-tricks/security-best-practices"
+    },
+    {
+      "source": "/de",
+      "destination": "/de/introduction/welcome"
+    },
+    {
+      "source": "/de/introduction",
+      "destination": "/de/introduction/welcome"
+    },
+    {
+      "source": "/de/features",
+      "destination": "/de/features/plan-mode"
+    },
+    {
+      "source": "/de/integrations",
+      "destination": "/de/integrations/introduction"
+    },
+    {
+      "source": "/de/tips-tricks",
+      "destination": "/de/tips-tricks/best-practice"
+    },
+    {
+      "source": "/de/prompting",
+      "destination": "/de/prompting/prompting-one"
+    },
+    {
+      "source": "/de/user-guides/credits",
+      "destination": "/de/introduction/plans-and-credits"
+    },
+    {
+      "source": "/de/user-guides/teams",
+      "destination": "/de/features/collaboration"
+    },
+    {
+      "source": "/de/user-guides/messaging-limits",
+      "destination": "/de/introduction/plans-and-credits"
+    },
+    {
+      "source": "/de/user-guides/quickstart",
+      "destination": "/de/introduction/getting-started"
+    },
+    {
+      "source": "/de/integrations/git-integration",
+      "destination": "/de/integrations/github"
+    },
+    {
+      "source": "/de/features/deploy",
+      "destination": "/de/features/publish"
+    },
+    {
+      "source": "/de/features/business/personal-projects",
+      "destination": "/de/features/project-visibility"
+    },
+    {
+      "source": "/de/features/private-projects",
+      "destination": "/de/features/project-visibility"
+    },
+    {
+      "source": "/de/features/visual-edit",
+      "destination": "/de/features/design"
+    },
+    {
+      "source": "/de/features/precision-edit",
+      "destination": "/de/features/design"
+    },
+    {
+      "source": "/de/features/seo",
+      "destination": "/de/tips-tricks/seo-geo"
+    },
+    {
+      "source": "/de/features/project-analytics",
+      "destination": "/de/features/analytics"
+    },
+    {
+      "source": "/de/integrations/resend",
+      "destination": "/de/tips-tricks/resend"
+    },
+    {
+      "source": "/de/integrations/21stdev",
+      "destination": "/de/tips-tricks/21stdev"
+    },
+    {
+      "source": "/de/features/cloud",
+      "destination": "/de/integrations/cloud"
+    },
+    {
+      "source": "/de/features/modes",
+      "destination": "/de/features/agent-mode"
+    },
+    {
+      "source": "/de/features/ai",
+      "destination": "/de/integrations/ai"
+    },
+    {
+      "source": "/de/faq",
+      "destination": "/de/introduction/faq"
+    },
+    {
+      "source": "/de/prompting/prompting-library",
+      "destination": "/de/prompting/prompting-one"
+    },
+    {
+      "source": "/de/use-case/video-tutorials",
+      "destination": "/de/introduction/video-tutorials"
+    },
+    {
+      "source": "/de/tips-tricks/support-policy",
+      "destination": "/de/introduction/support-policy"
+    },
+    {
+      "source": "/de/tips-tricks/self-hosting",
+      "destination": "/de/tips-tricks/deployment-hosting-ownership"
+    },
+    {
+      "source": "/de/tips-tricks/avoiding-security-pitfalls",
+      "destination": "/de/tips-tricks/security-best-practices"
+    },
+    {
+      "source": "/fr",
+      "destination": "/fr/introduction/welcome"
+    },
+    {
+      "source": "/fr/introduction",
+      "destination": "/fr/introduction/welcome"
+    },
+    {
+      "source": "/fr/features",
+      "destination": "/fr/features/plan-mode"
+    },
+    {
+      "source": "/fr/integrations",
+      "destination": "/fr/integrations/introduction"
+    },
+    {
+      "source": "/fr/tips-tricks",
+      "destination": "/fr/tips-tricks/best-practice"
+    },
+    {
+      "source": "/fr/prompting",
+      "destination": "/fr/prompting/prompting-one"
+    },
+    {
+      "source": "/fr/user-guides/credits",
+      "destination": "/fr/introduction/plans-and-credits"
+    },
+    {
+      "source": "/fr/user-guides/teams",
+      "destination": "/fr/features/collaboration"
+    },
+    {
+      "source": "/fr/user-guides/messaging-limits",
+      "destination": "/fr/introduction/plans-and-credits"
+    },
+    {
+      "source": "/fr/user-guides/quickstart",
+      "destination": "/fr/introduction/getting-started"
+    },
+    {
+      "source": "/fr/integrations/git-integration",
+      "destination": "/fr/integrations/github"
+    },
+    {
+      "source": "/fr/features/deploy",
+      "destination": "/fr/features/publish"
+    },
+    {
+      "source": "/fr/features/business/personal-projects",
+      "destination": "/fr/features/project-visibility"
+    },
+    {
+      "source": "/fr/features/private-projects",
+      "destination": "/fr/features/project-visibility"
+    },
+    {
+      "source": "/fr/features/visual-edit",
+      "destination": "/fr/features/design"
+    },
+    {
+      "source": "/fr/features/precision-edit",
+      "destination": "/fr/features/design"
+    },
+    {
+      "source": "/fr/features/seo",
+      "destination": "/fr/tips-tricks/seo-geo"
+    },
+    {
+      "source": "/fr/features/project-analytics",
+      "destination": "/fr/features/analytics"
+    },
+    {
+      "source": "/fr/integrations/resend",
+      "destination": "/fr/tips-tricks/resend"
+    },
+    {
+      "source": "/fr/integrations/21stdev",
+      "destination": "/fr/tips-tricks/21stdev"
+    },
+    {
+      "source": "/fr/features/cloud",
+      "destination": "/fr/integrations/cloud"
+    },
+    {
+      "source": "/fr/features/modes",
+      "destination": "/fr/features/agent-mode"
+    },
+    {
+      "source": "/fr/features/ai",
+      "destination": "/fr/integrations/ai"
+    },
+    {
+      "source": "/fr/faq",
+      "destination": "/fr/introduction/faq"
+    },
+    {
+      "source": "/fr/prompting/prompting-library",
+      "destination": "/fr/prompting/prompting-one"
+    },
+    {
+      "source": "/fr/use-case/video-tutorials",
+      "destination": "/fr/introduction/video-tutorials"
+    },
+    {
+      "source": "/fr/tips-tricks/support-policy",
+      "destination": "/fr/introduction/support-policy"
+    },
+    {
+      "source": "/fr/tips-tricks/self-hosting",
+      "destination": "/fr/tips-tricks/deployment-hosting-ownership"
+    },
+    {
+      "source": "/fr/tips-tricks/avoiding-security-pitfalls",
+      "destination": "/fr/tips-tricks/security-best-practices"
+    },
+    {
+      "source": "/it",
+      "destination": "/it/introduction/welcome"
+    },
+    {
+      "source": "/it/introduction",
+      "destination": "/it/introduction/welcome"
+    },
+    {
+      "source": "/it/features",
+      "destination": "/it/features/plan-mode"
+    },
+    {
+      "source": "/it/integrations",
+      "destination": "/it/integrations/introduction"
+    },
+    {
+      "source": "/it/tips-tricks",
+      "destination": "/it/tips-tricks/best-practice"
+    },
+    {
+      "source": "/it/prompting",
+      "destination": "/it/prompting/prompting-one"
+    },
+    {
+      "source": "/it/user-guides/credits",
+      "destination": "/it/introduction/plans-and-credits"
+    },
+    {
+      "source": "/it/user-guides/teams",
+      "destination": "/it/features/collaboration"
+    },
+    {
+      "source": "/it/user-guides/messaging-limits",
+      "destination": "/it/introduction/plans-and-credits"
+    },
+    {
+      "source": "/it/user-guides/quickstart",
+      "destination": "/it/introduction/getting-started"
+    },
+    {
+      "source": "/it/integrations/git-integration",
+      "destination": "/it/integrations/github"
+    },
+    {
+      "source": "/it/features/deploy",
+      "destination": "/it/features/publish"
+    },
+    {
+      "source": "/it/features/business/personal-projects",
+      "destination": "/it/features/project-visibility"
+    },
+    {
+      "source": "/it/features/private-projects",
+      "destination": "/it/features/project-visibility"
+    },
+    {
+      "source": "/it/features/visual-edit",
+      "destination": "/it/features/design"
+    },
+    {
+      "source": "/it/features/precision-edit",
+      "destination": "/it/features/design"
+    },
+    {
+      "source": "/it/features/seo",
+      "destination": "/it/tips-tricks/seo-geo"
+    },
+    {
+      "source": "/it/features/project-analytics",
+      "destination": "/it/features/analytics"
+    },
+    {
+      "source": "/it/integrations/resend",
+      "destination": "/it/tips-tricks/resend"
+    },
+    {
+      "source": "/it/integrations/21stdev",
+      "destination": "/it/tips-tricks/21stdev"
+    },
+    {
+      "source": "/it/features/cloud",
+      "destination": "/it/integrations/cloud"
+    },
+    {
+      "source": "/it/features/modes",
+      "destination": "/it/features/agent-mode"
+    },
+    {
+      "source": "/it/features/ai",
+      "destination": "/it/integrations/ai"
+    },
+    {
+      "source": "/it/faq",
+      "destination": "/it/introduction/faq"
+    },
+    {
+      "source": "/it/prompting/prompting-library",
+      "destination": "/it/prompting/prompting-one"
+    },
+    {
+      "source": "/it/use-case/video-tutorials",
+      "destination": "/it/introduction/video-tutorials"
+    },
+    {
+      "source": "/it/tips-tricks/support-policy",
+      "destination": "/it/introduction/support-policy"
+    },
+    {
+      "source": "/it/tips-tricks/self-hosting",
+      "destination": "/it/tips-tricks/deployment-hosting-ownership"
+    },
+    {
+      "source": "/it/tips-tricks/avoiding-security-pitfalls",
+      "destination": "/it/tips-tricks/security-best-practices"
+    },
+    {
+      "source": "/es",
+      "destination": "/es/introduction/welcome"
+    },
+    {
+      "source": "/es/introduction",
+      "destination": "/es/introduction/welcome"
+    },
+    {
+      "source": "/es/features",
+      "destination": "/es/features/plan-mode"
+    },
+    {
+      "source": "/es/integrations",
+      "destination": "/es/integrations/introduction"
+    },
+    {
+      "source": "/es/tips-tricks",
+      "destination": "/es/tips-tricks/best-practice"
+    },
+    {
+      "source": "/es/prompting",
+      "destination": "/es/prompting/prompting-one"
+    },
+    {
+      "source": "/es/user-guides/credits",
+      "destination": "/es/introduction/plans-and-credits"
+    },
+    {
+      "source": "/es/user-guides/teams",
+      "destination": "/es/features/collaboration"
+    },
+    {
+      "source": "/es/user-guides/messaging-limits",
+      "destination": "/es/introduction/plans-and-credits"
+    },
+    {
+      "source": "/es/user-guides/quickstart",
+      "destination": "/es/introduction/getting-started"
+    },
+    {
+      "source": "/es/integrations/git-integration",
+      "destination": "/es/integrations/github"
+    },
+    {
+      "source": "/es/features/deploy",
+      "destination": "/es/features/publish"
+    },
+    {
+      "source": "/es/features/business/personal-projects",
+      "destination": "/es/features/project-visibility"
+    },
+    {
+      "source": "/es/features/private-projects",
+      "destination": "/es/features/project-visibility"
+    },
+    {
+      "source": "/es/features/visual-edit",
+      "destination": "/es/features/design"
+    },
+    {
+      "source": "/es/features/precision-edit",
+      "destination": "/es/features/design"
+    },
+    {
+      "source": "/es/features/seo",
+      "destination": "/es/tips-tricks/seo-geo"
+    },
+    {
+      "source": "/es/features/project-analytics",
+      "destination": "/es/features/analytics"
+    },
+    {
+      "source": "/es/integrations/resend",
+      "destination": "/es/tips-tricks/resend"
+    },
+    {
+      "source": "/es/integrations/21stdev",
+      "destination": "/es/tips-tricks/21stdev"
+    },
+    {
+      "source": "/es/features/cloud",
+      "destination": "/es/integrations/cloud"
+    },
+    {
+      "source": "/es/features/modes",
+      "destination": "/es/features/agent-mode"
+    },
+    {
+      "source": "/es/features/ai",
+      "destination": "/es/integrations/ai"
+    },
+    {
+      "source": "/es/faq",
+      "destination": "/es/introduction/faq"
+    },
+    {
+      "source": "/es/prompting/prompting-library",
+      "destination": "/es/prompting/prompting-one"
+    },
+    {
+      "source": "/es/use-case/video-tutorials",
+      "destination": "/es/introduction/video-tutorials"
+    },
+    {
+      "source": "/es/tips-tricks/support-policy",
+      "destination": "/es/introduction/support-policy"
+    },
+    {
+      "source": "/es/tips-tricks/self-hosting",
+      "destination": "/es/tips-tricks/deployment-hosting-ownership"
+    },
+    {
+      "source": "/es/tips-tricks/avoiding-security-pitfalls",
+      "destination": "/es/tips-tricks/security-best-practices"
+    },
+    {
+      "source": "/jp",
+      "destination": "/jp/introduction/welcome"
+    },
+    {
+      "source": "/jp/introduction",
+      "destination": "/jp/introduction/welcome"
+    },
+    {
+      "source": "/jp/features",
+      "destination": "/jp/features/plan-mode"
+    },
+    {
+      "source": "/jp/integrations",
+      "destination": "/jp/integrations/introduction"
+    },
+    {
+      "source": "/jp/tips-tricks",
+      "destination": "/jp/tips-tricks/best-practice"
+    },
+    {
+      "source": "/jp/prompting",
+      "destination": "/jp/prompting/prompting-one"
+    },
+    {
+      "source": "/jp/user-guides/credits",
+      "destination": "/jp/introduction/plans-and-credits"
+    },
+    {
+      "source": "/jp/user-guides/teams",
+      "destination": "/jp/features/collaboration"
+    },
+    {
+      "source": "/jp/user-guides/messaging-limits",
+      "destination": "/jp/introduction/plans-and-credits"
+    },
+    {
+      "source": "/jp/user-guides/quickstart",
+      "destination": "/jp/introduction/getting-started"
+    },
+    {
+      "source": "/jp/integrations/git-integration",
+      "destination": "/jp/integrations/github"
+    },
+    {
+      "source": "/jp/features/deploy",
+      "destination": "/jp/features/publish"
+    },
+    {
+      "source": "/jp/features/business/personal-projects",
+      "destination": "/jp/features/project-visibility"
+    },
+    {
+      "source": "/jp/features/private-projects",
+      "destination": "/jp/features/project-visibility"
+    },
+    {
+      "source": "/jp/features/visual-edit",
+      "destination": "/jp/features/design"
+    },
+    {
+      "source": "/jp/features/precision-edit",
+      "destination": "/jp/features/design"
+    },
+    {
+      "source": "/jp/features/seo",
+      "destination": "/jp/tips-tricks/seo-geo"
+    },
+    {
+      "source": "/jp/features/project-analytics",
+      "destination": "/jp/features/analytics"
+    },
+    {
+      "source": "/jp/integrations/resend",
+      "destination": "/jp/tips-tricks/resend"
+    },
+    {
+      "source": "/jp/integrations/21stdev",
+      "destination": "/jp/tips-tricks/21stdev"
+    },
+    {
+      "source": "/jp/features/cloud",
+      "destination": "/jp/integrations/cloud"
+    },
+    {
+      "source": "/jp/features/modes",
+      "destination": "/jp/features/agent-mode"
+    },
+    {
+      "source": "/jp/features/ai",
+      "destination": "/jp/integrations/ai"
+    },
+    {
+      "source": "/jp/faq",
+      "destination": "/jp/introduction/faq"
+    },
+    {
+      "source": "/jp/prompting/prompting-library",
+      "destination": "/jp/prompting/prompting-one"
+    },
+    {
+      "source": "/jp/use-case/video-tutorials",
+      "destination": "/jp/introduction/video-tutorials"
+    },
+    {
+      "source": "/jp/tips-tricks/support-policy",
+      "destination": "/jp/introduction/support-policy"
+    },
+    {
+      "source": "/jp/tips-tricks/self-hosting",
+      "destination": "/jp/tips-tricks/deployment-hosting-ownership"
+    },
+    {
+      "source": "/jp/tips-tricks/avoiding-security-pitfalls",
+      "destination": "/jp/tips-tricks/security-best-practices"
+    }
+  ]
 }

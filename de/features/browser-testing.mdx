@@ -1,0 +1,116 @@
+---
+title: "Testen Sie Ihre App in einem Browser"
+description: "Erfahren Sie, wie ZenOpus Browsertests verwendet, um Ihre App zu überprüfen, indem Sie auf Schaltflächen klicken, Formulare ausfüllen, Abläufe testen und das Verhalten über verschiedene Bildschirmgrößen hinweg überprüfen."
+---
+Durch Browsertests kann ZenOpus mit Ihrer App in einem echten Browser interagieren, der in einer virtuellen Umgebung ausgeführt wird. Der Agent kann auf Schaltflächen klicken, Formulare ausfüllen, durch Seiten navigieren und das tatsächliche Benutzerverhalten anhand von Screenshots überprüfen, anstatt sich nur auf Code zu verlassen.
+
+Verwenden Sie Browsertests, um Benutzerflüsse zu validieren, visuelle oder Verhaltensprobleme zu beheben und zu bestätigen, dass Änderungen auf verschiedenen Bildschirmgrößen wie erwartet funktionieren.
+
+## Was Browsertests bewirken können
+
+Wenn Browsertests ausgeführt werden, kann der Agent:
+
+- Machen Sie Screenshots der App
+- Klicken Sie auf Schaltflächen und Links
+- Füllen Sie Eingaben aus und senden Sie Formulare
+- Navigieren Sie zwischen den Seiten
+- Konsolenprotokolle und Netzwerkanfragen lesen
+- Erkennen Sie Laufzeitfehler bei der Interaktion mit Ihrer App
+- Testen Sie verschiedene Bildschirmgrößen, einschließlich Mobil-, Tablet- und Desktop-Layouts. Standardmäßig wird dieselbe Größe wie Ihre Vorschau verwendet.
+
+## So funktionieren Browsertests
+
+ZenOpus verwendet Browsertests selektiv, nachdem zuerst schnellere Überprüfungsmethoden ausprobiert wurden.
+
+Browsertests können durchgeführt werden, wenn:
+
+- Sie bitten ausdrücklich darum, zu überprüfen, ob etwas funktioniert. Zu den gängigen Triggerphrasen gehören:  
+„Überprüfen Sie, ob es funktioniert“, „Stellen Sie sicher, dass es funktioniert“, „Testen Sie dies“, „Überprüfen Sie, ob es funktioniert“
+- Visuelle oder UI-Probleme können nicht durch Protokolle oder Codeüberprüfung lokalisiert werden
+- Es gibt eine größere Funktionsänderung und ZenOpus bietet an, den Ablauf zu testen und Sie bestätigen
+
+<Tip>
+Vermeiden Sie es, ZenOpus in derselben Eingabeaufforderung zu bitten, *eine große Änderung vorzunehmen und sie zu testen*.
+
+Wenn der Browsertest hängen bleibt und Sie ihn stoppen, gehen möglicherweise alle während dieses Schritts durchgeführten Arbeiten verloren.
+
+Ein sichererer Ablauf besteht darin, zuerst zu bauen und dann in einer Folgeaufforderung zu testen.
+</Tip>
+
+### Wo es läuft
+
+Der Browser wird remote in einer sicheren virtuellen Umgebung ausgeführt. Es ist nicht Ihr persönlicher Browser und übernimmt nicht Ihre lokale Sitzung.
+
+- Browsertests werden immer anhand der Vorschau des Projekts ausgeführt, an dem Sie gerade arbeiten, und testen genau die Version der App, die Sie gerade anzeigen.
+- Wenn Ihre App Authentifizierung verwendet, wird der Browsertest mit demselben App-Benutzer ausgeführt, mit dem Sie derzeit angemeldet sind, wie in der Vorschau. Machen Sie deutlich, ob es Aktionen oder Bereiche gibt, die nicht angeklickt oder ausgelöst werden sollten.
+- Einige ZenOpus Cloud-Apps verwenden die Funktion [Test- und Live-Umgebungen](/de/features/environments). Wenn diese Funktion aktiviert ist, werden Browsertests anhand der Projektvorschau in der **Testumgebung** ausgeführt.
+
+### Was passiert während eines Browsertestlaufs?
+
+Sie können den Testprozess in einer speziellen **Detailansicht** verfolgen, in der der Agent:
+
+- Zeigt die Schritte an, die es ausführt, z. B. das Klicken auf Schaltflächen oder das Navigieren auf Seiten
+- Erfasst Screenshots der App
+- Zeigt die URLs und Ergebnisse von Interaktionen an
+- Fasst zusammen, was funktioniert hat und was nicht
+
+Browsertests sind langsamer als normale Aktionen, da der Agent mit einem echten Browser interagiert und die Ergebnisse überprüft.
+
+### Beispiel: Browsertests manuell auslösen
+
+Das folgende Beispiel zeigt, wie man einen Browsertest manuell auslöst, nachdem ein Problem mit der Profilseite festgestellt wurde. Bitten Sie ZenOpus, das Problem zu reproduzieren, zu beheben und dann die Lösung zu überprüfen. Zum Beispiel:
+
+```text
+Die Seite stürzt ab, wenn ich auf mein Profil klicke. Reproduzieren Sie es im Browser, beheben Sie das Problem und überprüfen Sie dann, ob Ihr Fix funktioniert hat.
+```
+
+![Browsertests manuell auslösen](/images/zenopus/features/browser-testing/build-browser-testing.png)
+
+## Einschränkungen
+
+- Es kann nicht mit Canvas-basierten oder Zeichenwerkzeugen interagieren
+- Es können keine Dateien hoch- oder heruntergeladen werden
+- Es können keine Rechtsklick-Interaktionen ausgeführt werden
+- Es führt möglicherweise Drag-and-Drop-Interaktionen aus, diese sind jedoch weniger zuverlässig als Klicks
+- Es führt möglicherweise Aktionen in der Zwischenablage und Textauswahl aus, diese sind jedoch unzuverlässig
+- Es ist nicht zuverlässig für die Beurteilung subtiler visueller Designdetails oder Farbunterschiede
+- Im Vergleich zu Schaltflächen mit Textbeschriftung kann es zu Schwierigkeiten bei der Interaktion mit Nur-Symbol-Schaltflächen kommen
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Läuft der Browsertest automatisch?">
+Ja, in manchen Fällen. ZenOpus schlägt möglicherweise automatisch Browsertests vor oder verwendet diese, wenn eine Überprüfung erforderlich ist, ist jedoch standardmäßig konservativ und probiert zunächst einfachere Methoden aus.
+</Accordion>
+<Accordion title="Wie kann ich sicherstellen, dass ZenOpus Browsertests verwendet?">
+Sie können jederzeit ausdrücklich um einen Browsertest bitten. Zu den üblichen Triggerphrasen gehören: „Überprüfen Sie, ob es funktioniert“, „Stellen Sie sicher, dass es funktioniert“, „Testen Sie dies“, „Überprüfen Sie, ob es funktioniert“.
+
+Zum Beispiel:
+
+```text
+Verwenden Sie Browsertests, um diesen Ablauf zu überprüfen.
+```
+</Accordion>
+<Accordion title="In welcher Umgebung laufen Browsertests?">
+Browsertests werden immer anhand der Vorschau des Projekts ausgeführt, an dem Sie gerade arbeiten. Es testet genau die Version der App, die Sie gerade ansehen.
+
+Wenn Ihr Projekt **Test- und Live-Umgebungstrennung** verwendet, werden die Browsertests anhand der Testumgebungsvorschau ausgeführt.
+</Accordion>
+<Accordion title="Werden beim Browsertest meine App-Berechtigungen verwendet?">
+Ja. Wenn Ihre App Authentifizierung verwendet, ist der Agent mit demselben App-Benutzer angemeldet, mit dem Sie derzeit angemeldet sind, und die Browsertests werden mit demselben App-Benutzer ausgeführt.
+
+Machen Sie deutlich, wenn etwas nicht angeklickt oder ausgelöst werden soll.
+</Accordion>
+<Accordion title="Ist das mein echter Browser?">
+Nein. Beim Browsertest wird ein echter Browser verwendet, der in einer entfernten virtuellen Umgebung ausgeführt wird. Es übernimmt nicht Ihren lokalen Browser oder Ihre Sitzung.
+</Accordion>
+<Accordion title="Was passiert, wenn beim Browsertest immer wieder dieselbe Aktion fehlschlägt?">
+Wenn der Agent wiederholt nicht mit demselben Element interagiert, kann dies an Einschränkungen der Browser-Interaktion (wahrscheinlicher) oder an einem zugrunde liegenden Problem in Ihrer App liegen, z. B. an einem ausgeblendeten Element, einem fehlerhaften Zustand oder einem unerwarteten Layout.
+
+Versuchen Sie Folgendes:
+
+1. Sehen Sie sich die Screenshots und Protokolle des Testlaufs in der Detailansicht an
+1. Bitten Sie ZenOpus, die Interaktion mit dem Element zu erleichtern (z. B. durch Hinzufügen von sichtbarem Text oder einer Barrierefreiheitsbezeichnung).
+1. Wenn das Problem weiterhin besteht, weisen Sie den Agenten ausdrücklich an, die Interaktion mit diesem Element zu vermeiden
+</Accordion>
+</AccordionGroup>

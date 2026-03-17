@@ -1,0 +1,462 @@
+---
+title: "Video tutorials"
+description: "Watch step-by-step tutorials for building calorie trackers, CRMs, feedback tools, landing pages, and AI-powered apps with ZenOpus."
+---
+## Welcome to ZenOpus
+
+<Accordion title="ZenOpus 101">
+<iframe src="https://www.youtube.com/embed/l2n9rpuqvdw?si=huqUvQcNK1tKTMVL" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Getting started with ZenOpus basics">
+</Step>
+<Step title="Understanding the interface and controls">
+</Step>
+<Step title="Working with editing features and version history">
+</Step>
+<Step title="Implementing authentication and user management">
+</Step>
+<Step title="Using ‪Supabase‬ databases and edge functions">
+</Step>
+<Step title="GitHub integration and code management">
+</Step>
+<Step title="Sharing projects and community feedback">
+</Step>
+<Step title="Exploring additional resources and templates">
+</Step>
+</Steps>
+</Accordion>
+
+## ZenOpus tutorials
+
+<AccordionGroup>
+<Accordion title="Build an AI-Powered Calorie Tracking WebApp">
+<iframe src="https://www.youtube.com/embed/c0zhLzcVJRI?si=7vcZf5eoxIobOxdE" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+This tutorial, we’ll walk you through creating an AI-powered calorie tracking app with ZenOpus, complete with authentication, a beautiful responsive design, OpenAI integration, and deployment to production.
+
+<Steps>
+<Step title="Setting Up the Foundation">
+The foundation of any ZenOpus project is a good prompt. For this app, here’s an example:
+
+```text
+Create a calorie tracking app with the following features:
+Landing page, dashboard, and a meals page.
+Input fields for meal descriptions or images, with analysis powered by GPT-4.
+Daily progress tracking and integration with Supabase for authentication and database management.
+Beautiful and mobile-responsive UI.
+```
+
+Once ZenOpus generates the UI skeleton:
+
+- Review the navigation setup and landing page design.
+- Iterate on the prompt to refine the layout and ensure mobile responsiveness.
+
+<Note>
+Be explicit about starting with the UI. ZenOpus works best when tasks are broken into clear steps. For instance, outline navigation, page structures, and design themes early in the prompt
+</Note>
+</Step>
+<Step title="Designing the UI">
+ZenOpus emphasizes a step-by-step approach, akin to constructing a building:
+
+- Start with **scaffolding**: Plan your app structure (e.g., user experience flow, page layout).
+- Add the **first layer**: Create empty pages with basic design elements.
+- Refine the **details**: Add colors, animations, and mobile responsiveness.
+
+<Note>
+If you have pre-made designs in Figma, you can take screenshots and include them in your ZenOpus prompt. Providing high-resolution images ensures better results.
+</Note>
+</Step>
+<Step title="Integrate Supabase for Backend and Authentication">
+Once the UI is ready, it’s time to add backend functionality:
+
+1. Set up a **Supabase****account** and create a project.
+1. Link it to ZenOpus by pressing the “Connect Supabase” button.
+1. For data storage, ZenOpus will generate SQL tables. For instance:
+
+- A `profiles` table to store user information.
+- A `meals` table linked to users for tracking daily entries.
+
+<Note>
+Use row-level security (RLS) rules in Supabase to ensure user privacy. ZenOpus can handle this for you automatically.
+</Note>
+</Step>
+<Step title="Integrating OpenAI for Meal Analysis">
+The magic of this app lies in its AI capabilities. To analyze meals:
+
+1. Obtain an OpenAI API key from your developer dashboard.
+1. Use GPT-4 for analyzing meal descriptions or images.
+1. Ensure API keys are securely stored in Edge functions to prevent unauthorized access.
+
+**Features to include:**
+
+- **Analyze meal descriptions**: Estimate nutritional values (calories, protein, carbs, fat).
+- **Image recognition**: Upload a meal photo, and GPT-4 will extract a description and nutritional data.
+
+<Note>
+*Pro Tips for OpenAI Integration:*
+
+- Use **function calling** for structured responses, ensuring data is formatted correctly for database insertion.
+- Test the functionality by asking the app to analyze simple meal entries like “2 eggs.”
+</Note>
+</Step>
+<Step title="Implementing Payments with Stripe">
+To monetize the app, add subscription-based payments:
+
+1. Create a Stripe account and set up a product (e.g., “Standard Plan” for $12/month).
+1. Integrate Stripe with ZenOpus by adding the API key and product price ID.
+1. Redirect non-paying users to the landing page. Only paying users can access the main app.
+
+<Note>
+*Additional Tips:*
+
+- Enable Stripe’s **customer portal** to let users manage subscriptions (e.g., cancel or update payment methods).
+- Test payments in Stripe’s test mode using the provided test credit card details.
+</Note>
+</Step>
+<Step title="Testing and Debugging">
+Errors are a natural part of development, and ZenOpus simplifies debugging:
+
+- Use the **“Try to Fix”** button whenever a build error occurs.
+- For backend issues, check Supabase logs for detailed error reports.
+- If deploying to Netlify, review deployment logs for any build issues. Share logs with ZenOpus to get tailored fixes.
+
+<Note>
+If you get stuck, revert to a previous version using ZenOpus’s “Revert” feature. This saves credits and time.
+</Note>
+</Step>
+<Step title="Deploying Your App">
+Once your app is ready, deploy it with ZenOpus or Netlify:
+
+1. Use ZenOpus’s deploy feature to host the app on a default domain.
+1. For custom domains:
+
+- Connect your GitHub repository to Netlify.
+- Purchase a domain and configure DNS settings to link it to Netlify.
+
+<Note>
+Update your app’s metadata (favicon, meta tags, OG image) for better branding and SEO.
+</Note>
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Build a SaaS Landing Page with Groq API">
+<iframe src="https://www.youtube.com/embed/S0k8FOmqjog?si=935gSBuflrRbljlF" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+In this tutorial, we’ll show you how to create a stunning, fully interactive landing page for an AI-powered email assistant using ZenOpus, 21st.dev, and Supabase—complete with animations, API integrations, and seamless deployment!
+
+- AI-powered design & UI enhancements
+- Adding animations & interactive elements
+- Integrating AI email enhancements with the Groq API
+- Setting up a contact form with Resend
+- Deploying the page using ZenOpus Launch
+</Accordion>
+<Accordion title="Build a Feedback Tool">
+The session showcased ZenOpus’s capabilities to iterate quickly and deliver production-ready results.
+
+<iframe src="https://www.youtube.com/embed/tYDqBMilHkM?si=6eD-0GoQEywncOqQ" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Authentication">
+- Users can sign up, log in, and manage profiles using Supabase integration.
+- Secure user sessions enable tailored experiences.
+</Step>
+<Step title="Feedback Submission and Voting">
+- Users can submit feedback with titles, descriptions, and images.
+- Each feedback entry displays vote counts and supports real-time upvoting.
+</Step>
+<Step title="Admin Dashboard with AI Summaries">
+- Admins can review all feedback, filter by votes, and sort entries.
+- AI-powered summaries identify actionable insights using OpenAI and Supabase Edge Functions.
+</Step>
+<Step title="User Presence Tracking">
+Real-time presence indicators show active users on the platform.
+</Step>
+<Step title="Detailed Feedback Pages with Comments">
+Each feedback entry has a dedicated page for discussions, enabling teams to collaborate and prioritize efficiently.
+</Step>
+<Step title="File Attachments">
+Users can attach images to feedback, stored securely using Supabase’s storage capabilities.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Build a Productized Development Agency">
+<iframe src="https://www.youtube.com/embed/eZsbfEA-_oI?si=ngagWq3q3Km1jY6J" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+The goal for this session was to build an app that allows developers, designers, or consultants to offer subscription-based services—a business model inspired by platforms like DesignJoy.
+
+<Steps>
+<Step title="Authentication and User Management">
+Authentication was the first feature implemented, setting up a robust framework for managing users. The team emphasized the importance of integrating authentication early to prevent issues when scaling the app.
+
+- Supabase integration for user sign-ups, logins, and profile management.
+- Persistent user sessions to improve app usability.
+</Step>
+<Step title="Stripe Subscription Integration">
+The session demonstrated how to integrate Stripe for subscription management:
+
+- Enabled users to subscribe to different pricing tiers.
+- Managed subscription status, ensuring only paid users access premium features.
+</Step>
+<Step title="Dashboard and Task Management">
+- User-specific dashboards with task boards and drag-and-drop functionality.
+- Real-time task updates for seamless collaboration.
+</Step>
+<Step title="AI Chatbot">
+The session concluded with the integration of an AI chatbot, illustrating how OpenAI can add dynamic functionality to apps. This feature could be extended to serve as a virtual assistant, concierge, or data query interface.
+
+- Integrated OpenAI to provide a chatbot capable of responding intelligently to user queries.
+- Built in a single prompt, showcasing ZenOpus’s efficiency.
+</Step>
+<Step title="Iterative Debugging and Refinement">
+The team tackled real-time debugging challenges, offering valuable insights into troubleshooting. Techniques included:
+
+- Using console logs and error messages to identify issues.
+- Reverting to previous app versions to avoid getting stuck in broken states.
+- Guiding ZenOpus’s AI with detailed prompts to ensure accurate fixes.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Prompting Advice with ZenOpus">
+<iframe src="https://www.youtube.com/embed/IqWfKj4mUIo?si=sIUpyvAuOH9Fu_oe" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+In this tutorial, we deep-dive into AI-powered app development, prompt engineering, and workflow automation with [ZenOpus](https://zenopus.dev/)’s special guest ‪[Mark Kashef‬](https://www.youtube.com/@Mark_Kashef)!
+
+- Understanding effective AI prompting
+- The four tiers of prompt engineering
+- Meta prompting techniques & best practices
+- Debugging strategies for AI workflows
+- Building an AI app using ZenOpus & Make.com
+- Integrating Visual Edits & Tailwind CSS for UI design
+</Accordion>
+<Accordion title="Build a Luma Copycat with Supabase &amp; ZenOpus">
+<iframe src="https://www.youtube.com/embed/-sSOyO0FiPE?si=TCamI0uASRJ2Kh6j" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+In this tutorial, we will build a Luma-style event platform using ZenOpus and [Supabase](/integrations/supabase) – live!
+
+- How to integrate Supabase with ZenOpus
+- Setting up authentication & user management
+- Configuring databases & real-time comments
+- Testing performance & handling multiple users
+- Live debugging & performance optimization
+</Accordion>
+<Accordion title="Build an AI-Enhanced Web App">
+<iframe src="https://www.youtube.com/embed/gqsZGxuymTk?si=xwjEwFQCa5p8WVLh" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+In this tutorial, we’ll show you how to use ZenOpus, an AI-enhanced no-code builder, to create a full-stack journaling app without writing a single line of code!
+
+- Design your app UI instantly
+- Upload your design & generate a working app
+- Connect Supabase for backend & authentication
+- Implement GPT-4o for AI-powered features
+- Deploy a full-stack app in minutes!
+</Accordion>
+<Accordion title="Build a Simple CRM with Resend">
+<iframe src="https://www.youtube.com/embed/5ZL744_Wxjo?si=qrKlOL_1fAnz7rgc" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+In this tutorial, we’ll walk through creating a simple yet powerful CRM using ZenOpus for development, Supabase for data storage, and [Resend](/integrations/resend) for email automation.
+
+- How Resend works for email automation
+- Setting up authentication emails with Supabase
+- Building an admin dashboard & contact management system
+- Creating & customizing email templates
+- Adding newsletter signup & broadcast email functionality
+</Accordion>
+<Accordion title="Build Interactive Elements in Web Development">
+<iframe src="https://www.youtube.com/embed/b-O7Ew0Q2ig?si=UPyQQdnualImIP8j" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+Building engaging, interactive web experiences just got easier with ZenOpus’s latest updates!
+
+<Steps>
+<Step title="Effortless UI Customization with Visual Edits">
+One of the biggest upgrades to ZenOpus is the ability to modify UI elements instantly without consuming AI credits. You can now:
+
+- Edit text directly on your project.
+- Adjust button colors and styles in real-time.
+- Upload and swap images seamlessly.
+- Hover over elements to make quick adjustments.
+
+<Note>
+Users can now select text, change colors, or swap icons effortlessly without needing AI intervention—allowing for a smoother design iteration process.
+</Note>
+</Step>
+<Step title="Advanced Debugging and API Error Handling">
+Previously, users faced challenges when dealing with third-party API integration errors. ZenOpus now:
+
+- Surfaces richer error messages for easier debugging.
+- Eliminates irrelevant popups, improving focus on critical issues.
+- Enables AI-driven error detection for automatic fixes.
+
+<Note>
+Instead of overwhelming users with generic popups, ZenOpus now feeds error context directly into its AI, which can decide when an issue needs to be addressed and how to fix it.
+</Note>
+</Step>
+<Step title="Creating Dynamic Backgrounds and Animations">
+ZenOpus now supports seamless integration of animated and interactive elements using **p5.js** and other libraries.
+
+#### Example Project: Travel Agency Website with Interactive Flags
+
+A recent live demo showcased how to build a travel agency landing page featuring:
+
+1. **An animated hero section** with flags dynamically appearing and moving in response to mouse interactions.
+1. **A sticky-scroll section** that changes based on the user’s scroll position.
+1. **Interactive hover effects** where images react to user movements.
+
+#### How to Implement Animated Effects
+
+To create these effects, users followed this simple process:
+
+- **Define the desired animation:**
+
+<Note>
+Make the background interactive with floating elements that move away when hovered over.
+</Note>
+
+- **Use p5.js to generate effects:**
+    - Implement a chromatic smoke pattern.
+    - Swap out static images for dynamic flag animations.
+- **Enhance user experience with physics-based interactions:**
+    - Make elements move dynamically based on user actions.
+
+<Note>
+If an animation isn’t working, use ZenOpus’s Plan mode to debug and refine the effect with step-by-step AI guidance.
+</Note>
+</Step>
+<Step title="Importing Custom Elements from External Libraries">
+With **21st.dev**, users can now integrate pre-built UI components seamlessly into ZenOpus projects.
+
+1. Browse **21st.dev** for a button design.
+1. Copy the AI-generated prompt.
+1. Paste it into ZenOpus and replace an existing button.
+
+This approach accelerates design workflows and allows for more polished, visually cohesive interfaces.
+
+<Note>
+This same method works for importing animation presets from **motion.dev**, making it easier to add high-quality motion effects without custom coding.
+</Note>
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Clerk Authentication, Custom Domains &amp; Waitlists">
+<iframe src="https://www.youtube.com/embed/tyAsNwu_xCI?si=VHCGf2IlFRQzVLeD" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+In this tutorial, we’ll walk through building a **custom CRM** (Customer Relationship Management system) using **ZenOpus** and **Clerk**.
+</Accordion>
+<Accordion title="How to Build a Custom CRM with ZenOpus and Make">
+<iframe src="https://www.youtube.com/embed/zv4vcR7VCAk?si=BgJHeEuti27cbgYt" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+In this tutorial, we’ll walk through building a **custom CRM** (Customer Relationship Management system) using **ZenOpus** and **Make**.
+</Accordion>
+<Accordion title="Building a $10K Landing Page in 1 Hour">
+<iframe src="https://www.youtube.com/embed/VVbC80KgF9E?si=71RW1V8KgpgxTya_" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+</Accordion>
+</AccordionGroup>
+
+## Build, brand, and launch a real micro-SaaS, live!
+
+Learning Spanish has never been this interactive! Imagine an app that not only teaches you Spanish through conversations but also creates real-time voice interactions, dynamic courses, and visually engaging content—powered entirely by AI. This tutorial can help follow step-by-step what Kristian and Harry built:
+
+<AccordionGroup>
+<Accordion title="Step 1: Designing the Core Features">
+<iframe src="https://www.youtube.com/embed/8QDL9cCIXqU?si=JPHSSBoWO4dXl7vB" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Laying the Foundations">
+Before implementing AI features, we focused on **building a strong foundation** for the app using **ZenOpus**. This included setting up authentication, structuring the dashboard, and implementing user management.
+</Step>
+<Step title="Authentication System">
+- Integrated **Supabase** for backend authentication.
+- Enabled sign-up/login with email and password.
+- Created a profile system to store user preferences and learning progress.
+</Step>
+<Step title="Dashboard &amp; Navigation">
+- Designed an intuitive sidebar for navigation.
+- Created sections for chat, courses, and user settings.
+- Ensured responsive UI for a seamless experience across devices.
+</Step>
+<Step title="User Profiles &amp; Data Storage">
+- Added a database structure to store user progress.
+- Designed profile management settings where users can adjust learning preferences.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Step 2: AI-Powered Learning Features with Replicate">
+<iframe src="https://www.youtube.com/embed/eSDhk4VkVLE?si=-JhSjxsKIrPACNOK" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="AI-Generated Courses">
+To make learning interactive, we implemented an AI-driven course generation system using OpenAI’s GPT model. Here’s how it works:
+
+1. Users select a topic (e.g., “Questions to ask at a barbecue”).
+1. ZenOpus calls an OpenAI Edge function to generate **10 engaging Spanish-language questions**.
+1. Users complete quizzes, track progress, and receive AI feedback on their answers.
+</Step>
+<Step title="Enhancing User Engagement">
+- **Dynamically Generated Questions**: Each quiz is AI-generated, ensuring fresh, unique content every time.
+- **Interactive Feedback**: The AI provides explanations for correct and incorrect answers to improve learning.
+- **Progress Tracking**: Users can save and revisit courses, enhancing retention and practice.
+</Step>
+<Step title="Enhancing Visual Engagement with Replicate">
+To add a visual learning element, we integrated **Replicate’s Flux Schnell** image generation model:
+
+- **Automated Course Banners**: Every course dynamically generates an image matching the topic.
+- **Visually Immersive Experience**: AI-driven visuals enhance user engagement and retention.
+- **Fast Image Processing**: Using Replicate’s API, images are generated in real time without slowing down the experience.
+</Step>
+<Step title="Real-Time Voice Conversations">
+A major milestone in the app’s development was the addition of **real-time Spanish-speaking practice** using OpenAI’s real-time WebRTC API :
+
+- **Interactive AI Tutor**: Users can speak directly with an AI that dynamically responds in Spanish.
+- **Pronunciation Assistance**: The AI provides real-time corrections and suggestions.
+- **Seamless Conversations**: The natural flow of conversation makes it feel like interacting with a human tutor.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Step 3: Branding the App">
+<iframe src="https://www.youtube.com/embed/fILdgFNqvmU?si=_Xg-XTMTQuBN7bE1" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Establishing the Concept and Audience">
+Before branding, we defined our core goals:
+
+- **AI-powered chat** for real-time Spanish conversations.
+- **Automated quizzes** for quick practice sessions.
+- **Structured learning** with lesson storage and progress tracking.
+
+This helped shape our branding choices, ensuring they aligned with the app’s purpose.
+</Step>
+<Step title="Naming &amp; Domain Selection">
+We aimed for a short, memorable name that reflected the **learning journey**. Using AI, we brainstormed and landed on **Ruta** (Spanish for “route” or “path”).
+
+#### Process:
+
+- **Brainstormed names** using AI for catchy Spanish words.
+- **Tested options** like “Camino” and “Verbo,” but “Ruta” stood out.
+- **Checked domain availability** and secured **rutaapp.com** immediately.
+</Step>
+<Step title="Creating a Visual Identity">
+We quickly designed the brand:
+
+- **Logo**: A **compass-themed** icon sourced from design libraries and edited in Figma.
+- **Font Pairing**: Used a **bold, modern typeface** for the logo and a readable UI font for the app interface.
+- **Color Palette**: A **Tailwind CSS blue** scheme to symbolize travel and discovery.
+- **Styling Inspiration**: Experimented with **neo-brutalism**, tweaking contrast, shadows, and borders to create a visually engaging UI.
+</Step>
+<Step title="Building a Cohesive User Experience">
+Using ZenOpus, we ensured **visual consistency** across the app:
+
+- **Landing Page**: AI-generated with a dynamic, engaging hero section.
+- **Dashboard & Course Pages**: Styled to match the brand’s identity.
+- **Iterative Styling**: Applied **neo-brutalist** elements to test different design styles.
+- **User Flow Testing**: Ensured seamless navigation from signup to real-time chat.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Step 4: Final Tweaks, Big Bets &amp; Live Launch">
+<iframe src="https://www.youtube.com/embed/12013xnxYzM?si=4qOqTgcgO_IY_G1P" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+</Accordion>
+</AccordionGroup>
+
+## Community tutorials
+
+Check out the ZenOpus Community tutorials [here](https://www.youtube.com/playlist?list=PLbVHz4urQBZkJ6WMXlIGc3NGsufrleogY).

@@ -1,0 +1,215 @@
+---
+title: "From idea to working app"
+description: "Plan before you prompt, choose frontend-first or back-to-front builds, use Plan mode for debugging, and validate with real users."
+---
+> **“I have no clue what I’m doing… but I know exactly what I want to build.”**
+
+If that sounds like you, you’re in the right place.
+
+## Who this is for
+
+You’ve got an idea.
+
+You’ve tried AI tools, written notes, maybe even opened a few projects.
+
+But you’re stuck between inspiration and execution.
+
+**This guide will help you:**
+
+- Go from vague concept to concrete product
+- Avoid common mistakes
+- Use ZenOpus the smart way—especially if you’re not a developer
+
+## The common pitfall: Building before you plan
+
+A lot of users fall into the same trap: `They start building before they’ve clarified what they’re building.`
+
+**The result?**
+
+- Errors on top of errors
+- Confused AI agents and AI-generated errors
+- Projects that veer off track or feel “`too far gone to fix`”
+
+## Best practices for turning ideas into real products
+
+### 1. Start outside ZenOpus
+
+Many builders—including livestream guest MP—spend time shaping their ideas *before* opening ZenOpus.
+
+Try this:
+
+- Record a voice note explaining your idea naturally (MP uses Granola for this)
+- Paste it into GPT or Claude to get an expanded version in clear product terms
+- Ask AI to act as a designer, PM, or developer and critique or co-draft a PRD (Product Requirements Document)
+
+Use ZenOpus when you’re ready to go from clear vision to working prototype.
+
+### 2. Write it out first
+
+Before you prompt the AI, spend 15 minutes writing:
+
+- What does your product do?
+- Who it’s for (even if it’s just you)
+- What the *simplest & minimum version* should include
+
+<Tip>
+**Turn this into a list of features or use cases:**
+
+Write it as a list of user stories or features and feed it into Plan mode or GPT to get a PRD (Product Requirements Document).
+</Tip>
+
+### 3. Choose your build style wisely
+
+There are two valid approaches to building with ZenOpus:
+
+1. **Frontend first (recommended for beginners)**
+    - Start with mock data
+    - Build layouts, flows, and logic without connecting a database
+    - Once satisfied, plug in ZenOpus Cloud or Supabase and go live
+1. **Back-to-front**:
+    - Connect ZenOpus Cloud or Supabase from Day 1
+    - Build and test each feature one by one
+    - Best for advanced users comfortable debugging
+
+If you’re new, **choose front-end first.** You’ll:
+
+- Avoid complex SQL errors
+- Iterate faster
+- Stay focused on design + usability
+
+<Tip>
+MP used front-end first for speed, clarity, and debugging ease. It helped him learn fast and ship quicker.
+</Tip>
+
+### 4. Use Plan mode as a thought partner
+
+[Plan mode](/features/plan-mode) isn’t just a chatbot—it’s your project-aware assistant.
+
+It knows your files, your database schema, your logs.
+
+Use it to:
+
+- Debug issues with context
+- Break down vague ideas into structured components
+- Brainstorm, plan, and iterate
+- Translate vague ideas into working flows
+
+<Tip>
+Try this prompt:
+
+```text
+I want to build a dog breeding management app. Here's what I need it to do: [list]. Can you break this down into steps or components to build?
+
+I’m building a job coaching app. Here’s what I want it to do: [list]. What’s the simplest version to test?
+```
+</Tip>
+
+### 5. Break it down into bricks
+
+Don’t build everything at once. Split your idea into **bricks**:
+
+- Each brick = one feature, component, or flow
+- Build one at a time
+- Test, refine, then move on
+
+Ask Plan mode to help plan this with prompts like:
+
+```text
+Here’s my app idea. Can you break it into features or steps I should build?
+```
+
+```text
+Break this idea into buildable features I can test one at a time.
+```
+
+### 6. Prompt with purpose
+
+Before each prompt, ask:
+
+```text
+What am I trying to build right now?
+```
+
+Be specific. Avoid mid-conversation shifts—AI needs consistent intent to help you properly.
+
+### 7. Avoid the infinite error loop
+
+Stuck? Don’t click “Try to Fix” 10 times.
+
+Instead:
+
+- Open browser dev tools (Console tab)
+- Copy the actual error
+- Paste it into Plan mode to investigate
+- Or remix the project without your database to simplify debugging
+
+<Tip>
+ZenOpus now reads console logs automatically—no copy-paste needed for most cases.
+</Tip>
+
+### 8. Remix if things get messy
+
+Projects evolve. If things feel tangled:
+
+- Remix your project (it clones the project, you keep the original)
+- Start fresh with what you’ve learned
+- Keep the new build focused and structured
+- Keep what works. Drop what doesn’t.
+
+### 9. Use real validation, fast
+
+A user told us he didn’t build to sell. He sent a rough prototype to 10 users in DMs. One asked to pay immediately. By Friday, Stripe was integrated.
+
+Validate by:
+
+- Asking real users, “Would this help you?”
+- Getting quick feedback, not perfection
+- Letting real interest guide your next steps
+
+### 10. Get better by building bad ideas
+
+<iframe src="https://www.youtube.com/embed/mwHNw8aeYCI?si=wyWWyPnB7DmC8lR3" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+[MP](https://www.youtube.com/watch?v=mwHNw8aeYCI&ab_channel=ZenOpus) built 100+ throwaway projects:
+
+- Message-for-a-stranger app
+- 90s nostalgia generator
+- AI interview prep tool
+
+Each one helped him test a skill:
+
+- Building UI with no backend
+- Adding profanity filters
+- Connecting AI APIs
+- Managing user flow
+
+<Tip>
+Lesson:
+
+**Build things that don’t need to exist—so you’re ready when something does.**
+</Tip>
+
+## Builder’s checklist
+
+1. Write your idea in 5-10 bullet points
+1. List out core features (use bullets) in an MVP (minimum viable product)
+1. Decide: Frontend first or back-to-front
+1. Use Plan mode to co-plan and debug
+1. Build in bricks: 1 feature at a time
+1. Only connect backend when ready
+1. Remix if errors pile up
+1. Get feedback before going live
+
+## Final tip: You’re the first user
+
+- Design for yourself first.
+- Test like your future users would.
+- Think like a product designer.
+
+And remember: you’re building something only you could imagine.
+
+> You don’t need to know how to code.  
+> 
+>  You just need a clear idea, a good plan, and a little patience.  
+> 
+>  ZenOpus will help with the rest.

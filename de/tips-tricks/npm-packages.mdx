@@ -1,0 +1,44 @@
+---
+title: "Verwendung von NPM-Paketen"
+description: "Fügen Sie Drag-and-Drop, Diagramme, Animationen und andere erweiterte Funktionen hinzu, indem Sie npm-Pakete in Ihre Projekte integrieren."
+---
+Während ZenOpus für sich genommen leistungsstark ist und es Benutzern ermöglicht, anspruchsvolle Webanwendungen zu erstellen, können Sie npm-Pakete für erweiterte und erweiterte Funktionen nutzen. Mit diesen Paketen können Sie problemlos noch komplexere und funktionsreichere Anwendungen erstellen.
+
+<Info>
+**Was ist npm?**
+
+npm (Node Package Manager) ist ein Paketmanager für JavaScript, der es Entwicklern ermöglicht, Code zu teilen und wiederzuverwenden. Es beherbergt Tausende von Paketen, bei denen es sich um wiederverwendbare Codeteile handelt, die Sie problemlos in Ihre Projekte integrieren können, um die Funktionalität zu erweitern.
+
+Sie können darauf [unter npmjs.com](https://www.npmjs.com/) zugreifen.
+</Info>
+
+## Verwendung von NPM-Paketen für erweiterte Funktionen
+
+Nehmen wir an, Sie möchten ein Tool erstellen, mit dem Sie Ihre Aufgaben in verschiedenen Kanban-Boards anordnen können, ähnlich wie bei vielen beliebten Projektmanagement-Tools. Sie können dieses Tool von Grund auf neu erstellen, es kann jedoch langsamer und schwieriger sein, die gewünschte Funktionalität zu erreichen.
+
+Stattdessen können Sie npm-Pakete verwenden, um den Prozess zu vereinfachen und zu beschleunigen. Beispielsweise bietet das Paket [@hello-pangea/dnd](https://www.npmjs.com/package/@hello-pangea/dnd) robuste Drag-and-Drop-Funktionalität. Mit diesem Paket können Sie ganz einfach ein Kanban-Board erstellen, auf dem Benutzer neue Karten hinzufügen, sie innerhalb von Spalten verschieben und neu anordnen können.
+
+<CodeGroup>
+```bash title="Beispielaufforderung"
+Use the hello-pangea/dnd npm package to add drag-and-drop functionality to my Kanban board app. 
+Ensure users can add new cards, move them within columns, and reorder them.
+```
+</CodeGroup>
+
+Diese Eingabeaufforderung weist ZenOpus an, das Paket in Ihr Projekt zu integrieren, wodurch es einfacher wird, die gewünschte Funktionalität zu erreichen. Abhängig von anderen Anforderungen könnte Ihr Ergebnis in etwa so aussehen.
+
+![ZenOpus implementierte Drag-and-Drop-Kanban-Funktionalität](/images/zenopus/tips-tricks/npm-packages/npm-example-using-pangea-dnd.png)
+
+## Qualität und Verantwortung
+
+Es ist wichtig zu beachten, dass npm-Pakete Ihre Projekte zwar erheblich verbessern können, ZenOpus jedoch nicht die Qualität oder Zuverlässigkeit dieser Pakete von Drittanbietern garantieren kann.
+
+Die Funktionalität und Leistung von npm-Paketen liegt in der Verantwortung des Endbenutzers und es ist wichtig, sie in Ihrer Anwendung gründlich zu testen und zu validieren.
+
+### Erhöhen Sie Ihre Erfolgschancen
+
+Hier sind einige Strategien, die Ihnen helfen sollen, die Legitimität und Qualität von NPM-Paketen zu bewerten, bevor Sie sie in Ihre Projekte integrieren.
+
+- **Anzahl der Downloads** – Überprüfen Sie die Anzahl der Downloads auf der NPM-Seite des Pakets. Eine hohe Anzahl an Downloads weist typischerweise darauf hin, dass das Paket weit verbreitet ist und von der Community als vertrauenswürdig eingestuft wird.
+- **Wartungsstatus und neueste Updates** – Schauen Sie im Repository des Pakets nach, ob es aktiv gewartet wird. Häufige Commits, aktuelle Updates und Reaktionsfähigkeit auf Probleme sind gute Indikatoren für ein aktiv gepflegtes Paket. Stellen Sie sicher, dass das Paket über aktuelle Updates verfügt. Ein Paket, das regelmäßig aktualisiert wird, ist mit größerer Wahrscheinlichkeit mit den neuesten Versionen von Abhängigkeiten und Sicherheitspraktiken kompatibel.
+- **Bewertungen und Community-Feedback** – Viele npm-Pakete werden auf GitHub oder ähnlichen Code-Repositories gehostet. Lesen Sie auch Rezensionen, Diskussionen und Feedback von anderen Entwicklern zu diesen Standorten. Darüber hinaus können spezielle Entwicklerforen Einblicke in die Zuverlässigkeit des Pakets und mögliche Probleme geben.

@@ -1,0 +1,90 @@
+---
+title: "Fehlerbehebung"
+description: "Beheben Sie Build-Fehler, debuggen Sie unerwartetes Verhalten, beheben Sie Vorschauprobleme und beheben Sie häufig auftretende Probleme Schritt für Schritt."
+---
+## Build-Fehler
+
+Das Erstellen mit ZenOpus macht das Codieren schneller und intuitiver, aber selbst die besten KI-Entwicklungstools können gelegentlich Probleme haben. Manchmal wird Ihr Code nicht wie erwartet ausgeführt, oder Sie bemerken möglicherweise unerwartetes Verhalten, bei dem die KI Ihre Absicht falsch interpretiert.
+
+Hier ist eine Schritt-für-Schritt-Anleitung, die Ihnen hilft, Probleme zu bewältigen und wieder auf den richtigen Weg zu kommen:
+
+<iframe src="https://www.youtube.com/embed/0W8bsbHh2p8?si=p4kWhkdu0PEbgGXm" title="YouTube-Videoplayer" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Verwenden Sie zuerst die Schaltfläche „Reparatur versuchen“.">
+Klicken Sie auf die Schaltfläche **Reparaturversuch**, wenn ein Fehler auftritt. ZenOpus scannt Ihre Protokolle, erkennt das Problem und versucht eine schnelle Lösung. Es ist Ihr schnellster erster Schritt. Wenn das nicht funktioniert, ist es an der Zeit, tiefer zu graben.
+</Step>
+<Step title="Diagnostizieren Sie unerwartetes Verhalten">
+Ihr Code wird möglicherweise fehlerfrei ausgeführt, verhält sich jedoch nicht wie beabsichtigt. Das ist **unerwartetes Verhalten**, das schwerer zu erkennen und schwerer zu beheben ist. Versuchen Sie Folgendes:
+
+- **Zurücksetzen und erneut auffordern**: Machen Sie einen Schritt zurück bis kurz vor dem Auftreten des Problems und versuchen Sie es dann mit einer klareren, überarbeiteten Aufforderung.
+</Step>
+<Step title="Schreiben Sie effektivere Eingabeaufforderungen">
+Klare, strukturierte Eingabeaufforderungen führen zu besseren Ergebnissen. Verwenden Sie dieses Format:
+
+1. **Verwenden Sie Plan mode** und fragen Sie: „Können Sie die Schritte skizzieren oder für diese Funktion planen?“
+1. **Überprüfen Sie den Plan**, den ZenOpus vorschlägt, und bitten Sie bei Bedarf um Änderungen oder Klarstellungen.
+1. **Prompt ZenOpus**: „Jetzt bauen wir das Schritt für Schritt auf.“
+</Step>
+<Step title="In logischer Reihenfolge aufbauen">
+Struktur ist wichtig. Befolgen Sie diesen empfohlenen Ablauf:
+
+1. Erstellen Sie Layout und Seiten.
+1. Stellen Sie eine Verbindung zu ZenOpus Cloud oder einer externen Supabase-Verbindung her.
+1. Richten Sie Authentifizierung und Benutzerrollen ein.
+1. Planen und organisieren Sie die Funktionslogik.
+1. Prompt ZenOpus zum Implementieren von Funktionen.
+</Step>
+</Steps>
+
+### Allgemeine Probleme
+
+<AccordionGroup>
+<Accordion title="Brauchen Sie schnelle Hilfe?">
+Wechseln Sie in den Nur-Chat-Modus und geben Sie Folgendes ein: „Diese spezielle Funktion funktioniert nicht. Können Sie mir erklären, was passiert und was Sie versucht haben?“
+</Accordion>
+<Accordion title="Probleme mit der Benutzeroberfläche oder dem Layout">
+- Stellen Sie der KI direkt Screenshots des UI-Problems zur Verfügung, um eine klarere Diagnose zu erhalten.
+- Verwenden Sie das Bearbeitungstool, um bestimmte UI-Funktionen auszuwählen und hervorzuheben, die Sie ändern möchten, und beschreiben Sie dann die gewünschte Anpassung.
+- Zum Beispiel: „Sehen Sie das hervorgehobene Element? Zentrieren Sie es vertikal und vergrößern Sie den Abstand.“
+</Accordion>
+<Accordion title="Wenn es völlig feststeckt">
+- Aufforderung: „Gehen Sie einen Schritt zurück. Analysieren Sie den Fehler und schlagen Sie einen anderen Ansatz vor.“
+- Teilen Sie die Aufgabe in kleinere Teile auf.
+- Verwenden Sie die Schaltfläche „Zurücksetzen“, wenn weiterhin Fehler auftreten.
+</Accordion>
+<Accordion title="Vorschau oder hochgefahrene Sandbox nicht gefunden">
+Probleme mit der nicht gefundenen Vorschau oder dem Starten der Sandbox können entweder mit der Sandbox-Umgebung oder Ihrer Verbindung zusammenhängen. Sandbox-Probleme sind oft vorübergehender Natur. Versuchen Sie es zunächst mit einer vollständigen Aktualisierung. Wenn dies weiterhin der Fall ist, deutet dies möglicherweise auf eine unterbrochene Synchronisierung mit GitHub oder ein Verbindungsproblem hin. Bei anhaltenden Problemen lesen Sie unseren [GitHub-Integrationsleitfaden](/de/integrations/github).
+</Accordion>
+</AccordionGroup>
+
+### Kernfunktionen
+
+<AccordionGroup>
+<Accordion title="Die Vorschau ist weiß">
+- Dies ist häufig auf Probleme in der Datei vite.config.ts zurückzuführen oder darauf, dass Sicherheitsheader in das Projekt eingeführt wurden.
+- Buildfehler oder Syntaxfehler im Code
+- JavaScript-Laufzeitfehler führen zu Abstürzen
+- Fehlende Abhängigkeiten oder defekte Komponenten
+- Authentifizierungs- oder Routingprobleme blockieren die Seite
+
+Zur Fehlerbehebung: Bitten Sie ZenOpus, die Datei vite.config.ts zu überprüfen oder Sicherheitsheader zu entfernen. Überprüfen Sie die Browserkonsole auf Fehler, kehren Sie zu einer früheren Version zurück oder bitten Sie ZenOpus, das Problem mit dem leeren Bildschirm zu untersuchen.
+</Accordion>
+<Accordion title="Projekte veröffentlichen oder deaktivieren">
+Sie können die Veröffentlichung Ihres Projekts in den Projekteinstellungen aufheben oder löschen.
+</Accordion>
+<Accordion title="Fehler bei Kantenfunktionen">
+Überprüfen Sie die Registerkarte „Cloud“ -> „Protokolle“ auf bestimmte Fehlermeldungen. Stellen Sie sicher, dass alle erforderlichen Geheimnisse und Umgebungsvariablen ordnungsgemäß konfiguriert sind. Versuchen Sie eine erneute Bereitstellung, indem Sie eine kleine Änderung am Edge-Funktionscode vornehmen, indem Sie ZenOpus auffordern. Stellen Sie sicher, dass Ihre Datenbankverbindung funktioniert. Bitten Sie ZenOpus, den spezifischen Fehler zu untersuchen und alle in den Protokollen gefundenen Probleme zu beheben.
+</Accordion>
+<Accordion title="Projekt nicht gefunden">
+Dies bedeutet normalerweise, dass das Projekt gelöscht wurde. Wenn Sie es nicht absichtlich gelöscht haben, wenden Sie sich bitte an Support, um Hilfe bei der Wiederherstellung Ihres Projekts zu erhalten.
+</Accordion>
+</AccordionGroup>
+
+### Benötigen Sie weitere Hilfe?
+
+Stecken Sie immer noch fest? Versuchen Sie Folgendes:
+
+1. Verwenden Sie Plan mode für eine Schritt-für-Schritt-Hilfe.
+1. Wenn es sich um ein Problem mit der Benutzeroberfläche oder einer Funktion handelt, kehren Sie zu einem stabilen Zustand zurück.
+1. Wenn Sie ein zahlender Kunde sind und ein plattformweites Problem melden möchten, wenden Sie sich an [Support](https://zenopus.dev/support).

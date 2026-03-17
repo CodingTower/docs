@@ -1,0 +1,161 @@
+---
+title: "Pruebe y verifique su aplicación"
+description: "ZenOpus proporciona pruebas de navegador, pruebas de interfaz y verificación de funciones perimetrales para ayudar a comprender el comportamiento del sistema, validar los flujos de trabajo del usuario y garantizar que la lógica de backend funcione como se espera."
+---
+ZenOpus le ofrece varias formas de comprobar que su aplicación se comporta como se espera. Estas herramientas le ayudan a reproducir problemas, confirmar correcciones y evitar regresiones en el comportamiento del frontend y del backend.
+
+<Tip>
+**Elija la prueba correcta**
+
+Si no está seguro de qué herramienta de prueba utilizar, comience con el tipo de comportamiento que desea verificar.
+
+- Si el problema es visible para los usuarios, utilice la prueba del navegador.
+- Si el comportamiento de la interfaz de usuario debe permanecer correcto con el tiempo, utilice pruebas de interfaz.
+- Si el problema está en la lógica del backend, llame a la función de borde directamente y luego agregue una prueba de borde.
+</Tip>
+
+## Qué puede observar ZenOpus durante la verificación
+
+ZenOpus recopila información cuando el agente ejecuta herramientas de verificación. Esta información se recopila automáticamente como parte de esas herramientas y se utiliza para comprender lo que sucede en su aplicación.
+
+ZenOpus puede capturar:
+
+- registros de la consola del navegador durante la prueba del navegador
+- solicitudes de red realizadas durante la prueba del navegador
+- Fallos de prueba y errores de compilación a partir de ejecuciones de prueba.
+- datos de solicitud y respuesta al llamar directamente a funciones de backend
+
+Estas señales están disponibles siempre que se utilizan las herramientas relevantes y, a menudo, son suficientes para diagnosticar problemas sin necesidad de una depuración manual adicional.
+
+ZenOpus admite varios enfoques de prueba, cada uno diseñado para un tipo diferente de verificación. La mayoría de las pruebas se clasifican en una de dos categorías:
+
+- comprobando flujos de usuarios completos
+- comprobar reglas o comportamientos específicos de forma aislada
+
+## Prueba del navegador
+
+[Prueba del navegador](/es/features/browser-testing) verifica el comportamiento real del usuario interactuando con su aplicación en un navegador. El agente puede navegar por páginas, hacer clic en botones, completar formularios y enviar solicitudes. Mientras lo hace, puede realizar capturas de pantalla, inspeccionar elementos de la interfaz de usuario y observar la actividad de la consola y la red.
+
+Utilice la prueba del navegador cuando:
+
+- alguien informa un comportamiento de interfaz de usuario roto o inesperado
+- debe verificar un flujo de varios pasos, como la incorporación o el pago
+- el problema puede depender del enrutamiento, la autenticación, el tiempo o el estado
+- desea confirmar los cambios desde el punto de vista del usuario
+
+Las pruebas del navegador son más lentas que otros métodos, pero brindan la imagen más clara de lo que realmente experimenta un usuario.
+
+El agente puede iniciar la prueba del navegador durante la investigación. También puedes solicitarlo explícitamente.
+
+**Ejemplo**
+
+```text
+Utilice pruebas del navegador para verificar el flujo de pago.
+```
+
+## Pruebas de interfaz
+
+Las pruebas de frontend verifican el comportamiento de la interfaz de usuario de forma aislada mediante afirmaciones claras. Son útiles para garantizar que la lógica de la interfaz de usuario específica siga funcionando según lo previsto a lo largo del tiempo.
+
+Las pruebas de frontend se ejecutan en un entorno de navegador simulado, se ejecutan rápidamente y brindan resultados consistentes y, por lo general, se encuentran junto a los componentes como archivos `.test.tsx`.
+
+**Pila de prueba**
+
+- vitest
+- Biblioteca de pruebas de reacción
+- jsdom
+
+Utilice pruebas de interfaz cuando:
+
+- El problema puede describirse como una regla o expectativa clara.
+- estás arreglando una regresión de la interfaz de usuario y quieres evitar que vuelva a aparecer
+- está trabajando con renderizado condicional o estado complejo como formularios, tablas y filtros
+- Quieres comentarios rápidos sin ejecutar la aplicación completa
+
+Las pruebas de frontend se ejecutan solo cuando se solicita.
+
+**Ejemplo**
+
+```text
+Escriba y ejecute pruebas de interfaz para el formulario de inicio de sesión.
+```
+
+## Verificación de backend con funciones perimetrales
+
+ZenOpus proporciona dos formas complementarias de verificar el comportamiento del backend en funciones perimetrales: llamadas directas y pruebas automatizadas. Estos enfoques suelen utilizarse juntos.
+
+### Llamadas directas a funciones de borde
+
+Las llamadas directas permiten al agente ejecutar una función perimetral con entradas específicas e inspeccionar el resultado inmediatamente. Esto evita la complejidad relacionada con la interfaz de usuario y es útil para un aislamiento rápido. Si ha iniciado sesión, las llamadas autenticadas pueden utilizar su sesión actual.
+
+Utilice llamadas directas cuando:
+
+- sospecha que hay un problema de backend y desea separarlo de la interfaz de usuario
+- necesita verificar parámetros o entradas específicas
+- desea comparar el comportamiento antes y después de un cambio
+- estás depurando el comportamiento autenticado
+
+Las llamadas a funciones de borde directo se ejecutan solo cuando se solicita.
+
+**Ejemplo**
+
+```text
+Llame a la función de borde de registro directamente con un correo electrónico no válido.
+```
+
+### Pruebas de borde
+
+Las pruebas perimetrales son pruebas automatizadas que verifican las reglas de backend a lo largo del tiempo. Ayudan a garantizar que una lógica importante no se rompa silenciosamente.
+
+**Pila de prueba**
+
+- Ejecutor de pruebas integrado Deno
+- TypeScript nativo Support
+
+Utilice pruebas de borde cuando:
+
+- cambia una función de borde y desea protección de regresión
+- estás validando reglas o permisos comerciales
+- el problema es sutil y difícil de verificar manualmente
+
+Las pruebas perimetrales se ejecutan solo cuando se solicita.
+
+**Ejemplo**
+
+```text
+Escriba pruebas de borde para la función de procesamiento de pagos.
+```
+
+### Cómo funcionan juntas las herramientas de verificación de backend
+
+Las llamadas directas y las pruebas de borde a menudo se usan juntas al depurar el comportamiento del backend.
+
+Una secuencia común se ve así:
+
+1. Llame a la función de borde directamente para reproducir el problema con una entrada específica.
+1. Aplique la solución una vez que se comprenda el comportamiento.
+1. Llame a la función nuevamente con la misma entrada para confirmar el cambio.
+1. Agregue una prueba de borde para garantizar que el comportamiento no retroceda con el tiempo.
+
+Este enfoque mantiene la iteración rápida y al mismo tiempo proporciona verificación a largo plazo.
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Necesito ejecutar todas las pruebas para cada cambio?">
+No. La mayoría de los problemas se pueden comprender y verificar con una única herramienta. Las pruebas del navegador son útiles para problemas visibles para el usuario, las pruebas de frontend ayudan a bloquear el comportamiento específico de la interfaz de usuario y la verificación de backend es mejor para la lógica empresarial. Elija la herramienta que coincida con el tipo de problema que está investigando.
+</Accordion>
+<Accordion title="¿Qué debo hacer si un problema no se resuelve después de algunos intentos?">
+Cuando un problema no se resuelve después de algunos intentos, puede pedirle a ZenOpus que utilice varias herramientas de verificación. ZenOpus ejecuta estas herramientas y utiliza su resultado para guiar el siguiente paso.
+
+- La revisión de registros o errores de pruebas de ejecuciones anteriores a menudo ayuda a reducir la causa.
+- Los problemas de backend suelen ser más fáciles de aislar llamando directamente a la función perimetral.
+- Los problemas que enfrentan los usuarios se exploran mejor mediante pruebas del navegador.
+- Una vez que se comprende el comportamiento, agregar pruebas automatizadas ayuda a mantenerlo estable en el tiempo.
+
+Si el problema aún no se resuelve, vuelva a la última versión estable.
+</Accordion>
+<Accordion title="¿ZenOpus ejecuta herramientas de verificación automáticamente?">
+La mayoría de las herramientas de verificación se ejecutan solo cuando usted las solicita. En algunos casos, el agente puede sugerir o iniciar una herramienta durante la investigación, pero la verificación no se ejecuta silenciosamente en segundo plano.
+</Accordion>
+</AccordionGroup>

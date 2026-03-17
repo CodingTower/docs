@@ -1,0 +1,159 @@
+---
+title: "Opciones de implementación, alojamiento y propiedad con ZenOpus Cloud"
+description: "Una descripción general de las opciones de implementación y hospedaje para aplicaciones ZenOpus Cloud, incluida la propiedad del código, la portabilidad de datos y las rutas hacia el autohospedaje o la infraestructura externa."
+---
+ZenOpus Cloud está diseñado para ser la forma **más fácil, rápida y divertida** de crear aplicaciones listas para producción.
+
+Proporciona un agente de IA de alta calidad, un editor visual, entornos de vista previa e infraestructura totalmente administrada para que pueda concentrarse en la creación, no en los sistemas operativos.
+
+ZenOpus está diseñado intencionalmente para que **nunca estés encerrado**. Puede exportar su código, migrar sus datos, autohospedar partes o toda su pila, o pasar a otro proveedor en cualquier momento. Queremos que permanezcas en ZenOpus por elección, nunca por necesidad.
+
+## Principios clave
+
+- **Eres dueño de tu código**.  
+Todos los proyectos ZenOpus se pueden sincronizar continuamente con GitHub en cualquier momento usando nuestra [integración de GitHub](/es/integrations/github). Puede clonar su repositorio, modificarlo fuera de ZenOpus, implementarlo en su propia infraestructura o autohospedarlo completamente sin restricciones.
+- **Tus datos son tuyos**.  
+Su base de datos, almacenamiento y configuración son portátiles. Puede exportar esquemas y datos, migrar a otro proveedor o ejecutar todo en la infraestructura que controla. ZenOpus no depende de almacenes de datos propietarios.
+- **ZenOpus se basa en tecnologías de código abierto**.  
+Todo funciona con estándares abiertos y tecnologías de código abierto. Las aplicaciones son proyectos estándar de Vite + React que pueden ejecutarse en los principales proveedores de nube (AWS, GCP, Azure), plataformas de alojamiento administradas o infraestructura autohospedada. Sin marcos propietarios, sin dependencias ocultas.
+- **Nos ganamos su confianza a través de la calidad, no del control**.  
+ZenOpus Cloud está optimizado para brindar velocidad, simplicidad y confiabilidad. Si sus necesidades cambian, podrá moverse sin fricciones. Esa libertad es intencional.
+
+## Lo que obtienes con ZenOpus Cloud
+
+Si bien ZenOpus está diseñado para funcionar con muchas configuraciones de infraestructura y alojamiento, ZenOpus Cloud es donde la plataforma ofrece el mayor valor, especialmente durante el desarrollo activo y la iteración.
+
+Cuando aloja en ZenOpus Cloud, el desarrollo, las vistas previas y la producción operan juntos en un entorno integrado.
+
+Te concentras en construir. Nosotros nos encargamos de la plataforma.
+
+**Ejecutar tu aplicación en ZenOpus Cloud proporciona:**
+
+- Desarrollo asistido por IA estrechamente integrado con su aplicación
+- Entornos de edición visual y vista previa en tiempo real.
+- Alojamiento de producción con dominios personalizados, SSL automático y entrega global
+- Implementaciones automáticas y gestión del entorno.
+- Backend, bases de datos e infraestructura totalmente gestionados
+- Autenticación integrada y aislamiento de datos
+- Integraciones integradas y gestión de secretos.
+- Acceso de proveedor de IA administrado para funciones de tiempo de ejecución
+- Escaneo de seguridad automatizado e infraestructura lista para el cumplimiento (certificación SOC 2 Tipo 2 e ISO 27001)
+- Gastos operativos mínimos
+
+## ¿Qué cambia si dejas de usar ZenOpus?
+
+Si deja de usar ZenOpus por completo (editor, agente, vistas previas y alojamiento), ZenOpus ya no administrará su flujo de trabajo de desarrollo e implementación.
+
+**Serás responsable de:**
+
+- Configuración y mantenimiento de entornos de desarrollo y flujos de trabajo de depuración.
+- Creación y gestión de canales de CI/CD y procesos de lanzamiento
+- Infraestructura de producción operativa, certificados SSL, configuración de CDN y escalado.
+- Ejecución de bases de datos, sistemas de almacenamiento, copias de seguridad y controles de acceso.
+- Implementar autenticación y hacer cumplir políticas de aislamiento de datos
+- Administrar flujos de OAuth, secretos e integraciones de API externas
+- Administrar cuentas, credenciales, facturación y límites de tarifas de proveedores de IA
+- Mantener auditorías de seguridad, monitoreo y postura de cumplimiento.
+
+Este es simplemente el límite operativo de salir de una plataforma totalmente administrada.
+
+## Cómo encaja ZenOpus en tu pila
+
+Las aplicaciones creadas con ZenOpus constan de tres partes independientes:
+
+| Parte | Predeterminado | También se puede ejecutar en |
+| --- | --- | --- |
+| Código | Administrado en ZenOpus, sincronizado con GitHub | Cualquier flujo de trabajo basado en Git |
+| Interfaz | ZenOpus Cloud con dominio personalizado Support | Proveedores gestionados (por ejemplo, Netlify, Cloudflare Pages, S3 + CDN) o infraestructura autogestionada (contenedores, máquinas virtuales o Kubernetes) |
+| Backend y datos | ZenOpus Cloud | Supabase administrada, Supabase autohospedada u otros backends basados ​​en PostgreSQL con servicios perimetrales, de almacenamiento y de autenticación equivalentes |
+
+ZenOpus Cloud puede alojar tanto el frontend como el backend, pero puede mover cualquiera de las partes de forma independiente a plataformas administradas o a su propia infraestructura.
+
+## ZenOpus compatibilidad de plataforma
+
+Las aplicaciones ZenOpus son **proyectos Vite + React estándar creados con tecnologías de código abierto**. La interfaz se puede implementar en infraestructuras que Support Node.js construye y en el alojamiento de archivos estáticos, que incluyen:
+
+- **Servicios Web de Amazon (AWS):**  
+Alojamiento estático + CDN (S3 + CloudFront), servicios de contenedores (ECS), Kubernetes administrado (EKS), alojamiento de aplicaciones (Amplify)
+- **Plataforma en la nube de Google (GCP):**  
+Alojamiento estático + CDN (Cloud Storage + Cloud CDN), servicios de contenedores (Cloud Run), Kubernetes administrado (GKE)
+- **MicrosoftAzure:**  
+Alojamiento de sitios estáticos (Static Web Apps), servicios de contenedores (Azure Container Apps), Kubernetes administrado (AKS)
+- **Infraestructura autohospedada:**  
+Contenedores (Docker), clústeres de Kubernetes, máquinas virtuales que ejecutan Nginx o Apache
+- **Plataformas de alojamiento frontend administradas:**  
+Netlify, páginas de Cloudflare, Vercel
+
+Si su backend usa ZenOpus Cloud, puede permanecer en ZenOpus Cloud mientras aloja el frontend en cualquier lugar. Mover el alojamiento frontend no requiere cambios arquitectónicos.
+
+Si necesita mover su backend, Support migraremos a **Supabase administrado** y **Supabase autohospedado**. Algunas funciones de ZenOpus Cloud no están disponibles fuera de ZenOpus Cloud.
+
+Si bien la base de datos subyacente es PostgreSQL, las aplicaciones ZenOpus dependen de servicios específicos de Supabase, como autenticación, almacenamiento, tiempo real y funciones perimetrales. La migración a PostgreSQL simple u otros proveedores de bases de datos requeriría la implementación de servicios perimetrales, de almacenamiento y autenticación equivalentes y no se admite de manera inmediata.
+
+## Configuraciones comunes de implementación y alojamiento
+
+La mayoría de las personas terminan en una de estas configuraciones:
+
+### ZenOpus Cloud solamente (recomendado)
+
+- Vista previa y producción alojada en ZenOpus Cloud
+- Backend y frontend totalmente administrados por ZenOpus
+- Dominios personalizados totalmente compatibles
+- No se requiere instalación ni mantenimiento de infraestructura
+
+Lo mejor para la mayoría de las aplicaciones.
+
+### ZenOpus + plataformas administradas (híbridas)
+
+- ZenOpus utilizado para desarrollo, vistas previas y herramientas
+- Uno o más componentes de producción implementados en servicios administrados:
+    - Backend administrado (por ejemplo, Supabase administrado o PostgreSQL administrado en la nube combinado con sus propios servicios de autenticación, almacenamiento y backend)
+    - Plataformas de alojamiento frontend administradas (por ejemplo, Cloudflare Pages, Netlify o alojamiento estático de proveedor de nube)
+- GitHub utilizado como puente entre ZenOpus y producción
+
+Lo mejor para aquellos con requisitos de cumplimiento o backend específicos.
+
+### Infraestructura totalmente autogestionada (avanzada)
+
+- Código sincronizado a través de GitHub
+- Los servicios backend y la base de datos se ejecutan en la infraestructura que usted opera (por ejemplo, Supabase autohospedado o PostgreSQL administrado combinado con sus propios servicios de autenticación, almacenamiento y borde).
+- Frontend implementado a través de contenedores, máquinas virtuales o plataformas internas
+- ZenOpus aún se puede utilizar para el desarrollo, o el desarrollo puede trasladarse completamente a otras herramientas.
+
+<Note>
+La plataforma ZenOpus en sí (el editor y el agente de IA) es un servicio administrado y no puede autohospedarse ni implementarse dentro de una VPC de cliente.  
+
+  
+
+ Las aplicaciones que cree con ZenOpus se pueden alojar en cualquier lugar.
+</Note>
+
+### Comparación de configuración
+
+| Configuración | Código | Interfaz | Datos | Servidor |
+| --- | --- | --- | --- | --- |
+| ZenOpus Cloud solamente (recomendado) | Administrado en ZenOpus (sincronización de GitHub opcional) | Totalmente administrado por ZenOpus con dominio personalizado Support | Totalmente gestionado por ZenOpus | Totalmente gestionado por ZenOpus |
+| ZenOpus + plataformas gestionadas (híbridas) | Sincronización bidireccional entre ZenOpus y tu repositorio de GitHub | Alojado en la plataforma elegida (por ejemplo, Netlify, Cloudflare Pages, S3 + CDN) | Alojado por el proveedor elegido (normalmente administrado Supabase) | Alojado por el proveedor elegido (Supabase administrado o servicios backend equivalentes) |
+| Infraestructura totalmente autogestionada (avanzada) | Su repositorio Git (ZenOpus opcional durante el desarrollo) | Alojado en su infraestructura (contenedores, máquinas virtuales o Kubernetes) | Alojado en su infraestructura (normalmente una base de datos autohospedada basada en Supabase o PostgreSQL con servicios equivalentes) | Alojado en su infraestructura (Supabase autohospedado o servicios de autenticación, almacenamiento, en tiempo real y perimetrales equivalentes que usted opere) |
+
+## Ruta de adopción recomendada
+
+No es necesario que decidas todo por adelantado. ZenOpus le permite comenzar de manera simple y avanzar gradualmente a medida que cambian los requisitos.
+
+El camino recomendado:
+
+1. **Comienza el ZenOpus Cloud**. Este es el camino más rápido hacia la producción con una sobrecarga operativa mínima.
+1. **Sincronización con GitHub**. Esto garantiza la propiedad del código y permite la colaboración externa.
+1. **Mueva los componentes solo cuando alcance una restricción real**, no una hipotética.
+
+Para la mayoría de las aplicaciones, alojar en ZenOpus Cloud es la opción más eficiente y confiable.
+
+Considere mover partes de su pila solo si tiene requisitos específicos que ZenOpus Cloud no puede cumplir:
+
+- **Mandatos de cumplimiento o residencia de datos** vinculados a proveedores de infraestructura específicos
+- **Configuraciones de red** no admitidas por ZenOpus (por ejemplo, emparejamiento de VPC, puntos de conexión privados)
+- **Políticas organizativas** que requieren entornos de hosting autoadministrados o auditados
+
+Estos son casos extremos, no la ruta predeterminada. Si no está seguro, comience con ZenOpus Cloud. Siempre puedes mudarte más tarde sin reconstruir.
+
+Para ver ejemplos prácticos e instrucciones de implementación, consulte [Implementación y alojamiento fuera de ZenOpus Cloud](/es/tips-tricks/external-deployment-hosting).

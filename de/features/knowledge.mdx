@@ -1,0 +1,225 @@
+---
+title: "Definieren Sie Workspace und Projektwissen"
+description: "Definieren Sie dauerhafte Anweisungen für ZenOpus unter Verwendung von Workspace-Wissen und Projektwissen. Legen Sie gemeinsame Codierungsstandards, Architekturregeln und Projektkontext fest, die sich ZenOpus über Gespräche und Projekte hinweg merkt."
+---
+Mit Knowledge können Sie dem ZenOpus-Agenten dauerhafte Anweisungen und Kontext bereitstellen. Anstatt in jedem Gespräch dieselben Erklärungen zu wiederholen, können Sie sie einmal definieren und ZenOpus berücksichtigt sie beim Generieren von Änderungen.
+
+Wissen wird auf zwei Ebenen definiert:
+
+- **Workspace-Wissen** definiert gemeinsame Regeln, die für alle Projekte in einem Workspace gelten, wie z. B. Codierungsstandards, bevorzugte Bibliotheken oder Namenskonventionen.
+- **Projektwissen** fügt Kontext hinzu, der für ein einzelnes Projekt spezifisch ist, z. B. den Anwendungszweck, das Datenbankschema, Architekturentscheidungen oder die Domänenterminologie.
+
+Bei beiden handelt es sich um Klartextfelder, die dem ZenOpus-Agenten dauerhafte Anweisungen bereitstellen.
+
+## Workspace Wissen
+
+Workspace-Wissen ist ein Textfeld, mit dem Sie einmal gemeinsame Regeln definieren und diese auf alle Projekte in Ihrem Workspace anwenden können. Projektwissen kann dann Kontext hinzufügen, der für ein bestimmtes Projekt spezifisch ist.
+
+Es wird am besten für **Regeln und Konventionen verwendet, die über mehrere Projekte hinweg konsistent sein sollten**. Indem Sie diese Richtlinien einmal definieren, vermeiden Sie, dass in jedem Wissensbereich eines Projekts dieselben Anweisungen wiederholt werden.
+
+Workspace-Kenntnisse sind besonders nützlich in Teamumgebungen, in denen mehrere Personen Projekte erstellen. Workspace-Administratoren können Leitplanken wie Codierungsstandards, Testanforderungen oder Architekturregeln definieren, sodass jedes Projekt automatisch denselben Konventionen folgt.
+
+Nur **Workspace-Besitzer und Administratoren** können Workspace-Wissen verwalten. Um Workspace-Wissen zu verwalten, gehen Sie entweder zu:
+
+- **Einstellungen → Wissen**
+- **Projekteinstellungen → Wissen**
+
+Workspace Wissen unterstützt bis zu **10.000 Zeichen**.
+
+### Was einzuschließen ist
+
+Workspace-Wissen ist am besten geeignet für:
+
+- Konventionen für den Codierungsstil
+- Namenskonventionen
+- Bevorzugte Bibliotheken oder Frameworks
+- Gemeinsame Architekturmuster
+- Prüfanforderungen
+- Codequalitäts- oder Linting-Regeln
+- Sprach- oder Formatierungseinstellungen
+- Markenstimme, UI-Text oder Designrichtlinien
+- Dinge, die ZenOpus vermeiden sollte
+
+### Beispiel
+
+```text
+Codierungsstandards
+- Aktivieren Sie immer den strikten TypeScript-Modus.
+- Verwenden Sie niemals `any`. Verwenden Sie `unknown` und schränken Sie den Typ ein.
+- Bevorzugen Sie benannte Exporte. Verwenden Sie keine Standardexporte.
+- Bevorzugen Sie `const` gegenüber `let`. Verwenden Sie niemals `var`.
+
+Namenskonventionen
+- Verwenden Sie camelCase für Variablen und Funktionen.
+- Verwenden Sie PascalCase für Komponenten und Typen.
+- Verwenden Sie für Dateinamen die Groß-/Kleinschreibung.
+
+Styling
+- Verwenden Sie Tailwind CSS für das Styling.
+- Verwenden Sie keine Inline-Stile.
+- Verwenden Sie keine CSS-Module.
+
+Bibliotheken
+- Verwenden Sie nach Möglichkeit shadcn/ui-Komponenten.
+- Verwenden Sie React Query für den Serverstatus.
+- Verwenden Sie „Zustand“ für den Clientstatus.
+
+Architektur
+- Leiten Sie API-Aufrufe über eine Serviceschicht weiter.
+- Rufen Sie `fetch` nicht direkt von React-Komponenten aus auf.
+
+Testen
+- Schreiben Sie Unit-Tests für neue Utility-Funktionen und Hooks.
+- Führen Sie vorhandene Tests aus, nachdem Sie Änderungen vorgenommen haben.
+- Überprüfen Sie die neue Funktionalität im Browser, bevor Sie sie als abgeschlossen markieren.
+
+Codequalität
+- Führen Sie den Linter nach wesentlichen Änderungen aus.
+- Entfernen Sie ungenutzte Importe und toten Code.
+
+Lokalisierung
+- Schreiben Sie Codekommentare und Variablennamen auf Englisch.
+- Verwenden Sie das Datumsformat TT/MM/JJJJ.
+- Verwenden Sie die europäische Zahlenformatierung (Komma als Dezimaltrennzeichen).
+
+Markenstimme
+- Verwenden Sie in allen an den Benutzer gerichteten Texten einen freundlichen, professionellen Ton.
+- Verwenden Sie für Überschriften und Schaltflächen die Groß-/Kleinschreibung (z. B. „Neues Projekt erstellen“, nicht „Neues Projekt erstellen“).
+- Verwenden Sie keinen Platzhaltertext wie „Lorem ipsum“, sondern schreiben Sie immer eine realistische Kopie.
+
+Allgemeine Regeln
+- Fügen Sie keine `console.log`-Anweisungen hinzu.
+- Verwenden Sie keine veralteten Reaktionsmuster.
+- Schreiben Sie Codekommentare auf Englisch.
+```
+
+### Wichtige Hinweise
+
+- **Änderungen gelten sofort**  
+Wenn Sie das Wissen von Workspace während eines aktiven Gesprächs aktualisieren, verwendet ZenOpus die aktualisierten Anweisungen für Folgenachrichten.
+- **Ein Workspace-Wissen pro Workspace**  
+Jeder Workspace verfügt über ein einziges Workspace-Wissen, das in allen Projekten geteilt wird. Sie können keine unterschiedlichen Anweisungen auf Workspace-Ebene für Teilmengen von Projekten innerhalb desselben Workspace definieren.
+- **Workspace Wissen in langen Gesprächen**  
+Workspace-Wissen ist immer zusammen mit Projektwissen neben Projektcode und anderen Kontextquellen enthalten. Bei sehr langen Gesprächen mit viel Kontext kann es jedoch sein, dass Anweisungen nicht immer konsequent befolgt werden.
+
+## Projektwissen
+
+Projektwissen ist ein Textfeld, das dauerhafte Anweisungen und Kontext für ein einzelnes Projekt speichert. Verwenden Sie es, um Informationen bereitzustellen, die nur für ein bestimmtes Projekt gelten, z. B. den Anwendungszweck, die Architektur oder die Domänenterminologie.
+
+Jeder mit der Berechtigung zum Bearbeiten des Projekts kann das Projektwissen aktualisieren. Um Projektwissen zu verwalten, gehen Sie zu **Projekteinstellungen → Wissen**.
+
+Projektwissen unterstützt bis zu **10.000 Zeichen**.
+
+### Was einzuschließen ist
+
+Zu guten Projektkenntnissen gehören in der Regel:
+
+- Was die Anwendung macht
+- Benutzerpersönlichkeiten oder Zielgruppen
+- Datenbankschema oder Schlüsseltabellen
+- Architekturentscheidungen
+- Domänenterminologie
+- Projektspezifische Einschränkungen
+- Designrichtlinien (Farben, Typografie oder Layout)
+- Links zu wichtigen Referenzen wie API-Dokumentation oder internen Tools
+- Sicherheits- oder Compliance-Anforderungen
+
+### Beispiel
+
+```text
+Projektübersicht
+Dies ist eine B2B-SaaS-Anwendung für Restaurantmanager, mit der sie den Lebensmittelbestand an mehreren Standorten verfolgen können.
+
+Benutzer
+Hauptnutzer sind Restaurantmanager, die einen schnellen Einblick in die Lagerbestände und die Zutatenverwendung benötigen.
+Sekundäre Benutzer sind Mitarbeiter, die für die Protokollierung von Bestandsänderungen verantwortlich sind.
+
+Wichtige Datenbanktabellen
+- inventory_items (ID, Name, Kategorie, Menge, Einheit, Standort-ID)
+- Standorte (ID, Name, workspace_id)
+- Transaktionen (ID, Artikel-ID, Mengenänderung, Typ, erstelltes_at)
+
+Designrichtlinien
+- Verwenden Sie Tailwind CSS für das Styling.
+- Befolgen Sie die vorhandene Farbpalette und Abstandsskala.
+- Verwenden Sie seitenübergreifend konsistente Abstände und Layoutmuster.
+- Bevorzugen Sie shadcn/ui-Komponenten, sofern verfügbar.
+
+Architekturregeln
+- Speichern Sie Geldwerte in Cent als ganze Zahlen.
+- Verwenden Sie optimistische Updates für alle Mutationen.
+- Platzieren Sie wiederverwendbare Komponenten in /components.
+
+Domänenterminologie
+- „Inventarartikel“ bezieht sich auf eine verfolgte Zutat oder ein verfolgtes Produkt.
+- „Transaktion“ stellt eine Änderung der Lagerbestandsmenge dar.
+
+Externe Referenzen
+- API-Dokumentation: https://docs.example.com/api
+```
+
+## Best Practices
+
+<AccordionGroup>
+<Accordion title="Definieren Sie gemeinsame Regeln auf der Workspace-Ebene">
+Nutzen Sie **Workspace-Wissen**, um Codierungsstandards, bevorzugte Bibliotheken, Architekturkonventionen und andere Regeln zu definieren, die für mehrere Projekte gelten sollten.
+
+Nutzen Sie dann **Projektwissen**, um für jedes Projekt spezifischen Kontext hinzuzufügen, z. B. den Anwendungszweck, das Datenbankschema, die Domänenterminologie oder Integrationen.
+
+Wenn ein Projekt ein anderes Verhalten als die Workspace-Standardwerte benötigt, können Sie diese Regeln in **Projektwissen** definieren. Wenn an beiden Stellen die gleiche Anweisung erscheint, priorisiert ZenOpus im Allgemeinen **Projektwissen**, da es spezifischer für das aktuelle Projekt ist.
+</Accordion>
+<Accordion title="Seien Sie konkret">
+Klare Anweisungen führen zu besseren Ergebnissen.
+
+Gutes Beispiel:
+
+```text
+Aktivieren Sie immer den strikten TypeScript-Modus. Benutzen Sie niemals welche.
+```
+
+Weniger nützliches Beispiel:
+
+```text
+Schreiben Sie sauberen Code.
+```
+</Accordion>
+<Accordion title="Schreiben Sie es wie eine Onboarding-Dokumentation">
+Stellen Sie sich vor, Sie erklären das Projekt einem neuen Entwickler, der dem Team beitritt. Beziehen Sie wichtige Architekturentscheidungen ein, damit ZenOpus nicht versucht, sie zu ändern.
+</Accordion>
+<Accordion title="Halten Sie die Anweisungen kurz">
+Kurze Anweisungen funktionieren besser als lange Absätze. Bevorzugen Sie Aufzählungslisten und direkte Regeln.
+</Accordion>
+<Accordion title="Überprüfen Sie Ihr Wissen regelmäßig">
+Wenn sich Ihr Stack oder Ihre Architektur ändert, aktualisieren Sie Ihr Wissen, damit ZenOpus nicht veralteten Mustern folgt.
+
+Sie müssen nicht alles dokumentieren. Schon ein paar klare Regeln oder eine kurze Projektbeschreibung können die Qualität von Bearbeitungen deutlich verbessern.
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Was ist die Zeichengrenze für Wissen?">
+Sowohl Projektwissen als auch Workspace Wissen Support bis zu 10.000 Zeichen.
+</Accordion>
+<Accordion title="Kann ich mehrere Sätze von Workspace-Wissensanweisungen haben?">
+Nein. Jeder Workspace verfügt über ein Workspace-Wissen, das in allen Projekten geteilt wird.
+</Accordion>
+<Accordion title="Kann ich Anleitungsdateien zum Repository des Projekts hinzufügen?">
+Ja. Anweisungsdateien wie `AGENTS.md` oder `CLAUDE.md` können dem ZenOpus-Agenten auch als Anleitung dienen.
+
+Für technische Benutzer, die Anweisungsdateien direkt in ihren Repositorys verwalten, werden `AGENTS.md`-Dateien auf Stammebene immer vom ZenOpus-Agenten gelesen, unabhängig von der Sitzungslänge.
+</Accordion>
+<Accordion title="Welche Kontextquellen liest ZenOpus?">
+Wenn Sie eine Nachricht senden, liest ZenOpus Ihre **Projektkenntnisse**, **Workspace-Kenntnisse** und **Projektcode**, um zu verstehen, wie Ihr Projekt funktioniert, bevor Änderungen vorgenommen werden.
+
+Außerdem werden alle Integrationskenntnisse aus verbundenen Diensten und Anleitungsdateien im GitHub-Repository Ihres Projekts wie `AGENTS.md` oder `CLAUDE.md` berücksichtigt.
+</Accordion>
+<Accordion title="Was passiert, wenn Projekt und Workspace-Wissen in Konflikt geraten?">
+Projektwissen und Workspace-Wissen werden zusammen einbezogen, wenn ZenOpus Antworten generiert.
+
+Bei Konflikten zwischen den Anweisungen wird ZenOpus empfohlen, die in **Projektwissen** definierten Anweisungen zu priorisieren, da diese speziell für das aktuelle Projekt gelten.
+
+Um Verwirrung zu vermeiden, bewahren Sie gemeinsame Regeln im Workspace-Wissen und projektspezifische Details im Projektwissen auf.
+</Accordion>
+</AccordionGroup>

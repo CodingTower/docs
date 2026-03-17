@@ -1,0 +1,303 @@
+---
+title: "Construye una tienda de comercio electrónico con Shopify"
+description: "Aprende cómo crear una nueva tienda Shopify o conectar una existente a ZenOpus, luego construye y lanza tu tienda."
+---
+ZenOpus se integra directamente con Shopify para que puedas **crear una nueva tienda Shopify o conectar una existente**, luego crear, personalizar y lanzar una tienda de comercio electrónico completa usando lenguaje natural. Shopify maneja los pagos, el inventario y la logística cuando estás activo.
+
+## Casos de uso
+
+Con ZenOpus + Shopify, puedes crear y lanzar tiendas online reales para:
+
+- **Productos físicos**: vende ropa, gadgets, accesorios o artículos para el hogar.
+- **Productos digitales**: ofrece libros electrónicos, cursos, música o descargas de software.
+- **Marcas de nicho**: abra rápidamente tiendas para productos de edición limitada, productos locales, dropshipping o proyectos paralelos.
+- **Pequeñas empresas**: exhiba panaderías, cafeterías o empresas de artesanía y acepte pedidos en línea
+- **Probar nuevas ideas de productos**: agregue algunos productos y evalúe el rendimiento antes de la producción a gran escala
+- **Expansión Business**: presenta nuevas colecciones, campañas de temporada o paquetes con solo un mensaje
+
+## Antes de comenzar
+
+Antes de comenzar a construir su tienda de comercio electrónico, aquí hay algunas cosas importantes que debe saber:
+
+- **Tiendas Shopify nuevas o existentes**  
+ZenOpus admite **crear nuevas tiendas Shopify** y **conectar tiendas Shopify existentes**.
+- **Tienda Sandbox: sin costo de Shopify (solo tiendas nuevas)**  
+Cuando creas una nueva tienda Shopify en ZenOpus, ZenOpus crea automáticamente una **tienda sandbox (desarrollo)** para que puedas construir y experimentar de forma segura sin costo para Shopify. Este entorno es perfecto para la configuración y las pruebas, pero **no procesará pagos reales**.
+- **Reclamando tu tienda (solo tiendas nuevas)**  
+Cuando esté listo para lanzar su tienda recién creada, deberá **reclamar su tienda**. Esto lo migra a tu cuenta de Shopify e inicia una **prueba gratuita de Shopify de 30 días**, y convierte al usuario ZenOpus reclamante en el propietario de la tienda Shopify. En Shopify, debes activar los pagos y completar la configuración de tu tienda para comenzar a aceptar pagos reales de tus clientes.
+- **Se requiere suscripción a Shopify**  
+Después del período de prueba gratuito, necesitarás un **plan pago de Shopify** para continuar vendiendo productos en línea. Esta suscripción se administra **directamente a través de Shopify** y es **independiente del precio de ZenOpus**.
+- **Cumplimiento de la política de revisión de Shopify**  
+Antes de publicar tu tienda, asegúrate de que todas las reseñas sean **auténticas, imparciales y cumplan con**[**Política de reseñas de Shopify**](https://help.shopify.com/en/partners/help-Support/faq/reviews).
+
+## Habilitar la integración de Shopify
+
+De forma predeterminada, la integración de Shopify está habilitada para tu Workspace. Puedes administrar el comportamiento de integración de Shopify y las configuraciones de Shopify relacionadas para tus proyectos en **Configuración → Conectores → Conectores compartidos → Shopify → Administrar permisos.**
+
+### Preferencias de permiso
+
+La configuración de permiso predeterminada es **Preguntar cada vez**, lo que significa que tú decides si habilitar o deshabilitar la integración de Shopify para cada proyecto. Puedes cambiar tu preferencia en cualquier momento desde **Configuración → Conectores → Conectores compartidos → Shopify → Administrar permisos.**
+
+ZenOpus te avisa cuando se necesita una integración de Shopify. Tienes tres opciones:
+
+- **Permitir**: habilita la integración para el proyecto actual.
+- **Rechazar**: rechaza la integración de esta solicitud (es posible que se te solicite nuevamente más tarde).
+- **Ajustar preferencias**: cambia el comportamiento predeterminado para proyectos futuros (no afecta el proyecto actual).
+
+## Flujo de integración de Shopify
+
+Siga los pasos a continuación para crear una tienda de comercio electrónico con Shopify.
+
+### Paso 1: iniciar un proyecto
+
+Puedes empezar por:
+
+- Creando un nuevo proyecto desde cero
+- Remezclando un proyecto existente
+
+<Tabs>
+<Tab title="Crear un nuevo proyecto">
+Dile a ZenOpus qué tipo de tienda quieres crear y especifica Shopify.
+
+Por ejemplo:
+
+```text
+Crea una tienda de comercio electrónico con Shopify para vender velas aromáticas hechas a mano.
+```
+</Tab>
+<Tab title="Remezclar un proyecto">
+Puedes remezclar:
+
+- **Proyectos de plantillas de Shopify**, consulta [ZenOpus + plantillas de Shopify](https://zenopus.dev/shopify)  
+
+ Al remezclar, prompt ZenOpus para integrar Shopify y eliminar datos simulados. Es importante utilizar un mensaje bueno y completo.
+    ```text
+    Me gustaría reemplazar los productos de esta tienda con mis propios productos y crear mi tienda Shopify. Por favor proceda a:
+        
+        1. Conéctate a Shopify.
+        2. Elimine todos los datos de productos simulados de la tienda y cree X productos nuevos con imágenes de productos.
+        3. Actualice las tarjetas de producto y la página de detalles del producto para utilizar la nueva información del producto.
+        4. Actualice la URL de la página de detalles del producto para que coincida con el nuevo producto.
+        5. Actualice el componente y la lógica para agregar a la lista de deseos para que coincidan con este cambio.
+        6. Actualizar mi carrito, comprar ahora CTA y cualquier acción de pago relacionada en cualquier página para reflejar la integración de la tienda Shopify.
+    ```
+- **Proyectos que estaban previamente conectados a una tienda Shopify**  
+
+ Para remezclar un proyecto con una tienda Shopify conectada, primero debes [desconectar la tienda Shopify](#desconectar-una-tienda-shopify). Los proyectos con una conexión Shopify activa no se pueden remezclar hasta que se desconecte la tienda.
+</Tab>
+</Tabs>
+
+### Paso 2: crea una nueva tienda Shopify o conecta una existente
+
+En ambos escenarios anteriores, el Agente te solicita **habilitar la conexión de Shopify**. Haz clic en **Permitir** y elige la configuración de Shopify.
+
+![Diálogo de configuración de la tienda Shopify que muestra opciones para crear una nueva tienda o conectar una tienda Shopify existente](/images/zenopus/integrations/shopify/shopify-choose-store-setup.png)
+
+Puedes continuar creando una nueva tienda Shopify o conectando una tienda Shopify existente que ya posees.
+
+<Tabs>
+<Tab title="Crear una nueva tienda">
+Para crear una nueva tienda, siga los pasos a continuación:
+
+<Steps>
+<Step title="Selecciona el pais">
+Seleccione el país donde estará ubicada su tienda. Esto se utilizará para configurar la moneda de tu tienda Shopify.
+</Step>
+<Step title="Crear tienda">
+Haz clic en **Crear tienda**. Su tienda sandbox ya está lista para su configuración. Puede continuar construyendo su tienda como se explica en los siguientes pasos.
+
+<Note>
+Antes de reclamar la tienda, todos los colaboradores del proyecto pueden usar la integración de Shopify con acceso completo de lectura/escritura.
+</Note>
+</Step>
+</Steps>
+</Tab>
+<Tab title="Conectar una tienda existente">
+<Note>
+Para conectar con éxito una tienda existente, el correo electrónico de su cuenta ZenOpus debe coincidir con el correo electrónico del propietario de la tienda Shopify.
+</Note>
+
+Para conectar una tienda Shopify existente, sigue los pasos a continuación:
+
+<Steps>
+<Step title="Ingresa tu enlace de administrador de Shopify">
+Inicie sesión en su [administrador de Shopify](https://admin.shopify.com/) y copie la URL de su navegador, por ejemplo `https://admin.shopify.com/store/{your store}`. Ingrese la URL en ZenOpus.
+</Step>
+<Step title="Conectar tienda">
+Haz clic en **Conectar tienda**. Esto te llevará a Shopify.
+</Step>
+<Step title="Instale la aplicación ZenOpus en Shopify">
+Haz clic en **Instalar** para instalar la aplicación ZenOpus en tu tienda Shopify.
+
+Cuando la aplicación está autorizada, tu tienda Shopify se conecta y se te redirige nuevamente a ZenOpus. Puede continuar construyendo su tienda como se explica en los siguientes pasos.
+
+- Puede crear, actualizar y eliminar productos directamente desde el chat.
+- Puede pedirle al Agente que busque y muestre productos de su tienda existente.
+
+<Note>
+- Solo el usuario que conectó una tienda existente tiene acceso de escritura (crear, actualizar, eliminar productos, variantes y códigos de descuento). Los cambios realizados por el usuario que conectó la tienda se reflejarán inmediatamente en tu tienda Shopify.
+- Los colaboradores mantienen acceso de solo lectura a los datos de Shopify (buscar y recuperar productos, variantes y códigos de descuento), pero aún pueden construir completamente el escaparate.
+</Note>
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+### Paso 3: agregue productos e imágenes de productos
+
+Comience agregando productos con **nombre, descripción y precio**. Por ejemplo:
+
+```text
+Agregue un producto llamado Lavender Breeze Candle, descripción: “Una relajante vela de soja hecha a mano con infusión de aceites esenciales de lavanda”, precio: $25.
+```
+
+Puede editar los detalles más tarde. Si su producto no aparece, solicite:
+
+```text
+Mostrar los productos en el sitio web.
+```
+
+Luego, mejore sus listados con imágenes utilizando cualquiera de las siguientes opciones. Utilice siempre imágenes representativas.
+
+**Generar imágenes AI**
+
+```text
+Agregue una imagen generada por IA al producto Vela Lavender Breeze.
+```
+
+**Sube o adjunta tu propia imagen**
+
+```text
+Añade la imagen adjunta al producto Vela Lavender Breeze.
+```
+
+**Agregar imagen desde URL**
+
+```text
+Añadir imagen desde URL al producto Vela Lavender Breeze.
+```
+
+### Paso 4: Administra tu tienda
+
+Administre sus productos y refine su tienda sin salir de ZenOpus. Por ejemplo, puede indicarle a ZenOpus que:
+
+- Actualizar nombres de productos, descripciones o precios
+- Eliminar productos
+- Mostrar todos los productos
+- Agregue funcionalidad de filtrado de productos y cree colecciones basadas en diferentes categorías
+- Agregue la funcionalidad de revisión de productos y solo permita revisiones en compras verificadas
+- Agregue códigos de descuento basados en porcentaje o monto fijo (USD) e incluya el período de validez
+- Agregue funcionalidad de lista de deseos y capacidad de compartir la lista de deseos
+
+```text
+Actualice el precio de la vela Lavender Breeze a $28.
+Cambia la descripción de Vela de vainilla para resaltar la mecha de madera. 
+Retirar el producto Vela Canela Especias.
+Mostrar todos los productos.
+Cree un sistema de revisión de productos y solo permita revisiones en compras verificadas.
+Crea un código de descuento del 15% para el producto Vela Lavender Breeze. El código debe ser LAVENDER15 y ser válido hasta finales de noviembre de 2025. 
+Permítame agregar productos a la lista de deseos y compartirla.
+```
+
+### Paso 5: Reclama tu tienda Shopify (solo tiendas nuevas)
+
+<Note>
+- Cuando se reclama la tienda, el usuario ZenOpus que la reclamó se convierte en el propietario de la tienda Shopify.
+- Sólo el usuario ZenOpus que reclamó la tienda tiene acceso de escritura a la tienda.
+- Los colaboradores mantienen acceso de solo lectura a los datos de Shopify (buscar y recuperar productos, variantes y códigos de descuento), pero aún pueden construir completamente el escaparate.
+</Note>
+
+Cuando esté listo para reclamar y lanzar su nueva tienda, prepárese para desbloquearla y configurar y activar pagos completando el proceso **KYC (Conozca a su cliente)**. Esto puede llevar algún tiempo.
+
+<Steps>
+<Step title="Reclama la tienda">
+Escriba `Claim the store`. ZenOpus te solicita que reclames la tienda. Haga clic en **Reclamar**.
+
+Esto abre Shopify en una nueva pestaña donde puedes iniciar sesión y luego completar el proceso de reclamo. También puede recibir una invitación por correo electrónico para reclamar su tienda.
+</Step>
+<Step title="Aceptar el enlace de la tienda de reclamaciones">
+Acepte el enlace **Reclamar tienda** de Shopify. Esto lo llevará de regreso a su proyecto ZenOpus.
+
+<Tip>
+En caso de que falle la verificación del reclamo de la tienda, hacer clic en **Intentar de nuevo** debería resolverlo.
+</Tip>
+</Step>
+<Step title="Completa la configuración de la tienda en Shopify Admin">
+Tu tienda Shopify está lista. Ve a [Administrador de Shopify](https://admin.shopify.com/) para completar la configuración de tu tienda y activar los pagos para que puedas comenzar a vender. Consulta [Pagos de Shopify](https://help.shopify.com/en/manual/payments/shopify-payments/onboarding) para obtener más información.
+</Step>
+</Steps>
+
+Cuando reclamas tu tienda, Shopify asigna un dominio permanente para tu tienda, que se usa solo para tu backend. Cuando publiques tu proyecto, la **URL de tu tienda real** será tu `zenopus.app` o tu [dominio personalizado](/es/features/custom-domain).
+
+<Warning>
+Reclama tu tienda solo cuando estés completamente listo para lanzarla, ya que necesitas una suscripción paga a Shopify después de la prueba gratuita de 30 días para continuar vendiendo productos en línea.
+</Warning>
+
+### Paso 6: lanza tu tienda
+
+Cuando se complete la configuración de su tienda, [publice su proyecto ZenOpus](/es/features/publish) y comparta su tienda con el mundo.
+
+En cualquier momento, directamente desde ZenOpus, podrás:
+
+- Crear, actualizar y eliminar productos
+- Gestionar precios y descripciones.
+- Lanzar nuevas colecciones, promociones o paquetes
+
+## Desconectar una tienda Shopify
+
+Puedes desconectar una tienda Shopify de un proyecto en cualquier momento. Esto es útil cuando deseas:
+
+- Remezclar el proyecto (los proyectos con una tienda Shopify conectada no se pueden remezclar)
+- Conecta una tienda Shopify diferente
+- Crea una nueva tienda Shopify sin iniciar un nuevo proyecto
+
+La desconexión elimina la conexión entre tu proyecto ZenOpus y la tienda Shopify. Tu tienda Shopify y sus datos permanecen intactos en Shopify, pero tu proyecto ZenOpus ya no está vinculado a esa tienda y puede reutilizarse libremente.
+
+Hay tres formas de desconectarse:
+
+- **Pregúntele al agente**: escriba un mensaje como `Disconnect my Shopify store`
+- **Menú de Shopify**: haz clic en el ícono de Shopify en la barra de navegación y selecciona **Desconectar tienda** en el menú de tres puntos.
+- **Configuración del proyecto**: Vaya a **Configuración del proyecto → Shopify** y haga clic en **Desconectar**
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Puedo conectar una tienda Shopify existente a ZenOpus?">
+Sí. ZenOpus admite **crear nuevas tiendas Shopify** y **conectar tiendas Shopify existentes**.
+
+Para conectar una tienda existente, el correo electrónico de tu cuenta **ZenOpus debe coincidir con el correo electrónico del propietario de la tienda Shopify**. Cuando esté conectado, puede administrar productos y crear su tienda directamente desde ZenOpus.
+</Accordion>
+<Accordion title="¿Por qué no puedo crear o actualizar productos aunque Shopify esté conectado?">
+Suele ser un problema de permisos:
+
+- **Conectó una tienda existente:** solo el usuario que conectó la tienda puede realizar cambios (crear/actualizar/eliminar productos, variantes y códigos de descuento).
+- **Creé una nueva tienda (aún no reclamada):** todos los colaboradores pueden realizar cambios.
+- **Se creó una nueva tienda (reclamada):** el usuario que reclamó la tienda se convierte en el propietario de la tienda Shopify y **solo ese usuario** puede realizar cambios.
+
+Los colaboradores aún tienen acceso de solo lectura a Shopify y pueden crear completamente el escaparate en ZenOpus.
+</Accordion>
+<Accordion title="Reclamé mi tienda, pero la verificación falló. ¿Qué tengo que hacer?">
+A veces, Shopify puede tomarse un momento para finalizar el reclamo. Si la verificación falla, haga clic en **Intentar nuevamente** en ZenOpus para volver a verificar el estado del reclamo. Por lo general, volver a intentarlo resuelve el problema.
+</Accordion>
+<Accordion title="¿Puedo remezclar proyectos de Shopify?">
+No puedes remezclar proyectos donde se ha habilitado la conexión de Shopify. Para remezclar un proyecto con una tienda Shopify conectada, primero [desconecta la tienda Shopify](#desconectar-una-tienda-shopify).
+
+También puedes remezclar un proyecto de plantilla de Shopify existente para comenzar, consulta [ZenOpus + plantillas de Shopify](https://zenopus.dev/shopify).
+</Accordion>
+<Accordion title="Agregué mis productos a un proyecto de plantilla remezclada, pero el enlace a la página del producto está roto. ¿Cómo soluciono eso?">
+Solicite al agente que haga lo siguiente:
+
+```text
+Actualice la lógica de la URL del producto para garantizar que todos los productos nuevos y futuros de la tienda muestren correctamente sus respectivas páginas de detalles del producto.
+```
+
+Esto debería garantizar que no tendrá ningún problema en el futuro. Para todos los demás problemas, haga clic en **Intentar solucionar** y el agente abordará y resolverá el problema.
+</Accordion>
+<Accordion title="Sigo viendo algunos productos simulados en mi proyecto de plantilla remezclada, ¿cómo puedo eliminarlos?">
+Solicite al Agente que actualice las páginas donde vio estos productos, por ejemplo:
+
+```text
+Borre la tienda de cualquier producto existente en todas las páginas, excepto aquellos que agregué a mi tienda Shopify.
+```
+</Accordion>
+</AccordionGroup>

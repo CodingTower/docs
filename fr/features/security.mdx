@@ -1,0 +1,219 @@
+---
+title: "Aperçu de la sécurité"
+description: "Protégez vos applications grâce à la détection des clés API, aux contrôles d'accès aux bases de données et à l'analyse de sécurité basée sur l'IA pendant le développement et avant la publication."
+---
+ZenOpus fournit des outils de sécurité intégrés pour aider à réduire les risques courants de sécurité des applications pendant le développement et avant la publication. Ces outils sont conçus pour sécuriser le développement d'applications Support, mais ils ne remplacent pas un examen de sécurité approfondi.
+
+Vous êtes responsable de vous assurer que votre application répond aux exigences de sécurité appropriées à son cas d'utilisation, en particulier si elle gère des données sensibles ou exécute des fonctions critiques.
+
+## Comment ZenOpus assure la sécurité de vos applications
+
+ZenOpus aide à sécuriser vos applications de deux manières principales : en empêchant dès le départ les erreurs de sécurité courantes et en identifiant les vulnérabilités potentielles grâce à une analyse automatisée.
+
+Pour identifier les vulnérabilités, ZenOpus utilise quatre scanners de sécurité automatisés pour vérifier différentes parties de votre application :
+
+- **Analyse RLS** : examine les politiques d'accès à la base de données et les règles de sécurité au niveau des lignes.
+- **Contrôle de sécurité de la base de données** : examine le schéma de la base de données et la configuration RLS
+- **Examen de la sécurité du code** : analyse le code de l'application pour détecter les vulnérabilités de sécurité courantes
+- **Audit de dépendance** : détecte les vulnérabilités connues dans les dépendances npm
+
+<Warning>
+Ces scanners aident à identifier les problèmes de sécurité courants, mais ils ne peuvent pas garantir une sécurité totale. Pour les applications gérant des données sensibles ou des fonctionnalités critiques, envisagez un examen de sécurité professionnel supplémentaire.
+</Warning>
+
+Les sections ci-dessous expliquent plus en détail les principaux domaines de risque et comment ZenOpus vous aide à y faire face.
+
+Pour obtenir des conseils pratiques sur la façon d'écrire du code sécurisé et d'éviter les erreurs de sécurité courantes, consultez [Meilleures pratiques de sécurité pour les applications ZenOpus](/fr/tips-tricks/security-best-practices).
+
+### Protéger les clés API
+
+ZenOpus génère du code frontal qui s'exécute dans le navigateur, ce qui signifie que les clés API et autres secrets ne peuvent pas être stockés en toute sécurité dans le code côté client. L’exposition des informations d’identification peut entraîner des fuites de données ou un accès non autorisé.
+
+Pour éviter que des informations d'identification sensibles ne soient exposées, ZenOpus détecte automatiquement les clés API collées dans le chat et vous guide pour les stocker en toute sécurité dans **Secrets** au lieu de les coder en dur dans votre code.
+
+Plutôt que de coller directement les informations d'identification, décrivez ce que vous souhaitez créer et ZenOpus vous aidera à mettre en œuvre une configuration sécurisée à l'aide de fonctions côté serveur et d'un stockage secret.
+
+**Par exemple :**
+
+```text
+Je souhaite intégrer l'API du service X pour générer des réponses textuelles
+```
+
+ZenOpus vous guidera vers :
+
+1. Stockez votre clé API en toute sécurité dans Secrets
+1. Créez une fonction Edge pour que l'API appelle côté serveur
+1. Appelez cette fonction Edge à partir de votre code frontend
+
+Cette approche garantit la sécurité des informations d'identification et suit les meilleures pratiques en matière de sécurité Web.
+
+### Protéger l'accès aux données avec la sécurité au niveau des lignes (RLS)
+
+Les politiques de sécurité au niveau des lignes (RLS) contrôlent quels utilisateurs peuvent accéder ou modifier les données de votre base de données. Des règles RLS mal configurées sont une cause fréquente de fuites de données.
+
+ZenOpus vous aide à examiner et à raisonner vos politiques RLS pour garantir que les utilisateurs voient et modifient uniquement les données auxquelles ils sont autorisés à accéder. Les résultats de l'analyse **analyse RLS** mettent en évidence des règles trop permissives ou des contrôles d'accès manquants qui pourraient exposer des données sensibles.
+
+Vous devez consulter régulièrement les politiques RLS, en particulier avant de publier ou après des modifications apportées à l'authentification ou à la structure de la base de données.
+
+### Identifier les risques de sécurité des bases de données
+
+Les schémas de base de données et les règles d'accès fonctionnent ensemble pour déterminer la manière dont les données sont exposées. Des combinaisons dangereuses de conception de schéma et de politiques d'accès peuvent introduire des risques de sécurité même lorsque les règles individuelles semblent correctes.
+
+ZenOpus examine ensemble le schéma de votre base de données et la configuration RLS à l'aide du **Contrôle de sécurité de la base de données** pour identifier les modèles susceptibles de conduire à un accès non autorisé ou à une exposition des données. Cela permet de détecter des problèmes qui peuvent ne pas être évidents lors de l'examen isolé des règles.
+
+### Identifier les vulnérabilités dans le code de l'application
+
+Le code d'application peut introduire des risques de sécurité via des modèles tels qu'une gestion incorrecte des entrées, des flux d'authentification non sécurisés ou une utilisation dangereuse de services externes.
+
+ZenOpus analyse le code de votre application à l'aide de **l'examen de la sécurité du code** pour identifier les modèles de vulnérabilité courants et fournir des recommandations pour améliorer la sécurité. Ces vérifications permettent de détecter les problèmes plus tôt, avant qu'ils ne deviennent exploitables en production.
+
+### Identifier les vulnérabilités dans les dépendances
+
+Les bibliothèques tierces constituent une source courante de risque de sécurité. Même les packages largement utilisés peuvent introduire des vulnérabilités lorsque de nouveaux problèmes sont découverts.
+
+Dans le cadre de l'analyse de sécurité automatisée, ZenOpus vérifie les dépendances de votre projet pour détecter les vulnérabilités de sécurité connues à l'aide de l'**Audit de dépendance**. Cette analyse identifie les packages vulnérables et fournit des informations pour vous aider à évaluer et à remédier au risque.
+
+Des résultats de vulnérabilité de dépendance peuvent apparaître :
+
+- Dans la [Vue Sécurité](/fr/features/security-view) au niveau du projet, où vous pouvez consulter les détails et prendre des mesures pour un seul projet.
+- Dans le [Centre de sécurité](/fr/features/security-center) de niveau Workspace, où les administrateurs et propriétaires Workspace peuvent surveiller les vulnérabilités de plusieurs projets.
+
+Les résultats incluent le nom et la version du package concerné, le type de vulnérabilité et les étapes de correction recommandées, telles que la mise à jour vers une version sécurisée.
+
+Garder les dépendances à jour est un élément important du maintien d’une application sécurisée. Lorsque des vulnérabilités critiques sont révélées, le centre de sécurité peut aider à identifier les projets concernés afin que les problèmes puissent être résolus rapidement.
+
+## Quand les analyses de sécurité sont exécutées
+
+ZenOpus exécute des analyses de sécurité à différents moments de votre flux de travail pour vous aider à détecter rapidement les problèmes. Ces actions sont **gratuites et ne consomment pas de crédits**.
+
+Chaque scanner s'exécute uniquement lorsqu'il est pertinent pour votre projet et lorsque des modifications sont survenues depuis la dernière numérisation. Par exemple, les analyseurs de bases de données ne s'exécutent que pour les projets avec une base de données connectée, et l'audit des dépendances ne s'exécute que lorsque les dépendances ont changé.
+
+<Note>
+L'**examen de sécurité du code** ne s'exécute pas automatiquement. Il ne s'exécute que lorsque vous cliquez sur **Mettre à jour** dans la **Vue Sécurité**.
+</Note>
+
+### Pendant que tu travailles
+
+ZenOpus déclenche automatiquement des scanners spécifiques lorsque les fichiers pertinents changent :
+
+- **L'analyse RLS** s'exécute lorsque la migration de la base de données ou les fichiers de configuration sont modifiés.
+- L'**Audit de dépendance** s'exécute lorsque les dépendances de votre projet changent.
+- Le **Contrôle de sécurité de la base de données** s'exécute une fois par session en guise de suivi une fois que les résultats de l'analyse RLS sont disponibles.
+
+### Avant de publier
+
+Lorsque vous ouvrez la boîte de dialogue de publication, ZenOpus exécute automatiquement les analyseurs **Analyse RLS**, **Contrôle de sécurité de la base de données** et **Audit de dépendance**. Si des problèmes critiques sont détectés, vous serez invité à les examiner avant de continuer.
+
+Résolvez tous les problèmes critiques avant de rendre votre application accessible au public. La publication avec des problèmes critiques non résolus est possible, mais fortement déconseillée, en particulier pour les applications de production ou les applications gérant des données utilisateur sensibles.
+
+### Sur demande
+
+Vous pouvez déclencher une actualisation de l'analyse à la demande à tout moment à l'aide du bouton **Mettre à jour** dans la [Vue Sécurité](/fr/features/security-view). Seuls les scanners dont les résultats sont obsolètes seront exécutés.
+
+C'est le seul moyen d'exécuter l'analyseur **Code security review**, qui ne s'exécute pas automatiquement pendant que vous travaillez ou lors des contrôles de publication.
+
+Les analyses à la demande sont utiles après des modifications importantes du code ou lorsque vous souhaitez vous assurer que tous les résultats de l'analyse reflètent l'état actuel de votre projet.
+
+## Examens de sécurité conversationnelle
+
+Outre les scanners automatisés, vous pouvez demander à ZenOpus d'effectuer un **examen de sécurité conversationnel** à tout moment en vous y invitant. Il s’agit d’un examen basé sur l’IA qui consomme des crédits, tout comme les messages de discussion classiques.
+
+Par exemple :
+
+```text
+Vérifier la sécurité de mon application
+```
+
+ZenOpus analyse votre projet et vous répond par une évaluation détaillée. L’examen couvre généralement des domaines tels que :
+
+- Vulnérabilités potentielles dans votre code d'application
+- Problèmes courants tels que les risques XSS, la gestion des entrées et les failles d'authentification
+- Schéma de base de données et politiques de sécurité au niveau des lignes (RLS)
+- Posture de sécurité globale avec recommandations spécifiques
+
+La portée et la profondeur de l’examen dépendent de votre projet. Vous pouvez également demander à ZenOpus de se concentrer sur un domaine spécifique, par exemple :
+
+```text
+Passez en revue le flux d'authentification dans mon application.
+```
+
+ou
+
+```text
+Vérifiez si mes routes API sont sécurisées.
+```
+
+Les évaluations conversationnelles sont particulièrement utiles après des changements importants ou avant des versions majeures. Même si aucun avertissement n'est actuellement affiché, demander périodiquement une révision est une bonne pratique pour les applications de production.
+
+## Où gérer la sécurité
+
+ZenOpus fournit deux surfaces de sécurité : une pour sécuriser des projets individuels et une pour surveiller la sécurité sur l'ensemble d'un Workspace.
+
+### Sécurité du projet (vue Sécurité)
+
+Utilisez la [**Vue de sécurité**](/fr/features/security-view) lorsque vous créez ou gérez un projet spécifique.
+
+La vue Sécurité vous aide à :
+
+- Examiner les résultats de sécurité pour un projet
+- Comprendre quels problèmes sont critiques et pourquoi ils sont importants
+- Appliquer des correctifs automatiques ou apporter des modifications manuelles
+- Vérifiez que votre projet peut être publié en toute sécurité
+
+Il s'agit du principal endroit pour résoudre les problèmes de sécurité pendant le développement et avant la publication.
+
+### Workspace sécurité (Centre de sécurité)
+
+Les administrateurs et propriétaires Workspace des forfaits Business et Entreprise peuvent utiliser le [**Centre de sécurité**](/fr/features/security-center) pour surveiller la sécurité de tous les projets dans un Workspace.
+
+Le centre de sécurité vous aide à :
+
+- Découvrez quels projets présentent des problèmes de sécurité critiques
+- Identifier les modèles et les risques récurrents au sein des équipes
+- Surveiller les vulnérabilités de dépendance affectant plusieurs projets
+- Suivre la posture de sécurité globale au niveau Workspace
+
+Le centre de sécurité regroupe les informations de sécurité, mais les correctifs sont toujours appliqués au niveau du projet.
+
+## Configurations de sécurité courantes
+
+En plus des examens de sécurité du projet et de Workspace, ZenOpus fournit des paramètres de sécurité au niveau du compte et liés à l'authentification. Ces configurations ne sont pas liées à un projet spécifique, mais elles jouent un rôle important dans la protection des comptes d'utilisateurs et dans la réduction du risque de compromission des informations d'identification.
+
+Vous devez vérifier ces paramètres lors de la configuration de l'authentification ou avant de lancer une application permettant aux utilisateurs de se connecter.
+
+### Protection par mot de passe divulgué
+
+Si votre application utilise l'authentification par e-mail et par mot de passe, vous pouvez empêcher les utilisateurs de choisir des mots de passe compromis connus.
+
+Cette protection vérifie les mots de passe des utilisateurs par rapport à la base de données **HIBP (Have I Been Pwned)** et rejette les mots de passe fréquemment divulgués ou faciles à deviner. L'activer permet de réduire le risque de piratage de compte causé par des informations d'identification réutilisées.
+
+- **À l'aide de ZenOpus Cloud** : activez **Vérification HIBP du mot de passe** dans **Cloud → Utilisateurs → Paramètres d'authentification → E-mail**
+- **Utilisation directe de Supabase** : consultez la documentation Supabase sur [Force du mot de passe et protection contre les fuites de mot de passe](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection) pour des instructions détaillées.
+
+## Coûts et utilisation
+
+ZenOpus comprend des outils de sécurité automatisés et conversationnels. La plupart des fonctionnalités de sécurité sont gratuites, tandis que certaines actions de sécurité consomment des crédits.
+
+Les outils de sécurité automatisés et conversationnels sont conçus pour fonctionner ensemble. Utilisez des outils de sécurité automatisés pour une surveillance continue et des correctifs ciblés pendant le développement et avant la publication. Utilisez les examens de sécurité conversationnels lorsque vous souhaitez une évaluation exploratoire plus approfondie de la situation de sécurité globale de votre application.
+
+### Actions de sécurité automatisées (gratuites)
+
+Les actions de sécurité automatisées suivantes ne consomment pas de crédits :
+
+- **Exécution d'analyses de sécurité**  
+L'actualisation des analyses de sécurité, par exemple en cliquant sur **Mettre à jour** dans la vue Sécurité, est gratuite.
+- **Correction des problèmes détectés**  
+La correction automatique des résultats, notamment en utilisant **Essayer de tout réparer** dans la vue Sécurité, est gratuite.
+- **Examen et discussion des résultats dans la vue Sécurité**  
+Poser des questions ou demander des correctifs pour un résultat de sécurité spécifique à l'aide du **chat en ligne dans la vue Sécurité** est gratuit.
+
+Ces actions utilisent les scanners de sécurité automatisés de ZenOpus ou des outils de correction spécifiques à la sécurité et ne comptent pas comme une utilisation régulière du chat.
+
+### Actions de sécurité conversationnelles (utilise des crédits)
+
+Les actions de sécurité conversationnelles suivantes consomment des crédits, tout comme les messages de discussion classiques :
+
+- **Examen de sécurité conversationnel**  
+Demander à ZenOpus de « vérifier la sécurité de mon application » dans le chat exécute un examen conversationnel piloté par l'IA et consomme des crédits comme un message de chat normal.
+- **Questions de sécurité générales dans le chat**  
+Poser des questions liées à la sécurité directement dans le chat principal, en dehors des outils de sécurité automatisés, est traité comme une utilisation standard du chat et consomme des crédits.

@@ -1,0 +1,277 @@
+---
+title: "Systèmes de conception"
+description: "Créez des systèmes de conception réutilisables dans ZenOpus pour standardiser les bibliothèques de composants React, les directives de style et la configuration dans les projets d'entreprise."
+---
+<Info>
+Les systèmes de conception ZenOpus sont disponibles sur les **plans Entreprise** et fonctionnent de manière native avec les systèmes de conception implémentés en tant que composants React.
+</Info>
+
+Les **Systèmes de conception** vous permettent de définir une seule fois votre bibliothèque de composants, vos directives de style et vos instructions d'installation, et de les réutiliser dans chaque projet de votre Workspace. Contrairement aux modèles qui copient les fichiers au démarrage du projet, les systèmes de conception fournissent des instructions continues que ZenOpus lit et applique à chaque génération de projet.
+
+Dans ZenOpus, un système de conception est créé en tant que **projet dédié**. Ce projet sert de source de vérité pour votre système de conception et peut être connecté à d'autres projets de votre Workspace.
+
+### Ce que vous obtenez
+
+- Source de vérité centralisée pour les composants et les styles de l'interface utilisateur
+- Propagation automatique des mises à jour sur tous les projets connectés
+- Des directives de conception et de code claires et applicables lors de la génération
+
+## Comment fonctionnent les systèmes de conception
+
+Un système de conception dans ZenOpus définit la manière dont les composants, les styles et les instructions de configuration sont appliqués aux projets. Les systèmes de conception sont des projets ZenOpus classiques et peuvent être ouverts et modifiés comme n'importe quel autre projet.
+
+### En quoi consiste un système de conception
+
+Un système de conception dans ZenOpus combine trois parties principales :
+
+1. **Composants** : votre bibliothèque de composants React (packages npm publics ou privés)
+1. **Directives** : règles de style, modèles d'utilisation et spécifications des composants
+1. **Installation** : instructions d'installation et configuration requise
+
+Si vous les disposez déjà, vous pouvez créer un **projet de système de conception** dans ZenOpus et référencer vos matériaux existants. Si votre documentation est dispersée ou incomplète, vous pouvez créer et améliorer le système de conception directement dans ZenOpus.
+
+### Le projet Design System et le dossier .zenopus
+
+Le projet de système de conception possède un dossier spécial `.zenopus`. Ce dossier contient les instructions utilisées par ZenOpus lors de la génération de code dans les projets connectés, notamment :
+
+- `system.md` : instructions d'installation de base et directives de haut niveau toujours chargées pour les projets connectés
+- `rules/` : fichiers Markdown individuels avec des spécifications de composants, des directives et des modèles que ZenOpus peut référencer lors de la génération du projet.
+
+### Comment les systèmes de conception sont appliqués aux projets
+
+Lorsqu'un projet est connecté à un système de conception, ZenOpus lit le contenu du dossier `.zenopus` du système de conception et applique ces règles lors de la génération du projet.
+
+Les mises à jour apportées au projet du système de conception sont récupérées par tous les projets connectés la prochaine fois que ZenOpus génère du code.
+
+### Notes clés et limites
+
+- Le dossier `.zenopus` appartient au projet du système de conception et ne peut pas être modifié à partir des projets connectés.
+- Les mises à jour d'un système de conception s'appliquent automatiquement à tous les projets qui y sont connectés sur la génération suivante.
+- Les systèmes de conception ne sont pas encore versionnés. Contactez votre équipe de compte si cela est requis pour votre flux de travail.
+- Si les serveurs ou packages MCP contiennent tout ce dont vous avez besoin, vous pouvez créer un système de conception uniquement pour l'installation.
+- Les systèmes de conception fonctionnent de manière native avec les bibliothèques de composants React.
+- N'importe quel projet peut être transformé en système de conception à partir des paramètres du projet. Lorsqu'un projet est marqué comme système de conception, il devient disponible pour que d'autres projets du Workspace puissent s'y connecter.
+- Si votre système de conception ou la documentation associée est hébergée dans votre VPC, contactez l'équipe de votre compte pour obtenir des conseils.
+
+## Créer un système de conception
+
+<Steps>
+<Step title="Préparer l'accès (forfaits privés uniquement)">
+Si votre bibliothèque de composants ou vos packages sont privés, accédez à **Workspace settings → Build secrets** et ajoutez les secrets de build requis (par exemple, les jetons npm).
+</Step>
+<Step title="Créer un projet de système de conception">
+Dans la liste déroulante `+` de la boîte d'invite [zenopus.dev](https://zenopus.dev), accédez à **Systèmes de conception** et sélectionnez **Créer un système de conception**.
+
+![Ds Créer un système de conception](/images/zenopus/features/design-systems/ds-create-design-system.png)
+
+Cela crée un nouveau projet de système de conception. ZenOpus attribue un nom à votre projet, que vous pouvez modifier à partir des paramètres du projet.
+
+Donnez à votre système de conception un nom significatif. Ce nom est utilisé lors de la connexion ultérieure du système de conception aux projets.
+</Step>
+<Step title="Configurez le système de conception en discutant avec ZenOpus">
+Vous pouvez configurer votre système de conception de deux manières principales.
+
+**Option A : Récupérer automatiquement une bibliothèque React existante**
+
+Si votre système de conception est implémenté en tant que composants React, partagez l'URL du référentiel ou de la documentation dans le chat.
+
+- S'il est public, ZenOpus le récupère automatiquement
+- S'il est privé, ZenOpus le récupère en utilisant les secrets que vous avez configurés
+
+En plus d'importer les composants, vous devez indiquer à ZenOpus **comment utiliser ces composants** correctement. Ces orientations peuvent provenir :
+
+- Sites ou référentiels de documentation existants
+- PDF importés, fichiers Markdown ou captures d'écran
+- Serveurs MCP qui exposent la documentation du système de conception
+- Instructions directes fournies dans le chat
+
+<Info>
+Lors de la récupération d'une bibliothèque existante, ignorez les questions guidées et saisissez l'URL.
+</Info>
+
+**Option B : Créez votre système de conception avec des instructions structurées**
+
+Si votre documentation est dispersée ou incomplète, guidez explicitement ZenOpus pour créer votre système de conception. Cette approche vous permet :
+
+- Importez des PDF, des fichiers Markdown, des captures d'écran et d'autres ressources
+- Définir les composants, les modèles, les jetons et les directives de style
+- Rédiger les instructions d'installation et de configuration
+- Mettez tout à jour de manière dynamique sur les projets connectés
+
+**Structure d'invite suggérée**
+
+```text
+[Objectif de haut niveau]
+
+[Instructions d'installation]
+
+[Autre contexte de mise en place du système, par exemple pile technologique et contraintes]
+
+[Demande de bibliothèque de composants]
+
+[Liens vers la documentation, les sites, les PDF, les MCP pour plus de contexte. ZenOpus peut explorer des sites Web, alors n'hésitez pas à inclure un contexte large ici.]
+```
+
+Après la première exécution, ZenOpus générera un projet de système de conception fonctionnel, par exemple : [https://design-system-demo.zenopus.app/](https://design-system-demo.zenopus.app/)
+</Step>
+</Steps>
+
+## Connecter un système de conception à des projets
+
+Dans les paramètres de chaque projet, vous pouvez voir quels systèmes de conception sont connectés ou disponibles pour se connecter.
+
+Vous pouvez connecter plusieurs systèmes de conception à un projet. L'ordre des systèmes de conception connectés détermine la manière dont l'agent les priorise lors de la génération du projet. Vous pouvez réorganiser les systèmes de conception connectés dans les paramètres du projet.
+
+Vous pouvez supprimer un système de conception connecté à tout moment depuis les paramètres du projet. Les systèmes de conception supprimés ne s’appliquent plus aux générations futures de ce projet.
+
+### Connectez un système de conception à de nouveaux projets
+
+Dans la liste déroulante `+` de la boîte d'invite [zenopus.dev](https://zenopus.dev), accédez à **Systèmes de conception** et sélectionnez un système de conception dans la liste des systèmes disponibles, puis entrez votre invite. ZenOpus génère votre nouveau projet en utilisant le système de conception sélectionné.
+
+![Système de conception Ds Select](/images/zenopus/features/design-systems/ds-select-design-system.png)
+
+### Connectez un système de conception à des projets existants
+
+Pour connecter un système de conception à un projet existant, suivez les étapes ci-dessous :
+
+1. Accédez à **Paramètres du projet → Systèmes de conception.**
+1. Sous **Disponible**, sélectionnez un système de conception et cliquez sur **Ajouter**.
+1. Cliquez sur **Enregistrer.**
+
+## Affinez votre système de conception
+
+Les systèmes de conception sont censés évoluer. Après la configuration initiale, parcourez le contenu du dossier `.zenopus`.
+
+1. **Vérifiez la structure**  
+Ouvrez le dossier `.zenopus` pour voir comment ZenOpus a interprété votre système de conception. Ces fichiers sont appliqués à tous les projets connectés.
+1. **Corriger les incohérences**  
+Si les composants ne s'affichent pas correctement, demandez à ZenOpus de les corriger et mettez à jour le dossier `.zenopus` en même temps.
+1. **Ajouter des détails**  
+Demandez de la documentation supplémentaire sur les composants, des définitions de jetons ou des modèles d'utilisation si nécessaire.
+
+## Structure de dossiers .adorable
+
+ZenOpus le génère généralement automatiquement, mais comprendre la structure facilite le débogage. Si vous remarquez un comportement inattendu, vérifiez que cette structure est généralement respectée.
+
+```text
+.adorable/
+├── system.md (max ~500 lignes)
+│ ├── Instructions d'installation (10 lignes)
+│ │ - Configuration du package privé
+│ │ - Variables d'environnement
+│ │ - Exemple .npmrc
+│ ├── Liens d'actifs (polices, icônes et similaires)
+│ ├── Guide d'annuaire (20 lignes)
+│ │ - Quels fichiers existent
+│ │ - Quand les référencer
+│ └── Directives générales (lignes restantes)
+│ - Modèles de code
+│ - Principes de conception
+│ - Arbres de décision
+└── règles/
+    ├── composants/
+    │ ├── bouton.md
+    │ ├── entrée.md
+    │ └── modal.md
+    ├── modèles/
+    │ ├── formulaires.md
+    │ └── navigation.md
+    └── style/
+        ├── couleurs.md
+        └── typographie.md
+```
+
+## Récupérer la documentation du système de conception externe avec les serveurs MCP
+
+Les serveurs MCP peuvent être utilisés pour récupérer la documentation du système de conception stockée séparément de vos packages npm. Voir [Intégrer à vos outils à l'aide de connecteurs personnels (serveurs MCP)](/fr/integrations/mcp-servers) pour plus d'informations.
+
+## Choisissez entre des modèles et des systèmes de conception
+
+Les [Modèles](/fr/features/business/design-templates) sont des copies complètes du projet utilisées comme points de départ.
+
+Utilisez des **modèles** lorsque :
+
+- Une configuration complexe est requise (plusieurs packages, configurations personnalisées)
+- Vous avez besoin de variantes de framework (React, Vue, Vite)
+- Il y a un passe-partout lourd qui ne devrait pas se régénérer
+
+Utilisez des **systèmes de conception** lorsque :
+
+- Vous souhaitez des conseils et une cohérence continus
+- Les modèles et les composants évoluent avec le temps
+- Les mises à jour devraient se propager automatiquement
+
+**Approche recommandée** :
+
+- Utilisez un **modèle** pour l'échafaudage initial du projet
+- Utiliser un **système de conception** pour les règles d'interface utilisateur et de conception continues
+
+## Dépannage
+
+<AccordionGroup>
+<Accordion title="Incompatibilité de version de réaction">
+Si votre système de conception utilise React 19 mais que le projet est par défaut React 18, ou vice versa, informez-en explicitement l'agent. Par exemple :
+
+```text
+Mon système de conception nécessite React 19. Veuillez mettre à jour les dépendances du projet en conséquence.
+```
+</Accordion>
+<Accordion title="Dépendances conflictuelles">
+Si votre système de conception n'utilise pas `shadcn/ui` ou Tailwind CSS, demandez à l'agent de les supprimer pour éviter les conflits. Par exemple :
+
+```text
+Veuillez désinstaller shadcn/ui et Tailwind CSS de ce projet. Mon système de conception utilise [votre solution de style] à la place.
+```
+</Accordion>
+<Accordion title="Composant introuvable">
+Assurez-vous que votre projet de système de conception exporte et documente correctement les composants dans le dossier `.zenopus/rules/`. L'agent s'appuie sur ces fichiers de règles pour comprendre comment utiliser vos composants.
+</Accordion>
+<Accordion title="Les styles ne s'appliquent pas">
+Vérifiez que les CSS ou les jetons de thème de votre système de conception sont importés dans le fichier d'entrée principal du projet, tel que `index.css` ou `App.tsx`.
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Un système de conception est-il simplement un projet ZenOpus ?">
+Oui, un système de conception est un projet ZenOpus standard marqué comme système de conception. Il peut être ouvert et modifié comme n'importe quel autre projet, et d'autres projets peuvent s'y connecter pour utiliser ses règles lors de la génération.
+</Accordion>
+<Accordion title="Puis-je connecter plusieurs systèmes de conception à un projet ?">
+Oui, un projet peut avoir plusieurs systèmes de conception connectés. L'ordre des systèmes de conception connectés détermine la manière dont l'agent les priorise lors de la génération du projet.
+</Accordion>
+<Accordion title="N'importe quel projet peut-il être transformé en un système de conception ?">
+Oui, n'importe quel projet peut être marqué comme système de conception à partir des paramètres du projet. Une fois marqué, il devient disponible pour que d'autres projets du Workspace puissent s'y connecter.
+</Accordion>
+<Accordion title="Comment puis-je voir quels systèmes de conception sont connectés à mon projet ?">
+Pour afficher les systèmes de conception connectés, accédez à **Paramètres du projet → Systèmes de conception**.
+
+Cet onglet affiche tous les systèmes de conception actuellement liés à votre projet. À partir de là, vous pouvez :
+
+- Connectez des systèmes de conception supplémentaires à partir de votre Workspace
+- Réorganiser leur priorité
+- Sélectionnez si le projet actuel doit être utilisé comme système de conception pour d'autres projets dans votre Workspace
+</Accordion>
+<Accordion title="Que se passe-t-il si deux systèmes de conception définissent des règles qui se chevauchent ?">
+Lorsque plusieurs systèmes de conception sont connectés, ZenOpus les applique dans l'ordre. Les systèmes de conception situés plus haut dans la liste ont la priorité sur ceux plus loin dans la liste.
+
+Vous pouvez réorganiser les systèmes de conception connectés dans les paramètres du projet pour modifier leur priorité lors de la génération.
+</Accordion>
+<Accordion title="Puis-je supprimer un système de conception d'un projet ?">
+Oui, un système de conception connecté peut être supprimé à tout moment des paramètres du projet. Une fois supprimé, il ne s'applique plus aux générations futures de ce projet.
+</Accordion>
+<Accordion title="Puis-je modifier le système de conception à partir d'un projet connecté ?">
+Non, le dossier `.zenopus` appartient au projet du système de conception et ne peut pas être modifié à partir des projets connectés. Pour modifier le système de conception, ouvrez et modifiez le projet du système de conception lui-même.
+</Accordion>
+<Accordion title="Les systèmes de conception sont-ils versionnés ?">
+Pas encore. Les systèmes de conception n'intègrent actuellement pas la gestion des versions Support. Contactez votre équipe de compte si la gestion des versions est importante pour votre flux de travail.
+</Accordion>
+<Accordion title="Quelles technologies les systèmes de conception Support ?">
+Systèmes de conception ZenOpus Support **Bibliothèques de composants basées sur React** prêtes à l'emploi.
+
+Si votre système de conception est construit avec d'autres frameworks tels que Vue, Angular ou Svelte, contactez votre CSM ou FDE pour discuter des options de compatibilité.
+</Accordion>
+<Accordion title="Les systèmes de conception remplacent-ils les modèles ?">
+Non, les systèmes de conception ne remplacent pas les modèles. Les modèles et les systèmes de conception répondent à des objectifs différents et sont souvent utilisés ensemble. Les modèles conviennent mieux à l'échafaudage initial d'un projet, tandis que les systèmes de conception fournissent des conseils continus en matière d'interface utilisateur et de conception pour l'ensemble des projets.
+</Accordion>
+</AccordionGroup>

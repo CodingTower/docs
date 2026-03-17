@@ -1,0 +1,64 @@
+---
+title: "Utilizzando video"
+description: "Incorpora video di YouTube o carica file video nel tuo repository GitHub e fai riferimento ad essi nei tuoi progetti ZenOpus."
+---
+ZenOpus offre due metodi per incorporare video nei tuoi progetti. Di seguito, tratteremo entrambe le opzioni passo dopo passo:
+
+<AccordionGroup>
+<Accordion title="Collegamento a un video esterno">
+<Tip>
+Il modo più semplice e consigliato per incorporare un video è collegarsi a uno ospitato esternamente, come su YouTube.
+</Tip>
+
+<CodeGroup>
+```text title="Richiesta di esempio"
+Incorpora questo video
+https://www.youtube.com/watch?v=dQw4w9WgXcQ 
+nella sezione dei contenuti dell'eroe.
+```
+</CodeGroup>
+</Accordion>
+<Accordion title="Utilizzando un video dalla cartella pubblica GitHub">
+<Warning>
+Il caricamento di video di grandi dimensioni sul repository GitHub può farne aumentare le dimensioni, il che può influire sulle prestazioni di ZenOpus (tempi di clonazione del repository più lunghi, avvio più lento delle anteprime/sandbox).
+
+Un'opzione migliore è utilizzare servizi ospitati (come YouTube) o opzioni di archiviazione di file come S3, fornendoti essenzialmente un URL a cui puoi fare riferimento, come descritto nei passaggi precedenti.
+</Warning>
+
+Puoi caricare video nel repository GitHub del tuo progetto e farvi riferimento direttamente. Ecco come:
+
+<Steps>
+<Step title="Collega il tuo repository GitHub">
+Innanzitutto, assicurati che il tuo progetto sia collegato a un repository GitHub. [Ecco come impostare il tuo repository](/it/integrations/git-integration).
+</Step>
+<Step title="Accedi alla cartella pubblica">
+All'interno del repository connesso, vai alla directory `public`. Questa cartella viene utilizzata specificamente per ospitare risorse di progetto come immagini, video e altri media.
+</Step>
+<Step title="Carica un video">
+Ora puoi aggiungere il tuo video alla cartella pubblica trascinandolo e rilasciandolo o facendo clic su **"scegli i tuoi file"** per sfogliare e caricare il file dal tuo computer locale.
+</Step>
+<Step title="Salva il file">
+Dopo aver selezionato il file video, inserisci un breve messaggio di conferma (ad esempio, "Aggiunge un video di Mars da utilizzare nell'app") e fai clic su **"Conferma modifiche"**. ![Invio file video in corso](/images/zenopus/tips-tricks/using-videos/using-videos-github-commiting.png)
+</Step>
+<Step title="Ottieni il percorso del video">
+Una volta completato il caricamento, fai clic sul file video e utilizza l'icona di copia :octicons-copy-16: per copiarne il percorso. Avrai bisogno di questo percorso nel passaggio successivo. ![Copia percorso file video](/images/zenopus/tips-tricks/using-videos/using-videos-github-selecting.png)
+</Step>
+<Step title="Fai riferimento al video in ZenOpus">
+Ora puoi incorporare il video specificando il percorso del file nel tuo prompt. Ad esempio, puoi utilizzare un prompt come questo:
+
+<CodeGroup>
+```bash title="Richiesta di esempio"
+Insert an additional video into the introduction section using this file: 
+public/mars-video-nasa.mp4
+```
+</CodeGroup>
+
+Assicurati di utilizzare il percorso esatto del file che hai copiato in precedenza.
+</Step>
+</Steps>
+
+Per vedere questi metodi in azione, esplora uno dei progetti di esempio: [ZenOpus progetto di esempio utilizzando i video](https://zenopus.dev/projects/380835ab-c8d7-4f45-9b0d-51ec04294457). Troverai istruzioni reali che dimostrano come i video vengono integrati utilizzando entrambi i metodi.
+
+Inoltre, per uno sguardo più tecnico al processo di aggiunta dei video, consulta questo repository pubblico: [GitHub: esempio di caricamento video](https://github.com/viborc/adding-videos-example). Include il caricamento del video e i dettagli di implementazione utilizzati nel progetto.
+</Accordion>
+</AccordionGroup>

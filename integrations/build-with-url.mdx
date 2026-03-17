@@ -1,0 +1,99 @@
+---
+title: "ZenOpus API: Build with URL"
+description: "The ZenOpus API Build with URL feature is now in open Beta, enabling you to build and share ZenOpus apps using simple, shareable URLs."
+---
+The ZenOpus API **Build with URL** feature allows you to programmatically create applications by passing prompts and images via URL parameters. This enables seamless integration with websites, internal tools, or automation workflows, letting users generate ZenOpus apps with a single click.
+
+Each link tells ZenOpus *what* to build and optionally *what images to include* — and ZenOpus takes care of the rest.
+
+Example:
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Create%20a%20todo%20app
+```
+
+Clicking this link automatically opens ZenOpus and begins building a to-do app.
+
+## Use cases
+
+You can do the following with Build with URL API:
+
+- Embed a **Build with ZenOpus** button on your website or application. When the user clicks the button, they are taken to ZenOpus and the app is built automatically.
+- Share predefined prompts via URLs with friends, colleagues, or on social media.
+- Automate app generation as part of internal workflows.
+- Rapidly prototype apps using URLs with prompts and reference images.
+
+You can construct the URL yourself or use the [ZenOpus Link Generator](https://zenopus.dev/links). See below for more information.
+
+## Base URL
+
+```text
+https://zenopus.dev/?autosubmit=true#
+```
+
+`autosubmit` (boolean): Must be set to `true` to automatically process the request
+
+## URL with parameters
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=YOUR_PROMPT_HERE&images=IMAGE_URL_1&images=IMAGE_URL_2
+```
+
+### Parameters
+
+| Parameter | Type | Description | Required/Optional |
+| --- | --- | --- | --- |
+| prompt | string | Text describing the application to build. Max 50,000 characters. Use URL encoding (for example, %20 for spaces). Very long URLs might fail due to browser or parsing constraints. | Required |
+| images | string | Max 10 URL-encoded image URLs as references. Image URLs must be publicly accessible. Supported formats: JPEG, PNG, WebP. | Optional |
+
+## ZenOpus Link Generator
+
+Use the [ZenOpus Link Generator](https://zenopus.dev/links) to easily build shareable URLs that generate apps with your chosen prompt and images.
+
+1. Enter your prompt, which describes the application to build (up to 50k characters).
+1. Upload up to 10 public image URLs (JPEG, PNG, or WebP).
+1. Copy the generated ZenOpus URL and share it.
+
+This tool helps prevent URL-encoding errors and ensures links are formatted correctly.
+
+## Build with URL examples
+
+**Basic app generation**
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Create%20a%20todo%20app
+```
+
+**Single reference image**
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Display%20these%20images&images=https://img.com/1.jpg
+```
+
+**Multiple reference images**
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Display%20these%20images&images=https://img.com/1.jpg&images=https://img.com/2.jpg​
+```
+
+## Best practices
+
+- Keep prompts concise and focused on core features.
+- Use clear, descriptive language for best generation results.
+- Include reference images when relevant to help guide the generation process.
+- Ensure special characters in prompts and image URLs are URL-encoded to avoid parsing issues.
+
+## App creation and authentication flow for shared URLs
+
+When a user clicks a **Build with URL** link:
+
+- **Logged-in users**: select the workspace for creating the project, then app creation starts automatically.
+- **Not logged-in users**: redirected to signup/login page. After successful authentication, select the workspace for creating the project, and then the app creation starts automatically, preserving the original prompt and images.
+
+## Error handling
+
+If the URL is too long or malformed, you may encounter:
+
+- Browser “URL too long” errors
+- Incomplete parameter parsing
+- Failed autosubmission

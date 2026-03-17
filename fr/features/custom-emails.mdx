@@ -1,0 +1,646 @@
+---
+title: "Envoyez des e-mails d'authentification depuis votre propre domaine"
+description: "Envoyez des e-mails d'authentification à partir de votre propre domaine de messagerie avec une configuration automatique DNS, SPF, DKIM et DMARC pour améliorer la délivrabilité, protéger la réputation de votre domaine et renforcer la confiance dans la marque."
+---
+## Que sont les e-mails
+
+Les e-mails permettent à votre application ZenOpus Cloud d'envoyer des e-mails d'authentification (confirmations d'inscription, réinitialisations de mot de passe, liens magiques, invitations, etc.) à partir de votre propre domaine de messagerie au lieu de l'expéditeur d'authentification ZenOpus Cloud par défaut.
+
+Par exemple : `noreply@notify.yourdomain.com` ou `noreply@yourdomain.com`
+
+L’utilisation d’un sous-domaine d’envoi dédié permet de protéger la réputation de votre domaine racine tout en préservant la cohérence de votre image de marque.
+
+Vous pouvez personnaliser :
+
+- Quel domaine de messagerie votre projet utilise
+- La configuration du sous-domaine de l'expéditeur
+- Image de marque et style visuel des e-mails
+- Modèles d'e-mails d'authentification et lignes d'objet
+
+ZenOpus gère la vérification du domaine, la configuration DNS, l'authentification des e-mails (`SPF`, `DKIM` et `DMARC`) et l'infrastructure de livraison. Aucun compte de fournisseur de messagerie externe ni clé API n'est requis.
+
+## Types d'e-mails pris en charge
+
+Pour le moment, les e-mails Support **e-mails d'authentification uniquement**.
+
+Les e-mails d'authentification sont un type d'e-mail transactionnel lié à l'accès au compte et à la vérification de l'identité. Ils sont automatiquement déclenchés par Cloud Auth lorsque les utilisateurs effectuent des actions spécifiques liées à la sécurité.
+
+Ces e-mails d'authentification incluent :
+
+- **Confirmer l'inscription**  
+Envoyé lorsqu'un utilisateur crée un compte et que la confirmation par e-mail est activée. Vérifie que l'utilisateur possède l'adresse e-mail avant d'activer le compte.
+- **Réinitialisation du mot de passe**  
+Envoyé lorsqu'un utilisateur demande la réinitialisation de son mot de passe. Permet la récupération sécurisée du mot de passe.
+- **Lien magique**  
+Envoyé lorsque la connexion sans mot de passe est activée et qu'un utilisateur demande un lien de connexion. Authentifie l'utilisateur sans exiger de mot de passe. Vous pouvez demander à ZenOpus d'activer l'authentification par lien magique si elle n'est pas déjà configurée.
+- **Inviter**  
+Envoyé lorsque vous invitez un utilisateur à rejoindre votre projet (depuis Cloud → Utilisateurs). Accorde l’accès au compte via un lien d’invitation sécurisé.
+- **Changement d'e-mail**  
+Envoyé lorsqu'un utilisateur met à jour son adresse e-mail. Confirme la propriété de la nouvelle adresse avant d'appliquer la modification.
+- **Réauthentification**  
+Envoyé lorsqu'un utilisateur doit vérifier son identité avant d'effectuer une action sensible, telle que modifier un mot de passe. Inclut généralement un code de vérification de courte durée. Vous pouvez demander à ZenOpus d'activer la réauthentification si elle n'est pas déjà configurée.
+
+<Note>
+Les e-mails marketing, newsletters, confirmations de commande, notifications d'expédition et autres e-mails transactionnels ou de notification ne sont pas pris en charge pour le moment.
+</Note>
+
+## Disponibilité et utilisation
+
+Les e-mails sont disponibles sur les **forfaits payants**. Chaque Workspace payant comprend **50 000 e-mails d'authentification par mois** sans frais supplémentaires. L'utilisation est calculée sur l'ensemble du Workspace.
+
+Les e-mails d'authentification supplémentaires sont facturés 1 $ pour 1 000 e-mails.
+
+## Pourquoi utiliser les e-mails
+
+- **Meilleure délivrabilité :** Les e-mails envoyés depuis votre propre domaine sont plus susceptibles d'atteindre la boîte de réception plutôt que le spam.
+- **Plus de confiance :** Les utilisateurs voient votre domaine dans l'adresse De, renforçant ainsi la crédibilité.
+- **Marque cohérente :** Les e-mails d'authentification correspondent à l'identité de votre produit.
+- **Configuration gérée :** ZenOpus vérifie votre domaine et configure les enregistrements DNS requis.
+- **Envoi authentifié :** ZenOpus configure automatiquement [SPF, DKIM et DMARC](#what-are-spf-dkim-and-dmarc-and-do-i-need-to-configure-them) pour authentifier vos e-mails et améliorer le placement dans la boîte de réception.
+- **Surveillance continue :** ZenOpus vous alerte si des modifications DNS pourraient avoir un impact sur la livraison des e-mails.
+
+## Conditions préalables
+
+Pour utiliser les e-mails :
+
+- [ZenOpus Cloud](/fr/integrations/cloud) doit être activé pour votre projet.
+- Votre Workspace doit être sur un forfait payant.
+- Vous devez posséder un domaine et avoir accès à la gestion de ses paramètres DNS.
+- Vous devez être un administrateur ou un propriétaire Workspace pour ajouter, supprimer ou vérifier des domaines.
+
+## Comment fonctionnent les e-mails
+
+Lorsque vous configurez un domaine de messagerie, ZenOpus :
+
+- Crée un sous-domaine d'expéditeur transactionnel sous votre domaine racine, tel que `notify.yourdomain.com`
+- Vous guide dans la configuration DNS à l'aide d'un flux de configuration automatisé
+- Vérifie votre domaine en vérifiant les enregistrements DNS requis
+- Génère automatiquement des modèles d'e-mails d'authentification de marque
+- Déploie un hook de messagerie d'authentification qui achemine les e-mails d'authentification via votre domaine de messagerie
+- Active la livraison des e-mails une fois la vérification DNS terminée
+
+Après vérification, les e-mails d'authentification sont envoyés depuis votre domaine au lieu de l'expéditeur d'authentification ZenOpus Cloud par défaut.
+
+### Portée et utilisation du domaine de messagerie
+
+Les domaines de messagerie sont provisionnés au niveau Workspace.
+
+- Un Workspace peut avoir plusieurs domaines de messagerie
+- Un domaine vérifié peut être utilisé sur plusieurs projets
+- Chaque projet sélectionne le domaine vérifié qu'il utilise
+- Un seul domaine de messagerie peut être actif par projet à la fois
+- Seuls les domaines avec le statut **Vérifié** peuvent envoyer des e-mails
+- Les e-mails peuvent être activés ou désactivés par projet
+
+Si les e-mails sont désactivés pour un projet, les e-mails d'authentification reviennent à l'expéditeur d'authentification ZenOpus Cloud par défaut.
+
+## Ajouter un domaine de messagerie
+
+Sélectionnez le domaine que vous souhaitez utiliser pour envoyer des e-mails. Ce sera le domaine que vos utilisateurs verront dans leur boîte de réception.
+
+Il y a deux façons de commencer :
+
+- **Depuis le chat** : demandez à ZenOpus de configurer les e-mails et il présentera un bouton de configuration. Par exemple :
+    ```text
+    Je souhaite envoyer des e-mails de réinitialisation de mot de passe depuis mon domaine.
+    ```
+- **À partir des paramètres Cloud**  : accédez à **Cloud → E-mail** et cliquez sur **Commencer**.  Cela vous amène au flux de configuration de la messagerie.
+
+<Steps>
+<Step title="Définir un domaine de messagerie">
+- Choisissez un domaine Workspace existant dans la liste déroulante ou sélectionnez **Ajouter un nouveau domaine de messagerie**, puis saisissez votre domaine ou sous-domaine racine, par exemple `yourdomain.com`.
+    <Note>
+    Les domaines peuvent avoir jusqu'à 5 niveaux, par exemple `a.b.c.example.com`.
+    </Note>
+- Cliquez sur **Continuer**.
+</Step>
+<Step title="Configurer le sous-domaine de l'expéditeur">
+Configurez le préfixe de sous-domaine qui sera utilisé pour l'envoi des e-mails d'authentification. L'aperçu de droite montre une boîte de réception simulée avec des exemples d'e-mails de votre domaine configuré.
+
+- Par défaut, ZenOpus crée un sous-domaine  `notify` pour la livraison, par exemple `noreply@notify.yourdomain.com`, mais vous pouvez modifier le sous-domaine.
+- Vous pouvez éventuellement activer **Afficher comme envoyé depuis @votredomaine.com** afin que les destinataires voient les e-mails de `@yourdomain.com` dans leur boîte de réception, tandis que votre sous-domaine transactionnel gère la livraison en coulisses.
+- Cliquez sur **Configurer le domaine**.
+</Step>
+<Step title="Configuration DNS complète">
+Après avoir cliqué sur **Configurer le domaine**, ZenOpus lance un **flux de configuration DNS automatisé** (optimisé par Entri) qui vous guide dans la configuration de la délégation de zone `NS` requise pour votre domaine.
+
+Si votre fournisseur DNS n'est pas répertorié ou si vous préférez un contrôle manuel, vous pouvez configurer vous-même les enregistrements DNS. Faites défiler vers le bas de la fenêtre modale **Sélectionnez votre fournisseur de domaine** Entri et choisissez **Accédez à notre configuration manuelle**.
+
+La méthode automatisée et manuelle nécessitent toutes deux de vérifier la propriété de votre domaine. ZenOpus provisionnera votre domaine et générera les enregistrements DNS requis.
+
+<Tabs>
+<Tab title="Configuration automatique">
+Suivez les invites à l'écran pour vous connecter à votre fournisseur DNS et autoriser Entri à mettre à jour vos enregistrements DNS.
+</Tab>
+<Tab title="Configuration manuelle">
+1. Copiez les enregistrements DNS affichés.
+    - Enregistrement `TXT` pour la vérification du domaine
+    - Enregistrements `NS` pointant vers les serveurs de noms de ZenOpus
+1. Suivez vos progrès avec le compteur **J'ai copié les enregistrements X/Y**.
+1. Saisissez les enregistrements DNS copiés directement dans votre registraire de domaine ou votre fournisseur DNS.
+
+Vous pouvez également transmettre ces instructions à un collègue si quelqu'un d'autre gère votre DNS.
+</Tab>
+</Tabs>
+</Step>
+<Step title="Attendre la vérification">
+Une fois le DNS configuré, vous êtes redirigé vers la page **E-mails** de votre projet.
+
+Une bannière d'état affiche l'état actuel de votre domaine.
+
+<Note>
+Les modifications DNS se propagent généralement en quelques heures, mais peuvent prendre jusqu'à 48 heures.
+</Note>
+
+Pendant que la vérification DNS est en cours, ZenOpus génère et déploie immédiatement vos modèles d'e-mails d'authentification.
+
+Une invite automatisée apparaît dans le chat et est exécutée en arrière-plan :
+
+```text
+Configurez des modèles d'e-mails d'authentification ZenOpus pour notify.yourdomain.com. La vérification DNS est en cours. Faites correspondre les modèles d'e-mails au style de mon application : utilisez les couleurs de ma marque, ajoutez mon logo si j'en ai un et rédigez la copie dans le même ton et la même langue que mon application.
+```
+
+ZenOpus génère et déploie automatiquement six modèles d'e-mails d'authentification de marque :
+
+- Applique les couleurs de la marque de votre application
+- Ajoute votre logo s'il en existe un dans le projet
+- Correspond au ton et à la langue utilisés dans votre application
+
+Vous pouvez consulter et [personnaliser les modèles d'e-mail](#customizing-email-templates) avant même la fin de la vérification DNS.
+</Step>
+</Steps>
+
+ZenOpus détecte automatiquement la fin de la vérification DNS et active votre domaine.
+
+Une fois que le statut du domaine passe à **Vérifié**, les e-mails d'authentification commencent à être envoyés à partir de votre domaine au lieu de l'expéditeur d'authentification ZenOpus Cloud par défaut.
+
+Jusqu'à ce que la vérification soit terminée, les e-mails d'authentification continuent d'être envoyés en utilisant l'expéditeur par défaut.
+
+<Note>
+Les domaines nouvellement provisionnés commencent avec une réputation neutre. La délivrabilité initiale peut fluctuer à mesure que votre domaine renforce la confiance avec les fournisseurs de boîte de réception grâce à un envoi cohérent et légitime. Consultez les [Bonnes pratiques en matière de délivrabilité des e-mails](#bonnes-pratiques-en-matière-de-délivrabilité-des-e-mails) pour plus d'informations.
+</Note>
+
+## Statuts des domaines de messagerie
+
+Les domaines de messagerie peuvent passer par les statuts suivants :
+
+| Statut | Signification |
+| --- | --- |
+| En attente | L'installation a démarré et la configuration DNS est en cours |
+| Vérification | Des enregistrements DNS ont été détectés et la vérification est en cours |
+| Mise en place | Provisionnement de domaine en cours |
+| Vérifié (Actif) | Le domaine est prêt et peut être utilisé pour envoyer des e-mails |
+| Hors ligne | Les enregistrements DNS requis ont été modifiés ou supprimés après vérification |
+| Échec | Échec de la vérification ou du provisionnement |
+
+<Warning>
+Les domaines sont surveillés en permanence. Si les enregistrements DNS requis dérivent, sont supprimés ou expirent, le domaine peut passer à un état inactif jusqu'à ce qu'il soit revérifié.
+</Warning>
+
+## Gestion des domaines de messagerie
+
+Dans **Cloud → E-mails**, utilisez la liste déroulante du domaine pour accéder :
+
+- **Analyses et journaux** : affichez les mesures de livraison pour le domaine de messagerie et l'activité de messagerie pour le projet en cours utilisant ce domaine.
+- **Gérer les domaines** : affichez tous les domaines de messagerie Workspace et leurs badges d'état, inspectez et copiez les enregistrements DNS, changez le domaine utilisé par le projet en cours, vérifiez manuellement un domaine, ajoutez un domaine ou supprimez un domaine.
+    <Warning>
+    La suppression d'un domaine est une action à l'échelle de **Workspace**. Cela cessera d'envoyer des e-mails à partir de ce domaine. Tout projet utilisant ce domaine reviendra automatiquement aux e-mails d'authentification par défaut.
+    </Warning>
+- **Ajouter un nouveau domaine :** Ajoutez un nouveau domaine de messagerie Workspace.
+- **Désactiver les e-mails** : activez ou désactivez les e-mails pour le projet en cours. Lorsqu'ils sont désactivés, les e-mails d'authentification sont envoyés à l'aide de l'expéditeur Cloud Auth par défaut au lieu de vos modèles personnalisés.
+
+### Analyses et journaux
+
+La vue analytique comprend :
+
+- **Cartes de métriques** : nombre d'envois, de livraisons et de rebonds pour le domaine de messagerie
+- **Tableau de livraison** : e-mails livrés ou ayant échoué pour le domaine de messagerie sur 7, 30 ou 90 jours
+- **Journal d'activité des e-mails** : une liste extensible d'e-mails individuels envoyés pour le projet en cours, indiquant le destinataire, le statut (terminé, échoué, en attente), le type (e-mail d'authentification ou e-mail de test), les horodatages et les traces d'exécution détaillées avec des messages d'erreur en cas d'échec.
+
+## Personnaliser les modèles d'e-mails d'authentification
+
+Lorsque les e-mails sont activés, ZenOpus génère automatiquement des modèles d'e-mails d'authentification de marque pour votre projet.
+
+La page **E-mails** comprend un onglet pour chaque modèle. Chaque onglet affiche :
+
+- Adresse **De**
+- Ligne **Objet**
+- **Aperçu en direct** du modèle d'e-mail rendu dans une iframe
+- Options **Envoyer un test**, notamment l'envoi d'un e-mail de test à votre compte ou à une adresse personnalisée.
+    <Note>
+    Les e-mails envoyés à partir de domaines nouvellement configurés peuvent initialement atterrir dans le spam pendant que la réputation se construit.
+    </Note>
+
+### Marquage automatique
+
+ZenOpus applique automatiquement la marque de votre application en :
+
+- Extraction des variables CSS de `src/index.css` (couleurs primaires, polices, rayon de bordure)
+- Détection des fichiers de logo dans `public/` et `src/assets/`
+- Téléchargement d'un logo détecté dans un compartiment de stockage dédié aux ressources de messagerie
+- Adaptation de la copie des e-mails pour qu'elle corresponde au ton et à la langue de votre application
+
+L’arrière-plan externe du corps de l’e-mail est toujours `#ffffff` pour garantir un rendu cohérent sur tous les clients de messagerie. Les composants intérieurs peuvent utiliser les couleurs de votre marque.
+
+### Ce que vous pouvez personnaliser
+
+Vous pouvez demander à ZenOpus de mettre à jour :
+
+- Copie et ton
+- Couleurs de la marque
+- Disposition et structure
+- Placement des images et du logo
+- Lignes d'objet
+
+<Warning>
+L'arrière-plan externe du corps de l'e-mail doit rester blanc (`#ffffff`) pour garantir un rendu cohérent sur tous les clients de messagerie. Les composants intérieurs peuvent utiliser les couleurs de votre marque.
+</Warning>
+
+Par exemple :
+
+```text
+Faites correspondre les e-mails à ma marque en utilisant #2563eb pour les boutons et les titres, ajoutez mon logo en haut, supprimez les emojis, donnez un ton professionnel mais convivial, déplacez le bouton plus haut dans la mise en page, ajoutez un pied de page avec Support@myapp.com et mettez à jour les lignes d'objet pour commencer par le nom de mon application.
+```
+
+ZenOpus met à jour les modèles tout en préservant les variables d'authentification requises et les liens de rappel sécurisés.
+
+### Modifier les modèles manuellement
+
+Si vous préférez modifier le code directement :
+
+- Les modèles d'authentification se trouvent à `supabase/functions/_shared/email-templates/`
+- La logique d'envoi est située à `supabase/functions/auth-email-hook/`
+
+Les modèles utilisent des composants React Email avec des styles en ligne (les clients de messagerie n'utilisent pas de CSS externe Support).
+
+Les variables d'authentification requises et les liens de rappel doivent rester intacts, sinon les flux d'authentification seront interrompus.
+
+Après avoir modifié les fichiers de modèle ou les lignes d'objet, vous devez demander à ZenOpus de redéployer la fonction `auth-email-hook` pour que les modifications prennent effet. Le redéploiement met à jour la fonction backend qui restitue et envoie vos e-mails d'authentification.
+
+Par exemple :
+
+```text
+Redéployer mes modèles d'e-mails
+```
+
+## Bonnes pratiques en matière de délivrabilité des e-mails
+
+Lors de l'envoi d'e-mails d'authentification à partir d'un nouveau domaine, le placement dans la boîte de réception peut prendre du temps à se stabiliser. Les fournisseurs de boîtes de réception évaluent la réputation de l'expéditeur au fil du temps en fonction des modèles d'engagement, d'authentification et d'envoi.
+
+Suivez ces pratiques pour améliorer la délivrabilité et bâtir une solide réputation d’expéditeur.
+
+<AccordionGroup>
+<Accordion title="Réchauffez progressivement les nouveaux domaines">
+Les nouveaux domaines de messagerie n'ont pas d'historique d'envoi. Les fournisseurs de boîtes de réception les traitent avec prudence car les spammeurs utilisent souvent de nouveaux domaines et les abandonnent rapidement.
+
+La délivrabilité initiale peut fluctuer au cours des premiers jours ou semaines. C'est normal.
+
+La réputation de votre domaine se construit progressivement à mesure que les vrais utilisateurs interagissent avec les e-mails d'authentification tels que les inscriptions et les réinitialisations de mots de passe.
+
+L'utilisation d'un sous-domaine transactionnel dédié permet d'isoler le trafic d'authentification et de protéger la réputation de votre domaine principal.
+
+**Chronologie typique**
+
+- Premiers jours : les e-mails de test peuvent atterrir dans le spam
+- Premières semaines : la délivrabilité s'améliore à mesure que le trafic légitime renforce la réputation
+- Premiers mois : la réputation se stabilise grâce à un envoi cohérent et engagé
+
+**Ce qui aide :**
+
+- Commencez à envoyer avec le trafic d'authentification normal (inscriptions d'utilisateurs, réinitialisations de mot de passe)
+- Laissez le volume croître naturellement à mesure que votre base d'utilisateurs s'élargit
+- Maintenir des modèles d'envoi cohérents au fil des semaines et des mois
+- Assurez-vous que les e-mails d'authentification sont attendus et déclenchés par des actions réelles de l'utilisateur.
+- Marquez les e-mails légitimes comme « Pas de spam » dans votre boîte de réception
+
+**Ce qui fait mal :**
+
+- Augmentations soudaines et importantes du volume d’e-mails provenant d’un tout nouveau domaine
+- Envoi d'e-mails de test groupés immédiatement après la configuration
+- Envoi incohérent (longs intervalles suivis de rafales soudaines)
+- Modifications provoquées par la panique des domaines ou de l'identité de l'expéditeur
+
+La réputation se construit automatiquement avec un comportement d'envoi cohérent et légitime au fil du temps.
+</Accordion>
+<Accordion title="Assurez-vous que l'authentification du domaine est valide">
+L'authentification doit être réussie pour que les e-mails parviennent à la boîte de réception. ZenOpus configure automatiquement `SPF`, `DKIM` et `DMARC` lorsque vous configurez votre domaine de messagerie.
+
+Si les enregistrements DNS sont modifiés ou mal configurés, l'authentification peut échouer et les e-mails peuvent atterrir dans le spam.
+
+Vérifiez toujours que le statut du domaine est **Vérifié** dans **Cloud → Email**.
+</Accordion>
+<Accordion title="Envoyez uniquement des e-mails légitimes déclenchés par l'utilisateur">
+Les e-mails d'authentification ne doivent être déclenchés que par des actions réelles de l'utilisateur, telles que l'inscription ou la réinitialisation d'un mot de passe.
+
+Évitez de générer du trafic artificiel à des fins de tests ou d’automatisation. Des modèles de trafic non naturels peuvent nuire à la réputation du domaine.
+</Accordion>
+<Accordion title="Gardez les e-mails d’authentification strictement transactionnels">
+Les e-mails d’authentification doivent clairement correspondre à l’action récente de l’utilisateur et expliquer pourquoi l’e-mail a été envoyé.
+
+**Bonnes pratiques** :
+
+- Utilisez des lignes d'objet simples (« Réinitialisez votre mot de passe », « Vérifiez votre e-mail »)
+- Expliquez clairement ce que l'utilisateur doit faire
+- Faites correspondre l'e-mail à l'action effectuée par l'utilisateur
+
+**Éviter** :
+
+- Ajout de contenu marketing ou de ventes incitatives aux e-mails d'authentification
+- Lignes d'objet trompeuses ou pièges à clics
+- Langage promotionnel dans les e-mails d'authentification
+</Accordion>
+<Accordion title="Maintenir une identité d’expéditeur cohérente">
+Utilisez un cohérent :
+
+- De l'adresse
+- Nom de l'expéditeur
+- Domaine
+
+Les changements fréquents d’identité de l’expéditeur réduisent les signaux de confiance auprès des fournisseurs de boîte de réception.
+</Accordion>
+<Accordion title="Évitez le formatage déclencheur de spam">
+Lors de la personnalisation des modèles d'e-mail :
+
+**Faire** :
+
+- Utilisez des lignes d'objet claires et descriptives
+- Gardez le formatage simple et propre
+- Utilisez un rapport texte/image équilibré
+- Incluez le nom de votre marque et une adresse d'expéditeur reconnaissable
+- Assurez-vous que les liens dans l'e-mail correspondent à votre domaine d'envoi autant que possible
+
+**À ne pas faire** :
+
+- Utilisez TOUTES LES MAJUSCULES dans les lignes d'objet
+- Ajouter une ponctuation excessive (!!!)
+- Créer des lignes d'objet trompeuses
+- Utiliser des mises en page riches en images
+- Lien vers des domaines non liés ou ne correspondant pas
+
+Les fournisseurs de boîte de réception recherchent la cohérence entre le domaine de l'expéditeur et les domaines utilisés dans les liens. Si votre e-mail est envoyé depuis `yourdomain.com`, les liens contenus dans l'e-mail doivent idéalement pointer vers `yourdomain.com` ou ses sous-domaines. Les domaines incompatibles sont couramment utilisés dans les attaques de phishing et peuvent déclencher un filtrage anti-spam.
+
+Un formatage clair et prévisible et un alignement de domaine améliorent la confiance et l’engagement.
+</Accordion>
+<Accordion title="Surveiller les taux de rebond et les plaintes">
+Des taux de rebond élevés nuisent à la réputation de l’expéditeur.
+
+Utilisez **Analytics et journaux** pour surveiller :
+
+- Envoyé
+- Livré
+- Rebondi
+
+Les rebonds durs causés par des adresses invalides ou mal saisies sont particulièrement nuisibles. L'envoi répété à des adresses non valides peut réduire le placement dans la boîte de réception.
+
+Si les taux de rebond augmentent :
+
+- Vérifiez comment les adresses e-mail sont collectées
+- Valider les entrées lors de l'inscription
+- Évitez de réessayer plusieurs fois les livraisons ayant échoué
+
+Les plaintes pour spam affectent également négativement la réputation. Les e-mails d’authentification doivent toujours être attendus et clairement expliqués.
+</Accordion>
+<Accordion title="Limiter les tests internes">
+L'option **Envoyer le test** dans **Cloud → E-mail** est utile pour la validation, mais limitez vos tests.
+
+**Pourquoi c'est important** :
+
+- Les fournisseurs de boîte de réception évaluent les signaux d'engagement de tous les e-mails que vous envoyez
+- Des e-mails de test répétés envoyés à la même adresse créent des modèles de trafic artificiels
+- Faire rebondir des e-mails de test vers de fausses adresses nuit à votre réputation
+
+**Meilleure approche** :
+
+- Envoyez quelques e-mails de test à vous-même ou à votre équipe
+- Utilisez de vraies adresses e-mail que vous contrôlez
+- Évitez d'envoyer de gros lots d'e-mails de test
+</Accordion>
+<Accordion title="Si les e-mails atterrissent dans le spam">
+Si les e-mails d'authentification sont marqués comme spam :
+
+1. Confirmez que le statut du domaine est **Vérifié**
+1. Assurez-vous que les enregistrements DNS sont correctement configurés
+1. Vérifier les lignes d'objet et le contenu
+1. Vérifiez les taux de rebond dans **Analytics et journaux**
+1. Réduisez les pics soudains de volume d’envoi
+1. Soyez patient. Les nouveaux domaines ont besoin de temps pour établir la confiance avec les fournisseurs de boîte de réception
+
+La délivrabilité s'améliore grâce à un comportement d'envoi cohérent et légitime au fil du temps.
+</Accordion>
+<Accordion title="Encouragez les signaux d’engagement positifs">
+Les fournisseurs de boîtes de réception prennent en compte l'engagement lors de l'évaluation de la réputation de l'expéditeur.
+
+Les e-mails d'authentification génèrent naturellement des signaux positifs lorsque les utilisateurs :
+
+- Ouvrez l'e-mail
+- Cliquez sur le lien de vérification ou de réinitialisation
+- Terminez l’action prévue
+
+Des messages clairs et les flux attendus augmentent l'engagement et améliorent le placement à long terme dans la boîte de réception.
+</Accordion>
+<Accordion title="Comprendre les algorithmes du fournisseur de boîte de réception">
+Les fournisseurs de boîtes de réception ne partagent pas publiquement leurs critères de filtrage du spam (pour empêcher les spammeurs de jouer avec le système). Cependant, ils évaluent généralement :
+
+- **Authentification de l'expéditeur** : `SPF`, `DKIM` et `DMARC` sont-ils correctement configurés ? (ZenOpus gère cela automatiquement)
+- **Réputation de l'expéditeur** : quel est votre historique de rebonds, de plaintes et d'engagement ?
+- **Qualité du contenu** : les lignes d'objet sont-elles claires ? Le formatage est-il propre ? Les liens correspondent-ils à votre domaine ?
+- **Signaux d'engagement** : les utilisateurs ouvrent-ils les e-mails ? Cliquez sur des liens ? Répondre? Ou marquez-les comme spam
+- **Modèles d'envoi** : Envoyez-vous régulièrement ? Ou par rafales soudaines ?
+
+Pensez : « Que ferait un phisher ? » Alors faites le contraire. Les fournisseurs de boîtes de réception souhaitent protéger leurs utilisateurs, alors démontrez à chaque étape que vous êtes un expéditeur légitime et sans intention malveillante.
+</Accordion>
+</AccordionGroup>
+
+## Dépannage
+
+<AccordionGroup>
+<Accordion title="Le domaine de messagerie est bloqué dans « Vérification »">
+Causes possibles :
+
+- Les enregistrements DNS ne sont pas entièrement propagés
+- Délégation `NS` incorrecte
+- Enregistrement de vérification `TXT` manquant
+- DNS configuré au mauvais niveau de domaine
+
+**Que faire :**
+
+- Revérifiez les enregistrements DNS exacts affichés dans **Cloud → Email**
+- Confirmer que les enregistrements ont été ajoutés au domaine racine correct
+- Attendez jusqu'à 48 heures pour la propagation
+- Réessayez la vérification
+</Accordion>
+<Accordion title="L'état du domaine indique Hors ligne">
+Cela signifie que les enregistrements DNS requis ont été modifiés, supprimés ou ont expiré après vérification.
+
+**Que faire :**
+
+- Examiner les enregistrements DNS dans **Cloud → E-mail**
+- Restaurer les enregistrements `NS` ou `TXT` manquants
+- Revérifier le domaine
+</Accordion>
+<Accordion title="Les emails ne sont pas envoyés">
+Vérifiez :
+
+- Le domaine de messagerie est lié à votre projet
+- Le statut du domaine est **Vérifié**
+- Les e-mails sont activés pour le projet
+- L'authentification cloud est activée
+- Vous déclenchez un type d'e-mail d'authentification pris en charge
+
+Utilisez **Envoyer le test** dans un onglet de modèle et vérifiez **Analyses et journaux** pour détecter les échecs ou les rebonds de livraison.
+</Accordion>
+<Accordion title="Taux de rebond élevés dans l'analyse">
+Causes courantes :
+
+- Adresses e-mail invalides
+- Fautes de frappe lors de l'inscription
+- Tentatives répétées vers des adresses invalides
+
+Validez la saisie de l'e-mail lors de l'inscription et évitez de réessayer des rebonds durs.
+</Accordion>
+<Accordion title="Les e-mails de test atterrissent dans le spam">
+Ceci est courant pour les domaines nouvellement provisionnés.
+
+Évitez d'envoyer de gros volumes d'e-mails de test internes. Permettez aux e-mails organiques déclenchés par les utilisateurs de bâtir une réputation au fil du temps.
+</Accordion>
+<Accordion title="Les modifications de mon modèle d'e-mail ne s'affichent pas">
+Si vous avez modifié des fichiers de modèle mais que les utilisateurs reçoivent toujours d'anciennes versions :
+
+- Assurez-vous que la fonction `auth-email-hook` a été redéployée
+- Demandez à ZenOpus de redéployer vos modèles d'e-mails
+
+Les modifications du modèle ne prennent effet qu’après le redéploiement.
+</Accordion>
+<Accordion title="Utiliser des outils externes pour enquêter sur les problèmes de délivrabilité">
+Si les e-mails atterrissent systématiquement dans le spam ou sont rejetés, vous pouvez utiliser les outils suivants pour un diagnostic plus approfondi.
+
+Ces outils sont facultatifs et particulièrement utiles pour les expéditeurs de gros volumes.
+
+- [Outils Google Postmaster](https://postmaster.google.com/)  
+Affichez la réputation de l'expéditeur, les taux de spam et l'alignement de l'authentification des destinataires Gmail.
+- [Yahoo Sender Hub](https://senders.yahooinc.com/)  
+Surveillez les taux de plaintes et la réputation des expéditeurs pour les boîtes de réception Yahoo.
+- [Recherche de liste de blocage Spamhaus](https://check.spamhaus.org/)  
+Vérifiez si votre domaine, votre adresse IP ou vos URL de messagerie apparaissent sur les principales listes de blocage.
+- [Navigation sécurisée Google](https://transparencyreport.google.com/safe-browsing/search)  
+Testez les liens utilisés dans vos e-mails pour vous assurer qu’ils ne sont pas signalés comme dangereux.
+
+Ces outils aident à diagnostiquer les problèmes de réputation ou de liste de blocage pouvant avoir un impact sur le placement dans la boîte de réception.
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Que sont les e-mails d'authentification dans ZenOpus ?">
+Les e-mails d'authentification permettent à votre application ZenOpus Cloud d'envoyer des e-mails liés au compte, tels que des confirmations d'inscription, des réinitialisations de mot de passe, des liens magiques, des invitations, des confirmations de modification d'e-mail et des codes de réauthentification à partir de votre propre domaine au lieu de l'expéditeur d'authentification ZenOpus Cloud par défaut.
+
+Ces e-mails sont déclenchés automatiquement par Cloud Auth lorsque les utilisateurs effectuent des actions liées à la sécurité.
+</Accordion>
+<Accordion title="Les e-mails d’authentification sont-ils identiques aux e-mails transactionnels ?">
+Les e-mails d'authentification sont un sous-ensemble des e-mails transactionnels. Tous les e-mails d'authentification sont transactionnels, mais tous les e-mails transactionnels ne sont pas des e-mails d'authentification.
+
+E-mails Support **e-mails d'authentification uniquement**.
+</Accordion>
+<Accordion title="Puis-je envoyer des e-mails marketing ?">
+Non. Seuls les e-mails d'authentification sont pris en charge (confirmations d'inscription, réinitialisations de mot de passe, liens magiques, invitations, modification d'e-mail et réauthentification).
+
+Les e-mails marketing, newsletters, confirmations de commande et autres e-mails transactionnels sans authentification ne sont pas pris en charge pour le moment.
+</Accordion>
+<Accordion title="Les e-mails nécessitent-ils ZenOpus Cloud ?">
+Oui. Les e-mails nécessitent ZenOpus Cloud et s'intègrent à Cloud Auth pour envoyer des e-mails d'authentification.
+</Accordion>
+<Accordion title="Ai-je besoin d'un domaine Web personnalisé pour utiliser un domaine de messagerie ?">
+Non. Votre domaine Web personnalisé contrôle l’endroit où votre application est hébergée. Un domaine de messagerie personnalisé contrôle le domaine à partir duquel vos e-mails sont envoyés.
+
+Il s'agit de configurations distinctes car l'hébergement Web et la livraison d'e-mails utilisent des enregistrements DNS et une infrastructure différents.
+
+Vous pouvez utiliser un domaine racine complètement différent pour l'envoi d'e-mails à condition de contrôler son DNS. Cependant, l'utilisation d'un domaine qui correspond à la marque de votre produit est recommandée pour la confiance des utilisateurs et la délivrabilité.
+
+L'hébergement de votre application sur un domaine personnalisé ne configure pas automatiquement l'envoi d'e-mails.
+</Accordion>
+<Accordion title="Puis-je utiliser un sous-domaine pour l'envoi d'e-mails ?">
+Oui. ZenOpus crée automatiquement un sous-domaine transactionnel tel que `notify.yourdomain.com` pour la livraison.
+
+Vous pouvez éventuellement afficher les e-mails comme provenant de votre domaine racine pendant que la livraison s'effectue via le sous-domaine en arrière-plan.
+
+L’utilisation d’un sous-domaine de messagerie dédié est recommandée car elle contribue à protéger la réputation de votre domaine racine.
+</Accordion>
+<Accordion title="Ai-je besoin d'un fournisseur de messagerie externe comme SendGrid ou Resend ?">
+Non. ZenOpus gère la vérification du domaine, la configuration DNS, les enregistrements d'authentification tels que `SPF`, `DKIM` et `DMARC`, ainsi que l'infrastructure de livraison. Vous n'avez pas besoin de gérer les clés API ou les comptes de fournisseurs de messagerie tiers.
+</Accordion>
+<Accordion title="Que sont SPF, DKIM et DMARC, et dois-je les configurer ?">
+`SPF`, `DKIM` et `DMARC` sont des normes d'authentification de courrier électronique qui aident les fournisseurs de boîtes de réception à vérifier que vos courriers électroniques sont légitimes et non usurpés.
+
+Lorsque vous envoyez un e-mail, les fournisseurs tels que Gmail ou Outlook vérifient que :
+
+- L'e-mail est autorisé à être envoyé depuis votre domaine
+- Le message n'a pas été modifié pendant le transport
+- Le propriétaire du domaine a défini une politique de traitement des emails suspects
+
+Si l'authentification échoue, les e-mails peuvent être marqués comme spam, rejetés ou nuire à la réputation de votre domaine.
+
+ZenOpus configure et maintient automatiquement :
+
+- **SPF (Sender Policy Framework) :** autorise les serveurs pouvant envoyer des e-mails pour votre domaine
+- **DKIM (DomainKeys Identified Mail) :** signe les e-mails de manière cryptographique pour empêcher toute falsification
+- **DMARC (Domain-based Message Authentication, Reporting, and Conformance) :** définit la manière dont les fournisseurs gèrent les échecs d'authentification et protègent contre l'usurpation d'identité.
+
+Vous n'avez pas besoin de configurer manuellement ces enregistrements. ZenOpus les configure lors de la vérification du domaine et les surveille en permanence. Si les enregistrements d'authentification sont modifiés, supprimés ou expirent, vous en êtes averti afin qu'ils puissent être restaurés.
+</Accordion>
+<Accordion title="Combien d’e-mails d’authentification sont inclus par mois ?">
+Chaque Workspace payant comprend **50 000 e-mails d'authentification par mois** sans frais supplémentaires.
+
+L'utilisation est calculée sur l'ensemble de Workspace.
+
+Les e-mails supplémentaires sont facturés **1 $ pour 1 000 e-mails**.
+</Accordion>
+<Accordion title="Puis-je utiliser les e-mails avec le forfait gratuit ?">
+Non. Les e-mails sont disponibles sur **les forfaits payants uniquement**. Les forfaits Free utilisent l'expéditeur d'authentification ZenOpus Cloud par défaut.
+</Accordion>
+<Accordion title="Combien de temps prend la vérification DNS ?">
+Les modifications DNS se propagent généralement en quelques heures, mais peuvent prendre jusqu'à 48 heures.
+
+Vous pouvez vérifier l'état du domaine dans **Cloud → Email**. Le statut est mis à jour automatiquement une fois la vérification terminée.
+</Accordion>
+<Accordion title="Pourquoi mes e-mails deviennent-ils du spam ?">
+Les nouveaux domaines de messagerie démarrent sans réputation d'envoi.
+
+Si les e-mails d'authentification atterrissent dans le spam :
+
+• Confirmez que le statut du domaine est **Vérifié**.  
+
+ • Assurez-vous que les enregistrements DNS n'ont pas changé.  
+
+ • Évitez les pics soudains de volume d'envoi.  
+
+ • Évitez le formatage déclencheur de spam.  
+
+ • Vérifiez les taux de rebond dans **Analytics et journaux**.
+
+La délivrabilité s’améliore au fil du temps grâce à une activité utilisateur cohérente et légitime.
+</Accordion>
+<Accordion title="Puis-je personnaliser les modèles d'e-mails ?">
+Oui. Vous pouvez personnaliser :
+
+- Copie et ton
+- Couleurs de la marque
+- Disposition et structure
+- Logos et images
+- Lignes d'objet
+
+Vous pouvez demander à ZenOpus de mettre à jour les modèles ou de les modifier directement dans `supabase/functions/_shared/email-templates/`.
+
+Les variables d'authentification requises et les liens de rappel doivent rester intacts.
+
+L'arrière-plan externe du corps de l'e-mail doit rester blanc (`#ffffff`) pour garantir un rendu cohérent sur tous les clients de messagerie. Les composants intérieurs peuvent utiliser les couleurs de votre marque.
+</Accordion>
+<Accordion title="Que se passe-t-il si je désactive les e-mails ?">
+Si les e-mails sont désactivés pour un projet, les e-mails d'authentification continuent d'être envoyés en utilisant l'expéditeur d'authentification ZenOpus Cloud par défaut au lieu de vos modèles de marque.
+</Accordion>
+<Accordion title="Que se passe-t-il si je supprime un domaine de messagerie ?">
+La suppression d'un domaine de messagerie est une action à l'échelle de **Workspace**.
+
+Tous les projets utilisant ce domaine reviendront immédiatement à l'expéditeur d'authentification ZenOpus Cloud par défaut.
+</Accordion>
+</AccordionGroup>

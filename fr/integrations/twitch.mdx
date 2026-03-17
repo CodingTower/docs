@@ -1,0 +1,143 @@
+---
+title: "Connectez votre application à Twitch"
+description: "Connectez votre application à Twitch pour créer des superpositions de flux personnalisées, afficher les données de diffusion en direct, suivre l'activité des chaînes et créer des outils pour les créateurs et les communautés directement depuis votre application ZenOpus."
+---
+[Twitch](https://www.twitch.tv/) est une plateforme de diffusion en direct axée sur les jeux, le contenu créatif et l'interaction communautaire en temps réel. Le connecteur Twitch permet à votre application ZenOpus d'accéder à l'API Helix de Twitch afin que vous puissiez alimenter les superpositions de flux, les tableaux de bord et les outils communautaires qui réagissent à ce qui se passe sur une chaîne.
+
+Avec Twitch, votre application peut :
+
+- Afficher le chat en direct depuis une chaîne Twitch
+- Afficher le nombre de followers et d'abonnés
+- Suivez les objectifs personnalisés tels que les jalons d’abonnés ou d’abonnement
+- Recherchez l'état du flux, le nombre de téléspectateurs et les métadonnées de la chaîne
+- Récupérer des clips, des programmes et des informations sur les chaînes
+- Envoyer des messages de discussion à une chaîne Twitch
+- Rechercher des chaînes, des jeux et des catégories
+
+Twitch est un bon choix lorsque votre application vit à côté d'un flux. Les exemples incluent les superpositions, les outils de modération, les tableaux de bord d'événements et les applications d'analyse des créateurs.
+
+## Cas d'utilisation courants et exemples d'applications
+
+| Exemple d'application | Exemple d'invite | Descriptif |
+| --- | --- | --- |
+| Superposition de flux personnalisée | Créez une superposition de flux qui affiche mon chat en direct, mon dernier abonné et mon sous-objectif actuel aux couleurs de ma marque. | Remplacez les outils de superposition génériques par une superposition entièrement personnalisée. L'application affiche le chat à l'aide de la connexion IRC de Twitch et récupère les données d'abonnés et d'abonnement via l'API Twitch pour afficher une superposition de marque pour le flux qui peut être ajoutée en tant que source de navigateur dans un logiciel de streaming comme OBS Studio (Open Broadcaster Software. |
+| Suivi des objectifs des abonnés ou des abonnés | Créez un widget de superposition qui affiche une barre de progression vers mon objectif de 1 000 abonnés. | Affichez la progression des jalons en direct sur le flux. L'application récupère le nombre de followers ou d'abonnés sur Twitch et affiche une barre de progression qui se met à jour à mesure que les chiffres changent. |
+| Superposition de chat en direct | Créez une superposition de chat en direct qui affiche les messages récents de ma chaîne Twitch. | Affichez les messages de discussion directement dans une superposition de flux. L'application se connecte au chat Twitch à l'aide du point de terminaison IRC WebSocket et restitue les messages entrants en temps réel. |
+| Superposition de diffusion d'événements | Créez une superposition de tournoi où les modérateurs peuvent mettre à jour les scores et les informations sur les matchs pendant la diffusion. | Superpositions de puissance pour les événements ou tournois en direct. Les modérateurs mettent à jour les informations sur le match via un panneau de contrôle et la superposition reflète instantanément les mises à jour pour les téléspectateurs. |
+| Tracker de flux multicanal | Créez un tableau de bord qui montre quelles chaînes de ma liste sont actuellement en direct. | Surveillez une liste de streamers et voyez qui est en direct en ce moment. L'application vérifie l'état du flux sur plusieurs chaînes et affiche le nombre de téléspectateurs et les titres des flux. |
+| Navigateur de découverte de clips | Créez une application dans laquelle je peux rechercher une chaîne Twitch et parcourir ses meilleurs clips. | Découvrez les moments forts des chaînes Twitch. L'application récupère les clips de l'API Twitch et les présente dans une interface consultable. |
+| Tableau de bord du modérateur | Créez un panneau de modération qui répertorie les abonnés et permet aux modérateurs d'envoyer des annonces de discussion. | Offrez aux modérateurs une interface structurée pour gérer l’activité de la communauté. L'application récupère les données des abonnés et permet aux modérateurs de publier des messages pour discuter directement depuis le tableau de bord. |
+
+## Comment fonctionnent les connexions Twitch
+
+Twitch utilise OAuth 2.0 pour l'authentification. Lorsque vous connectez Twitch, vous autorisez ZenOpus à accéder à Twitch au nom du compte authentifié.
+
+Twitch utilise l'architecture de passerelle de ZenOpus pour la gestion sécurisée d'OAuth et l'actualisation automatique des jetons. Voir [Connecteurs basés sur une passerelle](/fr/integrations/introduction#connecteurs-basés-sur-une-passerelle) pour plus de détails sur l'authentification et les limites d'utilisation.
+
+Chaque connexion Twitch est liée à un compte Twitch. Vous pouvez créer plusieurs connexions si nécessaire. Par exemple, vous pouvez connecter des comptes distincts pour le développement, la production ou différents créateurs.
+
+## Comment connecter Twitch
+
+Workspace **les administrateurs** et les **propriétaires** peuvent connecter Twitch.
+
+Lorsque la connexion est créée, Twitch devient disponible sur tous les projets du Workspace.
+
+### Conditions préalables
+
+Avant de connecter Twitch, assurez-vous d'avoir :
+
+- Un compte Twitch
+- Un rôle d'administrateur ou de propriétaire ZenOpus Workspace
+
+### Étape 1 : Choisissez le compte pour vous connecter
+
+Votre connexion utilise directement un compte Twitch. Aucune application de développeur ou clé API n'est requise.
+
+Assurez-vous que le compte connecté dispose des autorisations requises pour votre cas d'utilisation.
+
+Par exemple :
+
+- Pour lire les données des abonnés, le compte doit disposer d'un accès modérateur pour la chaîne.
+- Pour envoyer des messages de discussion, le compte doit avoir l'autorisation de publier sur la chaîne.
+- Pour accéder aux données d'abonnement, le compte connecté doit être le propriétaire de la chaîne.
+
+Pour la plupart des configurations de superposition, la connexion du propre compte du streamer offre l’accès le plus large.
+
+### Étape 2 : Connectez Twitch à ZenOpus
+
+1. Accédez à **Paramètres → Connecteurs → Connecteurs partagés** et sélectionnez **Twitch**.
+1. Cliquez sur **Ajouter une connexion**.
+1. Dans **Nom d'affichage**, saisissez un nom pour la connexion. Par exemple `Twitch Production`.
+1. **Configurer les étendues (facultatif)**Développez **Paramètres avancés** pour configurer les autorisations de l'API Twitch dont votre application a besoin. Les étendues par défaut incluent : Des étendues supplémentaires sont disponibles pour des fonctionnalités telles que la gestion des clips, les prédictions, les sondages, les analyses et les points de chaîne. Activez uniquement les étendues dont votre application a besoin. Vous pouvez mettre à jour les étendues ultérieurement en modifiant la connexion et en sélectionnant **Reconnecter**. Pour la liste complète des étendues, consultez la [Référence de l'étendue Twitch OAuth](https://dev.twitch.tv/docs/authentication/scopes/).
+    - `user:read:email` — Afficher l'e-mail du compte
+    - `channel:read:subscriptions` — Afficher les données d'abonnement aux chaînes
+    - `moderator:read:followers` — Afficher les données des abonnés pour les chaînes modérées
+    - `user:write:chat` — Envoyer des messages au chat Twitch
+1. Cliquez sur **Connecter**. Une fenêtre d'autorisation Twitch s'ouvrira. Assurez-vous que les pop-ups sont autorisés.
+1. Connectez-vous à Twitch, vérifiez les autorisations demandées et cliquez sur **Autoriser**.
+
+Une fois l'autorisation terminée, la connexion apparaîtra dans ZenOpus et vos applications pourront commencer à utiliser les données Twitch.
+
+## Limites
+
+Le connecteur Twitch ne peut actuellement pas :
+
+- **Lisez le chat Twitch en temps réel via la passerelle**  
+
+ Le chat Twitch utilise IRC sur WebSocket, qui ne peut pas être proxy via la passerelle ZenOpus. Pour lire les messages de chat, votre application doit se connecter directement au point de terminaison de chat de Twitch : `wss://irc-ws.chat.twitch.tv`La lecture du chat public ne nécessite pas d'authentification. L'envoi de messages de discussion via l'API Twitch nécessite une authentification.
+- **Recevoir les webhooks EventSub**  
+
+ Les événements Twitch entrants tels que les notifications de démarrage de flux ou les événements de suivi ne sont actuellement pas pris en charge.
+- **Support Connexion Twitch par utilisateur**  
+
+ Chaque connexion authentifie un seul compte Twitch. Les utilisateurs finaux de votre application ne peuvent pas connecter leurs propres comptes Twitch via ce connecteur.
+
+## Comment dissocier des projets d'une connexion
+
+Les éditeurs et les éditeurs supérieurs peuvent supprimer des projets spécifiques d'une connexion sans supprimer entièrement la connexion. La connexion restera disponible pour d'autres projets.
+
+Pour dissocier des projets :
+
+<Steps>
+<Step title="Accédez aux connecteurs">
+Accédez à **Paramètres → Connecteurs → Connecteurs partagés** et sélectionnez **Twitch**.
+</Step>
+<Step title="Ouvrir la connexion">
+Ouvrez la connexion que vous souhaitez gérer.
+</Step>
+<Step title="Sélectionnez des projets">
+Sous **Projets liés**, cochez les projets dont vous souhaitez dissocier.
+</Step>
+<Step title="Confirmer">
+Cliquez sur **Dissocier les projets** et confirmez.
+</Step>
+</Steps>
+
+Une fois dissociés, ces projets n'auront plus accès à **Twitch** via cette connexion. Si un projet a à nouveau besoin de **Twitch**, vous pouvez le lier à n'importe quelle connexion disponible.
+
+## Comment supprimer une connexion
+
+Les administrateurs et propriétaires Workspace peuvent supprimer les connexions **Twitch**.
+
+<Warning>
+La suppression d'une connexion est permanente et ne peut être annulée. Cela supprimera les informations d'identification de tous les projets liés et toutes les applications utilisant cette connexion cesseront de fonctionner jusqu'à ce qu'une nouvelle connexion soit ajoutée.
+</Warning>
+
+Avant de supprimer, consultez la section **Projets liés** pour voir quels projets utilisent actuellement la connexion.
+
+Pour supprimer une connexion :
+
+<Steps>
+<Step title="Accédez aux connecteurs">
+Accédez à **Paramètres → Connecteurs → Connecteurs partagés** et sélectionnez **Twitch**.
+</Step>
+<Step title="Ouvrir la connexion">
+Ouvrez la connexion que vous souhaitez supprimer.
+</Step>
+<Step title="Examiner les projets liés">
+Consultez la section **Projets liés**.
+</Step>
+<Step title="Supprimer">
+Sous **Supprimer cette connexion**, cliquez sur **Supprimer** et confirmez.
+</Step>
+</Steps>

@@ -1,0 +1,183 @@
+---
+title: "Mejores prácticas"
+description: "Utilice archivos de conocimiento, Plan mode, ediciones visuales y control de versiones de manera efectiva para compilar más rápido y evitar errores comunes."
+---
+Esta guía ayuda a todos los usuarios, nuevos o experimentados, a ponerse al día rápidamente y evitar errores comunes al desarrollar ZenOpus.
+
+## 1. Establezca sus bases: utilice el archivo de conocimientos
+
+**Por qué es importante:** El archivo [Conocimiento](/es/features/knowledge) es el cerebro de su proyecto. Se envía con cada mensaje y ayuda a la IA a comprender el contexto completo.
+
+**Qué incluir:**
+
+- La visión de tu producto (piensa en ello como un PRD)
+- Viajes de usuario y personas
+- Características y funcionalidades clave
+- Sistemas de diseño y guía de UI.
+- Comportamiento específico de la función (por ejemplo, administrador, usuario, inversor)
+
+<Tip>
+Puede generar automáticamente un archivo de conocimiento a través de Plan mode:
+
+```text
+Generar conocimiento para mi proyecto en T=0 en base a las funcionalidades que ya he implementado.
+```
+</Tip>
+
+## 2. Impulsar las mejores prácticas
+
+**Indicaciones claras y detalladas = mejor resultado.** Piense en la IA como si fuera su socio de ingeniería: solo sabe lo que usted le dice.
+
+**Consejos para incitar:**
+
+- Sea específico: mencione la página exacta (por ejemplo, `/dashboard`) y el comportamiento esperado.
+- Usa lenguaje natural
+    ```text
+    Quiero que los usuarios con el rol de Inversor accedan a este componente, pero no los Administradores.
+    ```
+- Agregue capturas de pantalla: especialmente útil para describir errores o problemas de UX.
+- Agregue barandillas: dígale a la IA qué **no** tocar. P.ej.
+    ```text
+    No edite /shared/Layout.tsx.
+    ```
+- Repita instrucciones importantes en todas las indicaciones. La memoria de la IA puede ser limitante.
+- Evite intentar implementar 5 cosas a la vez. Divida el trabajo en partes más pequeñas y comprobables. Utilice Plan mode entre cada bloque para validar antes de continuar.
+    ```text
+    **Plantilla de desglose de funciones:**
+    Crea la nueva página
+    Agregar diseño de interfaz de usuario
+    Conecta los datos
+    Agregar lógica + casos extremos
+    Prueba por rol
+    ```
+- Si su aplicación tiene múltiples roles (por ejemplo, administrador, inversionista, inicio), defina siempre *a qué rol* se aplica el mensaje. Esto ayuda a evitar errores causados ​​por lógica/componentes compartidos.
+    ```text
+    Como inversor, quiero ver el panel de la empresa, pero no debería poder editarlo. Aísle esta función únicamente para el rol de inversor.
+    ```
+
+## 3. Utilice Plan mode temprano y con frecuencia
+
+[**Plan mode**](/es/features/plan-mode) = tu copiloto de IA. Le ayuda a depurar, generar ideas y planificar implementaciones, sin editar el código hasta que esté listo.
+
+**Cuándo cambiar a Plan mode:**
+
+- Después de 2 o 3 intentos fallidos de "Intentar arreglar"
+- Al depurar problemas complejos de lógica o bases de datos
+- Al planificar nuevas funciones
+    ```text
+    Sugiera 3 formas de implementar X
+    ```
+
+<Tip>
+**Consejo de flujo de trabajo:**
+
+A algunos usuarios les gusta usar Plan mode entre el 60% y el 70% de su tiempo. Solo haga clic en "Implementar el plan" cuando esté completamente satisfecho.
+</Tip>
+
+<Tip>
+Si olvida utilizar Plan mode, este formato mejora la coherencia de la salida y evita ediciones colaterales.
+
+```text
+En la página/configuración, implemente [función]. El comportamiento esperado es [XYZ]. No toque el componente A, el diseño B o la lógica compartida a menos que sea necesario. Siga las mejores prácticas de Tailwind / Supabase / X.
+```
+</Tip>
+
+<Tip>
+Para evitar la ejecución de código no deseado:
+
+```text
+Investigue pero no escriba código todavía.
+```
+
+```text
+Sugiere 3 formas de solucionar esto sin cambiar nada.
+```
+
+Esto mantiene el control en tus manos.
+</Tip>
+
+<Tip>
+Cuando la IA entre en un "bucle", utilice esta secuencia para evitar ciclos interminables de parcheo de código roto:
+
+1. Cambiar a Plan mode
+1. Pega la captura de pantalla del error
+1. Di:
+    ```text
+    Investigue esto sin alterar otras funciones. Si es necesario, vuelva a la última versión funcional y corríjala desde allí.
+    ```
+</Tip>
+
+## 4. Evite los errores comunes con Supabase
+
+**Aviso:** [Supabase](/es/integrations/supabase) no se revierte limpiamente. Si revierte una versión, el esquema de su base de datos puede fallar.
+
+**Mejores prácticas:**
+
+- Conecte Supabase **después** de que el front-end sea estable
+- Si debe revertir, solicite a la IA:
+    ```text
+    Valide el esquema SQL en T=0 y asegúrese de que no se hayan producido cambios importantes.
+    ```
+- Pruebe siempre las funciones vinculadas a bases de datos antes de publicar
+
+## 5. Utilice Visual Edit para realizar correcciones rápidas en la interfaz de usuario
+
+La [**Herramienta de edición visual**](/es/features/visual-edit) es gratuita y rápida. Úselo en lugar de indicaciones para:
+
+- Cambiar texto, colores, fuentes, ajustes de diseño
+- Editar varios elementos pequeños a la vez
+- Confirmaciones seguras y sin crédito (con deshacer disponible)
+
+## 6. Utilice sabiamente el control de versiones de GitHub +
+
+- Cada edición es una confirmación. Utilice **fijar** para marcar versiones estables. Después de cada característica en funcionamiento: **Fijar**
+- Después de cada error: **Compare versiones visualmente.** Puede solicitarlo con:
+    ```text
+    Compare la versión en T–1 con T–0. ¿Qué cambió? ¿Qué podría estar rompiéndose?
+    ```
+- Vuelve a una versión estable si crees que la IA ha roto demasiadas cosas.
+- Utilice **ramificación de GitHub** bajo su propia responsabilidad. Evite eliminar ramas antes de volver a `main` en ZenOpus para evitar problemas de sincronización del proyecto.
+
+## 7. Cuando todo lo demás falla, remezcla
+
+Muchos usuarios se dan cuenta: hacerlo todo de nuevo lleva menos tiempo la segunda vez.
+
+- [Remix](/es/introduction/faq#¿cómo-copio-remezclo-un-proyecto) crea una copia limpia de su proyecto en T=0.
+- Reconstruir con mejores indicaciones + conocimiento más claro
+- Utilice su proyecto anterior solo como referencia
+
+**Casos de uso:**
+
+- Estás atrapado en un bucle con errores
+- Quieres reiniciar limpiamente con el historial preservado
+- Necesitas desconectar Supabase y probar una nueva ruta.
+
+<Tip>
+La remezcla requiere desconectar Supabase primero.
+</Tip>
+
+## 8. Sea paciente, mantenga la calma
+
+No estás solo. La IA puede ser mágica en un momento y frustrante al siguiente. El 5% final de cualquier construcción suele ser el más lento, pero también el más importante.
+
+<Tip>
+**Regla de oro:**
+
+Tómate tu tiempo con las indicaciones. Vuelva a comprobar todo. Divida el trabajo en bloques pequeños y comprobables. Cuanto más precisas sean sus entradas, mejores serán sus resultados.
+</Tip>
+
+## 9. Utilice los documentos y pida ayuda.
+
+- [Documentación](/) contiene tutoriales, plantillas, consejos de SEO, integraciones y más. Puede hacer preguntas directamente en el asistente de doc AI.
+- Únase a la [comunidad de Discord](https://discord.gg/zenopus-dev) para el compañero Support.
+
+## 10. Consejos adicionales
+
+- Agregue una nota de voz mediante dictado (por ejemplo, en Mac, use el micrófono para dictar indicaciones largas) para indicaciones largas. Elaborará mejores comentarios con mayor rapidez, lo que resulta especialmente útil cuando esté frustrado o cansado.
+- Utilice el patrón de aviso "`I am frustrated…`" para impulsar un mejor enfoque de la IA
+- Después de una edición importante, siempre vuelva a verificar múltiples roles y su comportamiento (especialmente con lógica condicional)
+- Almacene versiones estables como alternativas para una depuración rápida
+- Si observa efectos secundarios inesperados, esto ayuda a evitar errores causados por una lógica demasiado genérica.
+    ```text
+    Cree un componente específicamente para [rol X] y no reutilice componentes compartidos a menos que tenga un alcance claro.
+    ```

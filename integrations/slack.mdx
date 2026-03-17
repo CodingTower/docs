@@ -1,0 +1,184 @@
+---
+title: "Connect your app to Slack"
+description: "Connect your app to Slack to send messages, read channels, automate alerts, generate digests, and integrate workspace workflows using bot or personal access."
+---
+[Slack](https://slack.com/) is a messaging and collaboration platform that lets your ZenOpus app work with team communications, channels, and workspace data. The Slack connector enables Slack integration for your app, allowing you to notify teams, summarize conversations, and send structured updates directly to Slack.
+
+With Slack, your app can:
+
+- Send messages to channels and direct messages
+- Read messages from public and private channels (with permissions)
+- List workspace users and channel information
+- React to messages with emoji
+- Search Slack content (personal connection)
+- Manage channels and perform workspace administration (with admin permissions)
+
+Each Slack connection is authorized for a single Slack workspace. You can create multiple connections to work across multiple workspaces.
+
+## Common use cases and example apps
+
+| Example app | Example prompt | Description |
+| --- | --- | --- |
+| Customer notifications to Slack | Build a quote request form. When someone submits it, save the data and post a summary to #new-deals in Slack. | Notify your team in Slack when customers take action in your app. The app captures the submission, formats the key details, and posts them to the appropriate channel so someone can respond immediately. |
+| Incident dashboard with Slack escalation | Build an internal incident dashboard and add a “Post Alert” button that sends a structured alert to #ops-alerts in Slack. | Consolidate operational data from multiple sources into one internal dashboard. When something needs attention, the app posts a structured alert to Slack so the right team can respond immediately. |
+| Weekly Slack digest app | Summarize #product and #support from the past 7 days, let me review the summary, then post it to #leadership. | Turn busy Slack channels into structured summaries. The app reads recent messages, extracts key themes and highlights, and posts a clean digest for leadership or cross-functional teams. |
+| Automated KPI reports | Every Monday at 9am, generate a KPI summary and post it to #team-updates. | Deliver recurring reports directly to Slack channels. The app compiles selected metrics on a schedule and posts formatted updates to keep the team aligned. |
+| Multi-workspace notifications | When a deployment finishes, notify our internal Slack workspace and our partner’s workspace. | Send notifications across multiple Slack workspaces from a single app. The app routes messages to different workspaces based on the event or audience. |
+| Slack-powered knowledge search | Build a search interface that lets me search across my Slack messages with filters for date and sender. | Create a structured search experience for Slack conversations. The app lets users search messages and filter results to quickly find past discussions and decisions. |
+| Team activity dashboard | Build a dashboard showing where I’ve been mentioned and which messages need follow-up. | Surface Slack activity in a focused internal view. The app aggregates mentions and recent activity so users can track conversations and follow up on action items. |
+| Automated onboarding workflows | When a new project starts, automatically create Slack channels, add team members, and send a welcome message. | Automate Slack setup as part of broader onboarding workflows. The app provisions channels, assigns members, and posts welcome messages without manual coordination. |
+
+## How Slack connections work
+
+ZenOpus uses one centrally managed app for Slack to power all Slack integrations across workspaces.
+
+Within your ZenOpus workspace:
+
+- You can create multiple Slack connections.
+- Each connection is a separate OAuth authorization.
+- Each connection can:
+    - Use different scopes
+    - Have different access types (bot or personal)
+    - Connect to a different Slack workspace
+- Multiple projects within a single workspace can use the same connection.
+
+This makes it easy to separate environments (for example, development and production) or manage multiple Slack workspaces.
+
+Slack uses ZenOpus’s gateway architecture for secure OAuth handling and automatic token refresh. See [Gateway-based connectors](/integrations/introduction#gateway-based-connectors) for details on authentication and usage limits.
+
+## How to connect Slack
+
+Workspace **admins** and **owners** can connect Slack.
+
+When a connection is created, Slack becomes available across all projects in the workspace.
+
+### Prerequisites
+
+- A Slack workspace where you can install apps (or request admin approval)
+- ZenOpus workspace admin or owner role
+- For admin scopes: Slack workspace admin permissions
+
+### Set up your Slack connection
+
+<Steps>
+<Step title="Navigate to Slack connector">
+Go to **Settings → Connectors → Shared connectors** and select **Slack**.
+</Step>
+<Step title="Add a new connection">
+Click **Add connection**.
+</Step>
+<Step title="Name the connection">
+In **Display name**, name the connection (for example, `Slack Prod`).
+</Step>
+<Step title="Choose access type">
+- **Connect as a bot** (recommended): Operations are performed as a bot. One bot connection per Slack workspace is sufficient. You can customize the bot’s display name and icon within your ZenOpus projects.
+- **Connect as yourself** (personal): Operations are performed as the ZenOpus workspace admin who creates the connection, using their personal Slack account and permissions. Use this when you need personal data access or workspace administration features.
+</Step>
+<Step title="Configure scopes (optional)">
+Expand **Advanced settings** to view and configure scopes - the Slack API permissions your app needs. Default scopes are pre-selected for common use cases.
+
+- **Bot connections**: Default scopes support sending messages, reading channels and DMs, viewing users, adding reactions, and customizing the bot’s identity.
+- **Personal (You) connections**: Default scopes support reading and searching Slack content using your own Slack permissions. Workspace administration requires additional admin scopes and Slack workspace admin permissions.
+
+<Tip>
+Select only the scopes your app needs. You can update scopes later by editing the connection and clicking **Reconnect**. For full scope documentation, see [Slack’s scope reference](https://docs.slack.dev/reference/scopes/).
+</Tip>
+</Step>
+<Step title="Connect to Slack and authorize the connection">
+- Click **Connect**. The Slack authorization window opens - make sure your browser doesn’t block pop-ups.
+- Select the workspace you want to connect, review the requested permissions, and click **Allow**. You’ll be redirected back to ZenOpus with a confirmation.
+</Step>
+</Steps>
+
+When connected, your ZenOpus apps can start using Slack to send messages, read channels, and integrate with your team’s workspace.
+
+## Slack bot behavior and channel access
+
+When you connect Slack as a **bot**, messages are sent from the centrally managed **ZenOpus app for Slack**.
+
+Each project can define its own bot display name and icon. This means different projects can appear as different bots in Slack, even though they all send messages through the same ZenOpus app for Slack.
+
+### Bot customization
+
+You can customize how messages from your project appear in Slack by prompting ZenOpus to set a custom bot name and icon.
+
+For example:
+
+```text
+Send messages as ‘Deploy Bot’ bot with a rocket emoji icon.
+```
+
+Using a consistent bot name and icon helps teammates quickly recognize which project is sending messages.
+
+### Public channel access
+
+The bot automatically has access to all public channels in the workspace. No invitation is required.
+
+### Private channel access
+
+You must invite the bot before it can read or post messages by using  `/invite @ZenOpus`
+
+If your app cannot post to a private channel, invite the bot first.
+
+## Limitations
+
+The Slack connector cannot:
+
+- Receive incoming Slack events (no webhooks or event subscriptions)
+- Create slash commands
+- Respond to interactive buttons or modals in real time
+- Support per-user Slack login (each end user connecting their own Slack)
+
+## How to unlink projects from a connection
+
+Editors and above can remove specific projects from a connection without deleting the connection entirely. The connection will remain available for other projects.
+
+To unlink projects:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Slack**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to manage.
+</Step>
+<Step title="Select projects">
+Under **Linked projects**, check the projects you want to unlink.
+</Step>
+<Step title="Confirm">
+Click **Unlink projects** and confirm.
+</Step>
+</Steps>
+
+When unlinked, those projects will no longer have access to **Slack** through this connection. If a project needs **Slack** again, you can link it to any available connection.
+
+## How to delete a connection
+
+Workspace admins and owners can delete **Slack** connections.
+
+<Warning>
+Deleting a connection is permanent and cannot be undone. It will remove the credentials from all linked projects, and any apps using this connection will stop working until a new connection is added.
+</Warning>
+
+Before deleting, review the **Linked projects** section to see which projects are currently using the connection.
+
+To delete a connection:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Slack**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to remove.
+</Step>
+<Step title="Review linked projects">
+Review the **Linked projects** section.
+</Step>
+<Step title="Delete">
+Under **Delete this connection**, click **Delete** and confirm.
+</Step>
+</Steps>
+
+## AI disclosure
+
+ZenOpus is an AI-powered platform. Apps built with ZenOpus may generate AI-assisted content such as summaries or notifications. AI-generated outputs may occasionally contain inaccuracies and should be reviewed before use.

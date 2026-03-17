@@ -1,0 +1,100 @@
+---
+title: "Référencement cross-projet"
+description: "Réutilisez les implémentations dans tous les projets de votre Workspace, y compris le code, les ressources, les fichiers et l'historique des discussions. Maintenez la cohérence et évitez de reconstruire les mêmes fonctionnalités."
+---
+Le référencement inter-projets permet à ZenOpus d'accéder et de réutiliser les implémentations d'autres projets dans votre Workspace.
+
+Lors du référencement d'autres projets, ZenOpus peut explorer les structures de fichiers, lire le code source, rechercher des modèles pertinents, accéder à l'historique des discussions associées et réutiliser ou copier des actifs tels que des images et des polices. Cela permet à l'agent de comprendre comment quelque chose a été construit et de le recréer ou de l'adapter dans votre projet actuel.
+
+Vous pouvez référencer explicitement un projet en utilisant les mentions `@`, ou simplement demander à ZenOpus d'utiliser un projet existant le cas échéant. **Les projets référencés restent inchangés**.
+
+## Comment référencer d'autres projets
+
+Tapez `@` dans le chat et sélectionnez un projet, par exemple :
+
+```text
+Utilisez le logo et la palette de couleurs de @BrandSite.
+```
+
+Demandez à ZenOpus d'utiliser un projet existant, par exemple :
+
+```text
+Construisez-le en utilisant la même configuration d'authentification que notre application principale existante.
+```
+
+Référencez plusieurs projets dans la même invite. Par exemple :
+
+```text
+Créez ce flux d'intégration à l'aide de la configuration d'authentification de @MainApp
+et le modèle de validation de formulaire de @ContactApp.
+```
+
+Le référencement inter-projets fonctionne lorsque vous demandez ZenOpus dans [Agent mode](/fr/features/agent-mode) et [Plan mode](/fr/features/plan-mode), ou lorsque vous répondez dans l'outil **questions en sélectionnant « Autre ».**
+
+Vous pouvez également ajouter des références directement à partir de la boîte de dialogue en cliquant sur `+` et en sélectionnant **@ Ajouter une référence**.
+
+<Note>
+Les fichiers ou résultats volumineux peuvent être tronqués.
+</Note>
+
+## Ce que vous pouvez référencer
+
+Vous pouvez réutiliser :
+
+- Composants et systèmes de disposition
+- Animations et systèmes de style
+- Flux d'authentification et intégrations d'API
+- Implémentations de fonctionnalités
+- Actifs tels que des images et des polices
+- Historique de discussion pertinent pour le contexte de mise en œuvre
+
+Tous les accès sont en lecture seule et limités aux projets de votre Workspace.
+
+## Autorisations et accès
+
+Le référencement entre projets est limité par les limites Workspace et les paramètres de partage.
+
+- Seuls les projets appartenant au même Workspace peuvent être référencés. Le référencement croisé-Workspace n’est pas pris en charge.
+- Tout membre Workspace, y compris les collaborateurs, peut référencer n'importe quel projet auquel il est autorisé à accéder.
+- L'accès entre projets est en lecture seule. Les projets référencés ne peuvent pas être modifiés.
+
+## Désactiver le partage entre projets
+
+Le partage entre projets peut être désactivé à différents niveaux :
+
+- **Workspace niveau :**   
+
+ Les administrateurs et propriétaires de Workspace peuvent désactiver le partage entre projets pour l'intégralité de Workspace dans  
+
+**Paramètres Workspace → Confidentialité et sécurité → Partage entre projets.**
+- **Niveau du projet :**   
+
+ Les éditeurs de projet et supérieurs peuvent désactiver le partage entre projets pour un projet spécifique dans  
+
+**Paramètres du projet → Partage entre projets.**Lorsqu'il est désactivé au niveau du projet, ce projet ne peut pas référencer d'autres projets, et les autres projets ne peuvent pas le référencer.
+
+Si l’un de ces contrôles bloque l’accès, la référence échouera.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Puis-je référencer des projets d’un autre Workspace ?">
+Non. Le référencement inter-projets ne fonctionne que dans le même Workspace. Le référencement croisé-Workspace n’est pas pris en charge.
+</Accordion>
+<Accordion title="Le référencement d’un projet va-t-il le modifier ?">
+Non. Tous les accès inter-projets sont en lecture seule. Le projet référencé ne peut pas être modifié.
+</Accordion>
+<Accordion title="Les membres de l’équipe peuvent-ils référencer mes projets restreints ?">
+Non. Les projets avec une visibilité **restreinte** ne peuvent être référencés que par leur propriétaire. Les membres de l'équipe ne peuvent pas référencer des projets restreints, même au sein du même Workspace.
+</Accordion>
+<Accordion title="Pourquoi ZenOpus ne peut-il pas accéder à un autre projet ?">
+Si ZenOpus ne peut pas accéder à un projet, vérifiez les points suivants :
+
+- Vérifiez que le partage entre projets n’a pas été désactivé au niveau Workspace ou au niveau du projet.
+- Assurez-vous que les deux projets sont dans le même Workspace. L’accès cross-Workspace n’est pas pris en charge.
+- Vérifiez la visibilité du projet. Les projets définis sur **Restricted** ne sont accessibles qu'à leur propriétaire.
+- Confirmez que vous êtes autorisé à accéder au projet. Vous ne pouvez référencer que les projets auxquels vous avez accès.
+
+Si l’un de ces contrôles bloque l’accès, la référence échouera.
+</Accordion>
+</AccordionGroup>

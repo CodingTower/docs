@@ -1,0 +1,99 @@
+---
+title: "ZenOpus API: Mit URL erstellen"
+description: "Die Funktion „ZenOpus API Build with URL“ befindet sich jetzt in der offenen Betaversion und ermöglicht Ihnen das Erstellen und Teilen von ZenOpus-Apps mithilfe einfacher, gemeinsam nutzbarer URLs."
+---
+Mit der Funktion „Mit URL erstellen“ der ZenOpus API können Sie Anwendungen programmgesteuert erstellen, indem Sie Eingabeaufforderungen und Bilder über URL-Parameter übergeben. Dies ermöglicht eine nahtlose Integration mit Websites, internen Tools oder Automatisierungsworkflows, sodass Benutzer ZenOpus-Apps mit einem einzigen Klick generieren können.
+
+Jeder Link sagt ZenOpus, *was* erstellt werden soll und optional *welche Bilder eingefügt werden sollen* – und ZenOpus kümmert sich um den Rest.
+
+Beispiel:
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Create%20a%20todo%20app
+```
+
+Durch Klicken auf diesen Link wird automatisch ZenOpus geöffnet und mit der Erstellung einer Aufgaben-App begonnen.
+
+## Anwendungsfälle
+
+Mit der Build with URL-API können Sie Folgendes tun:
+
+- Betten Sie eine Schaltfläche **Build with ZenOpus** in Ihre Website oder Anwendung ein. Wenn der Benutzer auf die Schaltfläche klickt, wird er zu ZenOpus weitergeleitet und die App wird automatisch erstellt.
+- Teilen Sie vordefinierte Eingabeaufforderungen über URLs mit Freunden, Kollegen oder in sozialen Medien.
+- Automatisieren Sie die App-Generierung als Teil interner Arbeitsabläufe.
+- Erstellen Sie mithilfe von URLs mit Eingabeaufforderungen und Referenzbildern schnell Prototypen für Apps.
+
+Sie können die URL selbst erstellen oder den [ZenOpus Link Generator](https://zenopus.dev/links) verwenden. Weitere Informationen finden Sie weiter unten.
+
+## Basis-URL
+
+```text
+https://zenopus.dev/?autosubmit=true#
+```
+
+`autosubmit` (boolean): Muss auf `true` gesetzt werden, um die Anfrage automatisch zu verarbeiten
+
+## URL mit Parametern
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=YOUR_PROMPT_HERE&images=IMAGE_URL_1&images=IMAGE_URL_2
+```
+
+### Parameter
+
+| Parameter | Geben Sie | ein Beschreibung | Erforderlich/Optional |
+| --- | --- | --- | --- |
+| Eingabeaufforderung | Zeichenfolge | Text, der die zu erstellende Anwendung beschreibt. Maximal 50.000 Zeichen. Verwenden Sie die URL-Kodierung (z. B. %20 für Leerzeichen). Sehr lange URLs können aufgrund von Browser- oder Parsing-Einschränkungen fehlschlagen. | Erforderlich |
+| Bilder | Zeichenfolge | Maximal 10 URL-codierte Bild-URLs als Referenzen. Bild-URLs müssen öffentlich zugänglich sein. Unterstützte Formate: JPEG, PNG, WebP. | Optional |
+
+## ZenOpus Linkgenerator
+
+Verwenden Sie den [ZenOpus Link Generator](https://zenopus.dev/links), um ganz einfach gemeinsam nutzbare URLs zu erstellen, die Apps mit der von Ihnen gewählten Eingabeaufforderung und Bildern generieren.
+
+1. Geben Sie Ihre Eingabeaufforderung ein, die die zu erstellende Anwendung beschreibt (bis zu 50.000 Zeichen).
+1. Laden Sie bis zu 10 öffentliche Bild-URLs (JPEG, PNG oder WebP) hoch.
+1. Kopieren Sie die generierte ZenOpus-URL und teilen Sie sie.
+
+Dieses Tool trägt dazu bei, URL-Kodierungsfehler zu verhindern und stellt sicher, dass Links korrekt formatiert sind.
+
+## Erstellen Sie mit URL-Beispielen
+
+**Grundlegende App-Generierung**
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Create%20a%20todo%20app
+```
+
+**Einzelnes Referenzbild**
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Display%20these%20images&images=https://img.com/1.jpg
+```
+
+**Mehrere Referenzbilder**
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Display%20these%20images&images=https://img.com/1.jpg&images=https://img.com/2.jpg​
+```
+
+## Best Practices
+
+- Halten Sie die Eingabeaufforderungen prägnant und konzentrieren Sie sich auf die Kernfunktionen.
+- Verwenden Sie eine klare, beschreibende Sprache, um die besten Generierungsergebnisse zu erzielen.
+- Fügen Sie gegebenenfalls Referenzbilder hinzu, um den Generierungsprozess zu unterstützen.
+- Stellen Sie sicher, dass Sonderzeichen in Eingabeaufforderungen und Bild-URLs URL-codiert sind, um Probleme beim Parsen zu vermeiden.
+
+## App-Erstellungs- und Authentifizierungsablauf für freigegebene URLs
+
+Wenn ein Benutzer auf einen Link **Mit URL erstellen** klickt:
+
+- **Angemeldete Benutzer**: Wählen Sie den Workspace zum Erstellen des Projekts aus, dann startet die App-Erstellung automatisch.
+- **Nicht angemeldete Benutzer**: werden zur Anmelde-/Anmeldeseite weitergeleitet. Wählen Sie nach erfolgreicher Authentifizierung den Workspace zum Erstellen des Projekts aus. Anschließend wird die App-Erstellung automatisch gestartet, wobei die ursprüngliche Eingabeaufforderung und die Bilder erhalten bleiben.
+
+## Fehlerbehandlung
+
+Wenn die URL zu lang oder fehlerhaft ist, kann Folgendes auftreten:
+
+- Browser-Fehler „URL zu lang“.
+- Unvollständige Parameteranalyse
+- Fehler bei der automatischen Übermittlung

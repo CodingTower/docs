@@ -1,0 +1,138 @@
+---
+title: "Connect your app to Twilio"
+description: "Connect your app to Twilio to send SMS and MMS messages, make voice calls, and add phone-based communication flows directly to your ZenOpus app."
+---
+[Twilio](https://www.twilio.com/) is a cloud communications platform that lets your app reach users by phone. It works well for apps that need to send real-time text updates, add phone verification, trigger voice calls, or support messaging-based workflows.
+
+With Twilio, your app can:
+
+- Send and receive SMS and MMS messages
+- Make and manage voice calls
+- Support WhatsApp messaging flows
+- Validate and look up phone numbers
+
+Twilio is a good fit when your app needs to communicate with users by phone or text, rather than only through in-app notifications or email.
+
+## Common use cases and example apps
+
+| Example app | Example prompt | Description |
+| --- | --- | --- |
+| SMS notifications and alerts | Build an order tracking app that sends customers a text when their order ships, with a tracking link. | Send real-time SMS updates triggered by events in your app. The app detects a status change, generates the message, and sends it to the customer automatically. |
+| Phone verification flows | Build a signup flow that sends users a one-time code by SMS to verify their phone number before creating an account. | Add phone-based verification to onboarding or login flows. The app sends a one-time code, checks the user’s input, and confirms the number before continuing. |
+| Appointment reminders | Build a booking app that texts customers 24 hours before their appointment and again if the time changes. | Send automated reminder messages based on scheduled events in your app. The app uses booking data to trigger texts at the right time without manual follow-up. |
+| Voice call updates | Build a service app that calls customers with a recorded message when their technician is on the way. | Trigger outbound voice calls from your app when an important update needs immediate attention. The app places the call and delivers a spoken message to the user. |
+| WhatsApp support inbox | Build a customer support app where users can message the business on WhatsApp and agents can reply from the app. | Add WhatsApp as a communication channel in your product. The app sends and receives messages through Twilio so conversations can be handled inside your workflow. |
+| Phone number validation | Build a lead capture form that checks whether a phone number is valid before saving it to the database. | Validate and format phone numbers before storing or using them. The app checks the number through Twilio so your workflows start with cleaner contact data. |
+
+## How to connect Twilio
+
+Workspace **admins** and **owners** can connect Twilio.
+
+You can create multiple Twilio connections using different API keys, for example, to separate development and production environments or to manage different Twilio accounts.
+
+When a connection is created, Twilio becomes available across all projects in the workspace.
+
+### Prerequisites
+
+Before connecting Twilio, make sure you have:
+
+- A Twilio account
+- A Twilio phone number if your use case requires sending SMS, MMS, or making calls
+- A **Standard** Twilio API key
+- ZenOpus workspace owner or admin role
+
+<Note>
+All SMS, MMS, voice, WhatsApp, and other Twilio usage through this connector is billed directly by Twilio based on your Twilio account and plan. Billing is handled by Twilio, not ZenOpus.
+</Note>
+
+### Step 1: Create a Twilio API key
+
+Twilio uses an **API Key SID** and **Secret** instead of a single token. This is more secure than using your main Auth Token because API keys can be revoked independently.
+
+To create a Twilio Standard API Key:
+
+1. Go to the [Twilio Console](https://console.twilio.com/) and sign in.
+1. Navigate to **Account → API keys & tokens**.
+1. Click **Create API key**.
+1. Enter a **Friendly name**, for example `ZenOpus integration`.
+1. Choose the **Region** for the key:
+    - **United States (US1)**: default for most accounts
+    - **Ireland (IE1)**
+    - **Australia (AU1)**
+1. Leave **Key type** set to **Standard**.
+1. Click **Create API key**.
+1. Copy both the **API Key SID** (starts with `SK`) and the **Secret**. The Secret is shown only once, so store it securely before leaving the page.
+
+<Info>
+Your API Key Secret works like a password. Keep it secure and never share it publicly. You’ll need it in the next step.
+</Info>
+
+You will also need your **Account SID** (starts with `AC`), which is available in the Twilio Console. Twilio API credentials are region-specific, so the region you select when creating the key should match the region you use when setting up the ZenOpus connection.
+
+See Twilio documentation for detailed instructions: [Create API keys in Twilio console](https://www.twilio.com/docs/iam/api-keys/keys-in-console)
+
+### Step 2: Connect Twilio to ZenOpus
+
+1. Go to **Settings → Connectors → Shared connectors** and select **Twilio**.
+1. Click **Add connection**.
+1. In **Display name**, enter a name for the connection, for example `Twilio Prod`.
+1. In **Region**, select the same Twilio region used for the API key:
+    - **United States (US1)**
+    - **Ireland (IE1)**
+    - **Australia (AU1)**
+1. In **Account SID**, enter your Twilio Account SID (starts with `AC`).
+1. In **Standard API Key SID**, enter the API Key SID you created (starts with `SK`).
+1. In **API Key Secret**, enter the Secret shown when you created the key.
+1. Click **Create**.
+
+When connected, your ZenOpus apps can use Twilio to send messages and power phone-based communication flows.
+
+## How to unlink projects from a connection
+
+Editors and above can remove specific projects from a connection without deleting the connection entirely. The connection will remain available for other projects.
+
+To unlink projects:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Twilio**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to manage.
+</Step>
+<Step title="Select projects">
+Under **Linked projects**, check the projects you want to unlink.
+</Step>
+<Step title="Confirm">
+Click **Unlink projects** and confirm.
+</Step>
+</Steps>
+
+When unlinked, those projects will no longer have access to **Twilio** through this connection. If a project needs **Twilio** again, you can link it to any available connection.
+
+## How to delete a connection
+
+Workspace admins and owners can delete **Twilio** connections.
+
+<Warning>
+Deleting a connection is permanent and cannot be undone. It will remove the credentials from all linked projects, and any apps using this connection will stop working until a new connection is added.
+</Warning>
+
+Before deleting, review the **Linked projects** section to see which projects are currently using the connection.
+
+To delete a connection:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Twilio**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to remove.
+</Step>
+<Step title="Review linked projects">
+Review the **Linked projects** section.
+</Step>
+<Step title="Delete">
+Under **Delete this connection**, click **Delete** and confirm.
+</Step>
+</Steps>

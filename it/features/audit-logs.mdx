@@ -1,0 +1,92 @@
+---
+title: "Registri di controllo"
+description: "Monitora l'attività Workspace con i log di controllo aziendali. Filtra per azione, membro o intervallo di tempo per esaminare eventi come modifiche all'appartenenza, azioni di progetto, eventi di autenticazione e impostazioni Workspace o modifiche alla configurazione."
+---
+I registri di controllo forniscono una traccia di controllo ricercabile dell'attività nel tuo Workspace. Mostrano chi ha eseguito un'azione, quando è avvenuta, cosa è cambiato e quale risorsa è stata interessata.
+
+Utilizza i log di controllo per esaminare le impostazioni di Workspace e le modifiche alla configurazione, tenere traccia degli aggiornamenti di accesso e indagare su comportamenti imprevisti. I log di controllo possono anche Support flussi di lavoro di sicurezza e conformità quando necessario.
+
+- **Disponibile su:** Piani aziendali
+- **Accesso:** Workspace amministratori e proprietari
+- **Posizione:** Impostazioni → Workspace → Log di controllo
+
+## Eventi del registro di controllo
+
+I log di controllo Workspace includono eventi in categorie come:
+
+| Categoria | Eventi di esempio |
+| --- | --- |
+| Workspace adesione | Membro aggiunto, rimosso o ruolo aggiornato |
+| Workspace gestione | Impostazioni Workspace aggiornate Workspace cancellate |
+| Workspace gruppi | Gruppo creato, aggiornato o eliminato Membri del gruppo aggiunti o rimossi |
+| Identità e accesso | Dominio verificato aggiunto o rimosso Provider SSO aggiunto, aggiornato o rimosso Azioni di provisioning SCIM |
+| Segreti e integrazioni | App GitHub o Slack installata o rimossa su Workspace Server MCP personalizzato creato o eliminato Segreti modificati |
+| Progetti | Progetto creato, eliminato, non pubblicato o spostato Collaboratori aggiunti, uniti, rimossi o il loro ruolo aggiornato Domini personalizzati creati o eliminati Progetto Supabase o negozio Shopify connesso o disconnesso Richiesta inviata |
+| Autenticazione | Accesso SSO Workspace |
+
+## Tabella del registro di controllo
+
+Per impostazione predefinita, la pagina mostra i log per **Tutte le azioni**, **Tutti i membri** e **Tutti i tempi**. Il numero totale di registri corrispondenti viene visualizzato in alto a destra nella tabella.
+
+La tabella è organizzata in quattro colonne:
+
+| Colonna | Descrizione |
+| --- | --- |
+| Timestamp | Quando si è verificato l'evento, ad esempio 4 minuti fa o circa 11 ore fa . Passa il mouse per vedere la data e l'ora esatte. |
+| Attore | Il membro che ha eseguito l'azione. Facendo clic sul nome del membro si apre un popover che mostra l'ID utente, l'indirizzo IP e l'agente utente. Da questo popover puoi copiare questi dettagli o filtrare la tabella in base a quell'utente. |
+| Azione | Il tipo di attività, visualizzato come etichetta come Richiesta inviata, Workspace aggiornata, Membro aggiunto o Progetto creato. |
+| Risorsa | L'oggetto interessato, ad esempio un progetto, Workspace o un utente. Alcune risorse sono cliccabili. Ad esempio, facendo clic sul nome di un progetto si apre quel progetto. |
+
+Fai clic su qualsiasi riga per espanderla e visualizzare i dettagli JSON strutturati che descrivono l'evento. Sono inclusi i metadati associati a tale azione, come gli ID messaggio per l'attività del prompt o campi specifici che sono stati aggiornati in un'impostazione Workspace.
+
+## Filtraggio dei log di controllo
+
+Puoi combinare tutti e tre i filtri per concentrarti su un'attività specifica:
+
+- **Tutte le azioni** ti consente di filtrare in base a un tipo di azione specifico, ad esempio `Member added`, `Member removed`, `Workspace updated`, `Project created` o `Prompt sent`.
+- **Tutti i membri** ti consente di selezionare un membro Workspace utilizzando il selettore membri ricercabile.
+- **Intervallo di tempo** include preimpostazioni come **Tutto il tempo**, **Ultimi 7 giorni**, **Ultimi 30 giorni**, **Ultimi 90 giorni**, **Questo mese** e **Ultimo mese**.
+
+## Come utilizzare i log di controllo
+
+Un flusso di lavoro tipico:
+
+1. Imposta un **intervallo di tempo** pertinente.
+1. Filtra per **membro** per rivedere l'attività di un utente specifico.
+1. Filtra per **tipo di azione** per restringere i risultati a un tipo specifico di modifica.
+1. Espandi le voci per controllare i dettagli JSON completi.
+1. Apri i progetti interessati o passa ai messaggi correlati per esaminare il contesto.
+1. Utilizza il popover del membro per copiare dettagli come ID utente, indirizzo IP o agente utente, se necessario.
+
+## Conservazione dei dati del registro di controllo
+
+I registri vengono conservati per 13 settimane o circa 90 giorni. Gli eventi più vecchi verranno rimossi automaticamente.
+
+<Note>
+I registri precedenti al 26 febbraio 2026 potrebbero essere incompleti.
+</Note>
+
+## Domande frequenti
+
+<AccordionGroup>
+<Accordion title="Chi può accedere ai log di controllo?">
+I log di controllo sono disponibili sui piani Enterprise e sono visibili ai proprietari e agli amministratori di Workspace.
+</Accordion>
+<Accordion title="Per quanto tempo vengono conservati i registri di controllo?">
+I registri di controllo vengono conservati per 13 settimane o circa 90 giorni. Gli eventi più vecchi verranno rimossi automaticamente.
+</Accordion>
+<Accordion title="Posso esportare i log di controllo?">
+Attualmente i log di controllo non eseguono l'esportazione self-service di Support.
+
+Le voci del registro di controllo possono essere espanse per visualizzare i dettagli JSON strutturati, che possono essere copiati se necessario.
+
+Se devi integrare i log di controllo con un SIEM o un sistema di monitoraggio esterno, contatta il team del tuo account per discutere le opzioni di integrazione aziendale.
+</Accordion>
+<Accordion title="Perché non vedo i log di controllo?">
+Se i log di controllo non sono disponibili o non vengono visualizzati come previsto:
+
+- Verifica che il tuo Workspace abbia un piano Enterprise.
+- Conferma che il tuo ruolo include l'autorizzazione per visualizzare i log di controllo. Devi essere un amministratore o un proprietario Workspace.
+- Cancella i filtri e prova un intervallo di tempo più ampio.
+</Accordion>
+</AccordionGroup>

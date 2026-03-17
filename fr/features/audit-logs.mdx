@@ -1,0 +1,92 @@
+---
+title: "Journaux d'audit"
+description: "Surveillez l'activité Workspace avec les journaux d'audit d'entreprise. Filtrez par action, membre ou plage horaire pour examiner les événements tels que les modifications d'adhésion, les actions de projet, les événements d'authentification et les paramètres Workspace ou les modifications de configuration."
+---
+Les journaux d'audit fournissent une piste d'audit consultable de l'activité dans votre Workspace. Ils montrent qui a effectué une action, quand elle s'est produite, ce qui a changé et quelle ressource a été affectée.
+
+Utilisez les journaux d'audit pour examiner les paramètres et les modifications de configuration de Workspace, suivre les mises à jour d'accès et enquêter sur les comportements inattendus. Les journaux d'audit peuvent également Support workflows de sécurité et de conformité en cas de besoin.
+
+- **Disponible sur :** Forfaits Entreprise
+- **Accès :** Workspace administrateurs et propriétaires
+- **Emplacement :** Paramètres → Workspace → Journaux d'audit
+
+## Événements du journal d'audit
+
+Les journaux d'audit Workspace incluent des événements dans des catégories telles que :
+
+| Catégorie | Exemples d'événements |
+| --- | --- |
+| Adhésion Workspace | Membre ajouté, supprimé ou rôle mis à jour |
+| Gestion Workspace | Paramètres Workspace mis à jour Workspace supprimés |
+| Groupes Workspace | Groupe créé, mis à jour ou supprimé Membres du groupe ajoutés ou supprimés |
+| Identité et accès | Domaine vérifié ajouté ou supprimé Fournisseur SSO ajouté, mis à jour ou supprimé Actions de provisionnement SCIM |
+| Secrets et intégrations | Application GitHub ou Slack installée ou supprimée sur Workspace Serveur MCP personnalisé créé ou supprimé Secrets modifiés |
+| Projets | Projet créé, supprimé, non publié ou déplacé Collaborateurs ajoutés, rejoints, supprimés ou leur rôle mis à jour Domaines personnalisés créés ou supprimés Projet Supabase ou boutique Shopify connectés ou déconnectés Invite envoyée |
+| Authentification | Accès SSO Workspace |
+
+## Tableau du journal d'audit
+
+Par défaut, la page affiche les journaux de **Toutes les actions**, **Tous les membres** et **Tout le temps**. Le nombre total de journaux correspondants apparaît en haut à droite du tableau.
+
+Le tableau est organisé en quatre colonnes :
+
+| Colonne | Descriptif |
+| --- | --- |
+| Horodatage | Quand l'événement s'est produit, par exemple il y a 4 minutes ou il y a environ 11 heures. Passez la souris pour voir la date et l'heure exactes. |
+| Acteur | Le membre qui a effectué l'action. Cliquer sur le nom du membre ouvre une fenêtre contextuelle affichant son ID utilisateur, son adresse IP et son agent utilisateur. À partir de cette fenêtre contextuelle, vous pouvez copier ces détails ou filtrer le tableau par cet utilisateur. |
+| Actions | Le type d'activité, affiché sous la forme d'une étiquette telle que Invite envoyée , Workspace mise à jour , Membre ajouté ou Projet créé . |
+| Ressource | Objet concerné, tel qu'un projet, Workspace ou un utilisateur. Certaines ressources sont cliquables. Par exemple, cliquer sur le nom d'un projet ouvre ce projet. |
+
+Cliquez sur n'importe quelle ligne pour la développer et afficher les détails JSON structurés décrivant l'événement. Cela inclut les métadonnées associées à cette action, telles que les ID de message pour l'activité d'invite ou les champs spécifiques qui ont été mis à jour dans un paramètre Workspace.
+
+## Filtrage des journaux d'audit
+
+Vous pouvez combiner les trois filtres pour vous concentrer sur une activité spécifique :
+
+- **Toutes les actions** vous permet de filtrer selon un type d'action spécifique, tel que `Member added`, `Member removed`, `Workspace updated`, `Project created` ou `Prompt sent`.
+- **Tous les membres** vous permet de sélectionner un membre Workspace à l'aide du sélecteur de membres consultable.
+- **Plage de temps** inclut des préréglages tels que **Tout le temps**, **7 derniers jours**, **30 derniers jours**, **90 derniers jours**, **Ce mois-ci** et **Le mois dernier**.
+
+## Comment utiliser les journaux d'audit
+
+Un flux de travail typique :
+
+1. Définissez une **plage horaire** pertinente.
+1. Filtrez par **membre** pour examiner l'activité d'un utilisateur spécifique.
+1. Filtrez par **type d'action** pour affiner les résultats à un type de changement spécifique.
+1. Développez les entrées pour inspecter tous les détails JSON.
+1. Ouvrez les projets concernés ou accédez aux messages associés pour examiner le contexte.
+1. Utilisez la fenêtre contextuelle de membre pour copier des détails tels que l'ID utilisateur, l'adresse IP ou l'agent utilisateur si nécessaire.
+
+## Conservation des données du journal d'audit
+
+Les journaux sont conservés pendant 13 semaines, soit environ 90 jours. Les événements plus anciens sont automatiquement supprimés.
+
+<Note>
+Les journaux antérieurs au 26 février 2026 peuvent être incomplets.
+</Note>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Qui peut accéder aux journaux d’audit ?">
+Les journaux d'audit sont disponibles sur les forfaits Entreprise et sont visibles par les propriétaires et administrateurs Workspace.
+</Accordion>
+<Accordion title="Combien de temps les journaux d'audit sont-ils conservés ?">
+Les journaux d'audit sont conservés pendant 13 semaines, soit environ 90 jours. Les événements plus anciens sont automatiquement supprimés.
+</Accordion>
+<Accordion title="Puis-je exporter des journaux d’audit ?">
+Les journaux d'audit ne sont actuellement pas exportés en libre-service Support.
+
+Les entrées du journal d'audit peuvent être développées pour afficher les détails JSON structurés, qui peuvent être copiés si nécessaire.
+
+Si vous devez intégrer les journaux d'audit à un SIEM ou à un système de surveillance externe, contactez l'équipe de votre compte pour discuter des options d'intégration d'entreprise.
+</Accordion>
+<Accordion title="Pourquoi ne vois-je pas les journaux d’audit ?">
+Si les journaux d'audit ne sont pas disponibles ou n'apparaissent pas comme prévu :
+
+- Confirmez que votre Workspace est sur un forfait Entreprise.
+- Confirmez que votre rôle inclut l'autorisation d'afficher les journaux d'audit. Vous devez être un administrateur ou un propriétaire Workspace.
+- Effacez les filtres et essayez une plage horaire plus large.
+</Accordion>
+</AccordionGroup>

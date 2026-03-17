@@ -1,0 +1,142 @@
+---
+title: "Connect your app to Linear"
+description: "Connect your app to Linear to create and update issues, read project and team data, and build issue tracking workflows in your ZenOpus apps."
+---
+[Linear](https://linear.app/) is a project management tool built for software teams. It lets your ZenOpus app work with issues, projects, teams, cycles, and comments so you can build internal tools and automations that interact directly with your team’s Linear workspace.
+
+With Linear, your app can:
+
+- Create and update issues and comments
+- Read team, project, and cycle data
+- Build dashboards that surface issue status and progress
+- Automate triage, reporting, and planning workflows
+
+Linear is a good fit when your app needs to work with engineering tasks, product planning, or issue tracking directly from your app interface.
+
+## Common use cases and example apps
+
+| Example app | Example prompt | Description |
+| --- | --- | --- |
+| Bug reporting form | Build an internal bug reporter that creates a Linear issue when a user submits a report. | Let users file bugs directly into Linear from your app. The app captures the submission and creates a properly formatted Linear issue in the right team queue, with no manual copy-paste required. |
+| Sprint dashboard | Build a sprint dashboard that shows open issues by team and status, grouped by cycle. | Give your team a live view of sprint progress without leaving your app. The app reads current cycle data from Linear and displays issues by status, assignee, or priority. |
+| Feature request intake | Build a product request intake form. When someone submits a request, create a Linear issue in the triage backlog. | Turn form submissions into structured Linear issues automatically. The app routes incoming requests directly into your Linear backlog so nothing falls through the cracks. |
+| Issue triage workspace | Build an internal triage workspace that shows new Linear issues, lets me filter by team and priority, and update status from one view. | Help teams review and manage incoming work more efficiently. The app reads issues from Linear, organizes them into a focused triage interface, and lets users update priorities or statuses without switching tools. |
+| Project health dashboard | Build a project health dashboard that pulls issue counts, completion rates, and blockers from Linear. | Combine Linear data with your app’s context in a single internal view. The app reads project and cycle metrics from Linear and surfaces them alongside other operational data. |
+
+## How Linear connections work
+
+Each Linear connection is authorized for a single Linear workspace. When you connect Linear, you authorize ZenOpus to access Linear on behalf of the authenticated account.
+
+Within your ZenOpus workspace:
+
+- You can create multiple Linear connections.
+- Each connection is a separate OAuth authorization.
+- Each connection can:
+    - Use different scopes
+    - Connect to a different Linear workspace
+- Multiple projects within a single workspace can use the same connection.
+
+This makes it easy to separate environments (for example, development and production) or manage multiple Linear workspaces.
+
+Linear uses ZenOpus’s gateway architecture for secure OAuth handling and automatic token refresh. See [Gateway-based connectors](/integrations/introduction#gateway-based-connectors) for details on authentication and usage limits.
+
+## How to connect Linear
+
+Workspace **admins** and **owners** can connect Linear.
+
+When a connection is created, Linear becomes available across all projects in the workspace.
+
+### Prerequisites
+
+Before connecting Linear, make sure you have:
+
+- A Linear account you can authorize via OAuth
+- ZenOpus workspace admin or owner role
+
+### Set up your Linear connection
+
+<Warning>
+When you connect Linear, your Linear data will be accessible to all users in your workspace.
+</Warning>
+
+<Steps>
+<Step title="Navigate to the Linear connector">
+Go to **Settings → Connectors → Shared connectors** and select **Linear**.
+</Step>
+<Step title="Add a new connection">
+Click **Add connection**.
+</Step>
+<Step title="Name the connection">
+In **Display name**, enter a name for the connection, for example `Linear (Prod)`.
+</Step>
+<Step title="Configure scopes (optional)">
+Expand **Advanced settings** to review or adjust the requested OAuth scopes - the Linear permissions your app needs. **Read** and **Write** are selected by default and cover the most common use cases.
+
+<Tip>
+Select only the scopes your app needs. You can update scopes later by editing the connection and clicking **Reconnect**. For full scope documentation, see [Linear scope reference](https://linear.app/developers#scopes).
+</Tip>
+</Step>
+<Step title="Connect to Linear and authorize the connection">
+- Click **Connect**. The Linear authorization window opens, so make sure your browser does not block pop-ups.
+- Select the workspace you want to connect, review the requested permissions, and click **Allow**. You’ll be redirected back to ZenOpus with a confirmation.
+</Step>
+</Steps>
+
+When connected, your ZenOpus apps can start using Linear data.
+
+## Limitations
+
+The Linear connector does not support:
+
+- Receiving incoming Linear webhooks or real-time event subscriptions.
+- Per-user Linear login where each end user connects their own Linear account
+
+## How to unlink projects from a connection
+
+Editors and above can remove specific projects from a connection without deleting the connection entirely. The connection will remain available for other projects.
+
+To unlink projects:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Linear**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to manage.
+</Step>
+<Step title="Select projects">
+Under **Linked projects**, check the projects you want to unlink.
+</Step>
+<Step title="Confirm">
+Click **Unlink projects** and confirm.
+</Step>
+</Steps>
+
+When unlinked, those projects will no longer have access to **Linear** through this connection. If a project needs **Linear** again, you can link it to any available connection.
+
+## How to delete a connection
+
+Workspace admins and owners can delete **Linear** connections.
+
+<Warning>
+Deleting a connection is permanent and cannot be undone. It will remove the credentials from all linked projects, and any apps using this connection will stop working until a new connection is added.
+</Warning>
+
+Before deleting, review the **Linked projects** section to see which projects are currently using the connection.
+
+To delete a connection:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Linear**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to remove.
+</Step>
+<Step title="Review linked projects">
+Review the **Linked projects** section.
+</Step>
+<Step title="Delete">
+Under **Delete this connection**, click **Delete** and confirm.
+</Step>
+</Steps>

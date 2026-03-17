@@ -1,0 +1,261 @@
+---
+title: "Agregue autenticación de Google a las aplicaciones ZenOpus Cloud"
+description: "Agregue la autenticación de Google a las aplicaciones ZenOpus Cloud utilizando Google OAuth administrado o sus propias credenciales de Google Cloud."
+---
+<Note>
+Esta página documenta la **autenticación de Google en ZenOpus Cloud**. El flujo de autenticación administrado de Google y la configuración de sus propias credenciales que se describen aquí están disponibles para [**ZenOpus Cloud aplicaciones únicamente**](/es/integrations/cloud).
+</Note>
+
+## Descripción general
+
+ZenOpus admite **Iniciar sesión con Google** utilizando OAuth 2.0, estándar de la industria, lo que permite a los usuarios autenticarse con sus cuentas de Google en lugar de crear una contraseña.
+
+La autenticación de Google en [ZenOpus Cloud](/es/integrations/cloud) se puede configurar de dos maneras:
+
+- **Administrado por ZenOpus**: ZenOpus administra el cliente OAuth, las credenciales, el manejo de redirecciones y las actualizaciones de seguridad. Esta es la configuración predeterminada y recomendada.
+- **Tus propias credenciales** (a veces denominadas BYOK): conectas las credenciales de OAuth desde tu propio proyecto de Google Cloud y administras la seguridad y la rotación de las credenciales.
+
+Ambas opciones brindan la misma experiencia de inicio de sesión para los usuarios.
+
+1. El usuario hace clic en **Iniciar sesión con Google** en tu aplicación.
+1. Google muestra una pantalla de consentimiento
+1. El usuario revisa y aprueba el acceso.
+1. Google redirige al usuario a su aplicación, una vez que ha iniciado sesión
+
+Desde una perspectiva técnica, OAuth se basa en:
+
+- un **ID de cliente** (identifica la aplicación)
+- un **Secreto de cliente** (autoriza la aplicación)
+- **URL de redireccionamiento** (donde Google envía a los usuarios después de la aprobación)
+
+ZenOpus integra este flujo directamente en su aplicación y UI.
+
+## ¿Por qué utilizar el inicio de sesión de Google?
+
+El inicio de sesión de Google proporciona una experiencia de autenticación familiar y reduce la fricción durante el registro y el inicio de sesión.
+
+- Incorporación más rápida sin creación de contraseña
+- Experiencia confiable de consentimiento de Google
+- Reducción de los gastos generales de restablecimiento de contraseña y recuperación de cuenta.
+- Direcciones de correo electrónico previamente verificadas proporcionadas por Google
+- Identidad de usuario confiable con información de perfil
+
+## Casos de uso comunes
+
+El inicio de sesión de Google se utiliza habitualmente para:
+
+- Aplicaciones de consumo donde se espera un inicio de sesión social
+- Productos SaaS dirigidos a usuarios profesionales
+- Herramientas internas que utilizan Google Workspace
+- Cuentas de comercio electrónico e historial de pedidos
+- Comunidades o productos que requieren direcciones de correo electrónico verificadas
+
+## Opciones de configuración de autenticación de Google
+
+ZenOpus Cloud admite la configuración de la autenticación de Google de dos maneras:
+
+- **Gestionado por ZenOpus**
+- **Tus propias credenciales**
+
+La experiencia del usuario final es idéntica en ambos casos; la diferencia es cómo se administran las credenciales de OAuth.
+
+<Tabs>
+<Tab title="Gestionado por ZenOpus (predeterminado)">
+ZenOpus administra el cliente OAuth, las credenciales, el manejo de redirecciones y las actualizaciones de seguridad relacionadas para este flujo. No se requiere configuración de Google Cloud Console.
+
+Utilice esta opción si:
+
+- quiero la configuración más simple
+- no quiero configurar Google Cloud manualmente
+- no es necesario poseer credenciales de OAuth
+- no necesita ámbitos OAuth personalizados más allá de los predeterminados (correo electrónico y perfil básico)
+
+Cuando se utiliza **Administrado por ZenOpus**, la **pantalla de consentimiento** de Google se muestra la primera vez que un usuario inicia sesión.
+
+La pantalla de consentimiento:
+
+- Muestra el nombre de tu aplicación
+- Indica que la aplicación solicita acceso mediante autenticación de Google
+- Solicita acceso a la dirección de correo electrónico del usuario y a la información básica del perfil.
+
+Se solicita a los usuarios que aprueben el acceso una vez. Después de la aprobación, se les redirige nuevamente a su aplicación y no volverán a ver la pantalla de consentimiento a menos que cambien los permisos.
+
+<Steps>
+<Step title="Prompt ZenOpus para agregar autenticación de Google">
+```text
+Agregar el inicio de sesión de Google a mi aplicación para que los usuarios puedan iniciar sesión con su cuenta de Google
+```
+
+ZenOpus habilitará la autenticación de Google automáticamente en **Cloud → Usuarios → Auth → Google** y:
+
+- configurar Google OAuth en el backend
+- crear o actualizar componentes de la interfaz de usuario de inicio de sesión
+- configurar la gestión del estado de autenticación
+- agregar funcionalidad de cierre de sesión
+
+Puede revisar los cambios en la vista **Detalles**.
+</Step>
+<Step title="Pruebe el flujo">
+Después de habilitar el inicio de sesión de Google, verifique que:
+
+- Aparece un botón **Iniciar sesión con Google**
+- los usuarios son redirigidos a Google para su autenticación
+- los usuarios regresan a la aplicación en un estado de inicio de sesión
+- la pantalla de consentimiento se comporta como se esperaba
+- los usuarios pueden iniciar sesión y cerrar sesión correctamente
+</Step>
+</Steps>
+</Tab>
+<Tab title="Tus propias credenciales">
+Usted crea y administra las credenciales de OAuth en su propio proyecto de Google Cloud y las conecta a ZenOpus. Usted es responsable de gestionar la seguridad y la rotación de credenciales.
+
+Utilice esta opción si:
+
+- Requiere OAuth en tu propio proyecto de Google Cloud.
+- necesita control total sobre la marca de la pantalla de consentimiento
+- tener requisitos de seguridad o cumplimiento
+- necesita ámbitos OAuth personalizados más allá de los valores predeterminados
+
+Cuando utilizas **tus propias credenciales**, la **pantalla de consentimiento** de Google está totalmente controlada por tu proyecto de Google Cloud, que incluye:
+
+- nombre y marca de la aplicación
+- configuración de la pantalla de consentimiento
+- Ámbitos de OAuth
+
+ZenOpus utiliza las credenciales y configuraciones que usted proporciona sin modificar la pantalla de consentimiento.
+
+<Steps>
+<Step title="Crear credenciales OAuth en Google Cloud">
+En [Google Cloud Console](https://console.cloud.google.com), debes:
+
+- seleccionar o crear un proyecto de Google Cloud
+- configurar una **pantalla de consentimiento de OAuth**
+- cree un **ID de cliente OAuth** de tipo **aplicación web**
+
+Consulte la [documentación de Google Auth Platform](https://Support.google.com/cloud/topic/15540269) para obtener todos los detalles.
+</Step>
+<Step title="Configurar credenciales en ZenOpus">
+- Vaya a **Nube → Usuarios → Autenticación → Google**.
+- Habilite **Inicio de sesión de Google** y seleccione **Sus propias credenciales**.
+- Ingrese su **ID de cliente** y **Secreto de cliente**.
+</Step>
+<Step title="Configurar URI de redireccionamiento en Google Cloud">
+Al utilizar sus propias credenciales de Google OAuth, ZenOpus puede mostrar **múltiples URI de redireccionamiento posibles**, por ejemplo:
+
+- su dominio ZenOpus predeterminado (`https://myapp.zenopus.app`)
+- uno o más dominios personalizados que haya agregado (`https://myapp.com`)
+
+En Google Cloud Console, debe agregar **cada URI de redireccionamiento que desee utilizar** como **URI de redireccionamiento autorizado** en su cliente OAuth.
+
+<Note>
+Los URI de redireccionamiento deben coincidir exactamente. El esquema, el dominio, la ruta y las barras diagonales son importantes.
+</Note>
+</Step>
+<Step title="Confirme qué URI de redireccionamiento están autorizados en su cliente Google OAuth">
+ZenOpus necesita saber **qué URI de redireccionamiento están autorizados en su cliente Google OAuth**. Después de agregarlos en Google Cloud, regrese a ZenOpus y **seleccione los URI de redireccionamiento que ha incluido en la lista blanca**.
+
+Al seleccionar URI de redireccionamiento en ZenOpus, estás confirmando:
+
+- qué dominios están autorizados en su cliente Google OAuth
+- a qué dominio ZenOpus se le permite redirigir a los usuarios después de iniciar sesión
+
+Esto garantiza que la autenticación de Google siga funcionando correctamente en los dominios predeterminados y personalizados.
+</Step>
+<Step title="Guarde su configuración de inicio de sesión de Google">
+Haga clic en **Guardar** para guardar y confirmar sus credenciales de Google y los URI de redireccionamiento seleccionados.
+</Step>
+<Step title="Agregue la interfaz de usuario de autenticación a su aplicación">
+Prompt ZenOpus para agregar la interfaz de usuario de inicio de sesión de Google a tu aplicación:
+
+```text
+Agregue el inicio de sesión de Google a mi aplicación usando mis propias credenciales de Google OAuth.
+```
+
+ZenOpus generará la interfaz de usuario utilizando sus credenciales personalizadas.
+</Step>
+<Step title="Pruebe el flujo">
+Antes de implementar en producción, verifique que:
+
+- Aparece un botón **Iniciar sesión con Google**
+- Los URI de redireccionamiento están configurados correctamente.
+- los usuarios regresan a la aplicación en un estado de inicio de sesión
+- la pantalla de consentimiento se comporta como se esperaba
+- los usuarios pueden iniciar sesión y cerrar sesión correctamente
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+## Administrar la autenticación de Google
+
+Puede cambiar entre **Administrado por ZenOpus** y **Sus propias credenciales** en cualquier momento desde **Nube → Usuarios → Autenticación → Google**.
+
+Cambiar la configuración de autenticación de Google no afecta las cuentas de usuario existentes. Los usuarios pueden seguir iniciando sesión con las mismas cuentas de Google.
+
+## Solución de problemas de configuración de "Tus propias credenciales"
+
+<AccordionGroup>
+<Accordion title="El URI de redireccionamiento no coincide">
+- Asegúrese de que cada URL de redireccionamiento que seleccionó en ZenOpus se agregue a Google Cloud
+- Compruebe si faltan barras diagonales adicionales o adicionales
+- Verifique que el esquema (`https` vs `http`) coincida exactamente
+</Accordion>
+<Accordion title="Problemas con la pantalla de consentimiento">
+- Asegúrese de que la pantalla de consentimiento de OAuth esté configurada correctamente en Google Cloud
+- Agregue su cuenta como usuario de prueba si la aplicación no está publicada
+- Verificar que los alcances requeridos estén configurados
+</Accordion>
+<Accordion title="Tipo de cliente OAuth incorrecto">
+- Utilice una **aplicación web** cliente OAuth
+- Los tipos de clientes móviles o de escritorio no son compatibles con el flujo de redireccionamiento de ZenOpus
+</Accordion>
+<Accordion title="La autenticación no funciona">
+- Confirme que el inicio de sesión de Google esté habilitado en **Usuarios → Autenticación → Google**
+- Verifique los valores `Client ID` y `Client secret` (su propia configuración de credenciales)
+- Asegúrese de que la interfaz de usuario de autenticación esté conectada al backend
+</Accordion>
+</AccordionGroup>
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿La autenticación de Google administrada por ZenOpus está disponible para todas las aplicaciones ZenOpus?">
+No. **ZenOpus-administrada** La autenticación de Google está disponible solo para aplicaciones **ZenOpus Cloud**.
+</Accordion>
+<Accordion title="¿Puedo usar la autenticación de Google en aplicaciones que no usan ZenOpus Cloud?">
+Sí. La autenticación de Google se puede agregar a aplicaciones que no usan ZenOpus Cloud, pero requiere una configuración manual fuera de ZenOpus Cloud.
+
+Por ejemplo, en aplicaciones que no usan ZenOpus Cloud, podrías:
+
+- integre Google OAuth directamente en su código frontend o backend
+- utilice One Tap de Google o los flujos de inicio de sesión estándar de OAuth
+- utilizar un servicio de autenticación de terceros como Supabase Auth
+- administre usted mismo las credenciales de OAuth, el manejo de redirecciones y la lógica de sesión
+
+Esta página documenta la implementación de **ZenOpus Cloud**, incluida la autenticación administrada de Google y su propio flujo de credenciales específico para ZenOpus Cloud.
+</Accordion>
+<Accordion title="¿Debo utilizar la opción administrado por ZenOpus o mis propias credenciales?">
+Utilice **Administrado por ZenOpus** a menos que necesite específicamente administrar sus propias credenciales de Google Cloud OAuth, personalizar la marca de la pantalla de consentimiento o configurar ámbitos de OAuth personalizados.
+</Accordion>
+<Accordion title="¿Qué información comparte Google con mi aplicación?">
+De forma predeterminada, Google proporciona la **dirección de correo electrónico** y la **información básica del perfil** del usuario. No se comparten datos adicionales a menos que configure ámbitos OAuth personalizados (solo su propia configuración de credenciales).
+</Accordion>
+<Accordion title="¿Los usuarios ven la pantalla de consentimiento de Google cada vez que inician sesión?">
+No. A los usuarios se les muestra la pantalla de consentimiento la **primera vez** que inician sesión en Google o si cambian los permisos solicitados.
+</Accordion>
+<Accordion title="¿Puedo cambiar entre &quot;administradas&quot; y &quot;sus propias credenciales&quot; más tarde?">
+Sí. Puedes cambiar entre **Administrado por ZenOpus** y **Tus propias credenciales** en cualquier momento. Las cuentas de usuario existentes no se ven afectadas.
+</Accordion>
+<Accordion title="¿Por qué veo un error de no coincidencia de URI de redireccionamiento?">
+Esto generalmente significa que las URL de redireccionamiento que seleccionó en ZenOpus no coinciden exactamente con las **URI de redireccionamiento autorizadas** configuradas en Google Cloud.
+
+- Asegúrese de que cada URL de redireccionamiento que seleccionó en ZenOpus se agregue a Google Cloud.
+- Verifique el esquema, el dominio, la ruta y las barras diagonales.
+</Accordion>
+<Accordion title="¿La autenticación de Google reemplaza el inicio de sesión con correo electrónico/contraseña?">
+No. La autenticación de Google es un método de inicio de sesión adicional. Puede ofrecer el inicio de sesión de Google junto con otros métodos de autenticación.
+</Accordion>
+<Accordion title="¿Necesito configurar Google Cloud Console cuando uso la configuración &quot;Administrado por ZenOpus&quot;?">
+No. La configuración de Google Cloud Console solo es necesaria cuando utilizas **tus propias credenciales**.
+</Accordion>
+</AccordionGroup>

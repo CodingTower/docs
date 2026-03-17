@@ -1,0 +1,90 @@
+---
+title: "Risoluzione dei problemi"
+description: "Correggi gli errori di build, esegui il debug di comportamenti imprevisti, risolvi i problemi di anteprima e ripristina i problemi comuni passo dopo passo."
+---
+## Errori di costruzione
+
+Costruire con ZenOpus rende la codifica più veloce e più intuitiva, ma anche i migliori strumenti di sviluppo IA a volte possono incontrare degli intoppi. A volte il tuo codice non verrà eseguito come previsto oppure potresti notare un comportamento imprevisto in cui l'intelligenza artificiale interpreta le tue intenzioni in modo errato.
+
+Ecco una guida passo passo per aiutarti a risolvere i problemi e tornare in carreggiata:
+
+<iframe src="https://www.youtube.com/embed/0W8bsbHh2p8?si=p4kWhkdu0PEbgGXm" title="Lettore video di YouTube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Utilizzare prima il pulsante Prova a risolvere">
+Fai clic sul pulsante **Prova a risolvere** quando viene visualizzato un errore. ZenOpus eseguirà la scansione dei tuoi log, rileverà il problema e tenterà una soluzione rapida. È la tua prima mossa più veloce. Se ciò non funziona, è tempo di scavare più a fondo.
+</Step>
+<Step title="Diagnosticare un comportamento imprevisto">
+Il tuo codice potrebbe essere eseguito senza errori ma non comportarsi come previsto. Si tratta di un **comportamento inaspettato**, più difficile da individuare e da risolvere. Prova questo:
+
+- **Ripristina e riprova**: torna indietro al momento precedente al verificarsi del problema, quindi prova un messaggio più chiaro e rivisto.
+</Step>
+<Step title="Scrivi suggerimenti più efficaci">
+Suggerimenti chiari e strutturati portano a risultati migliori. Utilizza questo formato:
+
+1. **Utilizza Plan mode** e chiedi: "Puoi delineare i passaggi o pianificare questa funzionalità?"
+1. **Rivedi il piano** che ZenOpus suggerisce, chiedi modifiche o chiarimenti se necessario.
+1. **Prompt ZenOpus**: "Ora, costruiamolo passo dopo passo."
+</Step>
+<Step title="Costruisci in ordine logico">
+La struttura conta. Segui questo flusso consigliato:
+
+1. Crea layout e pagine.
+1. Connettiti a ZenOpus Cloud o a una connessione Supabase esterna.
+1. Configurare l'autenticazione e i ruoli utente.
+1. Pianificare e organizzare la logica delle funzionalità.
+1. Prompt ZenOpus per implementare le funzionalità.
+</Step>
+</Steps>
+
+### Questioni generali
+
+<AccordionGroup>
+<Accordion title="Hai bisogno di aiuto rapido?">
+Passa alla modalità Solo chat e digita: "Questa funzione specifica non funziona. Puoi spiegarmi cosa sta succedendo e cosa hai provato?"
+</Accordion>
+<Accordion title="Problemi di interfaccia utente o layout">
+- Fornisci screenshot del problema dell'interfaccia utente direttamente all'intelligenza artificiale per una diagnosi più chiara.
+- Utilizza lo strumento Modifica per selezionare ed evidenziare funzionalità specifiche dell'interfaccia utente che desideri modificare, quindi descrivi la modifica desiderata.
+- Ad esempio: "Vedi l'elemento evidenziato? Centralo verticalmente e aumenta la spaziatura interna".
+</Accordion>
+<Accordion title="Quando completamente bloccato">
+- Suggerimento: "Fai un passo indietro. Analizza l'errore e suggerisci un approccio diverso".
+- Suddividi il compito in parti più piccole.
+- Utilizzare il pulsante Ripristina se gli errori persistono.
+</Accordion>
+<Accordion title="Anteprima o sandbox avviato non trovato">
+I problemi relativi all'anteprima non trovata o all'avvio del sandbox possono essere correlati all'ambiente sandbox o alla connessione. I problemi sandbox sono spesso temporanei, prova prima a eseguire un aggiornamento forzato. Se il problema persiste, potrebbe indicare una sincronizzazione interrotta con GitHub o un problema di connessione. Per problemi persistenti, consulta la nostra [guida all'integrazione di GitHub](/it/integrations/github).
+</Accordion>
+</AccordionGroup>
+
+### Funzionalità principali
+
+<AccordionGroup>
+<Accordion title="L'anteprima è bianca">
+- Questi sono spesso il risultato di problemi nel file vite.config.ts o che nel progetto sono state introdotte intestazioni di sicurezza.
+- Costruisci errori o errori di sintassi nel codice
+- Errori di runtime JavaScript che causano arresti anomali
+- Dipendenze mancanti o componenti danneggiati
+- Problemi di autenticazione o di routing che bloccano la pagina
+
+Per risolvere il problema: chiedi a ZenOpus di rivedere il file vite.config.ts o di rimuovere le intestazioni di sicurezza. Controlla la presenza di errori nella console del browser, ripristina una versione precedente o chiedi a ZenOpus di indagare sul problema dello schermo vuoto.
+</Accordion>
+<Accordion title="Annulla la pubblicazione o disattiva i progetti">
+Puoi annullare la pubblicazione o eliminare il tuo progetto in Impostazioni progetto.
+</Accordion>
+<Accordion title="Errore con le funzioni Edge">
+Controlla la scheda Cloud -> Log per messaggi di errore specifici. Verifica che tutti i segreti richiesti e le variabili di ambiente siano configurati correttamente. Prova a ridistribuirlo apportando una piccola modifica al codice della funzione edge richiedendo ZenOpus. Assicurati che la connessione al database funzioni. Chiedi a ZenOpus di indagare sull'errore specifico e di risolvere eventuali problemi rilevati nei log.
+</Accordion>
+<Accordion title="Progetto non trovato">
+Questo di solito significa che il progetto è stato eliminato. Se non l'hai eliminato di proposito, contatta Support per ricevere assistenza nel ripristino del progetto.
+</Accordion>
+</AccordionGroup>
+
+### Hai bisogno di ulteriore aiuto?
+
+Ancora bloccato? Prova questo:
+
+1. Utilizza Plan mode per una guida passo passo.
+1. Se si tratta di un problema con l'interfaccia utente o con una funzionalità, ripristina uno stato stabile.
+1. Se sei un cliente a pagamento e desideri segnalare un problema a livello di piattaforma, contatta [Support](https://zenopus.dev/support).

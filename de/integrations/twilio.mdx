@@ -1,0 +1,138 @@
+---
+title: "Verbinden Sie Ihre App mit Twilio"
+description: "Verbinden Sie Ihre App mit Twilio, um SMS- und MMS-Nachrichten zu senden, Sprachanrufe zu tätigen und telefonbasierte Kommunikationsflüsse direkt zu Ihrer ZenOpus-App hinzuzufügen."
+---
+[Twilio](https://www.twilio.com/) ist eine Cloud-Kommunikationsplattform, mit der Ihre App Benutzer per Telefon erreichen kann. Es eignet sich gut für Apps, die Textaktualisierungen in Echtzeit senden, eine Telefonverifizierung hinzufügen, Sprachanrufe auslösen oder auf Messaging basierende Arbeitsabläufe benötigen.
+
+Mit Twilio kann Ihre App:
+
+- Senden und empfangen Sie SMS- und MMS-Nachrichten
+- Sprachanrufe tätigen und verwalten
+- Support WhatsApp-Nachrichtenflüsse
+- Telefonnummern validieren und nachschlagen
+
+Twilio eignet sich gut, wenn Ihre App mit Benutzern per Telefon oder SMS kommunizieren muss und nicht nur über In-App-Benachrichtigungen oder E-Mail.
+
+## Häufige Anwendungsfälle und Beispiel-Apps
+
+| Beispiel-App | Beispielaufforderung | Beschreibung |
+| --- | --- | --- |
+| SMS-Benachrichtigungen und Warnungen | Erstellen Sie eine App zur Auftragsverfolgung, die Kunden eine SMS mit einem Tracking-Link sendet, wenn ihre Bestellung versandt wird. | Senden Sie SMS-Updates in Echtzeit, ausgelöst durch Ereignisse in Ihrer App. Die App erkennt eine Statusänderung, generiert die Nachricht und sendet sie automatisch an den Kunden. |
+| Telefonverifizierungsabläufe | Erstellen Sie einen Anmeldeablauf, der Benutzern einen Einmalcode per SMS sendet, um ihre Telefonnummer zu bestätigen, bevor sie ein Konto erstellen. | Fügen Sie eine telefonische Verifizierung zu Onboarding- oder Anmeldeabläufen hinzu. Die App sendet einen Einmalcode, prüft die Eingabe des Benutzers und bestätigt die Nummer, bevor sie fortfährt. |
+| Terminerinnerungen | Erstellen Sie eine Buchungs-App, die Kunden 24 Stunden vor ihrem Termin eine SMS sendet und erneut, wenn sich die Zeit ändert. | Senden Sie automatische Erinnerungsnachrichten basierend auf geplanten Ereignissen in Ihrer App. Die App nutzt Buchungsdaten, um Textnachrichten zum richtigen Zeitpunkt auszulösen, ohne dass eine manuelle Nachverfolgung erforderlich ist. |
+| Aktualisierungen von Sprachanrufen | Erstellen Sie eine Service-App, die Kunden mit einer aufgezeichneten Nachricht anruft, wenn ihr Techniker unterwegs ist. | Lösen Sie ausgehende Sprachanrufe von Ihrer App aus, wenn ein wichtiges Update sofortige Aufmerksamkeit erfordert. Die App tätigt den Anruf und übermittelt dem Benutzer eine gesprochene Nachricht. |
+| WhatsApp Support Posteingang | Erstellen Sie eine Kunden-Support-App, in der Benutzer dem Unternehmen auf WhatsApp Nachrichten senden können und Agenten über die App antworten können. | Fügen Sie WhatsApp als Kommunikationskanal in Ihrem Produkt hinzu. Die App sendet und empfängt Nachrichten über Twilio, sodass Konversationen innerhalb Ihres Workflows abgewickelt werden können. |
+| Telefonnummernvalidierung | Erstellen Sie ein Lead-Erfassungsformular, das prüft, ob eine Telefonnummer gültig ist, bevor Sie sie in der Datenbank speichern. | Überprüfen und formatieren Sie Telefonnummern, bevor Sie sie speichern oder verwenden. Die App überprüft die Nummer über Twilio, sodass Ihre Arbeitsabläufe mit saubereren Kontaktdaten beginnen. |
+
+## So verbinden Sie Twilio
+
+Workspace **Administratoren** und **Eigentümer** können Twilio verbinden.
+
+Sie können mehrere Twilio-Verbindungen mit unterschiedlichen API-Schlüsseln erstellen, um beispielsweise Entwicklungs- und Produktionsumgebungen zu trennen oder verschiedene Twilio-Konten zu verwalten.
+
+Wenn eine Verbindung hergestellt wird, wird Twilio für alle Projekte im Workspace verfügbar.
+
+### Voraussetzungen
+
+Stellen Sie vor dem Anschließen von Twilio sicher, dass Sie über Folgendes verfügen:
+
+- Ein Twilio-Konto
+- Eine Twilio-Telefonnummer, wenn Ihr Anwendungsfall das Senden von SMS, MMS oder das Tätigen von Anrufen erfordert
+- Ein **Standard** Twilio-API-Schlüssel
+- ZenOpus Workspace Besitzer- oder Administratorrolle
+
+<Note>
+Die gesamte SMS-, MMS-, Sprach-, WhatsApp- und andere Twilio-Nutzung über diesen Connector wird direkt von Twilio auf der Grundlage Ihres Twilio-Kontos und -Plans abgerechnet. Die Abrechnung erfolgt über Twilio, nicht über ZenOpus.
+</Note>
+
+### Schritt 1: Erstellen Sie einen Twilio-API-Schlüssel
+
+Twilio verwendet eine **API-Schlüssel-SID** und ein **Geheimnis** anstelle eines einzelnen Tokens. Dies ist sicherer als die Verwendung Ihres Haupt-Authentifizierungstokens, da API-Schlüssel unabhängig voneinander widerrufen werden können.
+
+So erstellen Sie einen Twilio-Standard-API-Schlüssel:
+
+1. Gehen Sie zur [Twilio-Konsole](https://console.twilio.com/) und melden Sie sich an.
+1. Navigieren Sie zu **Konto → API-Schlüssel und Token**.
+1. Klicken Sie auf **API-Schlüssel erstellen**.
+1. Geben Sie einen **Anzeigenamen** ein, zum Beispiel `ZenOpus integration`.
+1. Wählen Sie die **Region** für den Schlüssel:
+    - **Vereinigte Staaten (US1)**: Standard für die meisten Konten
+    - **Irland (IE1)**
+    - **Australien (AU1)**
+1. Belassen Sie **Schlüsseltyp** auf **Standard**.
+1. Klicken Sie auf **API-Schlüssel erstellen**.
+1. Kopieren Sie sowohl die **API-Schlüssel-SID** (beginnt mit `SK`) als auch das **Geheimnis**. Das Geheimnis wird nur einmal angezeigt. Bewahren Sie es daher sicher auf, bevor Sie die Seite verlassen.
+
+<Info>
+Ihr API-Schlüsselgeheimnis funktioniert wie ein Passwort. Bewahren Sie es sicher auf und geben Sie es niemals öffentlich weiter. Sie benötigen es im nächsten Schritt.
+</Info>
+
+Sie benötigen außerdem Ihre **Konto-SID** (beginnt mit `AC`), die in der Twilio-Konsole verfügbar ist. Twilio-API-Anmeldeinformationen sind regionsspezifisch, daher sollte die Region, die Sie beim Erstellen des Schlüssels auswählen, mit der Region übereinstimmen, die Sie beim Einrichten der ZenOpus-Verbindung verwenden.
+
+Ausführliche Anweisungen finden Sie in der Twilio-Dokumentation: [API-Schlüssel in der Twilio-Konsole erstellen](https://www.twilio.com/docs/iam/api-keys/keys-in-console)
+
+### Schritt 2: Twilio mit ZenOpus verbinden
+
+1. Gehen Sie zu **Einstellungen → Konnektoren → Freigegebene Konnektoren** und wählen Sie **Twilio** aus.
+1. Klicken Sie auf **Verbindung hinzufügen**.
+1. Geben Sie unter **Anzeigename** einen Namen für die Verbindung ein, zum Beispiel `Twilio Prod`.
+1. Wählen Sie unter **Region** dieselbe Twilio-Region aus, die für den API-Schlüssel verwendet wird:
+    - **Vereinigte Staaten (US1)**
+    - **Irland (IE1)**
+    - **Australien (AU1)**
+1. Geben Sie unter **Konto-SID** Ihre Twilio-Konto-SID ein (beginnt mit `AC`).
+1. Geben Sie unter **Standard-API-Schlüssel-SID** die von Ihnen erstellte API-Schlüssel-SID ein (beginnt mit `SK`).
+1. Geben Sie unter **API-Schlüsselgeheimnis** das Geheimnis ein, das beim Erstellen des Schlüssels angezeigt wurde.
+1. Klicken Sie auf **Erstellen**.
+
+Wenn eine Verbindung besteht, können Ihre ZenOpus-Apps Twilio verwenden, um Nachrichten zu senden und telefonbasierte Kommunikationsflüsse zu ermöglichen.
+
+## So entkoppeln Sie Projekte von einer Verbindung
+
+Redakteure und höher können bestimmte Projekte aus einer Verbindung entfernen, ohne die Verbindung vollständig zu löschen. Für andere Projekte bleibt die Verbindung weiterhin verfügbar.
+
+Um die Verknüpfung von Projekten aufzuheben:
+
+<Steps>
+<Step title="Navigieren Sie zu Anschlüssen">
+Gehen Sie zu **Einstellungen → Konnektoren → Freigegebene Konnektoren** und wählen Sie **Twilio** aus.
+</Step>
+<Step title="Öffnen Sie die Verbindung">
+Öffnen Sie die Verbindung, die Sie verwalten möchten.
+</Step>
+<Step title="Wählen Sie Projekte aus">
+Markieren Sie unter **Verknüpfte Projekte** die Projekte, deren Verknüpfung Sie aufheben möchten.
+</Step>
+<Step title="Bestätigen">
+Klicken Sie auf **Projekte verknüpfen** und bestätigen Sie.
+</Step>
+</Steps>
+
+Wenn die Verknüpfung aufgehoben wird, haben diese Projekte über diese Verbindung keinen Zugriff mehr auf **Twilio**. Wenn ein Projekt erneut **Twilio** benötigt, können Sie es mit jeder verfügbaren Verbindung verknüpfen.
+
+## So löschen Sie eine Verbindung
+
+Workspace-Administratoren und -Besitzer können **Twilio**-Verbindungen löschen.
+
+<Warning>
+Das Löschen einer Verbindung ist dauerhaft und kann nicht rückgängig gemacht werden. Dadurch werden die Anmeldeinformationen aus allen verknüpften Projekten entfernt und alle Apps, die diese Verbindung verwenden, funktionieren nicht mehr, bis eine neue Verbindung hinzugefügt wird.
+</Warning>
+
+Überprüfen Sie vor dem Löschen den Abschnitt **Verknüpfte Projekte**, um zu sehen, welche Projekte derzeit die Verbindung verwenden.
+
+So löschen Sie eine Verbindung:
+
+<Steps>
+<Step title="Navigieren Sie zu Anschlüssen">
+Gehen Sie zu **Einstellungen → Konnektoren → Freigegebene Konnektoren** und wählen Sie **Twilio** aus.
+</Step>
+<Step title="Öffnen Sie die Verbindung">
+Öffnen Sie die Verbindung, die Sie entfernen möchten.
+</Step>
+<Step title="Überprüfen Sie verknüpfte Projekte">
+Sehen Sie sich den Abschnitt **Verknüpfte Projekte** an.
+</Step>
+<Step title="Löschen">
+Klicken Sie unter **Diese Verbindung löschen** auf **Löschen** und bestätigen Sie.
+</Step>
+</Steps>

@@ -1,0 +1,136 @@
+---
+title: "Collega la tua app a Contentful"
+description: "Collega la tua app a Contentful per recuperare e visualizzare i contenuti pubblicati dal tuo CMS headless, incluse voci, risorse e rich text."
+---
+[Contenuti](https://www.contentful.com/) è un CMS headless che separa la gestione dei contenuti dalla modalità di presentazione dei contenuti. Il connettore Contentful consente alla tua app ZenOpus di recuperare i contenuti pubblicati dal tuo spazio Contentful utilizzando la Content Delivery API (CDA). La tua app può quindi eseguire il rendering di pagine basate sui contenuti, cataloghi di prodotti, blog o documentazione basata sui contenuti archiviati in Contentful.
+
+Con Contentful, la tua app può:
+
+- Recupera voci, risorse e tipi di contenuto pubblicati dal tuo spazio
+- Distribuisci contenuti tramite l'API Content Delivery supportata da CDN di Contentful
+- Crea pagine e layout dinamici basati sui contenuti del tuo CMS
+- Filtra e impagina le voci per tipo di contenuto, impostazioni locali o valori di campo
+- Visualizza i campi Rich Text nell'interfaccia utente dell'app
+
+<Note>
+Il connettore Contentful è **sola lettura**. Non Support crea, aggiorna o elimina contenuti. Tutta la gestione dei contenuti avviene nell'app Web Contentful o tramite l'API Contentful Management.
+</Note>
+
+## Casi d'uso comuni e app di esempio
+
+| Applicazione di esempio | Esempio di richiesta | Descrizione |
+| --- | --- | --- |
+| Siti di marketing e pagine di destinazione | Utilizza Contentful e crea un sito di marketing in cui la home page e le pagine delle funzionalità vengono caricate da Contentful. | Crea pagine di marketing basate su contenuti CMS. L'app recupera le voci della pagina da Contentful e le visualizza come componenti in modo che gli editor possano aggiornare testo e immagini senza modificare il codice. |
+| App del catalogo prodotti | Utilizza Contentful e crea un catalogo prodotti che mostri i prodotti archiviati nel mio spazio Contentful con filtri di categoria. | Visualizza elenchi di prodotti gestiti in Contentful. L'app recupera le voci dei prodotti, esegue il rendering delle schede prodotto e supporta il filtraggio e l'impaginazione in base ai campi archiviati nel CMS. |
+| Blog e piattaforme editoriali | Utilizza Contentful e crea un blog che carichi articoli da Contentful e visualizzi testo e immagini in formato rich. | Crea un blog supportato da contenuti ricchi di contenuti. L'app recupera le voci degli articoli, risolve le risorse collegate e visualizza i campi rich text come contenuto formattato. |
+| Siti di documentazione | Utilizza Contentful e crea un sito di documentazione in cui ogni pagina di documento viene archiviata come voce in Contentful. | Crea documentazione basata sui contenuti CMS. L'app recupera le voci della documentazione e genera navigazione e pagine dalla struttura del contenuto in Contentful. |
+| App di contenuti multilingue | Utilizza Contentful e crea un'app che carica i contenuti nella lingua dell'utente utilizzando le impostazioni locali di Contentful. | Offri contenuti localizzati da Contentful. L'app recupera le voci nella lingua richiesta e visualizza i contenuti tradotti in base alla lingua dell'utente. |
+| Pagine di eventi e annunci | Utilizza Contentful e crea una pagina di elenco eventi che carica i prossimi eventi da Contentful e li ordina per data. | Visualizza gli elenchi degli eventi gestiti in Contentful. L'app recupera le voci degli eventi, le ordina in base ai campi data e visualizza gli eventi imminenti che gli editor mantengono nel CMS. |
+
+## Come connettere Contentful
+
+Workspace **amministratori** e **proprietari** possono connettersi a Contentful.
+
+Puoi creare più connessioni Contentful utilizzando chiavi API diverse o spazi diversi. Ciò può essere utile per separare ambienti di sviluppo e produzione o per connettere più spazi di contenuto.
+
+Una volta creata la connessione, Contentful diventa disponibile in tutti i progetti in Workspace.
+
+### Prerequisiti
+
+Prima di connettere Contentful, assicurati di avere:
+
+- Un account Contentful con uno spazio che contiene contenuti pubblicati
+- Un **token di accesso CDA (Content Delivery API)** per quello spazio
+- Il tuo **ID spazio**
+- ZenOpus Workspace proprietario o ruolo di amministratore
+
+<Note>
+Tutte le richieste API effettuate tramite questo connettore utilizzano il token di accesso dell'API Content Delivery. L'utilizzo dell'API viene conteggiato ai fini dei limiti del piano Contentful e la fatturazione viene gestita direttamente da Contentful, non da ZenOpus.
+</Note>
+
+### Passaggio 1: trova l'ID del tuo spazio e crea un token di accesso CDA
+
+Il tuo ID spazio e il token di accesso CDA sono entrambi disponibili nell'app Web Contentful.
+
+**Per trovare il tuo ID spazio:**
+
+1. Accedi a [app.contentful.com](https://app.contentful.com).
+1. Apri lo spazio a cui desideri connetterti.
+1. Vai su **Impostazioni → Impostazioni generali**.
+1. Copia l'**ID spazio**.
+
+Consulta la documentazione sui contenuti per istruzioni dettagliate: [Trova ID spazio](https://www.contentful.com/help/spaces/find-space-id)
+
+**Per creare un token di accesso all'API Content Delivery:**
+
+1. Nello stesso spazio, vai su **Impostazioni → Chiavi API**.
+1. Fai clic su **Aggiungi chiave API** o apri una chiave esistente.
+1. Assegna alla chiave un nome come `ZenOpus integration`.
+1. Copia il **token di accesso dell'API Content Delivery**.
+
+Consulta la documentazione sui contenuti per istruzioni dettagliate: [Autenticazione](https://www.contentful.com/developers/docs/references/authentication/)
+
+<Warning>
+Il tuo token di accesso funziona come una password. Mantienilo al sicuro e non condividerlo mai pubblicamente. Nel passaggio successivo avrai bisogno sia dell'ID dello spazio che del token di accesso.
+</Warning>
+
+### Passaggio 2: collega Contentful a ZenOpus
+
+1. Vai a **Impostazioni → Connettori → Connettori condivisi** e seleziona **Contenuto**.
+1. Fai clic su **Aggiungi connessione**.
+1. Inserisci un **Nome visualizzato**, ad esempio `Contentful Prod`.
+1. Inserisci il tuo **ID spazio**.
+1. Inserisci il tuo **token di accesso all'API Content Delivery**.
+1. Fare clic su **Connetti**.
+
+Una volta connesse, le tue app ZenOpus possono iniziare a recuperare contenuti dal tuo spazio Contenuti.
+
+## Come scollegare i progetti da una connessione
+
+Gli editor e i livelli superiori possono rimuovere progetti specifici da una connessione senza eliminare completamente la connessione. La connessione rimarrà disponibile per altri progetti.
+
+Per scollegare i progetti:
+
+<Steps>
+<Step title="Passare ai connettori">
+Vai a **Impostazioni → Connettori → Connettori condivisi** e seleziona **Contenuto**.
+</Step>
+<Step title="Apri la connessione">
+Apri la connessione che desideri gestire.
+</Step>
+<Step title="Seleziona progetti">
+In **Progetti collegati**, seleziona i progetti che desideri scollegare.
+</Step>
+<Step title="Conferma">
+Fai clic su **Scollega progetti** e conferma.
+</Step>
+</Steps>
+
+Una volta scollegati, tali progetti non avranno più accesso a **Contenuti** tramite questa connessione. Se un progetto necessita nuovamente di **Contenuto**, puoi collegarlo a qualsiasi connessione disponibile.
+
+## Come eliminare una connessione
+
+Gli amministratori e i proprietari Workspace possono eliminare le connessioni **Contenuto**.
+
+<Warning>
+L'eliminazione di una connessione è permanente e non può essere annullata. Rimuoverà le credenziali da tutti i progetti collegati e tutte le app che utilizzano questa connessione smetteranno di funzionare finché non verrà aggiunta una nuova connessione.
+</Warning>
+
+Prima dell'eliminazione, esamina la sezione **Progetti collegati** per vedere quali progetti stanno attualmente utilizzando la connessione.
+
+Per eliminare una connessione:
+
+<Steps>
+<Step title="Passare ai connettori">
+Vai a **Impostazioni → Connettori → Connettori condivisi** e seleziona **Contenuto**.
+</Step>
+<Step title="Apri la connessione">
+Apri la connessione che desideri rimuovere.
+</Step>
+<Step title="Esaminare i progetti collegati">
+Consulta la sezione **Progetti collegati**.
+</Step>
+<Step title="Elimina">
+In **Elimina questa connessione**, fai clic su **Elimina** e conferma.
+</Step>
+</Steps>

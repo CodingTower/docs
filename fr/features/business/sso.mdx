@@ -1,0 +1,560 @@
+---
+title: "Configurer l'authentification unique (SSO)"
+description: "Connectez Okta, Auth0, Microsoft Entra ID ou tout fournisseur OIDC/SAML 2.0 pour activer une authentification sécurisée et centralisée pour votre Workspace."
+---
+L'authentification unique (SSO) est disponible sur les forfaits **Business** et **Enterprise** et permet une authentification sécurisée et centralisée dans l'ensemble de votre organisation. Avec SSO, les utilisateurs peuvent accéder à ZenOpus avec un seul ensemble d'informations d'identification, simplifiant ainsi la gestion des accès et améliorant la sécurité.
+
+<Note>
+**Connexion initiée par le fournisseur de services (SP) uniquement :** les utilisateurs doivent démarrer la connexion à partir de ZenOpus (SP).
+
+**Le SSO initié par le fournisseur d'identité (IdP)** (à partir d'une vignette du tableau de bord IdP) n'est **pas pris en charge**.
+</Note>
+
+## Protocoles SSO pris en charge
+
+ZenOpus prend en charge les protocoles **OIDC** et **SAML 2.0**, permettant l'intégration avec tous les principaux **fournisseurs d'identité (IdP)**, notamment Okta, Auth0, Microsoft Entra ID (Azure AD), et bien plus encore.
+
+- **OpenID Connect (OIDC)** : recommandé ; une couche d'identité moderne construite sur OAuth 2.0 qui permet la vérification de l'identité.
+- **SAML (Security Assertion Markup Language) 2.0** : protocole basé sur XML pour l'échange de données d'authentification et d'autorisation, largement utilisé dans les environnements d'entreprise.
+
+## Conditions préalables
+
+Pour connecter votre fournisseur d'identité à ZenOpus à l'aide d'OIDC ou de SAML, vous avez besoin :
+
+- **Accès administrateur IdP** (Okta, Auth0, Microsoft Entra ID ou tout autre fournisseur que vous utilisez)
+- **ZenOpus Workspace rôle de propriétaire ou d'administrateur**
+- Un **domaine vérifié** en ZenOpus, pour prouver la propriété du domaine
+    <Info>
+    Pour vérifier votre domaine, ajoutez l'enregistrement `TXT` affiché dans l'interface utilisateur à votre fournisseur DNS. Consultez [Domaines personnalisés](/fr/features/custom-domain) pour plus d'informations.
+    </Info>
+
+## Démarrez la configuration SSO dans ZenOpus
+
+La configuration SSO est une **configuration bidirectionnelle** entre ZenOpus et votre fournisseur d'identité :
+
+- **ZenOpus → IdP :** copiez les URL et les paramètres ZenOpus dans votre application IdP.
+- **IdP → ZenOpus :** copiez l'émetteur, les métadonnées et les certificats de votre IdP dans ZenOpus.
+
+Le Workspace **propriétaire** ou **administrateur** peut configurer l'authentification unique. Pour commencer, accédez à **Paramètres → Workspace → Identité → Ajouter un fournisseur SSO**, puis choisissez **OIDC** ou **SAML**.
+
+### Référence de configuration du fournisseur d'identité
+
+Lorsque vous démarrez la configuration du fournisseur SSO dans ZenOpus, vous voyez :
+
+- **Que configurer dans votre IdP** (par exemple, le type d'application, les étendues et les mappages d'attributs)
+- **ZenOpus URL et identifiants** que vous devrez peut-être saisir dans l'IdP.
+
+Utilisez la référence ci-dessous lors de la configuration d'OIDC ou de SAML dans votre IdP.
+
+<Tabs>
+<Tab title="OIDC">
+- Type de demande : `Web Application`
+- Type de subvention : `Authorization Code`
+- Méthode de jeton : `POST` (si configurable)
+- URI de redirection à copier et à ajouter à votre IdP : `https://auth.zenopus.dev/__/auth/handler`
+- Portées OAuth :
+    - Obligatoire : `openid`, `email`
+    - Recommandé : `profile`
+</Tab>
+<Tab title="SAML">
+- URL ACS (Assertion Consumer Service) : `https://auth.zenopus.dev/__/auth/handler`
+- ID d'entité SP/URI d'audience : `https://auth.zenopus.dev/__/auth/handler`
+- Mappages d'attributs :
+    - `email` (obligatoire) : assurez-vous que le format est défini sur `EmailAddress`
+    - `displayName` (recommandé) : mapper au nom complet de l'utilisateur
+    - `photoURL` (recommandé) : mapper vers l'URL de la photo de profil de l'utilisateur
+</Tab>
+</Tabs>
+
+## Guides de configuration spécifiques au fournisseur
+
+Si vous utilisez Okta, Auth0 ou Microsoft Entra, vous pouvez trouver une documentation spécifique au fournisseur pour configurer SSO. Si vous utilisez un autre fournisseur, consultez [Configurer d'autres fournisseurs](#configurer-dautres-fournisseurs).
+
+Avant de commencer, effectuez [Démarrer la configuration SSO dans ZenOpus](#démarrez-la-configuration-sso-dans-zenopus) pour obtenir les paramètres et les valeurs que vous devez utiliser dans votre IdP.
+
+Pour plus d’informations, reportez-vous à la documentation officielle de votre IdP.
+
+### Configurez Okta comme votre fournisseur SSO
+
+<Tabs>
+<Tab title="OIDC">
+<Steps>
+<Step title="Créer une application dans Okta">
+- Accédez à **Console d'administration Okta → Applications.**
+- Cliquez sur **Créer une intégration d'application** et sélectionnez **OIDC**. Sélectionnez ensuite le type d'application **Application Web**.
+- Donnez un nom à l'application, par exemple `ZenOpus OIDC SSO`.
+</Step>
+<Step title="Configurer l'intégration OIDC dans Okta">
+- Définissez le **Type de subvention** sur `Authorization Code`.
+- Supprimez les URI de redirection par défaut.
+- Ajoutez l'URL de redirection ZenOpus à Okta **URI de redirection de connexion** : `https://auth.zenopus.dev/__/auth/handler`
+- Sélectionnez **Affectations** : attribuez l'application à vos utilisateurs/groupes qui doivent accéder à ZenOpus.
+</Step>
+<Step title="Enregistrer la candidature">
+Cliquez sur **Enregistrer**. Votre application est désormais créée dans Okta.
+</Step>
+<Step title="Configurer l'URL de l'émetteur Okta">
+Dans Okta, accédez à **Connexion → Jeton d'identification OpenID Connect**, sélectionnez **URL Okta** dans la liste déroulante Émetteur et **Enregistrer**.
+</Step>
+<Step title="Fournissez à ZenOpus les informations de votre IdP">
+Dans Okta, copiez la valeur suivante depuis l'onglet **Connexion** et saisissez-la dans ZenOpus.
+
+- Okta `Issuer URL` → ZenOpus `OIDC Issuer URL/Discovery Endpoint`
+
+Dans Okta, copiez les valeurs suivantes depuis l'onglet **Général** et saisissez-les dans ZenOpus.
+
+- Okta `Client ID` → ZenOpus `OAuth Client ID/Application ID`
+- Okta `Client Secret` → ZenOpus `OAuth Client Secret`
+</Step>
+<Step title="Configurer le nom d'affichage et l'identifiant de connexion SSO (ID locataire)">
+Dans ZenOpus, mettez à jour ces valeurs comme vous le souhaitez. Les valeurs sont préremplies en fonction de votre domaine vérifié.
+
+- **Nom d'affichage** : nom affiché aux utilisateurs lors de l'authentification.
+- **Identifiant de connexion SSO (ID locataire)** : L'URL que les utilisateurs utiliseront pour se connecter directement avec SSO.
+</Step>
+<Step title="(Facultatif) Testez la configuration dans ZenOpus">
+Dans ZenOpus, cliquez sur **Tester la configuration**. Si tout est configuré correctement, la validation devrait réussir.
+</Step>
+<Step title="Terminez la configuration du fournisseur OIDC dans ZenOpus">
+Dans ZenOpus, cliquez sur **Configurer le fournisseur** pour terminer la configuration d'Okta en tant que fournisseur SSO OIDC.
+</Step>
+</Steps>
+</Tab>
+<Tab title="SAML">
+<Steps>
+<Step title="Créer une application dans Okta">
+- Accédez à **Console d'administration Okta → Applications.**
+- Cliquez sur **Créer une intégration d'application** et sélectionnez **SAML 2.0**.
+- Donnez un nom à l'application, par exemple `ZenOpus SAML SSO`.
+</Step>
+<Step title="Configurer les paramètres SAML dans Okta">
+- URL d'authentification unique : `https://auth.zenopus.dev/__/auth/handler`
+- URI d'audience (ID d'entité SP) : `https://auth.zenopus.dev/__/auth/handler`
+- Format d'identification du nom : `EmailAddress`
+</Step>
+<Step title="Enregistrer la candidature">
+Cliquez sur **Terminer.** Votre application est maintenant créée dans Okta.
+</Step>
+<Step title="Fournissez à ZenOpus les informations de votre IdP">
+Dans Okta, accédez à **Connexion → SAML 2.0 → Détails des métadonnées** et copiez l'**URL des métadonnées**.
+
+Dans ZenOpus, choisissez entre une configuration rapide du fournisseur SAML ou une configuration manuelle :
+
+**Option 1 : configuration rapide – importer à partir de l'URL des métadonnées**
+
+Dans ZenOpus, collez l'URL des métadonnées dans le champ **Configuration rapide : Importer à partir de l'URL des métadonnées**. Cliquez sur **Test & Import** pour remplir automatiquement les champs obligatoires ci-dessous.
+
+**Option 2 : configuration manuelle**
+
+Ouvrez l'URL des métadonnées dans un nouvel onglet. Copiez les valeurs **URL de métadonnées** suivantes et saisissez-les dans ZenOpus :
+
+- Okta `SingleSignOnService Location` → ZenOpus `SAML SSO Sign-on URL from your IdP`
+- Okta `EntityID` → ZenOpus `Identity Provider Entity ID / Issuer`
+- Okta `X509Certificate` → ZenOpus `X.509 Signing Certificate (public key)`
+    <Note>
+    Collez la valeur du certificat entre les lignes `-----BEGIN CERTIFICATE-----` et `-----END CERTIFICATE-----`.
+    </Note>
+</Step>
+<Step title="Configurer le nom d'affichage et l'identifiant de connexion SSO (ID locataire)">
+Dans ZenOpus, mettez à jour ces valeurs comme vous le souhaitez. Les valeurs sont préremplies en fonction de votre domaine vérifié.
+
+- **Nom d'affichage** : nom affiché aux utilisateurs lors de l'authentification.
+- **Identifiant de connexion SSO (ID locataire)** : L'URL que les utilisateurs utiliseront pour se connecter directement avec SSO.
+</Step>
+<Step title="Terminer la configuration du fournisseur SAML dans ZenOpus">
+Dans ZenOpus, cliquez sur **Configurer le fournisseur SAML → Confirmer et activer SSO** pour terminer la configuration d'Okta en tant que fournisseur SAML SSO.
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+### Configurez Auth0 comme votre fournisseur SSO
+
+<Tabs>
+<Tab title="OIDC">
+<Steps>
+<Step title="Créer une application dans Auth0">
+- Accédez à **Tableau de bord d'administration Auth0 → Applications**.
+- Cliquez sur **Créer une application**. Sélectionnez le type d'application **Applications Web régulières**.
+- Donnez un nom à l'application, par exemple `ZenOpus OIDC SSO`.
+- Cliquez sur **Créer**.
+</Step>
+<Step title="Configurer les URL de rappel autorisées">
+- Dans Auth0, accédez aux paramètres de votre application.
+- Ajoutez les **URL de rappel autorisées** : `https://auth.zenopus.dev/__/auth/handler`
+- Cliquez sur **Enregistrer**.
+</Step>
+<Step title="Fournissez à ZenOpus les informations de votre IdP">
+Dans Auth0, copiez les valeurs suivantes de l'onglet **Paramètres** et saisissez-les dans ZenOpus.
+
+- Auth0 `Domain` → ZenOpus `OIDC Issuer URL/Discovery Endpoint` (inclure `https://`)
+- Auth0 `Client ID` → ZenOpus `OAuth Client ID/Application ID`
+- Auth0 `Client Secret` → ZenOpus `OAuth Client Secret`
+</Step>
+<Step title="Configurer le nom d'affichage et l'identifiant de connexion SSO (ID locataire)">
+Dans ZenOpus, mettez à jour ces valeurs comme vous le souhaitez. Les valeurs sont préremplies en fonction de votre domaine vérifié.
+
+- **Nom d'affichage** : nom affiché aux utilisateurs lors de l'authentification.
+- **Identifiant de connexion SSO (ID locataire)** : L'URL que les utilisateurs utiliseront pour se connecter directement avec SSO.
+</Step>
+<Step title="(Facultatif) Tester la configuration dans ZenOpus">
+Dans ZenOpus, cliquez sur **Tester la configuration**. Si vous avez tout configuré avec précision, la validation devrait réussir.
+</Step>
+<Step title="Terminez la configuration du fournisseur OIDC dans ZenOpus">
+Dans ZenOpus, cliquez sur **Configurer le fournisseur** pour terminer la configuration d'Auth0 en tant que fournisseur SSO OIDC.
+</Step>
+</Steps>
+</Tab>
+<Tab title="SAML">
+<Steps>
+<Step title="Créer une application dans Auth0">
+- Accédez à **Tableau de bord d'administration Auth0 → Applications.**
+- Cliquez sur **Créer une application**. Sélectionnez le type d'application **Applications Web régulières**.
+- Donnez un nom à l'application, par exemple `ZenOpus SAML SSO`.
+- Cliquez sur **Créer**.
+</Step>
+<Step title="Configurer les URL de rappel autorisées">
+- Dans Auth0, accédez aux paramètres de votre application.
+- Ajoutez les **URL de rappel autorisées** : `https://auth.zenopus.dev/__/auth/handler`
+- Cliquez sur **Enregistrer**.
+</Step>
+<Step title="Configurer le module complémentaire d'application Web SAML2">
+- Dans Auth0, accédez à **Addons** et activez **SAML2 Web app**.
+- Dans **Addon : Application Web SAML2 → Paramètres**, définissez :
+    - URL de rappel de l'application : `https://auth.zenopus.dev/__/auth/handler`
+    - Paramètres : collez le `mappings` JSON suivant
+
+```json
+    {
+      "mappings": {
+        "email": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      },
+      "nameIdentifierFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    }
+```
+
+- Cliquez sur **Activer.**
+</Step>
+<Step title="Fournissez à ZenOpus les informations de votre IdP">
+Dans ZenOpus, choisissez entre une configuration rapide du fournisseur SAML ou une configuration manuelle :
+
+**Option 1 : configuration rapide – importer à partir de l'URL des métadonnées**
+
+- Dans **Auth0 → Addon : SAML2 Web app → Usage**, localisez les **Métadonnées du fournisseur d'identité** et cliquez sur l'icône en forme de flèche pour obtenir l'URL.
+- Dans ZenOpus, collez l'URL des métadonnées dans le champ **Configuration rapide : Importer à partir de l'URL des métadonnées**.
+- Cliquez sur **Test & Import** pour remplir automatiquement les champs obligatoires ci-dessous.
+
+**Option 2 : configuration manuelle**
+
+Dans **Auth0 → Addon : SAML2 Web app → Usage**, copiez les valeurs **SAML Protocol Configuration Parameter** suivantes et saisissez-les dans ZenOpus.
+
+- Auth0 `Identity Provider Login URL` → ZenOpus `SAML SSO Sign-on URL from your IdP`
+- Auth0 `Issuer` → ZenOpus `Identity Provider Entity ID / Issuer`
+- Auth0 `Identity Provider Certificate` (`X509Certificate`) → ZenOpus `X.509 Signing Certificate (public key)`
+    <Note>
+    Téléchargez le certificat Auth0 et copiez la valeur `X509Certificate`. Collez la valeur du certificat entre les lignes `-----BEGIN CERTIFICATE-----` et `-----END CERTIFICATE-----`.
+    </Note>
+</Step>
+<Step title="Configurer le nom d'affichage et l'identifiant de connexion SSO (ID locataire)">
+Dans ZenOpus, mettez à jour ces valeurs comme vous le souhaitez. Les valeurs sont préremplies en fonction de votre domaine vérifié.
+
+- **Nom d'affichage** : nom affiché aux utilisateurs lors de l'authentification.
+- **Identifiant de connexion SSO (ID locataire)** : L'URL que les utilisateurs utiliseront pour se connecter directement avec SSO.
+</Step>
+<Step title="Terminer la configuration du fournisseur SAML dans ZenOpus">
+Dans ZenOpus, cliquez sur **Configurer le fournisseur SAML → Confirmer et activer SSO** pour terminer la configuration d'Auth0 en tant que fournisseur SAML SSO.
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+### Configurez Microsoft Entra ID comme fournisseur SSO
+
+<Tabs>
+<Tab title="OIDC">
+<Steps>
+<Step title="Créer une inscription d'application dans Microsoft Entra ID">
+- Accédez au **Centre d'administration Microsoft Entra → Inscriptions d'applications → Nouvelle inscription**.
+- Donnez un nom à l'application, par exemple `ZenOpus OIDC SSO`.
+- Configurez **URI de redirection** :
+    - Sélectionnez **Plateforme** comme `Web`.
+    - Collez l'URL de redirection `https://auth.zenopus.dev/__/auth/handler` et cliquez sur **Enregistrer**.
+- Cliquez sur **S'inscrire**.
+</Step>
+<Step title="Configurer les revendications facultatives">
+- Dans Microsoft Entra, accédez à **Configuration du jeton → Ajouter une revendication facultative**.
+- Sélectionnez **Jeton d'identification** et ajoutez la revendication `email`.
+- Cliquez sur **Ajouter**.
+</Step>
+<Step title="Configurer les autorisations API">
+- Dans Microsoft Entra, accédez à **Autorisations API → Ajouter une autorisation → Microsoft Graph**.
+- Sélectionnez **Autorisations déléguées** et ajoutez :
+    - `email`
+    - `openid`
+    - `profile`
+- Cliquez sur **Ajouter des autorisations**.
+</Step>
+<Step title="Fournissez à ZenOpus les informations de votre IdP">
+Dans ZenOpus, saisissez ce qui suit :
+
+- `OIDC Issuer URL/Discovery Endpoint` : formatez l'URL en tant que `https://login.microsoftonline.com/{TENANT_ID}/v2.0`
+    <Info>
+    Remplacez le `{TENANT_ID}` par l'**ID de répertoire (locataire)** de la page **Présentation** de Microsoft Entra.
+    </Info>
+
+Dans Microsoft Entra, copiez la valeur **ID client** de la page **Présentation** et saisissez-la dans ZenOpus.
+
+- Microsoft Entra `Application (Client) ID` → ZenOpus `OAuth Client ID/Application ID`
+
+Dans Microsoft Entra, configurez le **secret client** et saisissez-le dans ZenOpus.
+
+- Accédez à **Certificats et secrets → Nouveau secret client.**
+- Créez un secret et copiez immédiatement la valeur du secret (elle ne sera plus affichée).
+- Collez le Microsoft Entra `Client secret` → ZenOpus `OAuth Client Secret`
+</Step>
+<Step title="Configurer le nom d'affichage et l'identifiant de connexion SSO (ID locataire)">
+Dans ZenOpus, mettez à jour ces valeurs comme vous le souhaitez. Les valeurs sont préremplies en fonction de votre domaine vérifié.
+
+- **Nom d'affichage** : nom affiché aux utilisateurs lors de l'authentification.
+- **Identifiant de connexion SSO (ID locataire)** : L'URL que les utilisateurs utiliseront pour se connecter directement avec SSO.
+</Step>
+<Step title="(Facultatif) Tester la configuration dans ZenOpus">
+Dans ZenOpus, cliquez sur **Tester la configuration**. Si vous avez tout configuré avec précision, la validation devrait réussir.
+</Step>
+<Step title="Terminez la configuration du fournisseur OIDC dans ZenOpus">
+Dans ZenOpus, cliquez sur **Configurer le fournisseur** pour terminer la configuration de Microsoft Entra ID en tant que fournisseur SSO OIDC.
+</Step>
+</Steps>
+</Tab>
+<Tab title="SAML">
+<Steps>
+<Step title="Créer une application d'entreprise dans Microsoft Entra ID">
+- Accédez au **Centre d'administration Microsoft Entra ID → Applications d'entreprise** et sélectionnez **Nouvelle application**.
+- Sélectionnez **Créez votre propre application** et choisissez **Intégrez toute autre application que vous ne trouvez pas dans la galerie (hors galerie)**.
+- Donnez un nom à l'application, par exemple `ZenOpus SAML SSO`.
+- Cliquez sur **Créer**. Votre application est maintenant créée.
+</Step>
+<Step title="Configurer l'authentification unique SAML">
+Dans Microsoft Entra, accédez à la page de configuration de l'**authentification unique** et sélectionnez **SAML**. Sous **Configuration SAML de base**, saisissez ce qui suit :
+
+- Identifiant (ID d'entité) : `https://auth.zenopus.dev/__/auth/handler`
+- URL de réponse (URL du service d'assertion consommateur) : `https://auth.zenopus.dev/__/auth/handler`
+
+Laissez les autres valeurs vides et sélectionnez **Enregistrer**.
+</Step>
+<Step title="Fournissez à ZenOpus les informations de votre IdP">
+Lorsque l'application est configurée dans Microsoft Entra, vous pouvez choisir entre une configuration rapide du fournisseur SAML ou une configuration manuelle dans ZenOpus.
+
+**Option 1 : configuration rapide – importer à partir de l'URL des métadonnées**
+
+- Dans Microsoft Entra, accédez à **Certificats SAML** et copiez l'**URL des métadonnées de fédération d'application**.
+- Dans ZenOpus, collez l'**URL des métadonnées de fédération d'application** dans le champ **Configuration rapide : importer à partir de l'URL des métadonnées**.
+- Cliquez sur **Test & Import** pour remplir automatiquement les champs obligatoires ci-dessous.
+
+**Option 2 : configuration manuelle**
+
+Copiez les valeurs suivantes dans Microsoft Entra et entrez-les dans ZenOpus.
+
+- Microsoft Entra `Login URL` → ZenOpus `SAML SSO Sign-on URL from your IdP`
+- Microsoft Entra `Microsoft Entra Identifier` → ZenOpus `Identity Provider Entity ID / Issuer`
+- Microsoft Entra `X509Certificate` → ZenOpus `X.509 Signing Certificate (public key)`
+    <Note>
+    Vous pouvez télécharger le certificat (Base 64) ou ouvrir le `App Federation Metadata URL` dans un nouvel onglet et copier la valeur `X509Certificate`. Collez la valeur du certificat entre les lignes `-----BEGIN CERTIFICATE-----` et `-----END CERTIFICATE-----`.
+    </Note>
+</Step>
+<Step title="Configurer le nom d'affichage et l'identifiant de connexion SSO (ID locataire)">
+Dans ZenOpus, mettez à jour ces valeurs comme vous le souhaitez. Les valeurs sont préremplies en fonction de votre domaine vérifié.
+
+- **Nom d'affichage** : nom affiché aux utilisateurs lors de l'authentification.
+- **Identifiant de connexion SSO (ID locataire)** : L'URL que les utilisateurs utiliseront pour se connecter directement avec SSO.
+</Step>
+<Step title="Terminer la configuration du fournisseur SAML dans ZenOpus">
+Dans ZenOpus, cliquez sur **Configurer le fournisseur SAML → Confirmer et activer SSO** pour terminer la configuration de Microsoft Entra ID en tant que fournisseur SAML SSO.
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+## Configurer d'autres fournisseurs
+
+Vous pouvez configurer n'importe quel fournisseur compatible OIDC ou SAML avec ZenOpus SSO.
+
+Avant de commencer, effectuez [Démarrer la configuration SSO dans ZenOpus](#démarrez-la-configuration-sso-dans-zenopus) pour obtenir les paramètres et les valeurs que vous devez utiliser dans votre IdP.
+
+<Tabs>
+<Tab title="OIDC">
+**Mappage des fournisseurs**
+
+Noms de champs communs à tous les fournisseurs :
+
+- URI de redirection : `Callback URL`, `Sign-in redirect URI`
+- Émetteur/Domaine : `Issuer URL`, `Authority`, `Okta domain`, `Auth0 domain`, `Tenant domain`
+- Identifiants client : `Client ID` et `Client Secret`
+
+**Étapes**
+
+<Steps>
+<Step title="Créer une application confidentielle OIDC">
+Créez une nouvelle application Web OIDC dans votre fournisseur d'identité.
+</Step>
+<Step title="Configurer l'URI de redirection">
+Dans URL de redirection/rappel, ajoutez `https://auth.zenopus.dev/__/auth/handler`
+</Step>
+<Step title="Activer les étendues requises">
+Assurez-vous que les étendues `openid` et `email` sont activées et acceptées si nécessaire.
+</Step>
+<Step title="Fournissez à ZenOpus les informations de votre IdP">
+Dans votre IdP, localisez les valeurs correspondantes et saisissez-les dans ZenOpus :
+
+- `Domain` ou `Issuer URL` → ZenOpus `OIDC Issuer URL/Discovery Endpoint`
+- `Client ID` → ZenOpus `OAuth Client ID/Application ID`
+- `Client Secret` → ZenOpus `OAuth Client Secret`
+</Step>
+<Step title="Configurer le nom d'affichage et l'identifiant de connexion SSO (ID locataire)">
+Dans ZenOpus, mettez à jour ces valeurs comme vous le souhaitez. Les valeurs sont préremplies en fonction de votre domaine vérifié.
+
+- **Nom d'affichage** : nom affiché aux utilisateurs lors de l'authentification.
+- **Identifiant de connexion SSO (ID locataire)** : L'URL que les utilisateurs utiliseront pour se connecter directement avec SSO.
+</Step>
+</Steps>
+</Tab>
+<Tab title="SAML">
+**Mappage des fournisseurs**
+
+Noms de champs communs à tous les fournisseurs :
+
+- URL ACS : `Single Sign-On URL`, `SSO URL`, `Reply URL`, `Assertion Consumer Service URL`
+- Public : `SP Entity ID`, `Audience URI`, `Identifier`
+- Mappage d'attributs : `Attribute Statements`, `User Attributes & Claims`
+
+**Étapes**
+
+<Steps>
+<Step title="Créer une application SAML 2.0">
+Créez une nouvelle application SAML 2.0 chez votre fournisseur.
+</Step>
+<Step title="Configurer les points de terminaison">
+- URL ACS : `https://auth.zenopus.dev/__/auth/handler`
+- ID d'audience/d'entité : `https://auth.zenopus.dev/__/auth/handler`
+</Step>
+<Step title="Attributs de la carte">
+Assurez-vous que `email` est inclus dans l’assertion SAML. `displayName` est facultatif.
+</Step>
+<Step title="Attribuer des utilisateurs">
+Attribuez l'application aux utilisateurs/groupes qui doivent accéder à ZenOpus.
+</Step>
+<Step title="Fournissez à ZenOpus les informations de votre IdP">
+Dans ZenOpus, choisissez entre une configuration rapide du fournisseur SAML ou une configuration manuelle :
+
+**Option 1 : configuration rapide – importer à partir de l'URL des métadonnées**
+
+- Dans votre IdP, localisez l'URL de vos métadonnées SAML (généralement trouvée dans les paramètres de l'application SAML ou dans les détails des métadonnées).
+- Dans ZenOpus, collez l'URL des métadonnées dans le champ **Configuration rapide : Importer à partir de l'URL des métadonnées**.
+- Cliquez sur **Test & Import** pour remplir automatiquement les champs obligatoires ci-dessous.
+
+**Option 2 : configuration manuelle**
+
+Dans votre IdP, localisez les valeurs correspondantes et saisissez-les dans ZenOpus :
+
+- `Login URL` → ZenOpus `SAML SSO Sign-on URL from your IdP`
+- `Identifier/Issuer/Entity ID` → ZenOpus `Identity Provider Entity ID / Issuer`
+- `X509Certificate` → ZenOpus `X.509 Signing Certificate (public key)`
+</Step>
+<Step title="Configurer le nom d'affichage et l'identifiant de connexion SSO (ID locataire)">
+Dans ZenOpus, mettez à jour ces valeurs comme vous le souhaitez. Les valeurs sont préremplies en fonction de votre domaine vérifié.
+
+- **Nom d'affichage** : nom affiché aux utilisateurs lors de l'authentification.
+- **Identifiant de connexion SSO (ID locataire)** : L'URL que les utilisateurs utiliseront pour se connecter directement avec SSO.
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+## Dépannage
+
+<Tabs>
+<Tab title="OIDC">
+<AccordionGroup>
+<Accordion title="URI de redirection invalide ou incompatible">
+Assurez-vous que l'URL de redirection/de rappel correspond exactement à `https://auth.zenopus.dev/__/auth/handler` dans votre IdP.
+</Accordion>
+<Accordion title="L'URL de l'émetteur/la découverte échoue">
+Utilisez l’URL de l’émetteur OIDC du fournisseur (pas seulement le domaine).
+
+- Pour Okta, copiez depuis l'onglet **Connexion**
+- Pour Auth0, utilisez votre domaine locataire.
+</Accordion>
+<Accordion title="E-mail non retourné">
+Accordez la portée `email` et assurez-vous que le compte utilisateur dispose d'une adresse e-mail principale.
+</Accordion>
+<Accordion title="Problèmes de flux d’autorisation">
+Utilisez `Authorization Code` avec un client confidentiel et un secret client. Évitez les types d’applications implicites ou uniquement PKCE.
+</Accordion>
+</AccordionGroup>
+</Tab>
+<Tab title="SAML">
+<AccordionGroup>
+<Accordion title="ACS ou audience non valide">
+Assurez-vous que l'ACS et l'ID d'audience/d'entité correspondent exactement à `https://auth.zenopus.dev/__/auth/handler` dans votre IdP.
+</Accordion>
+<Accordion title="Réclamation par e-mail manquante">
+Assurez-vous de mapper une réclamation par courrier électronique.
+
+Pour Microsoft Entra ID, mappez `email` à `user.mail`. Si `user.mail` est vide, utilisez `user.userprincipalname`.
+</Accordion>
+<Accordion title="Identifiants du fournisseur invalides">
+Collez le certificat `X.509` correct. Si le certificat change, mettez-le à jour dans ZenOpus.
+</Accordion>
+</AccordionGroup>
+</Tab>
+</Tabs>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="J'ai déjà un compte, mais je rejoins une entreprise Workspace qui utilise le SSO. Comment puis-je me connecter ?">
+Si vous avez créé votre compte en utilisant une autre méthode de connexion (comme l'e-mail/mot de passe, Google ou GitHub), vous devez d'abord vous connecter de cette manière**. Une fois connecté, accédez à **Paramètres → Votre compte → Lien SSO**. Cela reliera votre compte existant au SSO de votre entreprise.
+
+<Note>
+**Important :** Si vous essayez de vous connecter avec SSO avant de lier votre compte existant, une erreur s'affichera. Il s'agit d'une mesure de sécurité pour empêcher tout accès non autorisé. Connectez-vous d’abord en utilisant votre méthode d’origine pour terminer le processus de liaison.
+</Note>
+</Accordion>
+<Accordion title="Quels fournisseurs SSO proposent ZenOpus Support ?">
+ZenOpus prend en charge les protocoles OIDC et SAML standard, vous pouvez donc vous intégrer à n'importe quel fournisseur SSO qui les prend en charge.
+</Accordion>
+<Accordion title="ZenOpus Support dispose-t-il de plusieurs fournisseurs SSO par Workspace ?">
+Non. Un Workspace peut avoir **un fournisseur SSO actif** configuré à la fois.
+</Accordion>
+<Accordion title="Puis-je appliquer le SSO pour mon Workspace ?">
+Oui. Le Workspace **propriétaire** ou **administrateur** peut activer **Enforce SSO** dans **Paramètres → Workspace → Identité** et choisir la **durée de session** pour configurer la durée pendant laquelle les utilisateurs restent connectés avant de nécessiter une réauthentification (24 heures, 48 heures ou 7 jours).
+
+Cela nécessite que tous les membres Workspace utilisent SSO pour l'authentification. Les collaborateurs externes et les liens d’invitation seront désactivés.
+</Accordion>
+<Accordion title="Est-ce que ZenOpus Support a initié l'authentification unique par le fournisseur d'identité ?">
+Non. **Le SSO initié par l'IdP** (à partir d'une vignette de tableau de bord IdP) n'est pas pris en charge.
+
+ZenOpus prend en charge **la connexion initiée par le SP uniquement**. Les utilisateurs doivent commencer à se connecter à partir de ZenOpus.
+</Accordion>
+<Accordion title="Est-ce que ZenOpus Support assure le provisionnement juste à temps (JIT) avec SSO ?">
+Oui, ZenOpus prend en charge le **provisionnement JIT (juste à temps)** via SSO. Les comptes d'utilisateurs sont créés automatiquement la première fois qu'une personne se connecte via SSO, et ils sont ajoutés à votre entreprise Workspace.
+
+Vous pouvez également définir un **rôle par défaut pour les utilisateurs créés par JIT** (administrateur, éditeur ou visualiseur) qui sera appliqué lors de leur première adhésion via SSO.
+</Accordion>
+<Accordion title="Est-ce que ZenOpus Support SCIM ou provisionnement automatique des utilisateurs ?">
+Oui. ZenOpus prend en charge le **provisionnement SCIM** pour le provisionnement et le déprovisionnement automatisés des utilisateurs sur le plan **Business et supérieur**.
+
+Avec SCIM, la création, la suppression et l'attribution de rôles d'utilisateurs sont gérées de manière centralisée à partir de votre fournisseur d'identité en fonction des attributions et de l'appartenance à un groupe.
+
+Voir [Configurer le provisionnement des utilisateurs SCIM](/fr/features/business/scim) pour plus d'informations.
+</Accordion>
+<Accordion title="Comment puis-je retrouver mon identifiant de locataire (identifiant de connexion SSO) ?">
+Votre ID de locataire est la valeur `{tenantId}` utilisée dans votre **URL de connexion SSO** :  
+
+`https://zenopus.dev/sso-login/{tenantId}`. Il correspond à l'**identifiant de connexion SSO** que vous avez configuré lors de la configuration de votre fournisseur SSO dans ZenOpus.
+
+Vous pouvez également le trouver dans **Paramètres → Workspace → Identité** après avoir configuré votre fournisseur.
+</Accordion>
+<Accordion title="Comment puis-je modifier la configuration de mon fournisseur SSO ?">
+Vous ne pouvez pas modifier votre fournisseur SSO configuré. Pour effectuer des mises à jour, vous devez d'abord supprimer le fournisseur SSO existant, puis le configurer à nouveau.
+</Accordion>
+</AccordionGroup>

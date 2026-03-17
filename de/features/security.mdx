@@ -1,0 +1,219 @@
+---
+title: "Sicherheitsübersicht"
+description: "Schützen Sie Ihre Apps mit API-Schlüsselerkennung, Datenbankzugriffskontrollen und KI-gestütztem Sicherheitsscan während der Entwicklung und vor der Veröffentlichung."
+---
+ZenOpus bietet integrierte Sicherheitstools, die dazu beitragen, häufige Anwendungssicherheitsrisiken während der Entwicklung und vor der Veröffentlichung zu reduzieren. Diese Tools dienen der sicheren Anwendungsentwicklung, ersetzen jedoch nicht eine gründliche Sicherheitsüberprüfung.
+
+Sie sind dafür verantwortlich, sicherzustellen, dass Ihre App die für ihren Anwendungsfall angemessenen Sicherheitsanforderungen erfüllt, insbesondere wenn sie sensible Daten verarbeitet oder kritische Funktionen ausführt.
+
+## Wie ZenOpus Ihre Apps sicher hält
+
+ZenOpus trägt vor allem auf zwei Arten zum Schutz Ihrer Anwendungen bei: durch die Vermeidung häufiger Sicherheitsfehler im Vorfeld und durch die Identifizierung potenzieller Schwachstellen durch automatisierte Analysen.
+
+Um Schwachstellen zu identifizieren, verwendet ZenOpus vier automatisierte Sicherheitsscanner, um verschiedene Teile Ihrer Anwendung zu überprüfen:
+
+- **RLS-Analyse**: Überprüft Datenbankzugriffsrichtlinien und Sicherheitsregeln auf Zeilenebene
+- **Datenbanksicherheitsprüfung**: Überprüft das Datenbankschema und die RLS-Konfiguration
+- **Code-Sicherheitsüberprüfung**: Analysiert Anwendungscode auf häufige Sicherheitslücken
+- **Abhängigkeitsprüfung**: Erkennt bekannte Schwachstellen in NPM-Abhängigkeiten
+
+<Warning>
+Diese Scanner helfen dabei, häufige Sicherheitsprobleme zu erkennen, können jedoch keine vollständige Sicherheit garantieren. Ziehen Sie bei Apps, die vertrauliche Daten oder kritische Funktionen verarbeiten, eine zusätzliche professionelle Sicherheitsüberprüfung in Betracht.
+</Warning>
+
+In den folgenden Abschnitten werden die Hauptrisikobereiche ausführlicher erläutert und wie ZenOpus Sie bei der Bewältigung dieser Risiken unterstützt.
+
+Praktische Anleitungen zum Schreiben von sicherem Code und zur Vermeidung häufiger Sicherheitsfehler finden Sie unter [Bewährte Sicherheitsmethoden für ZenOpus-Apps](/de/tips-tricks/security-best-practices).
+
+### API-Schlüssel schützen
+
+ZenOpus generiert Frontend-Code, der im Browser ausgeführt wird, was bedeutet, dass API-Schlüssel und andere Geheimnisse nicht sicher im clientseitigen Code gespeichert werden können. Die Offenlegung von Anmeldeinformationen kann zu Datenlecks oder unbefugtem Zugriff führen.
+
+Um zu verhindern, dass vertrauliche Anmeldeinformationen preisgegeben werden, erkennt ZenOpus automatisch in den Chat eingefügte API-Schlüssel und weist Sie an, diese sicher in **Geheimnissen** zu speichern, anstatt sie fest in Ihren Code zu codieren.
+
+Anstatt Anmeldeinformationen direkt einzufügen, beschreiben Sie, was Sie erstellen möchten, und ZenOpus hilft Ihnen bei der Implementierung einer sicheren Einrichtung mithilfe serverseitiger Funktionen und geheimer Speicherung.
+
+**Zum Beispiel:**
+
+```text
+Ich möchte die Service-X-API integrieren, um Textantworten zu generieren
+```
+
+ZenOpus führt Sie zu Folgendem:
+
+1. Speichern Sie Ihren API-Schlüssel sicher in Secrets
+1. Erstellen Sie eine Edge-Funktion, um den API-Aufruf serverseitig durchzuführen
+1. Rufen Sie diese Edge-Funktion über Ihren Frontend-Code auf
+
+Dieser Ansatz schützt die Anmeldeinformationen und folgt den Best Practices für die Websicherheit.
+
+### Schützen des Datenzugriffs mit Sicherheit auf Zeilenebene (RLS)
+
+RLS-Richtlinien (Row-Level Security) steuern, welche Benutzer auf Daten in Ihrer Datenbank zugreifen oder diese ändern können. Falsch konfigurierte RLS-Regeln sind eine häufige Ursache für Datenlecks.
+
+ZenOpus hilft Ihnen, Ihre RLS-Richtlinien zu überprüfen und zu begründen, um sicherzustellen, dass Benutzer nur die Daten sehen und ändern, zu deren Zugriff sie berechtigt sind. Die Ergebnisse des **RLS-Analyse**-Scans verdeutlichen übermäßig freizügige Regeln oder fehlende Zugriffskontrollen, die sensible Daten preisgeben könnten.
+
+Sie sollten die RLS-Richtlinien regelmäßig überprüfen, insbesondere vor der Veröffentlichung oder nach Änderungen an der Authentifizierung oder Datenbankstruktur.
+
+### Identifizieren von Datenbanksicherheitsrisiken
+
+Datenbankschemata und Zugriffsregeln arbeiten zusammen, um zu bestimmen, wie Daten verfügbar gemacht werden. Unsichere Kombinationen aus Schemadesign und Zugriffsrichtlinien können Sicherheitsrisiken mit sich bringen, selbst wenn einzelne Regeln korrekt erscheinen.
+
+ZenOpus überprüft Ihr Datenbankschema und Ihre RLS-Konfiguration gemeinsam mit der **Datenbanksicherheitsüberprüfung**, um Muster zu identifizieren, die zu unbefugtem Zugriff oder Datenoffenlegung führen könnten. Dies hilft dabei, Probleme zu erkennen, die bei der isolierten Überprüfung der Regeln möglicherweise nicht offensichtlich sind.
+
+### Identifizieren von Schwachstellen im Anwendungscode
+
+Anwendungscode kann durch Muster wie unsachgemäße Eingabeverarbeitung, unsichere Authentifizierungsabläufe oder unsichere Nutzung externer Dienste Sicherheitsrisiken mit sich bringen.
+
+ZenOpus analysiert Ihren Anwendungscode mithilfe der **Codesicherheitsüberprüfung**, um häufige Schwachstellenmuster zu identifizieren und Empfehlungen zur Verbesserung der Sicherheit zu geben. Diese Prüfungen tragen dazu bei, Probleme frühzeitig aufzudecken, bevor sie in der Produktion ausgenutzt werden können.
+
+### Identifizieren von Schwachstellen in Abhängigkeiten
+
+Bibliotheken von Drittanbietern stellen häufig eine Quelle von Sicherheitsrisiken dar. Selbst weit verbreitete Pakete können Schwachstellen verursachen, wenn neue Probleme entdeckt werden.
+
+Im Rahmen des automatisierten Sicherheitsscans überprüft ZenOpus mithilfe des **Abhängigkeitsaudits** die Abhängigkeiten Ihres Projekts auf bekannte Sicherheitslücken. Dieser Scan identifiziert anfällige Pakete und liefert Informationen, die Ihnen bei der Bewertung und Behebung des Risikos helfen.
+
+Es können folgende Erkenntnisse zu Abhängigkeitsrisiken auftreten:
+
+- In der [Sicherheitsansicht](/de/features/security-view) auf Projektebene, wo Sie Details überprüfen und Maßnahmen für ein einzelnes Projekt ergreifen können
+- Im Workspace-Level [Sicherheitscenter](/de/features/security-center), wo Workspace-Administratoren und -Eigentümer Schwachstellen über mehrere Projekte hinweg überwachen können
+
+Zu den Ergebnissen gehören der Name und die Version des betroffenen Pakets, die Art der Schwachstelle und empfohlene Abhilfemaßnahmen, wie z. B. die Aktualisierung auf eine sichere Version.
+
+Die Aktualisierung von Abhängigkeiten ist ein wichtiger Bestandteil der Aufrechterhaltung einer sicheren Anwendung. Wenn kritische Schwachstellen aufgedeckt werden, kann das Sicherheitscenter dabei helfen, die betroffenen Projekte zu identifizieren, damit Probleme schnell behoben werden können.
+
+## Wenn Sicherheitsscans ausgeführt werden
+
+ZenOpus führt Sicherheitsscans an verschiedenen Stellen in Ihrem Workflow durch, um Probleme frühzeitig zu erkennen. Diese Aktionen sind **kostenlos und verbrauchen keine Credits**.
+
+Jeder Scanner wird nur dann ausgeführt, wenn er für Ihr Projekt relevant ist und wenn seit dem letzten Scan Änderungen aufgetreten sind. Beispielsweise werden Datenbankscanner nur für Projekte mit einer verbundenen Datenbank ausgeführt, und die Abhängigkeitsprüfung wird nur ausgeführt, wenn sich Abhängigkeiten geändert haben.
+
+<Note>
+Die **Code-Sicherheitsüberprüfung** wird nicht automatisch ausgeführt. Es wird nur ausgeführt, wenn Sie in der **Sicherheitsansicht** auf **Aktualisieren** klicken.
+</Note>
+
+### Während Sie arbeiten
+
+ZenOpus löst automatisch bestimmte Scanner aus, wenn sich relevante Dateien ändern:
+
+- **RLS-Analyse** wird ausgeführt, wenn Datenbankmigrations- oder Konfigurationsdateien geändert werden.
+- **Abhängigkeitsprüfung** wird ausgeführt, wenn sich die Abhängigkeiten Ihres Projekts ändern.
+- **Datenbanksicherheitsüberprüfung** wird einmal pro Sitzung als Folgemaßnahme ausgeführt, nachdem RLS-Analyseergebnisse verfügbar sind.
+
+### Vor der Veröffentlichung
+
+Wenn Sie den Veröffentlichungsdialog öffnen, führt ZenOpus automatisch die Scanner **RLS-Analyse**, **Datenbanksicherheitsprüfung** und **Abhängigkeitsprüfung** aus. Wenn kritische Probleme gefunden werden, werden Sie aufgefordert, diese zu überprüfen, bevor Sie fortfahren.
+
+Beheben Sie alle kritischen Probleme, bevor Sie Ihre App öffentlich verfügbar machen. Eine Veröffentlichung mit ungelösten kritischen Problemen ist möglich, es wird jedoch dringend davon abgeraten, insbesondere bei Produktions-Apps oder Apps, die sensible Benutzerdaten verarbeiten.
+
+### Auf Anfrage
+
+Sie können bei Bedarf jederzeit über die Schaltfläche **Aktualisieren** in der [Sicherheitsansicht](/de/features/security-view) eine Scan-Aktualisierung auslösen. Es werden nur Scanner mit veralteten Ergebnissen ausgeführt.
+
+Dies ist die einzige Möglichkeit, den **Code-Sicherheitsüberprüfung**-Scanner auszuführen, der nicht automatisch während der Arbeit oder während der Veröffentlichungsprüfungen ausgeführt wird.
+
+On-Demand-Scans sind nach wesentlichen Codeänderungen hilfreich oder wenn Sie sicherstellen möchten, dass alle Scanergebnisse den aktuellen Status Ihres Projekts widerspiegeln.
+
+## Konversationssicherheitsüberprüfungen
+
+Unabhängig von den automatischen Scannern können Sie ZenOpus jederzeit nach Aufforderung bitten, eine **konversationale Sicherheitsüberprüfung** durchzuführen. Dies ist eine KI-gesteuerte Überprüfung und verbraucht Credits, genau wie normale Chat-Nachrichten.
+
+Zum Beispiel:
+
+```text
+Überprüfen Sie die Sicherheit meiner App
+```
+
+ZenOpus analysiert Ihr Projekt und gibt eine detaillierte Bewertung ab. Die Überprüfung umfasst typischerweise Bereiche wie:
+
+- Mögliche Schwachstellen in Ihrem Anwendungscode
+- Häufige Probleme wie XSS-Risiken, Eingabeverarbeitung und Authentifizierungsfehler
+- Datenbankschema und RLS-Richtlinien (Row-Level Security).
+- Gesamtsicherheitslage mit spezifischen Empfehlungen
+
+Der Umfang und die Tiefe der Prüfung hängen von Ihrem Projekt ab. Sie können ZenOpus auch bitten, sich auf einen bestimmten Bereich zu konzentrieren, zum Beispiel:
+
+```text
+Überprüfen Sie den Authentifizierungsablauf in meiner App.
+```
+
+oder
+
+```text
+Überprüfen Sie, ob meine API-Routen sicher sind.
+```
+
+Konversationsüberprüfungen sind besonders nützlich nach bedeutenden Änderungen oder vor größeren Veröffentlichungen. Auch wenn derzeit keine Warnungen angezeigt werden, empfiehlt es sich für Produktionsanwendungen, regelmäßig eine Überprüfung anzufordern.
+
+## Wo soll die Sicherheit verwaltet werden?
+
+ZenOpus bietet zwei Sicherheitsoberflächen: eine zum Sichern einzelner Projekte und eine zur Überwachung der Sicherheit über einen gesamten Workspace.
+
+### Projektsicherheit (Sicherheitsansicht)
+
+Verwenden Sie die [**Sicherheitsansicht**](/de/features/security-view), wenn Sie ein bestimmtes Projekt erstellen oder verwalten.
+
+Die Sicherheitsansicht hilft Ihnen:
+
+- Überprüfen Sie die Sicherheitsergebnisse für ein Projekt
+- Verstehen Sie, welche Probleme kritisch sind und warum sie wichtig sind
+- Wenden Sie automatische Korrekturen an oder nehmen Sie manuelle Änderungen vor
+- Stellen Sie sicher, dass Ihr Projekt sicher veröffentlicht werden kann
+
+Dies ist der primäre Ort, an dem Sicherheitsprobleme während der Entwicklung und vor der Veröffentlichung bearbeitet werden.
+
+### Workspace Sicherheit (Sicherheitscenter)
+
+Workspace-Administratoren und Besitzer von Business- und Enterprise-Plänen können das [**Sicherheitscenter**](/de/features/security-center) verwenden, um die Sicherheit aller Projekte in einem Workspace zu überwachen.
+
+Das Sicherheitscenter hilft Ihnen:
+
+- Sehen Sie, welche Projekte kritische Sicherheitsprobleme aufweisen
+- Identifizieren Sie Muster und wiederkehrende Risiken teamübergreifend
+- Überwachen Sie Abhängigkeitsschwachstellen, die mehrere Projekte betreffen
+- Verfolgen Sie die allgemeine Sicherheitslage auf der Workspace-Ebene
+
+Das Sicherheitscenter aggregiert Sicherheitsinformationen, Korrekturen werden jedoch weiterhin auf Projektebene angewendet.
+
+## Allgemeine Sicherheitskonfigurationen
+
+Zusätzlich zu Projekt- und Workspace-Sicherheitsüberprüfungen bietet ZenOpus Sicherheitseinstellungen auf Kontoebene und für die Authentifizierung. Diese Konfigurationen sind nicht an ein bestimmtes Projekt gebunden, spielen jedoch eine wichtige Rolle beim Schutz von Benutzerkonten und bei der Reduzierung des Risikos kompromittierter Anmeldeinformationen.
+
+Sie sollten diese Einstellungen überprüfen, wenn Sie die Authentifizierung einrichten oder bevor Sie eine App starten, die Benutzern die Anmeldung ermöglicht.
+
+### Durchgesickerter Passwortschutz
+
+Wenn Ihre App E-Mail- und Passwortauthentifizierung verwendet, können Sie verhindern, dass Benutzer bekanntermaßen kompromittierte Passwörter wählen.
+
+Dieser Schutz vergleicht Benutzerkennwörter mit der **HIBP-Datenbank (Have I Been Pwned)** und weist häufig geleakte oder leicht zu erratende Kennwörter zurück. Durch die Aktivierung wird das Risiko von Kontoübernahmen durch wiederverwendete Anmeldeinformationen verringert.
+
+- **Mit ZenOpus Cloud**: Aktivieren Sie **Passwort-HIBP-Prüfung** in **Cloud → Benutzer → Authentifizierungseinstellungen → E-Mail**
+- **Direkte Verwendung von Supabase**: Ausführliche Anweisungen finden Sie in der Supabase-Dokumentation zu [Passwortstärke und Schutz vor durchgesickerten Passwörtern](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
+
+## Kosten und Nutzung
+
+ZenOpus umfasst sowohl automatisierte als auch dialogorientierte Sicherheitstools. Die Nutzung der meisten Sicherheitsfunktionen ist kostenlos, während einige Sicherheitsaktionen Credits verbrauchen.
+
+Automatisierte und dialogbasierte Sicherheitstools sind für die Zusammenarbeit konzipiert. Nutzen Sie automatisierte Sicherheitstools für kontinuierliche Überwachung und gezielte Korrekturen während der Entwicklung und vor der Veröffentlichung. Verwenden Sie Sicherheitsüberprüfungen im Gespräch, wenn Sie eine tiefergehende, explorative Bewertung des gesamten Sicherheitsstatus Ihrer App wünschen.
+
+### Automatisierte Sicherheitsmaßnahmen (kostenlos)
+
+Die folgenden automatisierten Sicherheitsaktionen verbrauchen keine Credits:
+
+- **Sicherheitsscans ausführen**  
+Das Aktualisieren von Sicherheitsscans, z. B. durch Klicken auf **Aktualisieren** in der Sicherheitsansicht, ist kostenlos.
+- **Erkannte Probleme beheben**  
+Das automatische Beheben von Ergebnissen, einschließlich der Verwendung von **Alles beheben** in der Sicherheitsansicht, ist kostenlos.
+- **Überprüfung und Diskussion der Ergebnisse in der Sicherheitsansicht**  
+Das Stellen von Fragen oder das Anfordern von Korrekturen für einen bestimmten Sicherheitsbefund über den **Inline-Chat in der Sicherheitsansicht** ist kostenlos.
+
+Diese Aktionen nutzen die automatisierten Sicherheitsscanner oder sicherheitsspezifischen Korrekturtools von ZenOpus und zählen nicht als reguläre Chat-Nutzung.
+
+### Konversationssicherheitsmaßnahmen (verbraucht Credits)
+
+Die folgenden Konversationssicherheitsaktionen verbrauchen Credits, genau wie normale Chatnachrichten:
+
+- **Konversationssicherheitsüberprüfung**  
+Wenn Sie ZenOpus im Chat auffordern, „die Sicherheit meiner App zu überprüfen“, wird eine konversationale, KI-gesteuerte Überprüfung durchgeführt und Credits wie bei einer normalen Chat-Nachricht verbraucht.
+- **Allgemeine Sicherheitsfragen im Chat**  
+Das Stellen sicherheitsrelevanter Fragen direkt im Hauptchat, außerhalb automatisierter Sicherheitstools, wird als normale Chat-Nutzung behandelt und verbraucht Credits.

@@ -1,0 +1,90 @@
+---
+title: "Dépannage"
+description: "Corrigez les erreurs de build, déboguez les comportements inattendus, résolvez les problèmes d’aperçu et récupérez étape par étape des problèmes courants."
+---
+## Erreurs de construction
+
+Construire avec ZenOpus rend le codage plus rapide et plus intuitif, mais même les meilleurs outils de développement d'IA peuvent parfois rencontrer des problèmes. Parfois, votre code ne s'exécutera pas comme prévu ou vous remarquerez peut-être un comportement inattendu où l'IA interprète mal votre intention.
+
+Voici un guide étape par étape pour vous aider à résoudre les problèmes et à vous remettre sur la bonne voie :
+
+<iframe src="https://www.youtube.com/embed/0W8bsbHh2p8?si=p4kWhkdu0PEbgGXm" title="Lecteur vidéo YouTube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Utilisez d'abord le bouton Essayer de réparer">
+Cliquez sur le bouton **Essayer de réparer** lorsqu'une erreur apparaît. ZenOpus analysera vos journaux, détectera le problème et tentera une solution rapide. C’est votre premier mouvement le plus rapide. Si cela ne fonctionne pas, il est temps de creuser plus profondément.
+</Step>
+<Step title="Diagnostiquer un comportement inattendu">
+Votre code peut s'exécuter sans erreur mais ne pas se comporter comme prévu. Il s'agit d'un **comportement inattendu**, plus difficile à repérer et à corriger. Essayez ceci :
+
+- **Revenir et réinviter** : revenez juste avant que le problème ne se produise, puis essayez une invite plus claire et révisée.
+</Step>
+<Step title="Écrivez des invites plus efficaces">
+Des invites claires et structurées conduisent à de meilleurs résultats. Utilisez ce format :
+
+1. **Utilisez Plan mode** et demandez : "Pouvez-vous décrire les étapes ou planifier cette fonctionnalité ?"
+1. **Examinez le plan** suggéré par ZenOpus, demandez des modifications ou des éclaircissements si nécessaire.
+1. **Prompt ZenOpus** : "Maintenant, construisons cela étape par étape."
+</Step>
+<Step title="Construire dans un ordre logique">
+La structure compte. Suivez ce flux recommandé :
+
+1. Créez une mise en page et des pages.
+1. Connectez-vous à ZenOpus Cloud ou à une connexion Supabase externe.
+1. Configurez l’authentification et les rôles d’utilisateur.
+1. Planifiez et organisez la logique des fonctionnalités.
+1. Prompt ZenOpus pour implémenter les fonctionnalités.
+</Step>
+</Steps>
+
+### Problèmes généraux
+
+<AccordionGroup>
+<Accordion title="Besoin d'une aide rapide ?">
+Passez en mode Chat uniquement et tapez : "Cette fonction spécifique ne fonctionne pas. Pouvez-vous m'expliquer ce qui se passe et ce que vous avez essayé ?"
+</Accordion>
+<Accordion title="Problèmes d'interface utilisateur ou de mise en page">
+- Fournissez des captures d'écran du problème de l'interface utilisateur directement à l'IA pour un diagnostic plus clair.
+- Utilisez l'outil Modifier pour sélectionner et mettre en surbrillance les fonctionnalités spécifiques de l'interface utilisateur que vous souhaitez modifier, puis décrivez l'ajustement souhaité.
+- Par exemple : "Voir l'élément en surbrillance ? Centrez-le verticalement et augmentez le remplissage."
+</Accordion>
+<Accordion title="Quand complètement coincé">
+- Invite : "Prenez du recul. Analysez l'erreur et suggérez une approche différente. "
+- Divisez la tâche en parties plus petites.
+- Utilisez le bouton Revenir si les erreurs persistent.
+</Accordion>
+<Accordion title="Aperçu introuvable ou bac à sable en cours d'exécution">
+Les problèmes liés à l'aperçu introuvable ou au démarrage du bac à sable peuvent être liés soit à l'environnement du bac à sable, soit à votre connexion. Les problèmes du bac à sable sont souvent temporaires, essayez d'abord une actualisation complète. Si cela continue, cela peut indiquer une synchronisation interrompue avec GitHub ou un problème de connexion. Pour les problèmes persistants, consultez notre [guide d'intégration GitHub](/fr/integrations/github).
+</Accordion>
+</AccordionGroup>
+
+### Fonctionnalités de base
+
+<AccordionGroup>
+<Accordion title="L'aperçu est blanc">
+- Ceux-ci sont souvent le résultat de problèmes dans le fichier vite.config.ts ou du fait que des en-têtes de sécurité ont été introduits dans le projet.
+- Erreurs de build ou erreurs de syntaxe dans le code
+- Erreurs d'exécution JavaScript provoquant des plantages
+- Dépendances manquantes ou composants cassés
+- Problèmes d'authentification ou de routage bloquant la page
+
+Pour dépanner : demandez à ZenOpus de consulter le fichier vite.config.ts ou de supprimer les en-têtes de sécurité. Vérifiez la console du navigateur pour détecter les erreurs, revenez à une version antérieure ou demandez à ZenOpus d'enquêter sur le problème d'écran vide.
+</Accordion>
+<Accordion title="Dépublier ou désactiver des projets">
+Vous pouvez dépublier ou supprimer votre projet dans les paramètres du projet.
+</Accordion>
+<Accordion title="Erreur avec les fonctions Edge">
+Vérifiez l'onglet Cloud -> Journaux pour les messages d'erreur spécifiques. Vérifiez que tous les secrets et variables d'environnement requis sont correctement configurés. Essayez de redéployer en apportant une petite modification au code de la fonction Edge en demandant ZenOpus. Assurez-vous que votre connexion à la base de données fonctionne. Demandez à ZenOpus d'enquêter sur l'erreur spécifique et de résoudre tous les problèmes détectés dans les journaux.
+</Accordion>
+<Accordion title="Projet introuvable">
+Cela signifie généralement que le projet a été supprimé. Si vous ne l'avez pas supprimé volontairement, veuillez contacter Support pour obtenir de l'aide pour restaurer votre projet.
+</Accordion>
+</AccordionGroup>
+
+### Besoin d'aide supplémentaire ?
+
+Toujours bloqué ? Essayez ceci :
+
+1. Utilisez Plan mode pour obtenir une aide étape par étape.
+1. S'il s'agit d'un problème avec l'interface utilisateur ou une fonctionnalité, revenez à un état stable.
+1. Si vous êtes un client payant et que vous souhaitez signaler un problème à l'échelle de la plateforme, contactez [Support](https://zenopus.dev/support).

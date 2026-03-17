@@ -1,0 +1,431 @@
+---
+title: "Reenviar integración"
+description: "Envíe correos electrónicos transaccionales, mensajes de confirmación y boletines informativos utilizando Resend con Supabase Edge Functions."
+---
+## ¿Qué es el reenvío?
+
+[Reenviar](https://resend.com/emails) es una API de correo electrónico creada para desarrolladores. Se centra en una alta capacidad de entrega, facilidad de integración y una experiencia de desarrollador limpia para enviar correos electrónicos transaccionales y de marketing.
+
+## Tutorial paso a paso
+
+<iframe src="https://www.youtube.com/embed/5ZL744_Wxjo?si=qrKlOL_1fAnz7rgc" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+Este tutorial lo guiará en la creación de un CRM completamente funcional en menos de una hora, con recopilación de clientes potenciales, confirmación por correo electrónico, suscripción al boletín informativo y un panel de administración interno. Usarás:
+
+- **ZenOpus**: para generar la lógica de front-end y backend.
+- **Supabase**: para autenticación y almacenamiento seguro de datos.
+- **Reenviar**: para automatizar y realizar un seguimiento de los correos electrónicos transaccionales y de marketing.
+
+Empecemos.
+
+<Steps>
+<Step title="Crear una página de destino con un formulario de contacto">
+Utilice la IA de ZenOpus para generar rápidamente una página de destino para su producto o servicio.
+
+**Instrucciones:**
+
+<Steps>
+<Step title="Nuevo proyecto ZenOpus">
+Cree un nuevo proyecto ZenOpus.
+</Step>
+<Step title="Aviso:">
+<Info>
+Cree una página de inicio SaaS con un formulario de contacto que recopile el nombre, el correo electrónico y el mensaje.
+</Info>
+
+![Página de inicio de SaaS con un formulario de contacto que recopila campos de nombre, correo electrónico y mensaje](/images/zenopus/tips-tricks/resend/landing-page-zenopus-project.png)
+</Step>
+<Step title="Inspeccionar el código generado">
+Inspeccione el código generado o utilice la herramienta de selección para modificar elementos.
+</Step>
+<Step title="Agregar validación de entrada">
+Agregue validación de entrada y un campo `message` para una mejor experiencia de usuario.
+
+![Formulario de contacto con validación de entrada que muestra los campos de nombre, correo electrónico y mensaje](/images/zenopus/tips-tricks/resend/email-resend-form.png)
+</Step>
+</Steps>
+</Step>
+<Step title="Nuevo proyecto ZenOpus">
+Cree un nuevo proyecto ZenOpus.
+</Step>
+<Step title="Aviso:">
+<Info>
+Cree una página de inicio SaaS con un formulario de contacto que recopile el nombre, el correo electrónico y el mensaje.
+</Info>
+
+![Página de inicio de SaaS con un formulario de contacto que recopila campos de nombre, correo electrónico y mensaje](/images/zenopus/tips-tricks/resend/landing-page-zenopus-project.png)
+</Step>
+<Step title="Inspeccionar el código generado">
+Inspeccione el código generado o utilice la herramienta de selección para modificar elementos.
+</Step>
+<Step title="Agregar validación de entrada">
+Agregue validación de entrada y un campo `message` para una mejor experiencia de usuario.
+
+![Formulario de contacto con validación de entrada que muestra los campos de nombre, correo electrónico y mensaje](/images/zenopus/tips-tricks/resend/email-resend-form.png)
+</Step>
+<Step title="Almacenar envíos de formularios en Supabase">
+Supabase actúa como su base de datos backend segura.
+
+<Steps>
+<Step title="cuenta supabase">
+Crea una cuenta gratuita de Supabase y un nuevo proyecto.
+</Step>
+<Step title="Clave API">
+En ZenOpus, conecte su proyecto Supabase usando la clave API.
+
+![Interfaz de conexión de Supabase en ZenOpus que muestra la configuración de la clave API](/images/zenopus/tips-tricks/resend/supabase-resend-email.png)
+</Step>
+<Step title="Cree una tabla `contacts` con:">
+- `id`: UUID, clave principal
+- `name`: texto
+- `email`: texto
+- `message`: texto
+- `created_at`: marca de tiempo
+</Step>
+<Step title="Lógica de envío">
+Modifique la lógica de envío del formulario para insertar datos en Supabase.
+</Step>
+<Step title="SPI">
+Aplique Supabase Row-Level Security (RLS) para restringir el acceso solo a usuarios autenticados.
+</Step>
+</Steps>
+</Step>
+<Step title="cuenta supabase">
+Crea una cuenta gratuita de Supabase y un nuevo proyecto.
+</Step>
+<Step title="Clave API">
+En ZenOpus, conecte su proyecto Supabase usando la clave API.
+
+![Interfaz de conexión de Supabase en ZenOpus que muestra la configuración de la clave API](/images/zenopus/tips-tricks/resend/supabase-resend-email.png)
+</Step>
+<Step title="Cree una tabla `contacts` con:">
+- `id`: UUID, clave principal
+- `name`: texto
+- `email`: texto
+- `message`: texto
+- `created_at`: marca de tiempo
+</Step>
+<Step title="Lógica de envío">
+Modifique la lógica de envío del formulario para insertar datos en Supabase.
+</Step>
+<Step title="SPI">
+Aplique Supabase Row-Level Security (RLS) para restringir el acceso solo a usuarios autenticados.
+</Step>
+<Step title="Enviar correos electrónicos de confirmación mediante reenvío">
+Configure Reenviar para enviar correos electrónicos de confirmación automatizados cada vez que un cliente potencial envíe el formulario.
+
+<Steps>
+<Step title="Regístrese en Reenviar">
+Regístrese en [Reenviar](https://resend.com) y verifique su dominio personalizado.
+
+- Se le pedirá que actualice sus registros DNS (TXT, MX).
+- Utilice subdominios como `updates.domain.com` para gestionar mejor la reputación del correo electrónico.
+</Step>
+<Step title="Clave API">
+Integre la clave API en ZenOpus a través de la configuración del entorno o la función backend.
+</Step>
+<Step title="SDK">
+Utilice el SDK de Resend para enviar un correo electrónico de confirmación al enviar el formulario.
+
+![Reenviar la integración del SDK enviando un correo electrónico de confirmación al enviar el formulario](/images/zenopus/tips-tricks/resend/confirmation-email-submission-resend.png)
+</Step>
+<Step title="Opcional: reaccionar correo electrónico">
+Utilice [React Email](https://react.email) (también mediante Resend) para personalizar la apariencia de sus correos electrónicos con componentes reutilizables.
+
+![Editor de plantillas de correo electrónico de React para personalizar el diseño de correo electrónico con componentes reutilizables](/images/zenopus/tips-tricks/resend/customize-email-resend.png)
+</Step>
+</Steps>
+</Step>
+<Step title="Regístrese en Reenviar">
+Regístrese en [Reenviar](https://resend.com) y verifique su dominio personalizado.
+
+- Se le pedirá que actualice sus registros DNS (TXT, MX).
+- Utilice subdominios como `updates.domain.com` para gestionar mejor la reputación del correo electrónico.
+</Step>
+<Step title="Clave API">
+Integre la clave API en ZenOpus a través de la configuración del entorno o la función backend.
+</Step>
+<Step title="SDK">
+Utilice el SDK de Resend para enviar un correo electrónico de confirmación al enviar el formulario.
+
+![Reenviar la integración del SDK enviando un correo electrónico de confirmación al enviar el formulario](/images/zenopus/tips-tricks/resend/confirmation-email-submission-resend.png)
+</Step>
+<Step title="Opcional: reaccionar correo electrónico">
+Utilice [React Email](https://react.email) (también mediante Resend) para personalizar la apariencia de sus correos electrónicos con componentes reutilizables.
+
+![Editor de plantillas de correo electrónico de React para personalizar el diseño de correo electrónico con componentes reutilizables](/images/zenopus/tips-tricks/resend/customize-email-resend.png)
+</Step>
+<Step title="Cree un panel de administración seguro">
+Permita que solo los usuarios autenticados vean y administren clientes potenciales.
+
+<Steps>
+<Step title="Ruta de administrador">
+Cree una ruta `/admin` en ZenOpus.
+</Step>
+<Step title="Autenticación de Supabase">
+Habilite la autenticación de Supabase con inicio de sesión de correo electrónico/contraseña.
+</Step>
+<Step title="Contactos">
+Muestre la tabla `contacts` con columnas:
+
+- Nombre
+- Correo electrónico
+- Vista previa del mensaje
+- Fecha de presentación
+</Step>
+<Step title="Detalles de contacto completos">
+Agregue un panel de detalles (por ejemplo, un panel deslizante) que muestre los detalles completos del contacto cuando se hace clic en una fila.
+
+![Panel de administración de CRM que muestra la tabla de contactos con columnas de nombre, correo electrónico, vista previa del mensaje y fecha de envío](/images/zenopus/tips-tricks/resend/crm-resend-email.png)
+</Step>
+<Step title="Lógica de redireccionamiento">
+Agregue lógica de redireccionamiento para que los usuarios no autenticados sean enrutados a `/login`.
+</Step>
+</Steps>
+</Step>
+<Step title="Ruta de administrador">
+Cree una ruta `/admin` en ZenOpus.
+</Step>
+<Step title="Autenticación de Supabase">
+Habilite la autenticación de Supabase con inicio de sesión de correo electrónico/contraseña.
+</Step>
+<Step title="Contactos">
+Muestre la tabla `contacts` con columnas:
+
+- Nombre
+- Correo electrónico
+- Vista previa del mensaje
+- Fecha de presentación
+</Step>
+<Step title="Detalles de contacto completos">
+Agregue un panel de detalles (por ejemplo, un panel deslizante) que muestre los detalles completos del contacto cuando se hace clic en una fila.
+
+![Panel de administración de CRM que muestra la tabla de contactos con columnas de nombre, correo electrónico, vista previa del mensaje y fecha de envío](/images/zenopus/tips-tricks/resend/crm-resend-email.png)
+</Step>
+<Step title="Lógica de redireccionamiento">
+Agregue lógica de redireccionamiento para que los usuarios no autenticados sean enrutados a `/login`.
+</Step>
+<Step title="Habilitar respuestas de correo electrónico personalizadas del administrador">
+Permita que su equipo envíe seguimientos personalizados.
+
+<Steps>
+<Step title="Panel de detalles de contacto">
+En el panel de detalles del contacto, agregue un **campo de texto** y **plantillas predefinidas** (por ejemplo, "¡Gracias por registrarse!").
+</Step>
+<Step title="Agregar botón de enviar">
+Agregue un **botón de enviar** conectado a Reenviar.
+</Step>
+<Step title="Almacenar mensajes enviados">
+Almacene cada mensaje enviado en una tabla `sent_emails` en Supabase:
+
+- __CÓDIGO0__
+- __CÓDIGO0__
+- __CÓDIGO0__
+- __CÓDIGO0__
+
+Esto le brinda un registro de búsqueda de todos los seguimientos.
+</Step>
+</Steps>
+</Step>
+<Step title="Panel de detalles de contacto">
+En el panel de detalles del contacto, agregue un **campo de texto** y **plantillas predefinidas** (por ejemplo, "¡Gracias por registrarse!").
+</Step>
+<Step title="Agregar botón de enviar">
+Agregue un **botón de enviar** conectado a Reenviar.
+</Step>
+<Step title="Almacenar mensajes enviados">
+Almacene cada mensaje enviado en una tabla `sent_emails` en Supabase:
+
+- __CÓDIGO0__
+- __CÓDIGO0__
+- __CÓDIGO0__
+- __CÓDIGO0__
+
+Esto le brinda un registro de búsqueda de todos los seguimientos.
+</Step>
+<Step title="Agregar un formulario de suscripción al boletín">
+Utilice **Audiencias** de Resend para administrar suscriptores y enviar correos electrónicos de difusión.
+
+![Formulario de suscripción al boletín en una página de destino para recopilar suscripciones por correo electrónico](/images/zenopus/tips-tricks/resend/subscription-newsletter-resend.png)
+
+<Steps>
+<Step title="Agregar nuevo formulario">
+Agregue un nuevo formulario en su página de destino para suscribirse al boletín.
+</Step>
+<Step title="Reenviar contacto">
+Cuando se envía:
+
+- Crear un contacto de reenvío a través de la API
+- (Opcional) Almacene el contacto localmente en Supabase también
+</Step>
+<Step title="Diseño">
+Utilice la interfaz de usuario de correo electrónico de difusión de Resend para diseñar y enviar boletines.
+
+- Lógica de cancelación de suscripción incorporada
+- Información sobre el rendimiento (tasas de apertura, estado de entrega)
+</Step>
+<Step title="¡Comprobación de cumplimiento!">
+Para el cumplimiento (por ejemplo, GDPR), considere implementar un flujo de **doble suscripción**.
+</Step>
+</Steps>
+</Step>
+<Step title="Agregar nuevo formulario">
+Agregue un nuevo formulario en su página de destino para suscribirse al boletín.
+</Step>
+<Step title="Reenviar contacto">
+Cuando se envía:
+
+- Crear un contacto de reenvío a través de la API
+- (Opcional) Almacene el contacto localmente en Supabase también
+</Step>
+<Step title="Diseño">
+Utilice la interfaz de usuario de correo electrónico de difusión de Resend para diseñar y enviar boletines.
+
+- Lógica de cancelación de suscripción incorporada
+- Información sobre el rendimiento (tasas de apertura, estado de entrega)
+</Step>
+<Step title="¡Comprobación de cumplimiento!">
+Para el cumplimiento (por ejemplo, GDPR), considere implementar un flujo de **doble suscripción**.
+</Step>
+<Step title="BONIFICACIÓN: Conexión del reenvío a la autenticación de Supabase">
+![Reenviar la configuración de integración de Supabase para reemplazar la autenticación de correo electrónico predeterminada](/images/zenopus/tips-tricks/resend/send-batch-emails-gdpr-resend.png)
+
+¿Quiere mejorar la autenticación de correo electrónico predeterminada de Supabase (que lo limita a 4 correos electrónicos por hora)?
+
+<Steps>
+<Step title="Reenviar supabase">
+Vaya a [Integración de Supabase de Reenvío](https://resend.com/integrations/supabase).
+</Step>
+<Step title="Autenticación">
+Autentícate con tu proyecto Supabase.
+</Step>
+<Step title="Configuración de dominio">
+Elija su dominio y nombre/correo electrónico del remitente.
+</Step>
+<Step title="SMTP">
+Resend configura automáticamente SMTP y reemplaza el sistema de correo electrónico predeterminado de Supabase.
+</Step>
+<Step title="Personalización">
+Ahora puede personalizar las plantillas de correo electrónico de autenticación desde el panel de Supabase.
+</Step>
+</Steps>
+</Step>
+<Step title="Reenviar supabase">
+Vaya a [Integración de Supabase de Reenvío](https://resend.com/integrations/supabase).
+</Step>
+<Step title="Autenticación">
+Autentícate con tu proyecto Supabase.
+</Step>
+<Step title="Configuración de dominio">
+Elija su dominio y nombre/correo electrónico del remitente.
+</Step>
+<Step title="SMTP">
+Resend configura automáticamente SMTP y reemplaza el sistema de correo electrónico predeterminado de Supabase.
+</Step>
+<Step title="Personalización">
+Ahora puede personalizar las plantillas de correo electrónico de autenticación desde el panel de Supabase.
+</Step>
+<Step title="Toques finales y mejores prácticas">
+![Reenviar panel de audiencias para administrar suscriptores de boletines y correos electrónicos de difusión](/images/zenopus/tips-tricks/resend/audience-resend.png)
+
+- **Manejo de errores**: ZenOpus puede mostrar errores de compilación que son falsos positivos. Pruebe siempre su funcionalidad en vivo.
+- **Revertir con Supabase**: si revierte el código en ZenOpus, recuerde eliminar manualmente las políticas o migraciones de Supabase asociadas; no se revierten automáticamente.
+- **Consejos sobre entregabilidad**:
+    - Utilice subdominios para aislar la reputación.
+    - Incluya siempre una versión de texto sin formato de su correo electrónico.
+    - Supervise el rendimiento del correo electrónico con el panel de información de Resend.
+</Step>
+<Step title="¡Ya terminaste! 🎉">
+En menos de una hora, ha creado un CRM moderno con:
+
+- Una página de destino y un formulario de contacto
+- Almacenamiento de clientes potenciales basado en bases de datos
+- Confirmaciones automáticas por correo electrónico
+- Panel de administración para la gestión de clientes potenciales
+- Respuestas de correo electrónico personalizadas
+- transmisiones de boletines
+- Autenticación y verificación de correo electrónico
+</Step>
+</Steps>
+
+## ¿Quieres ir más lejos?
+
+- Agregue Support para **correos electrónicos programados** mediante trabajos cron de Supabase
+- Cree **flujos de automatización** para activar correos electrónicos según las etapas de los clientes potenciales
+- Diseñe su interfaz de usuario para mejorar la confianza y la conversión de la marca
+
+## Reenviar preguntas frecuentes sobre integración
+
+<AccordionGroup>
+<Accordion title="¿Qué es el reenvío?">
+Resend es una API de correo electrónico creada para desarrolladores. Se centra en una alta capacidad de entrega, facilidad de integración y una experiencia de desarrollador limpia para enviar correos electrónicos transaccionales y de marketing.
+</Accordion>
+<Accordion title="¿Necesito un plan de reenvío pago para seguir este tutorial?">
+No. Puede completar toda la configuración de CRM utilizando el **nivel gratuito de Resend**, que admite el envío de correos electrónicos desde un dominio verificado y hasta 3000 contactos para correos electrónicos de marketing.
+</Accordion>
+<Accordion title="¿Cómo verifico un dominio en Reenviar?">
+Vaya a Reenviar → **Dominios** → Agregue su dominio. Se le proporcionarán registros DNS (TXT, MX) para agregar a través de su proveedor de DNS (por ejemplo, Cloudflare, Namecheap). Una vez agregado, haga clic en **Verificar**.
+
+<Tip>
+Utilice un subdominio como `updates.yourdomain.com` para aislar la reputación de su correo electrónico.
+</Tip>
+</Accordion>
+<Accordion title="¿Por qué mis correos electrónicos de reenvío se convierten en spam?">
+Hay algunas razones comunes:
+
+- No has verificado tu dominio
+- Su correo electrónico carece de una versión de texto sin formato
+- Estás enviando desde un remitente genérico como `onboarding@resend.dev`
+- No sigues las mejores prácticas (por ejemplo, faltan enlaces para cancelar la suscripción en los correos electrónicos de marketing)
+
+Utilice el panel **Información sobre la capacidad de entrega** de Resend para obtener consejos prácticos.
+</Accordion>
+<Accordion title="¿Puedo personalizar el diseño de los correos electrónicos que envío?">
+Sí. Utilice [React Email](https://react.email/), una biblioteca de código abierto del equipo de Resend, para diseñar correos electrónicos responsivos y con estilo con componentes de React.
+</Accordion>
+<Accordion title="¿Reenvía Support correos electrónicos de marketing o solo transaccionales?">
+Reenviar admite **ambos**:
+
+- **Correos electrónicos transaccionales** (confirmación, reinicio, notificaciones) usando API o SDK.
+- **Correos electrónicos de marketing** a través de la función **Transmisión** y **Audiencias**.
+
+Puede crear, obtener una vista previa y realizar un seguimiento de campañas desde el panel.
+</Accordion>
+<Accordion title="¿Cómo gestiono los suscriptores del boletín en Resend?">
+Utilice **Audiencias**:
+
+- Agregue contactos manualmente, mediante CSV o mediante programación utilizando la API.
+- Cada audiencia tiene una identificación única que puede usar para asociar suscripciones.
+- Los usuarios pueden darse de baja automáticamente a través del enlace de cancelación de suscripción integrado de Resend.
+</Accordion>
+<Accordion title="¿Puedo configurar la suscripción doble para recibir boletines?">
+No de forma predeterminada, pero puedes implementarlo manualmente:
+
+1. Al enviar el formulario, envíe un correo electrónico de confirmación inicial.
+1. Pida a los usuarios que hagan clic en un enlace.
+1. Al hacer clic, confirme su suscripción y agréguelos a su audiencia de reenvío.
+</Accordion>
+<Accordion title="¿Puedo programar o automatizar flujos de correo electrónico en Resend?">
+Todavía no. Actualmente, el reenvío no incluye campañas de goteo Support ni secuencias automatizadas.
+
+<Tip>
+Solución alternativa:
+
+Utilice **Supabase Cron Jobs** para programar tareas que activen el reenvío de correos electrónicos en intervalos establecidos.
+</Tip>
+</Accordion>
+<Accordion title="¿Cómo conecto el reenvío a Supabase Auth?">
+Utilice la integración oficial de Supabase mediante Resend:
+
+1. Autentícate con tu proyecto Supabase.
+1. Proporcione un dominio y un nombre de remitente.
+1. Resend configura automáticamente sus correos electrónicos de autenticación de Supabase para usar su cuenta de Resend.
+</Accordion>
+<Accordion title="¿Cómo maneja Resend las cancelaciones de suscripción?">
+Reenviar procesa automáticamente las bajas de suscripción:
+
+- Debe incluir un enlace para cancelar la suscripción en los correos electrónicos de difusión.
+- Cuando un usuario se da de baja, se elimina de la audiencia seleccionada.
+- Esto es necesario para cumplir con el correo electrónico (por ejemplo, CAN-SPAM, GDPR).
+</Accordion>
+</AccordionGroup>

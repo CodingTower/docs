@@ -1,0 +1,170 @@
+---
+title: "Construir en Agent mode"
+description: "Agent mode permite a ZenOpus implementar y verificar cambios directamente en su proyecto, manejando la ejecución de principio a fin con una supervisión mínima."
+---
+<Tip>
+**Elige un modo**
+
+ZenOpus tiene dos modos:
+
+- [**Plan mode**](/es/features/plan-mode) → pensar en el problema, explorar opciones y decidir un enfoque
+- **Agent mode** → implementar cambios y verificar el resultado
+
+Plan mode es para la toma de decisiones. Agent mode es para ejecución.
+
+Los dos modos están diseñados para funcionar juntos y puedes alternar entre ellos en cualquier momento.
+</Tip>
+
+## Descripción general
+
+Agent mode es el modo de ejecución autónoma de ZenOpus, diseñado para implementar cambios directamente en su proyecto.
+
+Cuando le asignas una tarea a ZenOpus, éste se hace cargo de la ejecución de principio a fin. Entiende su intención, explora el código base en busca de contexto, aplica cambios en los archivos y resuelve problemas que aparecen durante el desarrollo. Mientras funciona, puedes ver el progreso a través de tareas visibles y revisar los resultados antes de continuar.
+
+## Para qué sirve Agent mode
+
+Puede utilizar Agent mode para:
+
+- Implementar características o cambios una vez que se decide un enfoque.
+- Corregir errores o errores de principio a fin
+- Refactorizar código en múltiples archivos
+- Aplicar cambios coordinados en el frontend, el backend y la configuración
+- Problemas de depuración que surgen durante la implementación
+- Inspeccionar registros y actividad de la red para identificar problemas.
+- Obtener documentación o activos externos cuando sea necesario
+- Genere o edite imágenes y videos para usarlos en su proyecto
+- Verificar resultados antes de terminar.
+
+Todos los cambios se aplican directamente a su proyecto y aparecen a través de diferencias y resúmenes de archivos. Puedes seguir paso a paso en la **Vista de detalles**.
+
+## Cómo utilizar Agent mode
+
+Agent mode está activo a menos que cambie a [Plan mode](/es/features/plan-mode).
+
+Para usarlo, describe lo que quieres y envía tu mensaje. Los requisitos y restricciones claros ayudan a ZenOpus a producir mejores resultados.
+
+**Se específico sobre lo que quieres**
+
+```text
+Agregue un formulario de contacto con campos de nombre, correo electrónico y mensaje. Valide el formato del correo electrónico y muestre mensajes de error en línea.
+```
+
+**Describe el comportamiento esperado**
+
+```text
+Cuando los usuarios hacen clic en "Agregar al carrito", muestra un mensaje de éxito y actualiza el recuento del carrito en el encabezado. Guarde los artículos del carrito en el almacenamiento local.
+```
+
+**Proporciona contexto para cambios complejos**
+
+```text
+Actualice el panel para mostrar datos de ventas de los últimos 30 días. Utilice el componente Gráfico existente y combine el estilo utilizado en la página de análisis.
+```
+
+**Establezca barandillas para áreas sensibles**
+
+```text
+Agregue una nueva función a @src/pages/dashboard. No modifique @src/shared/Layout.tsx ni la lógica de autenticación existente.
+```
+
+## Tareas y visibilidad de ejecución.
+
+Mientras ZenOpus está funcionando, aparecen tareas en la interfaz de chat que muestran:
+
+- Paso actual en ejecución
+- Archivos siendo modificados
+- Herramientas utilizadas (búsqueda, recuperación web, generación de imágenes)
+- Progreso a través de implementaciones de varios pasos
+
+Esta visibilidad te ayuda a:
+
+- Siga el progreso en compilaciones complejas
+- Comprender los pasos que se están realizando.
+- Manténgase orientado durante cambios complejos
+- Detecte los problemas a tiempo si algo parece estar mal
+
+## cola de aviso
+
+ZenOpus **procesa una tarea a la vez**. Mientras ZenOpus está funcionando, puede continuar enviando mensajes y se agregarán a una cola visible encima de la entrada del chat.
+
+- Pausar y reanudar toda la cola según sea necesario
+- Reordenar, editar, copiar o eliminar mensajes individuales en cola
+- Repetir un mensaje en cola una cantidad específica de veces (hasta 50)
+
+Esto facilita el trabajo por lotes, la colaboración sin esperas y la automatización de flujos de trabajo repetitivos.
+
+## Depuración y verificación
+
+Cuando se usa Agent mode, ZenOpus hace más que garantizar la compilación del código.
+
+Como parte de la investigación y resolución de problemas, el agente puede:
+
+- observar errores de compilación y fallas en ejecuciones de prueba
+- inspeccionar la salida de la consola y las solicitudes de red cuando se utilizan herramientas de verificación
+- reproducir problemas informados mediante pruebas de navegador o llamadas de backend específicas
+- Verifique que las correcciones funcionen como se esperaba ejecutando las comprobaciones adecuadas.
+
+ZenOpus tiene acceso a herramientas de verificación, como pruebas de navegador, pruebas de frontend y verificación de funciones perimetrales para ayudar a comprender el comportamiento del sistema, validar los flujos de trabajo del usuario y garantizar que la lógica de backend funcione como se espera. La mayoría de estas herramientas se ejecutan sólo cuando usted las solicita.
+
+Para obtener una explicación detallada de las capacidades de prueba y verificación, consulte [Probar y verificar su aplicación](/es/features/testing).
+
+## Precios
+
+El precio de Agent mode está **basado en el uso**. El costo depende de factores como:
+
+- Número de archivos modificados
+- Complejidad de los cambios lógicos.
+- Cantidad de exploración de la base de código requerida
+- Uso de herramientas como verificación, comprobaciones del navegador, búsqueda web o generación de imágenes.
+
+Muchas solicitudes cuestan menos de un crédito, mientras que las tareas más complejas pueden costar más. Puede ver el costo de un mensaje desde el menú de tres puntos en ese mensaje. Consulte [uso de crédito](/es/introduction/plans-and-credits#uso-de-crédito) para obtener más información.
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿ZenOpus modifica mi proyecto directamente cuando está en Agent mode?">
+Sí. ZenOpus aplica cambios directamente a su proyecto cuando usa Agent mode. Todas las modificaciones son visibles a través de diferencias y resúmenes de archivos.
+</Accordion>
+<Accordion title="¿Qué sucede si se producen errores durante la implementación?">
+ZenOpus puede inspeccionar los registros, la salida del tiempo de ejecución y la actividad de la red e iterar sobre las correcciones hasta que el problema se resuelva o aclare. Consulte [Probar y verificar su aplicación](/es/features/testing) para obtener más información.
+</Accordion>
+<Accordion title="¿Puedo ver qué está haciendo ZenOpus mientras funciona?">
+Sí. Las tareas visibles muestran cada paso de la ejecución, incluido el progreso y qué archivos se están modificando.
+</Accordion>
+<Accordion title="¿Se pueden enviar varios mensajes mientras se trabaja en Agent mode?">
+Sí. Los mensajes adicionales se ponen en cola y se procesan en orden. Puede reordenar, pausar o eliminar mensajes en cola en cualquier momento.
+</Accordion>
+<Accordion title="¿Cómo detengo una solicitud y qué sucede cuando lo hago?">
+Haga clic en el **botón detener** mientras ZenOpus responde para detener inmediatamente la tarea actual. Esto le permite detener una solicitud para proporcionar más contexto o corregir al agente.
+
+ZenOpus mantiene todos los cambios realizados hasta ese momento, para que no pierda el trabajo completado. Las solicitudes detenidas se cobran según el trabajo realizado hasta el momento.
+
+Si desea eliminar los cambios, utilice el **botón deshacer** para volver al estado anterior.
+</Accordion>
+<Accordion title="¿Cuándo debo cambiar a Plan mode?">
+Cambie a [Plan mode](/es/features/plan-mode) cuando desee:
+
+- Piense en un cambio complejo antes de implementarlo
+- Compara múltiples enfoques arquitectónicos
+- Revisar o editar un plan antes de cambiar cualquier código
+- Investigar un problema y decidir primero una solución.
+</Accordion>
+<Accordion title="¿Puedo hacer referencia a un archivo específico cuando chateo con ZenOpus?">
+Sí. Puede hacer referencia a archivos de código de su proyecto actual directamente en el chat para que las ediciones y las discusiones sean más rápidas y precisas.
+
+Escriba `@` y seleccione un archivo, o use el botón **Archivo de referencia en el chat** en el [editor de código](/es/features/code-mode). Por ejemplo:
+
+```text
+@src/components/UserProfile.tsx agregue un estado de carga aquí
+```
+
+Esto solo hace referencia a archivos dentro de su proyecto actual. Para hacer referencia a otro proyecto, consulte [Referencia entre proyectos](/es/features/cross-project-referencing).
+</Accordion>
+<Accordion title="¿Puede ZenOpus reutilizar código o funciones de otro proyecto?">
+Sí. ZenOpus admite [referencias entre proyectos](/es/features/cross-project-referencing) dentro del mismo Workspace.
+
+Puede usar menciones `@` para hacer referencia a otro proyecto directamente, o simplemente pedirle a ZenOpus que reutilice una implementación existente. El agente puede acceder a códigos, archivos, activos e historial de chat relevantes de otros proyectos y adaptarlos al actual.
+
+El acceso entre proyectos es de solo lectura y respeta los permisos Workspace.
+</Accordion>
+</AccordionGroup>

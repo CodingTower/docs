@@ -1,0 +1,99 @@
+---
+title: "ZenOpus API: compilar con URL"
+description: "La función ZenOpus API Build with URL ahora está en versión Beta abierta, lo que le permite crear y compartir aplicaciones ZenOpus utilizando URL simples que se pueden compartir."
+---
+La función API ZenOpus **Crear con URL** le permite crear aplicaciones mediante programación pasando mensajes e imágenes a través de parámetros de URL. Esto permite una integración perfecta con sitios web, herramientas internas o flujos de trabajo de automatización, lo que permite a los usuarios generar aplicaciones ZenOpus con un solo clic.
+
+Cada enlace le dice a ZenOpus *qué* construir y, opcionalmente, *qué imágenes incluir*, y ZenOpus se encarga del resto.
+
+Ejemplo:
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Create%20a%20todo%20app
+```
+
+Al hacer clic en este enlace, se abre automáticamente ZenOpus y comienza a crear una aplicación de tareas pendientes.
+
+## Casos de uso
+
+Puede hacer lo siguiente con Build with URL API:
+
+- Incruste un botón **Construir con ZenOpus** en su sitio web o aplicación. Cuando el usuario hace clic en el botón, se le dirige a ZenOpus y la aplicación se crea automáticamente.
+- Comparta indicaciones predefinidas a través de URL con amigos, colegas o en las redes sociales.
+- Automatice la generación de aplicaciones como parte de los flujos de trabajo internos.
+- Cree rápidamente prototipos de aplicaciones utilizando URL con indicaciones e imágenes de referencia.
+
+Puede crear la URL usted mismo o utilizar el [ZenOpus Generador de enlaces](https://zenopus.dev/links). Consulte a continuación para obtener más información.
+
+## URL base
+
+```text
+https://zenopus.dev/?autosubmit=true#
+```
+
+`autosubmit` (booleano): debe establecerse en `true` para procesar automáticamente la solicitud
+
+## URL con parámetros
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=YOUR_PROMPT_HERE&images=IMAGE_URL_1&images=IMAGE_URL_2
+```
+
+### Parámetros
+
+| Parámetro | Tipo | Descripción | Requerido/Opcional |
+| --- | --- | --- | --- |
+| rápido | cadena | Texto que describe la aplicación a construir. Máximo 50.000 caracteres. Utilice codificación de URL (por ejemplo, %20 para espacios). Las URL muy largas pueden fallar debido a restricciones del navegador o de análisis. | Requerido |
+| imágenes | cadena | Máximo 10 URL de imágenes codificadas en URL como referencias. Las URL de las imágenes deben ser de acceso público. Formatos soportados: JPEG, PNG, WebP. | Opcional |
+
+## ZenOpus Generador de enlaces
+
+Utilice el [ZenOpus Generador de enlaces](https://zenopus.dev/links) para crear fácilmente URL que se puedan compartir y que generen aplicaciones con las imágenes y mensajes que haya elegido.
+
+1. Ingrese su mensaje, que describe la aplicación a crear (hasta 50k caracteres).
+1. Cargue hasta 10 URL de imágenes públicas (JPEG, PNG o WebP).
+1. Copie la URL ZenOpus generada y compártala.
+
+Esta herramienta ayuda a prevenir errores de codificación de URL y garantiza que los enlaces tengan el formato correcto.
+
+## Construir con ejemplos de URL
+
+**Generación de aplicaciones básicas**
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Create%20a%20todo%20app
+```
+
+**Imagen de referencia única**
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Display%20these%20images&images=https://img.com/1.jpg
+```
+
+**Múltiples imágenes de referencia**
+
+```text
+https://zenopus.dev/?autosubmit=true#prompt=Display%20these%20images&images=https://img.com/1.jpg&images=https://img.com/2.jpg
+```
+
+## Mejores prácticas
+
+- Mantenga las indicaciones concisas y centradas en las funciones principales.
+- Utilice un lenguaje claro y descriptivo para obtener mejores resultados.
+- Incluya imágenes de referencia cuando sea relevante para ayudar a guiar el proceso de generación.
+- Asegúrese de que los caracteres especiales en las indicaciones y las URL de las imágenes estén codificados en URL para evitar problemas de análisis.
+
+## Flujo de autenticación y creación de aplicaciones para URL compartidas
+
+Cuando un usuario hace clic en un enlace **Crear con URL**:
+
+- **Usuarios que han iniciado sesión**: seleccione Workspace para crear el proyecto, luego la creación de la aplicación comienza automáticamente.
+- **Usuarios que no han iniciado sesión**: redirigido a la página de registro/inicio de sesión. Después de una autenticación exitosa, seleccione Workspace para crear el proyecto y luego la creación de la aplicación comienza automáticamente, conservando el mensaje y las imágenes originales.
+
+## Manejo de errores
+
+Si la URL es demasiado larga o tiene un formato incorrecto, puede encontrar:
+
+- Errores del navegador "URL demasiado larga"
+- Análisis de parámetros incompleto
+- Envío automático fallido

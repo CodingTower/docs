@@ -1,0 +1,225 @@
+---
+title: "Définir Workspace et les connaissances du projet"
+description: "Définissez des instructions persistantes pour ZenOpus en utilisant les connaissances Workspace et les connaissances du projet. Définissez des normes de codage, des règles d'architecture et un contexte de projet partagés dont ZenOpus se souvient dans les conversations et les projets."
+---
+Knowledge vous permet de fournir des instructions et un contexte persistants à l'agent ZenOpus. Au lieu de répéter les mêmes explications dans chaque conversation, vous pouvez les définir une fois et ZenOpus les prendra en compte lors de la génération des modifications.
+
+La connaissance est définie à deux niveaux :
+
+- **La connaissance Workspace** définit des règles partagées qui s'appliquent à tous les projets d'un Workspace, telles que les normes de codage, les bibliothèques préférées ou les conventions de dénomination.
+- La **connaissance du projet** ajoute un contexte spécifique à un seul projet, tel que l'objectif de l'application, le schéma de la base de données, les décisions d'architecture ou la terminologie du domaine.
+
+Les deux sont des champs de texte brut qui fournissent des instructions persistantes à l'agent ZenOpus.
+
+## Connaissance Workspace
+
+La connaissance Workspace est un champ de texte qui vous permet de définir des règles partagées une seule fois et de les appliquer à tous les projets de votre Workspace. La connaissance du projet peut alors ajouter un contexte spécifique à un projet particulier.
+
+Il est préférable de l'utiliser pour les **règles et conventions qui doivent être cohérentes sur plusieurs projets**. En définissant ces lignes directrices une seule fois, vous évitez de répéter les mêmes instructions dans chaque domaine de connaissances de chaque projet.
+
+Les connaissances Workspace sont particulièrement utiles dans les environnements d'équipe où plusieurs personnes construisent des projets. Les administrateurs Workspace peuvent définir des garde-fous tels que des normes de codage, des exigences de test ou des règles architecturales afin que chaque projet suive automatiquement les mêmes conventions.
+
+Seuls les propriétaires et administrateurs **Workspace** peuvent gérer les connaissances Workspace. Pour gérer les connaissances Workspace, accédez soit :
+
+- **Paramètres → Connaissance**
+- **Paramètres du projet → Connaissance**
+
+La connaissance Workspace prend en charge jusqu'à **10 000 caractères**.
+
+### Que faut-il inclure
+
+La connaissance Workspace est la meilleure pour :
+
+- Conventions de style de codage
+- Conventions de dénomination
+- Bibliothèques ou frameworks préférés
+- Modèles architecturaux partagés
+- Exigences de test
+- Qualité du code ou règles de peluchage
+- Préférences de langue ou de formatage
+- Voix de la marque, copie de l'interface utilisateur ou directives de conception
+- Choses que ZenOpus devrait éviter de faire
+
+### Exemple
+
+```text
+Normes de codage
+- Activez toujours le mode strict TypeScript.
+- N'utilisez jamais `any`. Utilisez `unknown` et affinez le type.
+- Préférez les exports nommés. N'utilisez pas les exportations par défaut.
+- Préférez `const` à `let`. N'utilisez jamais `var`.
+
+Conventions de dénomination
+- Utilisez camelCase pour les variables et les fonctions.
+- Utilisez PascalCase pour les composants et les types.
+- Utilisez kebab-case pour les noms de fichiers.
+
+Stylisme
+- Utilisez Tailwind CSS pour le style.
+- N'utilisez pas de styles en ligne.
+- N'utilisez pas de modules CSS.
+
+Bibliothèques
+- Utilisez les composants shadcn/ui lorsque cela est possible.
+- Utilisez React Query pour l'état du serveur.
+- Utilisez Zustand pour l'état du client.
+
+Architecture
+- Acheminez les appels d’API via une couche de service.
+- N'appelez pas `fetch` directement à partir des composants React.
+
+Tests
+- Écrivez des tests unitaires pour les nouvelles fonctions et hooks utilitaires.
+- Exécutez les tests existants après avoir apporté des modifications.
+- Vérifiez les nouvelles fonctionnalités dans le navigateur avant de les marquer comme terminées.
+
+Qualité du code
+- Exécutez le linter après des changements importants.
+- Supprimez les importations inutilisées et le code mort.
+
+Localisation
+- Écrivez les commentaires de code et les noms de variables en anglais.
+- Utilisez le format de date JJ/MM/AAAA.
+- Utilisez le formatage des nombres européen (virgule comme séparateur décimal).
+
+Voix de la marque
+- Utilisez un ton amical et professionnel dans toutes les copies destinées aux utilisateurs.
+- Utilisez la casse des phrases pour les titres et les boutons (par exemple, « Créer un nouveau projet », et non « Créer un nouveau projet »).
+- N'utilisez pas de texte d'espace réservé comme "Lorem ipsum", écrivez toujours une copie réaliste.
+
+Règles générales
+- N'ajoutez pas d'instructions `console.log`.
+- N'utilisez pas de modèles React obsolètes.
+- Écrivez des commentaires de code en anglais.
+```
+
+### Remarques importantes
+
+- **Les modifications s'appliquent immédiatement**  
+Si vous mettez à jour les connaissances de Workspace au cours d'une conversation active, ZenOpus utilisera les instructions mises à jour sur les messages de suivi.
+- **Une connaissance Workspace par Workspace**  
+Chaque Workspace possède une seule connaissance Workspace partagée dans tous les projets. Vous ne pouvez pas définir différentes instructions de niveau Workspace pour des sous-ensembles de projets au sein du même Workspace.
+- **Workspace connaissances dans les longues conversations**  
+Les connaissances Workspace sont toujours incluses avec les connaissances du projet, aux côtés du code du projet et d'autres sources contextuelles. Cependant, lors de conversations très longues et très contextuelles, les instructions peuvent ne pas toujours être suivies de manière cohérente.
+
+## Connaissance du projet
+
+La connaissance du projet est un champ de texte qui stocke les instructions et le contexte persistants pour un seul projet. Utilisez-le pour fournir des informations qui s'appliquent uniquement à ce projet spécifique, telles que l'objectif de l'application, l'architecture ou la terminologie du domaine.
+
+Toute personne autorisée à modifier le projet peut mettre à jour ses connaissances sur le projet. Pour gérer les connaissances du projet, accédez à **Paramètres du projet → Connaissances**.
+
+Les connaissances du projet prennent en charge jusqu'à **10 000 caractères**.
+
+### Que faut-il inclure
+
+Une bonne connaissance du projet comprend généralement :
+
+- Ce que fait l'application
+- Personnalités d'utilisateurs ou publics cibles
+- Schéma de base de données ou tables de clés
+- Décisions architecturales
+- Terminologie du domaine
+- Contraintes spécifiques au projet
+- Directives de conception (couleurs, typographie ou mise en page)
+- Liens vers des références importantes telles que la documentation API ou des outils internes
+- Exigences de sécurité ou de conformité
+
+### Exemple
+
+```text
+Aperçu du projet
+Il s'agit d'une application SaaS B2B permettant aux gérants de restaurant de suivre les stocks de produits alimentaires sur plusieurs sites.
+
+Utilisateurs
+Les principaux utilisateurs sont les gérants de restaurant qui ont besoin d'une visibilité rapide sur les niveaux de stock et l'utilisation des ingrédients.
+Les utilisateurs secondaires sont le personnel chargé de consigner les modifications d'inventaire.
+
+Tableaux de base de données clés
+- inventor_items (id, nom, catégorie, quantité, unité, location_id)
+- emplacements (identifiant, nom, workspace_id)
+- transactions (id, item_id,Quantity_Change, type, Create_at)
+
+Directives de conception
+- Utilisez Tailwind CSS pour le style.
+- Suivez la palette de couleurs et l'échelle d'espacement existantes.
+- Utilisez des modèles d’espacement et de mise en page cohérents sur toutes les pages.
+- Préférez les composants shadcn/ui lorsqu’ils sont disponibles.
+
+Règles d'architecture
+- Stockez les valeurs monétaires en centimes sous forme d’entiers.
+- Utilisez des mises à jour optimistes pour toutes les mutations.
+- Placez les composants réutilisables dans /components.
+
+Terminologie du domaine
+- « Article en stock » fait référence à un ingrédient ou à un produit suivi.
+- « Transaction » représente un changement dans la quantité de stock.
+
+Références externes
+- Documentation API : https://docs.example.com/api
+```
+
+## Meilleures pratiques
+
+<AccordionGroup>
+<Accordion title="Définir des règles partagées au niveau Workspace">
+Utilisez les connaissances **Workspace** pour définir les normes de codage, les bibliothèques préférées, les conventions architecturales et d'autres règles qui doivent s'appliquer à plusieurs projets.
+
+Utilisez ensuite **connaissances du projet** pour ajouter un contexte spécifique à chaque projet, tel que l'objectif de l'application, le schéma de base de données, la terminologie du domaine ou les intégrations.
+
+Si un projet nécessite un comportement différent des valeurs par défaut de Workspace, vous pouvez définir ces règles dans **connaissance du projet**. Lorsque la même instruction apparaît aux deux endroits, ZenOpus donnera généralement la priorité aux **connaissances du projet**, car elles sont plus spécifiques au projet en cours.
+</Accordion>
+<Accordion title="Soyez précis">
+Des instructions claires produisent de meilleurs résultats.
+
+Bon exemple :
+
+```text
+Activez toujours le mode strict TypeScript. N’en utilisez jamais.
+```
+
+Exemple moins utile :
+
+```text
+Écrivez du code propre.
+```
+</Accordion>
+<Accordion title="Écrivez-le comme une documentation d'intégration">
+Imaginez expliquer le projet à un nouveau développeur rejoignant l'équipe. Incluez les décisions architecturales importantes afin que ZenOpus ne tente pas de les modifier.
+</Accordion>
+<Accordion title="Gardez les instructions concises">
+Des instructions courtes fonctionnent mieux que de longs paragraphes. Préférez les listes à puces et les règles directes.
+</Accordion>
+<Accordion title="Réviser périodiquement les connaissances">
+Si votre pile ou votre architecture change, mettez à jour vos connaissances afin que ZenOpus ne suive pas des modèles obsolètes.
+
+Vous n’avez pas besoin de tout documenter. Même quelques règles claires ou une brève description du projet peuvent améliorer considérablement la qualité des modifications.
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Quelle est la limite de caractères pour la connaissance ?">
+Connaissances du projet et connaissances Workspace Support jusqu'à 10 000 caractères.
+</Accordion>
+<Accordion title="Puis-je avoir plusieurs ensembles d’instructions de connaissances Workspace ?">
+Non. Chaque Workspace possède une connaissance Workspace partagée dans tous les projets.
+</Accordion>
+<Accordion title="Puis-je ajouter des fichiers d'instructions dans le référentiel du projet ?">
+Oui. Les fichiers d'instructions tels que `AGENTS.md` ou `CLAUDE.md` peuvent également fournir des conseils à l'agent ZenOpus.
+
+Pour les utilisateurs techniques gérant les fichiers d'instructions directement dans leurs référentiels, les fichiers `AGENTS.md` de niveau racine sont toujours lus par l'agent ZenOpus quelle que soit la durée de la session.
+</Accordion>
+<Accordion title="Quelles sources contextuelles ZenOpus lit-il ?">
+Lorsque vous envoyez un message, ZenOpus lit vos **connaissances du projet**, vos connaissances **Workspace** et votre **code du projet** pour comprendre le fonctionnement de votre projet avant de générer des modifications.
+
+Il examine également toutes les connaissances d'intégration des services connectés et des fichiers d'instructions dans le référentiel GitHub de votre projet, tels que `AGENTS.md` ou `CLAUDE.md`.
+</Accordion>
+<Accordion title="Que se passe-t-il en cas de conflit entre le projet et les connaissances Workspace ?">
+Les connaissances du projet et les connaissances Workspace sont incluses ensemble lorsque ZenOpus génère des réponses.
+
+Si les instructions sont en conflit, ZenOpus est encouragé à donner la priorité aux instructions définies dans **connaissance du projet**, car elles s'appliquent spécifiquement au projet en cours.
+
+Pour éviter toute confusion, conservez les règles partagées dans les connaissances Workspace et les détails spécifiques au projet dans les connaissances du projet.
+</Accordion>
+</AccordionGroup>

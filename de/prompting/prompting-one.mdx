@@ -1,0 +1,235 @@
+---
+title: "Best Practices fördern"
+description: "Planen Sie, bevor Sie dazu aufgefordert werden, bauen Sie nach Komponenten auf, verwenden Sie echte Inhalte und wenden Sie Design-Schlagworte an, um konsistente, qualitativ hochwertige Ergebnisse zu erzielen."
+---
+![ZenOpus Eingabeaufforderungsfeld](/images/zenopus/prompting/prompting-one/prompting-prompt-box.png)
+
+Dieses Playbook vereint die effektivsten Techniken, Strategien und Prinzipien, um mit ZenOpus die bestmöglichen Ergebnisse zu erzielen. Unabhängig davon, ob Sie neu im Bereich Eingabeaufforderungen sind oder Ihre Fähigkeiten verfeinern möchten, finden Sie umsetzbare Ratschläge und klare Beispiele, die Ihnen dabei helfen, Ideen schnell und konsistent in eine ausgefeilte Benutzeroberfläche umzusetzen.
+
+## Lassen Sie ZenOpus klärende Fragen stellen
+
+Eine der effektivsten Möglichkeiten, mit ZenOpus bessere Ergebnisse zu erzielen, besteht darin, die Lücken füllen zu lassen, bevor Code geschrieben wird. Nachdem Sie angegeben haben, welche Funktion oder Änderung Sie wünschen, fügen Sie am Ende Ihrer Eingabeaufforderung eine Zeile wie diese hinzu:
+
+> „Stellen Sie mir alle Fragen, die Sie benötigen, um vollständig zu verstehen, was ich von dieser Funktion erwarte und wie ich sie mir vorstelle.“
+
+Es wird empfohlen, für diesen Ansatz Plan mode zu verwenden.
+
+ZenOpus antwortet mit gezielten, oft aufschlussreichen Folgefragen, manchmal mit solchen, an deren Angabe Sie nicht gedacht hätten. Dieser Prozess hilft dabei, Ihre Anforderungen im Vorfeld zu klären und spätere Missverständnisse oder unnötige Mühen zu vermeiden.
+
+Wenn Sie es noch nicht versucht haben, auf diese Weise aufzufordern, probieren Sie es einfach aus: Sie werden wahrscheinlich feststellen, dass neue Funktionen Ihrer wahren Absicht näher kommen und weniger Hin und Her erfordern.
+
+## Phase 1: Den Grundstein legen
+
+### 1. Planen Sie, bevor Sie dazu aufgefordert werden
+
+Bevor Sie ZenOpus verwenden, definieren Sie, was Sie erstellen. Das Überspringen dieses Schritts ist so, als würde man mit dem Malen beginnen, ohne zu entscheiden, was man malen möchte. Nutzen Sie eine kurze Planungssitzung – Stift und Papier, Sprachnotizen, ChatGPT, was auch immer funktioniert –, um diese vier Fragen zu beantworten:
+
+- Was ist dieses Produkt oder diese Funktion?
+- Für wen ist es?
+- Warum werden sie es verwenden?
+- Was ist die wichtigste Maßnahme, die der Benutzer ergreifen sollte?
+
+Sie schreiben kein Spezifikationsdokument. Sie geben die Richtung vor. Je ausgerichteter Ihr Denken ist, desto schärfer sind Ihre Anregungen. Vage Ideen führen zu vagen Ergebnissen. Klares Denken führt zu klaren Ergebnissen.
+
+**Prompt-Beispiel**
+
+```text
+Erstellen Sie eine einseitige Website für eine Budgetierungs-App, die sich an Freiberufler der Generation Z richtet. Der Haupt-CTA sollte „Start Saving Smarter“ lauten. Konzentrieren Sie sich auf eine kühne, ausdrucksstarke Ästhetik mit großem Text und kräftigen Farben.
+```
+
+### 2. Stellen Sie die User Journey visuell dar
+
+Beim Design geht es nicht um einzelne Bildschirme – es geht darum, was zwischen ihnen passiert. Die besten Ergebnisse in ZenOpus entstehen durch einen klaren, logischen Ablauf. Stellen Sie den Weg dar, den Ihr Benutzer von der Landung auf der Seite bis zum Abschluss einer wichtigen Aktion nimmt.
+
+Denken Sie in Übergängen:
+
+- Was sieht der Benutzer zuerst?
+- Was schafft Vertrauen?
+- Was gibt ihnen Handlungssicherheit?
+- Wohin führt diese Aktion?
+
+<Info>
+Selbst eine einfache dreistufige Skizze – Held → Funktionen → CTA – kann Ihre Aufforderungen um das Zehnfache effektiver machen.
+</Info>
+
+> „Sie stapeln keine Blöcke. Sie leiten das Verhalten. Jeder Abschnitt sollte eine Existenzberechtigung haben – und einen Grund, zum nächsten zu führen.“
+
+### 3. Machen Sie zuerst das richtige Design
+
+Ihre visuelle Sprache ist eine Grundlage, keine Politur. ZenOpus muss frühzeitig wissen, welches Erscheinungsbild Sie wünschen. Andernfalls funktioniert Ihre Benutzeroberfläche möglicherweise, fühlt sich aber völlig falsch an. Beheben Sie Designprobleme nicht später. Entscheiden Sie sie im Voraus.
+
+Wählen Sie eine Richtung, zum Beispiel:
+
+- Ruhig und elegant
+- Mutig und disruptiv
+- Erstklassig und elegant
+
+Geben Sie diesen Stil dann mithilfe von Schlagworten, Tonbeschreibungen und UI-Mustern direkt in Ihre Eingabeaufforderung ein. Sie können sogar eine Eingabeaufforderung im „Starter-Stil“ erstellen und diese aus Konsistenzgründen in allen Abschnitten wiederverwenden.
+
+> „Gutes Design entsteht nicht durch Impulse, sondern durch Impulse.“
+
+**Prompt-Beispiel**
+
+```text
+Verwenden Sie ein ruhiges, von Wellness inspiriertes Design. Sanfte Farbverläufe, gedämpfte Erdtöne, runde Ecken und großzügige Polsterung. Schriftart ist „Inter“. Der Gesamtton sollte sich sanft und beruhigend anfühlen.
+```
+
+## Phase 2: Denken Sie in Systemen
+
+### 4. Eingabeaufforderung nach Komponente, nicht nach Seite
+
+ZenOpus funktioniert am besten, wenn Sie Ihre Benutzeroberfläche in modularen Teilen erstellen – nicht in ganzen Seiten auf einmal. Die Aufgabe, eine komplette Landingpage zu erstellen, ist so, als würde man ein Rezept in einen Mixer geben. Sie erhalten etwas, aber es wird nicht verwendbar sein.
+
+Gehen Sie stattdessen Ihren Anweisungen so vor, als würden Sie mit Legosteinen bauen. Jeder Block sollte einen klaren Zweck und eine klare Struktur haben: einen Heldenbereich, ein Feature-Raster, einen Testimonial-Slider, eine Preistabelle. Erstellen Sie eines, überprüfen Sie es, verfeinern Sie es und fahren Sie dann mit dem nächsten fort.
+
+Wenn Sie nach Komponenten fragen, gewinnen Sie Klarheit, Kontrolle und Flexibilität. Wenn etwas nicht richtig aussieht, können Sie nur diesen Block beheben, anstatt eine ganze Seite erneut anzufordern. Dies hilft Ihnen auch dabei, Ihr Design Thinking über mehrere Seiten hinweg zu skalieren – Komponenten können wiederverwendet und angepasst werden, ohne sie von Grund auf neu zu schreiben.
+
+> „Mit einer ganzseitigen Eingabeaufforderung erhalten Sie Aufsehen. Mit einer abschnittsbasierten Eingabeaufforderung erhalten Sie Signal.“
+
+**Prompt-Beispiel**
+
+```text
+Erstellen Sie eine schwebende Menüleiste mit Glasmorphismus-Effekt. Fügen Sie die Symbole „Startseite“, „Suche“, „Musik“, „Favoriten“, „Hinzufügen“, „Profil“ und „Einstellungen“ hinzu. Fügen Sie sanfte schwebende Animationen und reibungslose Hover-Interaktionen hinzu.
+```
+
+### 5. Design mit echten Inhalten
+
+ZenOpus funktioniert nicht gut mit Platzhalterinhalten wie „lorem ipsum“ oder „Feature 1 / Feature 2“. Das Modell ist darauf trainiert, auf Struktur und Absicht zu reagieren – und der schnellste Weg, Absichten zu zeigen, besteht darin, echte Wörter zu verwenden.
+
+Auch wenn Ihre endgültige Kopie noch nicht fertig ist, verwenden Sie eine Kopie, die Ihre Botschaft widerspiegelt. Wenn Sie eine Seite für eine Meditations-App erstellen, schreiben Sie, was ein Benutzer tatsächlich lesen würde. Machen Sie es nicht vor.
+
+Dies hilft ZenOpus nicht nur dabei, bessere Layouts und Abstände zu generieren, sondern hilft Ihnen auch, intelligentere Designentscheidungen zu treffen. Für eine echte Überschrift sind möglicherweise zwei Zeilen statt einer erforderlich. Ein CTA funktioniert möglicherweise besser, wenn es sich um ein Verb anstelle eines Substantivs handelt. Platzhaltertext verbirgt diese Probleme. Echter Inhalt verrät sie frühzeitig.
+
+> „Design liebt Einschränkungen. Echter Inhalt schafft die richtigen.“
+
+**Prompt-Beispiel**
+
+```text
+Heldenbereich mit Überschrift: „Entwerfen Sie ruhig.“ Subtext: „Verwandle Stress in Struktur mit ZenOpus.“ CTA: „Beginne mit dem Aufbau von Free.“ Verwenden Sie ein kopiezentriertes Layout mit großzügigen vertikalen Abständen.
+```
+
+### 6. Sprechen Sie atomar: Knöpfe, Karten, Modalitäten
+
+ZenOpus denkt in Atomen. Je kleiner und spezifischer Ihre UI-Sprache ist, desto besser ist ihre Leistung. Anstatt nach einem „Abschnitt mit einer Anmeldung“ zu fragen, sagen Sie: „Fügen Sie ein Formular mit einem Eingabefeld für E-Mail und einer abgerundeten CTA-Schaltfläche hinzu.“ Diese atomaren Anweisungen werden als native Muster interpretiert.
+
+Denken Sie wie ein System. Beschreiben Sie Karten, Abzeichen, Schalter, Chips, Formularfelder, Dropdowns usw. Sagen Sie nicht „eine Benutzeroberfläche“, wenn Sie „ein Modal mit einem Erfolgstoast nach dem Absenden“ sagen können.
+
+Mit diesem atomaren Vokabular können Sie die Komplexität auch schrittweise schichten. Beginnen Sie mit einer Karte. Fügen Sie dann ein Abzeichen hinzu. Fügen Sie dann Hover-Zustände hinzu. Jede Schicht baut auf natürliche Weise auf der letzten auf. Dies gibt Ihnen mehr Kontrolle und eine Ausgabe mit höherer Wiedergabetreue – ohne Eingabeaufforderungen neu schreiben zu müssen.
+
+> „Je kleiner der Teil, desto intelligenter die Reaktion.“
+
+**Prompt-Beispiel**
+
+```text
+Erstellen Sie eine Karte mit einem Benutzerprofilbild, einem Namen und einer Schaltfläche „Folgen“. Fügen Sie ein Abzeichen für verifizierte Benutzer hinzu und zeigen Sie einen Tooltip an, wenn Sie mit der Maus über das Abzeichen fahren.
+```
+
+### 7. Verwenden Sie Schlagworte, um die Ästhetik zu unterstreichen
+
+Der visuelle Stil ist einer der wichtigsten – und am meisten missverstandenen – Teile der Eingabeaufforderung in ZenOpus. Es reicht nicht aus, das Layout zu beschreiben. Sie müssen das Tool auf Vibe ausrichten. Buzzwords sind der schnellste Weg, dies zu tun.
+
+ZenOpus versteht Begriffe wie „minimal“, „ausdrucksstark“, „filmisch“, „verspielt“, „Premium“ und „entwicklerorientiert“. Dabei handelt es sich nicht um Floskeln, sondern um aufrufbare Parameter, die Typografie, Abstände, Schatten, Rahmenradius und Farbpalette beeinflussen.
+
+Verwenden Sie diese Wörter früh in Ihren Aufforderungen. Besser noch, fügen Sie sie in jeden Abschnitt ein. Sie erhalten durchweg zusammenhängende Designs und vermeiden den gefürchteten Look der „Standard-Benutzeroberfläche“.
+
+Sie können auch Schlagworte kombinieren, um Ihren Ton zu verbessern. Eine Seite kann im Hero „mutig und störend“ beginnen und im Preisabschnitt „ruhig und beruhigend“ werden. Sie bleiben nicht bei einem Stil hängen – Sie entwerfen mit Absicht.
+
+> „Design ist nicht nur Struktur. Es ist Ton. Schlagworte definieren es.“
+
+**Prompt-Beispiel**
+
+```text
+Entwerfen Sie einen Landingpage-Helden, der hochwertig und filmisch wirkt. Verwenden Sie geschichtete Tiefe, durchscheinende Oberflächen, weiche Bewegungsunschärfe und einen dramatischen Kontrast zwischen Überschrift und Hintergrund.
+```
+
+## Phase 3: Mit Präzision bauen
+
+### 8. Verwenden Sie Eingabeaufforderungsmuster für Layouts
+
+Eingabeaufforderungen sind einfacher zu schreiben – und weitaus effektiver – wenn Sie strukturierte, wiederholbare Muster verwenden. Betrachten Sie sie als Layout-Rezepte. Anstatt zu versuchen, Ihr Layout jedes Mal von Grund auf zu erklären, beschreiben Sie es in einem einheitlichen Rhythmus.
+
+Eine gute Layout-Eingabeaufforderung unterteilt den Abschnitt in visuelle Teile, klärt deren Reihenfolge und definiert, wie sie gestaltet sind. Die meisten Muster folgen einer „Kopfzeile → Inhalt → Aktion“-Struktur, aber Sie können diesen Ablauf je nach dem, was Sie entwerfen, anpassen.
+
+Beginnen Sie mit dem Aufbau einer persönlichen Eingabeaufforderungsbibliothek. Schreiben Sie beispielsweise eine Go-to-Struktur für ein Feature-Raster, einen Testimonial-Slider oder eine Preistabelle. Verwenden Sie diese Muster wieder und mischen Sie sie mit geringfügigen Änderungen neu, um sie an verschiedene Seiten anzupassen.
+
+Hier geht es nicht darum, starr zu sein. Es geht darum, effizient zu sein. ZenOpus reagiert am besten auf eine Aufforderungssprache, die strukturiert, umfangreich und vorhersehbar ist. Schnelle Muster machen Sie schneller und Ihre Ausgabe ist auf allen Bildschirmen konsistenter.
+
+**Prompt-Beispiel**
+
+```text
+Erstellen Sie einen Feature-Bereich mit einer zentrierten Überschrift, gefolgt von drei horizontal ausgerichteten Karten. Jede Karte enthält oben ein Symbol, eine Überschrift und eine kurze Beschreibung. Die Karten sollten weiche Schatten haben und beim Schweben angehoben werden.
+```
+
+### 9. Fügen Sie visuelle Elemente über die URL hinzu
+
+Möchten Sie, dass sich Ihr Layout echt anfühlt? Fügen Sie Produktdemos, Midjourney-generierte Clips oder Tutorial-Videos über URLs hinzu. ZenOpus unterstützt Videoeinbettungen, wenn eindeutig dazu aufgefordert wird.
+
+Fragen Sie nach der Platzierung (z. B. unter dem Helden oder innerhalb einer Feature-Karte), dem Stil (z. B. abgerundete Ecken, automatische Wiedergabe, stummgeschaltet) und dem Kontext (warum es dort ist).
+
+**Prompt-Beispiel**
+
+```text
+Betten Sie ein Produktdemovideo von Midjourney ein. Verwenden Sie diese URL: https://cdn.midjourney.com/video/cb84f296-92a0-4a37-a0e3-1c9c95299488/0.mp4. Platzieren Sie es unterhalb des Feature-Bereichs auf einer Karte in voller Breite mit einem weichen Schatten.
+```
+
+### 10. Ebenenkontext mit der Schaltfläche Bearbeiten
+
+Die Schaltfläche „Bearbeiten“ ist eine der leistungsstärksten Funktionen in ZenOpus – aber nur, wenn Sie sie richtig verwenden. Anstatt vollständige Eingabeaufforderungen neu zu schreiben, wenn sich etwas ändern muss, verwenden Sie die Bearbeitungsfunktion, um sich auf bestimmte Ebenen oder Elemente zu konzentrieren. Auf diese Weise können Sie schnell iterieren, ohne das zu beeinträchtigen, was bereits funktioniert.
+
+Stellen Sie sich Änderungen wie Designüberschreibungen vor. Es handelt sich nicht um Ersatz, sondern um Anpassungen. Sie können beispielsweise eine CTA-Schaltfläche auswählen und nur den Text ändern oder ein Kartenlayout optimieren, ohne die Typografie des gesamten Abschnitts zu beeinträchtigen.
+
+Dadurch bleibt Ihr Projekt sauber und modular. Sie vermeiden ein plötzliches Aufblähen, bewegen sich schneller und verringern das Risiko, dass etwas kaputt geht, was bereits in Ordnung war. Das Bearbeiten gibt Ihnen auch mehr Selbstvertrauen beim Experimentieren, da Sie nicht jedes Mal von vorne beginnen müssen.
+
+Seien Sie beim Bearbeiten präzise in Ihrer Sprache. Sagen Sie genau, was Sie ändern möchten und was gleich bleiben soll. Verwenden Sie Anweisungen wie „ersetzen“, „aktualisieren“ oder „anpassen“ anstelle allgemeiner Aussagen wie „das verbessern“.
+
+**Prompt-Beispiel (innerhalb der Bearbeitung)**
+
+```text
+Ändern Sie den Text der CTA-Schaltfläche in „Erste Schritte“ und erhöhen Sie den Abstand auf 24 Pixel horizontal. Behalten Sie die vorhandene Hintergrundfarbe und Schriftart bei.
+```
+
+## Phase 4: Iterieren und versenden
+
+### 11. Erstellen Sie unter Berücksichtigung von ZenOpus Cloud
+
+Das Entwerfen eines Layouts ist nur ein Teil der Produktentwicklung. Wenn Sie möchten, dass Ihre ZenOpus-Projekte mehr als nur gut aussehen, müssen Sie darüber nachdenken, wie sie tatsächlich funktionieren – und unsere integrierte Cloud ist ein großartiger Ausgangspunkt.
+
+Die Cloud übernimmt Benutzerauthentifizierung, Datenbanken, Speicher und sogar Edge-Funktionen – alles auf eine Weise, die sich gut mit modernen Frontends kombinieren lässt. Und mit ZenOpus können Sie Ihre Benutzeroberfläche direkt von der Eingabeaufforderung an an diese realen Verhaltensweisen anpassen.
+
+Wenn Sie beim Entwerfen die Cloud im Hinterkopf haben, sollten Sie Folgendes berücksichtigen:
+
+- **Authentifizierungslogik** – Was sollte die Benutzeroberfläche anzeigen, wenn der Benutzer angemeldet oder abgemeldet ist?
+- **Dynamischer Inhalt** – Ziehen Sie Benutzerdaten, Beiträge, Elemente oder Metriken aus einer Tabelle?
+- **Zustände** – Was passiert, wenn die Daten leer sind, noch geladen werden oder fehlschlagen?
+
+Dieses frühe Denken hilft Ihnen, intelligentere Abschnitte anzustoßen und sorgt für eine spätere reibungslose Entwicklung.
+
+**Prompt-Beispiel**
+
+```text
+Wenn der Benutzer über die Cloud angemeldet ist, werden oben rechts sein Profilbild und sein Name angezeigt. Wenn nicht, zeigen Sie eine Schaltfläche „Anmelden“ an und leiten Sie sie zum Authentifizierungsbildschirm weiter.
+```
+
+> Tipp: Während des Entwurfs benötigen Sie kein funktionierendes Backend – aber indem Sie Ihre Benutzeroberfläche so gestalten, als ob sie bereits vorhanden wäre, können Sie Ihr Layout zukunftssicher machen.
+
+### 12. Die Versionskontrolle ist dein Freund
+
+ZenOpus speichert Ihre Änderungen automatisch, aber das bedeutet nicht, dass Sie schnell und unüberlegt vorgehen sollten. Wenn Sie nicht im Auge behalten, was Sie geändert haben und warum, machen Sie nur Lärm – und verlieren schnell die Kontrolle.
+
+Bei einer guten Versionierung geht es nicht darum, Dateien zu benennen. Es geht darum, in Iterationen zu denken. Nehmen Sie jeweils eine sinnvolle Änderung vor. Aktualisieren Sie Ihre Heldenkopie. Fügen Sie ein Feature-Raster hinzu. Passen Sie das Layout an. Überprüfen Sie das Ergebnis. Dann machen Sie weiter.
+
+So entstehen echte Designsysteme – Schicht für Schicht, mit Absicht.
+
+Auch wenn ZenOpus die Versionen im Hintergrund verwaltet, übernehmen Sie Ihr eigenes System:
+
+- Denken Sie in Meilensteinen (z. B. Layout gesperrt, Inhalt hinzugefügt, Logik verkabelt)
+- Verwenden Sie Notizen in Ihren Eingabeaufforderungen (z. B. „Geänderter CTA-Text und angepasster Kartenabstand“).
+- Sehen Sie sich vor größeren Änderungen eine Vorschau an und duplizieren Sie sie, wenn Sie vor einem riskanten Schritt stehen
+
+> „Autosave bedeutet nicht automatisch organisiert. Erstellen Sie absichtlich. Iterieren Sie mit Bewusstsein.“
+
+**Schnelle Gewohnheit**
+
+```text
+Bevor Sie eine größere Änderung vornehmen, duplizieren Sie die aktuelle Version und beschriften Sie sie. Kleine Kosten, großes Sicherheitsnetz.
+```

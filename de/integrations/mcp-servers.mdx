@@ -1,0 +1,99 @@
+---
+title: "Integrieren Sie Ihre Tools mithilfe persönlicher Konnektoren (MCP-Server)."
+description: "Verbinden Sie ZenOpus mit Ihren persönlichen Tool-Konten, indem Sie MCP-Server als persönliche Konnektoren verwenden. Bringen Sie echten Kontext von Tools wie Notion, Linear, Jira oder Miro direkt in Ihre Builds ein und gelangen Sie so schneller als je zuvor von der Idee über die Validierung bis hin zur Live-App."
+---
+**MCP (Model Context Protocol)** ist ein offener Standard, der KI-Systeme wie ZenOpus mit externen Tools, Diensten und Datenquellen verbindet. In ZenOpus werden MCP-Server als **persönliche Connectors** verwendet.
+
+Durch die Verbindung von ZenOpus mit Tools wie Notion, Atlassian oder Linear kann der ZenOpus-Agent den echten Teamkontext nutzen, um genaueren Code, Prototypen und Dokumentation zu generieren.
+
+Wenn eine Verbindung besteht, kann ZenOpus strukturierte Daten (wie Text aus Dokumenten, Problemen oder Diagrammen) lesen und, sofern unterstützt, begrenzte Aktionen ausführen, z. B. das Erstellen oder Aktualisieren von Elementen.
+
+ZenOpus umfasst mehrere vorgefertigte persönliche Konnektoren für alle Pläne, mit Support für benutzerdefinierte MCP-Server für alle kostenpflichtigen Pläne.
+
+## Warum persönliche Anschlüsse verwenden?
+
+Persönliche Konnektoren erschließen zwei wichtige Funktionen:
+
+- **Bringen Sie Ihren vorhandenen Kontext in ZenOpus ein.**  
+Der ZenOpus-Agent kann die Dokumentation, Tickets und Designdateien Ihres Teams lesen, um Prototypen und Abläufe zu erstellen, die Ihren Standards entsprechen.
+- **Verbinden Sie Ihre ZenOpus-Apps mit Ihren Arbeitsabläufen.**  
+Der ZenOpus-Agent kann Folgeaktionen in Ihren verbundenen Tools durchführen, z. B. Ticketstatus aktualisieren, Prototyp-Links als Kommentare hinzufügen oder neue Elemente erstellen, sofern dies unterstützt wird.
+
+ZenOpus wird leistungsfähiger, wenn es die Welt Ihres Teams versteht, Rätselraten überflüssig macht, die Iteration beschleunigt und Ihnen dabei hilft, schneller als je zuvor von der **Idee zur Live-App zu gelangen.**
+
+## Vorgefertigte persönliche Anschlüsse
+
+| Werkzeug | Beschreibung | Beispielfunktionen |
+| --- | --- | --- |
+| Amplitude | Greifen Sie auf Ihre Amplitude-Produktanalysen und Ihr Feedback zu. | Verwandeln Sie das Benutzerverhalten in bessere Produktentscheidungen. Bringen Sie Produkteinblicke, Benutzertrichter und Feedback in ZenOpus ein, damit Sie Abläufe iterieren, Layouts optimieren und Experimente mit einer einfachen Eingabeaufforderung durchführen können. |
+| Atlassian | Greifen Sie auf Ihre Jira-Probleme und Confluence-Seiten zu. | Verwandeln Sie Produktdokumentationen in funktionierende Prototypen. ZenOpus kann Produktdokumentationen und verknüpfte Jira-Epics (PRDs, Spezifikationen, Architekturdokumente) lesen, um Prototypen zu generieren, die den Standards Ihres Teams entsprechen. Betten Sie generierte Prototypen für Feedback wieder in Confluence ein. |
+| Müsli | Greifen Sie auf Ihre Granola-Besprechungsnotizen, Entscheidungen und Aktionspunkte zu. | Wandeln Sie den Besprechungskontext in Spezifikationen und Tickets um. ZenOpus kann vergangene Besprechungen durchsuchen, Entscheidungen und Aktionselemente abrufen und die vereinbarten Informationen verwenden, um PRDs, User Stories oder Folgeaufgaben zu generieren, ohne sich durch Notizen wühlen zu müssen. |
+| Linear | Greifen Sie auf Ihre linearen Probleme und Projektdaten zu. | Prototyp aus echten Ausgaben und Tickets. ZenOpus kann lineare Probleme einschließlich Beschreibungen und Akzeptanzkriterien lesen, um funktionale Prototypen zu erstellen. Hängen Sie die resultierenden Apps zur Überprüfung wieder an Linear an. |
+| Miro | Greifen Sie auf Ihre Miro-Boards und -Diagramme zu. | Erwecken Sie Ihre Boards zum Leben. ZenOpus kann Benutzerflüsse, Wireframes oder Informationsarchitekturen aus Ihren Boards in interaktive Prototypen umwandeln, die Sie testen und für Feedback zurückexportieren können. |
+| Vorstellung | Greifen Sie auf Ihre Notion-Seiten und -Datenbanken zu. | Bauen Sie direkt auf der Idee Ihres Teams auf: Workspace. ZenOpus kann PRDs, Design-Spezifikationen oder Marketing-Briefs lesen und sie in funktionierende Apps, Landingpages oder Prototypen umwandeln. Betten Sie generierte ZenOpus-Apps für eine nahtlose Zusammenarbeit wieder in Notion ein. |
+| n8n | Greifen Sie mit Ihren n8n-Workflows auf Ihre Apps zu und betreiben Sie sie. | Erstellen Sie Workflow-reiche Apps mit Live-Daten. Verbinden Sie Ihre n8n-Automatisierungen mit ZenOpus, um Daten aus Tools wie HubSpot, Google Sheets oder Slack abzurufen und benutzerorientierte Apps zu erstellen, die auf vorhandenen Automatisierungen basieren. |
+| Polar | Greifen Sie auf Ihre Rechnungen, Produkte, Kunden und Abonnements von Polar zu. | Erstellen Sie abonnementfähige Apps mit echtem Abrechnungskontext. ZenOpus kann Ihr Polar-Setup als Kontext beim Gerüstbau von SaaS-Apps, Checkout-Abläufen, Preisseiten, Abonnementverwaltung und Kundenabrechnungserfahrungen verwenden. |
+| Vernunft | Greifen Sie auf Ihre Sanity CMS-Inhalte und -Schemata zu. | Erstellen Sie inhaltsgesteuerte Apps mit Ihren CMS-Daten. ZenOpus kann Ihre Sanity-Dokumente, Schemata und strukturierten Inhalte lesen, um Apps, Zielseiten und Content-Management-Schnittstellen zu generieren, die auf Ihr Inhaltsmodell abgestimmt sind. |
+
+### So fügen Sie einen vorgefertigten persönlichen Connector hinzu
+
+So verwenden Sie vorgefertigte Integrationen mit beliebten Apps und Diensten von Drittanbietern:
+
+1. Gehen Sie zu **Einstellungen → Connectors → Persönliche Connectors**.
+1. **Wählen Sie einen persönlichen Connector aus** (z. B. Notion oder Linear).
+1. Klicken Sie auf **Verbinden**. Melden Sie sich an und gewähren Sie ZenOpus Zugriff auf Ihr Konto.
+
+### Zusätzliches Setup für bestimmte persönliche Anschlüsse
+
+[n8n](https://docs.n8n.io/advanced-ai/accessing-n8n-mcp-server)
+
+Zusätzlich zu diesen Schritten müssen Sie in n8n Folgendes tun:
+
+- Gehen Sie zu **Einstellungen → MCP-Zugriff** und schalten Sie **MCP-Zugriff aktivieren** um (erfordert Instanzbesitzer- oder Administratorberechtigungen)
+- Gehen Sie für jeden Workflow, den Sie verfügbar machen möchten, im Workflow-Editor zu **Einstellungen** und schalten Sie **In MCP verfügbar** ein.
+
+[Amplitude](https://amplitude.com/)
+
+Wenn Sie planen, Ihre mit ZenOpus erstellte App zu analysieren, stellen Sie sicher, dass sie bereits Daten an Amplitude sendet, bevor Sie den MCP-Connector verwenden. Anweisungen zur Einrichtung finden Sie in der [Amplitude-Schnellstartanleitung](https://amplitude.com/docs/get-started/amplitude-quickstart).
+
+## Benutzerdefinierte MCP-Server (kostenpflichtige Pläne)
+
+Für volle Flexibilität können Sie **benutzerdefinierte MCP-Server** als persönliche Konnektoren anschließen, um interne Systeme oder Systeme von Drittanbietern in ZenOpus einzubinden. Dies ist perfekt für private APIs, interne CRMs oder benutzerdefinierte Datenquellen.
+
+Entdecken Sie [Remote-MCP-Server](https://mcpservers.org/remote-mcp-servers), eine kuratierte Liste hochwertiger Remote-MCP-Server, die mit ZenOpus kompatibel sind.
+
+### So verbinden Sie einen benutzerdefinierten MCP-Server
+
+So verbinden Sie einen benutzerdefinierten oder internen MCP-Server:
+
+1. Gehen Sie zu **Einstellungen → Connectors → Persönliche Connectors.**
+1. Klicken Sie auf **Neuer MCP-Server**.
+1. **Servername**: Geben Sie einen eindeutigen Namen für Ihren Server ein (z. B. *Internal CRM* oder *Analytics API*).
+1. **Server-URL**: Geben Sie die Adresse ein, unter der ZenOpus Ihren MCP-Server erreichen kann.
+1. **Authentifizierung:**
+    - **OAuth (Standard):** ZenOpus verwendet standardmäßig OAuth. Nachdem Sie auf **Hinzufügen und autorisieren** geklickt haben, werden Sie zur Autorisierung aufgefordert.
+    - **Bearer-Token oder API-Schlüssel:** Für Server, die nicht über Support OAuth verfügen, können Sie sich mit einem Bearer-Token oder API-Schlüssel authentifizieren.
+    - **Keine Authentifizierung**: Stellen Sie eine Verbindung ohne Anmeldeinformationen her, wenn der Server keine Authentifizierung erfordert.
+1. **Server hinzufügen**. Der benutzerdefinierte MCP-Server wird jetzt in Ihrer Liste persönlicher Konnektoren angezeigt und kann Kontextdaten für Builds bereitstellen.
+
+## Praxisbeispiele
+
+Jede verbundene App wird sofort als Kontext für den ZenOpus Agent verfügbar. Sie können über natürliche Eingabeaufforderungen mit verbundenen Tools interagieren.
+
+| Szenario | Beispielaufforderung | Beispielergebnis |
+| --- | --- | --- |
+| Ein Produktmanager verbindet Linear oder Jira | Generieren Sie einen Prototyp basierend auf Tickets im aktuellen Sprint. | ZenOpus liest Problembeschreibungen und Akzeptanzkriterien, um eine abgestimmte, testbare Benutzeroberfläche zu erstellen. |
+| Ein Vermarkter verlinkt Notion oder Confluence | Verwandeln Sie unser Q4-Kampagnenbriefing in eine Landingpage. | ZenOpus verwendet das Dokument als Kontext, um eine markengerechte, bearbeitbare Seite zu erstellen. |
+| Ein Designer verbindet Miro | Erstellen Sie einen Prototyp des Anmeldeablaufs von unserem Whiteboard aus. | ZenOpus liest Flussdiagramme als Gerüst für die UI-Navigation und wandelt sie in einen interaktiven Prototyp um, den Ihr Team testen kann. |
+| Ein Ingenieur verknüpft n8n oder internes MCP | Erstellen Sie eine Workflow-Benutzeroberfläche, die Benutzer auflistet und deren Löschen ermöglicht. | ZenOpus erstellt eine App, die Live-Daten und Workflows verwendet. |
+
+## Sicherheit und Berechtigungen
+
+Persönliche Connectors (MCP-Serververbindungen) sind **Verbindungen pro Benutzer**. Sie können sie jederzeit unter **Einstellungen → Konnektoren** überprüfen oder widerrufen.
+
+Für einen schnellen Zugriff innerhalb eines Projekts klicken Sie im Eingabeaufforderungsfeld auf `+` und gehen Sie zu **Connectors**.
+
+Bei den Plänen **Business** und **Enterprise** können Workspace **Administratoren und Eigentümer** verwalten, welche Server als persönliche Connectors für alle Benutzer verfügbar sind:
+
+- Gehen Sie zu **Einstellungen → Datenschutz und Sicherheit**, um den gesamten **MCP-Serverzugriff** für den gesamten Workspace zu aktivieren oder zu deaktivieren.
+- Gehen Sie zu **Einstellungen → Connectors → Persönliche Connectors → Admin-Einstellungen**, um einzelne MCP-Server als persönliche Connectors zu aktivieren oder zu deaktivieren.

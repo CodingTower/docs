@@ -1,0 +1,884 @@
+---
+title: "Implementar las mejores prácticas de SEO y GEO"
+description: "Optimice sus aplicaciones para motores de búsqueda y sistemas de inteligencia artificial con mapas de sitio, metaetiquetas, datos estructurados, imágenes Open Graph y ajuste del rendimiento."
+---
+## Cómo funcionan SEO y GEO en ZenOpus
+
+ZenOpus le brinda mucha flexibilidad: **Optimización de motores de búsqueda (SEO)** y **Optimización generativa de motores (GEO)** surgen del código que genera el agente ZenOpus cuando crea páginas, contenido y funciones.
+
+El Agente puede agregar elementos como títulos, descripciones o etiquetas según sus indicaciones, pero esto no es sistemático y **no garantiza una implementación completa o correcta.**
+
+Debido a esto, debes **tratar SEO y GEO como código**: algo que revises, pruebes y refines intencionalmente. Esta guía le muestra exactamente qué solicitar y cómo verificarlo.
+
+### Herramienta de velocidad incorporada
+
+ZenOpus también incluye una **herramienta de velocidad integrada impulsada por Google Lighthouse**. Proporciona una instantánea rápida del rendimiento, la accesibilidad, las mejores prácticas y las comprobaciones de SEO de su sitio publicado.
+
+![ZenOpus Herramienta de velocidad](/images/zenopus/tips-tricks/seo-geo/speed-tool.png)
+
+Es un excelente primer vistazo al estado de su sitio, pero Lighthouse no verifica factores críticos como la capacidad de rastreo, los datos estructurados, la precisión de los metadatos o las vistas previas sociales, por lo que esta guía llena esos vacíos.
+
+### Dominios personalizados
+
+Usar un **dominio personalizado** es uno de los pasos más importantes para SEO y GEO. Un dominio de marca ayuda a los motores de búsqueda a comprender su sitio, preserva el valor de los vínculos de retroceso a lo largo del tiempo y garantiza que todo el tráfico se consolide en una única URL canónica.
+
+ZenOpus te permite:
+
+- Conecte su propio dominio o subdominio
+- Elija un **dominio principal** (todos los demás dominios redirigen a él)
+
+Después de configurar su dominio personalizado, [**verifíquelo en Google Search Console**](#configuración-de-google-search-console-gsc) para que Google pueda rastrear e indexar el dominio correcto. Para obtener instrucciones de configuración detalladas, consulte [**Dominios personalizados**](/es/features/custom-domain).
+
+## Comprender la arquitectura de ZenOpus
+
+ZenOpus crea aplicaciones web modernas usando React y Vite, lo que significa que su aplicación es una **aplicación renderizada del lado del cliente (CSR)** **aplicación de una sola página (SPA)**. En lugar de ofrecer un archivo HTML diferente para cada página, el navegador carga un pequeño shell HTML inicial y luego maneja el enrutamiento y la representación con JavaScript.
+
+**Las plataformas tradicionales** como WordPress o Webflow envían al navegador una página HTML completamente ensamblada para cada URL.
+
+**ZenOpus** envía código e instrucciones que su dispositivo utiliza para crear cada vista. Todas las “páginas” son en realidad diferentes estados de la misma aplicación.
+
+Para los visitantes, esto significa navegación rápida, transiciones instantáneas y una experiencia perfecta.
+
+### Qué significa esto para SEO y GEO
+
+Para **motores de búsqueda, plataformas sociales y rastreadores de IA**, la arquitectura cambia la forma en que se descubre su contenido.
+
+**Google y buscadores tradicionales:**
+
+Google puede indexar sitios de CSR, pero esto ocurre en dos etapas:
+
+1. **Rastrea el HTML inicial** y recopila la estructura de tu página
+1. **Regrese más tarde para renderizar JavaScript (JS)** y capturar el contenido completo
+
+Este proceso de dos pasos funciona de manera confiable, pero:
+
+- La indexación puede tardar **un poco más** (días en lugar de horas)
+- Es posible que aparezcan páginas nuevas más adelante en los resultados
+- **No daña las clasificaciones**, solo la velocidad de indexación
+
+**Plataformas de redes sociales y sistemas de inteligencia artificial:**
+
+- Plataformas como **Facebook, X/Twitter y LinkedIn** no esperan a que se muestre el contenido, por lo que solo ven la estructura inicial de la página HTML.
+- Si todas sus páginas comparten el mismo título básico y la misma imagen de vista previa, los enlaces sociales pueden mostrar información genérica o incorrecta.
+- Muchos **sistemas de IA** no ven de manera confiable el contenido renderizado dinámicamente, por lo que pueden perder sus páginas o solo ver contenido parcial.
+
+**Los motores de búsqueda modernos manejan bien la RSE.** La RSE no bloquea la indexación ni la clasificación; la implementación y la calidad del contenido son lo más importante.
+
+Siga las mejores prácticas de esta guía para **garantizar que su sitio ZenOpus esté optimizado para motores de búsqueda, plataformas sociales y sistemas de inteligencia artificial y pueda competir de manera efectiva.**
+
+## Fundación: Haga que su sitio sea rastreable
+
+Estos pasos garantizan que los motores de búsqueda puedan acceder, descubrir e indexar todas las páginas importantes de su aplicación ZenOpus.
+
+### mapa del sitio XML
+
+Los mapas de sitio ayudan a los motores de búsqueda a descubrir todas sus páginas. Esto es especialmente importante para los sitios de CSR donde los rastreadores no pueden encontrar fácilmente todas las rutas. ZenOpus El agente puede generar `sitemap.xml` con todas las rutas públicas cuando se solicite.
+
+<Accordion title="Cómo implementar y verificar sitemap.xml">
+**Ejemplo de mensaje**
+
+> Cree un mapa del sitio XML en /sitemap.xml que enumere todas las rutas públicas. Incluya fechas y prioridades de la última modificación: página de inicio 1.0, páginas principales 0.8, publicaciones de blog 0.6.
+
+**Verificar**
+
+- Publica tu proyecto para que el archivo del mapa del sitio esté activo
+- Compruebe que sea accesible en: `https://yourdomain.com/sitemap.xml` (debe devolver XML)
+- Consulte todas las rutas clave incluidas (inicio, páginas principales, blog, productos)
+- Actualice `lastmod` cada vez que cambie el contenido
+- Utilice `priority` para indicar importancia (0,0–1,0)
+- Enviar a Google Search Console y Bing Webmaster Tools
+- Regenerar y volver a enviar al agregar/eliminar páginas (no automático). Por ejemplo, solicite:
+    > Actualice sitemap.xml para incluir /new-page y elimine /old-page y luego vuelva a enviarlo a Google Search Console.
+
+**Ejemplo de mapa del sitio.xml**
+
+```text
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://tudominio.com/</loc>
+    <lastmod>2025-01-15</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tudominio.com/about</loc>
+    <lastmod>2025-01-15</lastmod>
+    <priority>0.8</priority>
+  </url>
+</urlset>
+```
+</Accordion>
+
+### Robots.txt
+
+`robots.txt` le dice a los motores de búsqueda qué áreas de su sitio pueden rastrear. Es importante evitar bloquear recursos clave que Google necesita para representar sus páginas correctamente. El agente ZenOpus puede crear un archivo `robots.txt` cuando se le solicite.
+
+<Accordion title="Cómo implementar y verificar robots.txt">
+**Ejemplo de mensaje**
+
+> Cree robots.txt en /public/robots.txt que permita todos los rastreadores, haga referencia al mapa del sitio: [https://yourdomain.com/sitemap.xml](https://yourdomain.com/sitemap.xml) y permita GPTBot y PerplexityBot para visibilidad de IA.
+
+**Verificar**
+
+- Comprueba que sea accesible en: `https://yourdomain.com/robots.txt`
+- Nunca bloquees la carpeta CSS, JavaScript o `/assets/`
+- Incluye la línea `Sitemap:` que apunta a su mapa del sitio
+- Controla el acceso de los bots de IA (GPTBot, PerplexityBot) según su estrategia
+
+**Ejemplo de robots.txt**
+
+```text
+Agente de usuario: *
+Permitir: /
+Mapa del sitio: https://tudominio.com/sitemap.xml
+
+Agente de usuario: GPTBot
+Permitir: /
+```
+</Accordion>
+
+### Etiquetas canónicas
+
+Las etiquetas canónicas indican a los motores de búsqueda qué URL es la versión "oficial" de una página, lo que ayuda a evitar problemas de contenido duplicado. ZenOpus El agente puede generar etiquetas canónicas cuando se le solicite.
+
+<Accordion title="Cómo implementar y verificar etiquetas canónicas">
+**Ejemplo de mensaje**
+
+> Agregue etiquetas canónicas a todas las páginas que apunten a sus propias URL. Utilice el formato [https://yourdomain.com](https://yourdomain.com) sin barra diagonal.
+
+**Verificar**
+
+- Revisa cada página. Pega esto en la consola del navegador:
+    ```text
+    console.log('Canonical:', document.querySelector('link[rel="canonical"]')?.href);
+    ```
+- Confirme que existe **exactamente una** etiqueta canónica por página.
+- Asegúrese de que coincida con su dominio preferido y variante de URL (HTTPS, barra diagonal).
+- Evite señalar diferentes páginas al mismo canónico a menos que sea intencional (por ejemplo, vistas de productos filtradas).
+</Accordion>
+
+### Limpiar URL y enrutamiento
+
+Los motores de búsqueda dependen de las URL para comprender de qué trata una página, por lo que las URL limpias y descriptivas ayudan a mejorar tanto la capacidad de rastreo como la clasificación. El agente ZenOpus normalmente genera rutas limpias automáticamente a través de React Router.
+
+<Accordion title="Cómo implementar y verificar URL limpias">
+**Ejemplo de mensaje**
+
+> Revise todas las rutas y asegúrese de que las URL estén limpias y descriptivas. Utilice guiones para separar palabras y evite parámetros de consulta.
+
+**Verificar**
+
+- Navegue a cada ruta y verifique la consola del navegador para ver si hay errores
+- Las URL deben ser: estables, descriptivas y sin identificaciones aleatorias.
+- Formato coherente en todo el sitio (barra diagonal o no, `www` o no)
+- Todas las rutas se cargan sin errores de JavaScript.
+</Accordion>
+
+### Enlace interno
+
+Los enlaces internos conectan sus páginas para que tanto los usuarios como los motores de búsqueda puedan navegar por su sitio fácilmente. Los motores de búsqueda dependen de estos enlaces para descubrir contenido, comprender las relaciones entre temas y distribuir la autoridad de la página en su sitio.
+
+ZenOpus El agente puede crear enlaces de navegación/pie de página y sugerir o crear enlaces contextuales cuando se solicite.
+
+<Accordion title="Cómo implementar y verificar enlaces internos">
+**Ejemplo de mensaje**
+
+> Agregue de 3 a 5 enlaces internos contextuales a páginas relacionadas. Utilice un texto de anclaje descriptivo en lugar de "haga clic aquí".
+
+**Verificar**
+
+- Compruebe que los enlaces sean rastreables. El número debe coincidir aproximadamente con lo que espera según su navegación y contenido.
+    ```text
+    console.log('Enlaces:', document.querySelectorAll('a[href]').length);
+    ```
+- Utilice etiquetas `<a href>` reales, no controladores `onClick`
+- Las páginas importantes tienen varios enlaces internos que apuntan a ellas.
+- Incluya enlaces a sus páginas más importantes en el pie de página para que aparezcan en todo el sitio.
+- El texto ancla es descriptivo con palabras clave (no “haga clic aquí”)
+    - Buen texto de anclaje: `organic dog food benefits`
+    - Texto de anclaje incorrecto: `click here`, `read more`
+- Páginas profundas accesibles con 3 clics desde la página de inicio
+</Accordion>
+
+## SEO en la página: ayude a los motores de búsqueda a comprender el contenido
+
+Estas prácticas aclaran de qué trata cada página, lo que hace que su contenido sea más fácil de interpretar y clasificar con precisión para los motores de búsqueda.
+
+### Títulos de página
+
+Los títulos de las páginas son un factor crítico de clasificación en la página. Aparecen en los resultados de búsqueda y en las pestañas del navegador y tienen un fuerte impacto en las tasas de clics. ZenOpus El agente puede generar etiquetas de título según el propósito de su página.
+
+<Accordion title="Cómo implementar y verificar títulos de páginas">
+**Ejemplo de mensaje**
+
+> Actualice los títulos de las páginas para todas las rutas. Utilice títulos claros y descriptivos que coincidan con el propósito de cada página y manténgalos por debajo de 60 caracteres.
+
+**Verificar**
+
+- Verifique el contenido del título y la longitud de cada página. Pega esto en la consola del navegador:
+    ```text
+    console.log('Título:', documento.título, '| Longitud:', documento.título.longitud);
+    ```
+- Cada ruta tiene un título descriptivo único (no genérico `Home` en todas partes)
+- Menos de 60 caracteres para evitar el truncamiento
+- Incluye la palabra clave principal más el nombre de la marca.
+</Accordion>
+
+### Meta descripciones
+
+Las meta descripciones aparecen en los resultados de búsqueda justo debajo del título de la página. No son un factor de clasificación directo, pero tienen una fuerte influencia en las tasas de clics. ZenOpus El agente puede agregar meta descripciones cuando se le solicite.
+
+<Accordion title="Cómo implementar y verificar meta descripciones">
+**Ejemplo de mensaje**
+
+> Escriba meta descripciones únicas para todas las páginas clave. Mantenga cada uno claro, útil y entre 140 y 160 caracteres.
+
+**Verificar**
+
+- Consulte la descripción y la extensión de cada página. Pega esto en la consola del navegador:
+    ```text
+    console.log('Desc:', document.querySelector('meta[name="description"]')?.content, '| Longitud:', document.querySelector('meta[name="description"]')?.content.length);
+    ```
+- Cada página tiene una descripción única (**140-160 caracteres**)
+    - Malo: `Welcome to our website`(genérico, repetido)
+    - Bueno: `Premium organic dog food delivered fresh to your door. Free shipping over $50.` (158 caracteres)
+- Destaca los beneficios, la diferenciación y un suave llamado a la acción.
+- No duplicado entre páginas
+</Accordion>
+
+### Estructura de encabezado (H1 → H3)
+
+Una estructura de encabezado clara (H1 a H3) ayuda a los motores de búsqueda a comprender cómo está organizado su contenido y qué secciones son las más importantes. ZenOpus El agente puede generar etiquetas H1 adecuadas y una jerarquía lógica cuando se le solicite.
+
+<Accordion title="Cómo implementar y verificar la estructura de encabezados">
+**Ejemplo de mensaje**
+
+> Revise la estructura del título en cada página. Debería haber un H1 en la parte superior, con H2 para las secciones principales y H3 para el contenido anidado. No te saltes los niveles de título.
+
+**Verificar**
+
+- Verifique que solo haya una etiqueta H1. Pegue esto en la consola del navegador; debería devolver 1:
+    ```text
+    console.log('H1s:', document.querySelectorAll('h1').length);
+    ```
+- Ver el contenido del encabezado. Pega esto en la consola del navegador:
+    ```text
+    console.log('H1:', document.querySelector('h1')?.textContent);
+    ```
+- H1 incluye la palabra clave principal y el propósito de la página.
+- Los títulos fluyen de forma lógica (H1 → H2 → H3, nunca saltes niveles)
+- Los títulos no se utilizan únicamente para diseñar
+</Accordion>
+
+### HTML semántico
+
+El HTML semántico utiliza etiquetas significativas para describir su contenido, lo que ayuda tanto a los motores de búsqueda como a los lectores de pantalla a comprender la estructura de su página. El agente ZenOpus normalmente agrega elementos semánticos como `<main>`, `<nav>` y `<section>`.
+
+<Accordion title="Cómo implementar y verificar HTML semántico">
+**Ejemplo de mensaje**
+
+> Revise la estructura HTML y utilice etiquetas semánticas cuando corresponda. Coloque el contenido principal en `<main>`, la navegación en `<nav>`, las secciones en `<section>` y el contenido del pie de página en `<footer>`.
+
+**Verificar**
+
+- Pegue esto en la consola del navegador; debería devolver `true` según corresponda:
+
+```text
+console.log('Tiene <main>:', !!document.querySelector('main'));
+console.log('Tiene <nav>:', !!document.querySelector('nav'));
+console.log('Tiene <footer>:', !!document.querySelector('pie de página'));
+console.log('Tiene <section>:', !!document.querySelector('sección'));
+```
+
+- Verifique lo siguiente para cada página:
+    - Un solo `<main>` envuelve el contenido principal
+    - Navegación dentro de `<nav>`
+    - Contenido del pie de página en `<footer>`
+    - Contenido relacionado en las etiquetas `<section>` y `<article>`
+</Accordion>
+
+### Optimización de imagen
+
+La optimización de sus imágenes mejora la accesibilidad, fortalece la relevancia temática y ayuda a que su contenido aparezca en los resultados de búsqueda de imágenes. El uso de formatos eficientes e imágenes del tamaño correcto también aumenta la velocidad de la página, que es un factor de clasificación importante. El agente ZenOpus puede agregar texto `alt` y habilitar la carga diferida según sea necesario.
+
+<Accordion title="Cómo implementar y verificar la optimización de imágenes">
+**Ejemplo de mensaje**
+
+> Revise todas las imágenes y agregue texto alternativo claro y descriptivo. Asegúrese de que cada imagen tenga atributos de ancho y alto y esté comprimida correctamente para una carga rápida.
+
+**Verificar**
+
+- Confirma que cada imagen tenga texto alternativo. Pegue esto en la consola del navegador; debería devolver 0:
+    ```text
+    console.log('Falta alt:', document.querySelectorAll('img:not([alt])').length);
+    ```
+- Evaluar la calidad del texto `alt`: debe ser descriptivo con palabras clave relevantes
+    - Malo: `alt="image"` , `alt="photo", alt=""`
+    - Bueno: `alt="Golden retriever eating organic grain-free dog food from a bowl"`
+- Utilice formatos de archivo adecuados y mantenga pequeños los tamaños de archivo:
+    - WebP para fotografías e ilustraciones
+    - SVG para logotipos, iconos y gráficos sencillos
+    - Imágenes comprimidas por debajo de 200 KB
+- Atributos de ancho y alto presentes (evita el cambio de diseño)
+</Accordion>
+
+## SEO fuera de la página: genere autoridad con vínculos de retroceso
+
+Los motores de búsqueda dependen en gran medida de enlaces de otros sitios de buena reputación para determinar qué tan confiable y autorizado es su contenido. Para palabras clave competitivas, unos vínculos de retroceso sólidos pueden ser más importantes que cualquier optimización en la página.
+
+Los vínculos de retroceso ayudan a su sitio ZenOpus a:
+
+- Clasifique más alto para las palabras clave objetivo
+- Indícese más rápido
+- Construir autoridad temática
+- Competir con sitios más grandes o más antiguos
+
+<Accordion title="Cómo crear vínculos de retroceso de alta calidad">
+1. **Crea contenido digno de enlace**
+
+- Guías detalladas, tutoriales e investigaciones.
+- Datos, estadísticas o ideas originales
+- Herramientas interactivas, calculadoras, estimadores de ROI.
+- Plantillas, listas de verificación y recursos descargables
+
+1. **Publicar publicaciones de invitados**
+
+- Contribuya con artículos a blogs de su nicho.
+- Incluya enlaces contextuales bien pensados a su sitio
+- Utilice biografías de autores para reforzar la credibilidad de la marca
+
+1. **Asociarse con negocios complementarios**
+
+- Coproducir contenido (artículos, seminarios web, recursos)
+- Enlace cruzado entre páginas relevantes
+
+1. **Aparecer en directorios y páginas de recursos**
+
+- Directorios de la industria
+- Listados de empresas locales
+- Listados de inicio
+- Recursos seleccionados relevantes para su producto
+
+1. **Promocionar contenido**
+
+- Compartir en plataformas sociales
+- Añadir a boletines
+- Anime a personas influyentes, blogueros o clientes a hacer referencia a él.
+- Utilice la divulgación de relaciones públicas para grandes actualizaciones o lanzamientos
+
+**Lista de verificación de calidad del vínculo de retroceso**
+
+Los motores de búsqueda dan prioridad a los vínculos de retroceso que son:
+
+- **Relevante** (mismo tema o industria)
+- **Autorizado** (dominios de confianza)
+- **Editorial** (ganado, no pagado)
+- **Texto ancla descriptivo** (incluye naturalmente palabras clave relevantes)
+- **Colocado en contexto** (dentro de contenido real, no pies de página aleatorios ni enlaces de la barra lateral)
+- **Evite tácticas de spam** (granjas de enlaces, directorios de baja calidad o esquemas de enlaces pagos), que pueden perjudicar las clasificaciones.
+</Accordion>
+
+## Resultados enriquecidos: destaca en la búsqueda
+
+Estas mejoras ayudan a que sus páginas califiquen para obtener resultados enriquecidos y generar vistas previas de alta calidad en plataformas sociales y SERP.
+
+### Datos estructurados (esquema JSON-LD)
+
+Los datos estructurados, implementados a través del esquema JSON-LD, brindan a los motores de búsqueda contexto adicional sobre su contenido y pueden permitir resultados enriquecidos como calificaciones de estrellas, detalles de productos y menús desplegables de preguntas frecuentes. ZenOpus El agente puede generar marcado de esquema cuando se le solicite.
+
+Los tipos de esquemas utilizados con frecuencia incluyen:
+
+- `Product`: precios, disponibilidad, reseñas, calificaciones
+- `Article`: autor, fecha de publicación, imagen destacada
+- `FAQPage`: preguntas y respuestas
+- `LocalBusiness`: detalles comerciales como dirección, teléfono y horario
+
+<Accordion title="Cómo implementar y verificar datos estructurados">
+**Ejemplo de mensaje**
+
+> Agregue el esquema `Product` a las páginas del producto con nombre, descripción, precio, disponibilidad, imagen, marca y detalles de calificación.
+
+**Verificar**
+
+- Verifique la presencia en páginas clave (por ejemplo, inicio, productos, publicaciones de blog, preguntas frecuentes). Pegue esto en la consola del navegador; debería devolver 1 a menos que haya agregado intencionalmente varios tipos de esquema:
+
+```text
+console.log('Esquema:', document.querySelectorAll('script[type="application/ld+json"]').length);
+```
+
+- Validar con [Prueba de resultados enriquecidos de Google](https://search.google.com/test/rich-results)
+- Corrija cualquier error o campos obligatorios faltantes
+- Mantenga los datos del esquema sincronizados con el contenido de la página visible
+</Accordion>
+
+### Optimización de redes sociales: Open Graph y Twitter Cards
+
+Las etiquetas Open Graph (OG), las tarjetas de Twitter y las imágenes OG controlan cómo aparecen sus páginas cuando se comparten en las redes sociales. Las imágenes de vista previa de alta calidad pueden mejorar drásticamente el rendimiento compartido y generar confianza en su marca.
+
+ZenOpus El agente incluye metadatos básicos de OG y Twitter de forma predeterminada, pero **debes personalizar la imagen, el título y la descripción de cada página.**
+
+La mayoría de las plataformas sociales (Facebook, Twitter/X, LinkedIn) no ejecutan JavaScript, lo que significa que su sitio puede mostrar vistas previas de enlaces genéricas o incompletas a menos que configure explícitamente los metadatos de Open Graph y Twitter Card en el HTML inicial.
+
+<Accordion title="Cómo implementar y verificar Open Graph, Twitter Cards e imágenes OG">
+**Ejemplo de mensaje**
+
+> Agregue metadatos únicos de Open Graph y Twitter a cada página importante. Establezca un título personalizado, una descripción, una URL y una imagen social para cada ruta. Utilice una imagen JPG de 1200 × 630 por página y actualice `og:image` y `twitter:image` en consecuencia.
+
+**Verificar**
+
+- Antes de compartir cualquier URL, verifica cómo aparece:
+    - [Depurador de uso compartido de Facebook](https://developers.facebook.com/tools/debug/)
+    - [Validador de tarjeta X (Twitter)](https://cards-dev.twitter.com/validator)
+    - [Inspector de publicaciones de LinkedIn](https://www.linkedin.com/post-inspector/)
+- Cada página importante tiene `og:title`, `og:description`, `og:image`, `og:url` únicos en el HTML.
+- Las etiquetas incluyen `twitter:card` y `twitter:image`
+- La vista previa muestra el título, la descripción y la imagen correctos.
+- Las imágenes tienen una resolución de 1200×630 px y menos de 1 MB.
+- Visualmente consistente con la marca.
+- Evite el uso de una única imagen genérica para cada página.
+
+**Ejemplo de metadatos de Open Graph y Twitter Card**
+
+```text
+<meta property="og:title" content="Organic Dog Food Delivery | PetFood Co" />
+<meta property="og:description" content="Premium grain-free dog food delivered fresh to your door." />
+<meta property="og:image" content="https://yourdomain.com/og-image.jpg" />
+<meta property="og:url" content="https://yourdomain.com/products" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://yourdomain.com/og-image.jpg" />
+```
+</Accordion>
+
+## Rendimiento y movilidad: mejorar la velocidad de carga y la experiencia del usuario
+
+Estas optimizaciones mejoran la velocidad en el mundo real, la usabilidad móvil y la capacidad de Google para representar su contenido de manera efectiva.
+
+### Core Web Vitals y rendimiento
+
+La velocidad de la página es un factor de clasificación confirmado. Los sitios más rápidos tienen una clasificación más alta y realizan mejores conversiones. ZenOpus Agent utiliza patrones de optimización modernos como carga diferida y minificación de código para Support renderizado rápido.
+
+- Utilice la **herramienta de velocidad integrada** de ZenOpus (con tecnología de Google Lighthouse) para analizar el rendimiento, la accesibilidad, las mejores prácticas y las comprobaciones de SEO de su sitio.
+- Utilice **Google Search Console para verificar Core Web Vitals**, un conjunto de métricas que miden la experiencia del usuario en el mundo real en cuanto al rendimiento de carga, la interactividad y la estabilidad visual de la página.
+
+<Accordion title="Cómo optimizar y verificar el rendimiento y los elementos básicos de Web Vitals">
+**Ejemplo de mensaje**
+
+> Mejore el rendimiento de la página de inicio comprimiendo imágenes, agregando atributos de ancho/alto, aplazando scripts no esenciales y precargando recursos clave. Objetivo una puntuación de rendimiento de 90+ en Lighthouse.
+
+**Verificar**
+
+- Ejecute la herramienta **Velocidad** en ZenOpus (auditoría de Google Lighthouse)
+- Puntuaciones objetivo:
+    - Rendimiento: 90+
+    - Accesibilidad: 90+
+    - Mejores prácticas: 90+
+    - SEO: 100
+- Corregir páginas con puntuaciones de rendimiento deficientes
+- En GSC, verifique y corrija **objetivos de Core Web Vitals:**
+
+| Métrica | Objetivo | Qué mide | Cómo solucionarlo |
+| --- | --- | --- | --- |
+| LCP (pintura con mayor contenido) | Menos de 2,5 s | Rendimiento de carga, tiempo hasta que aparece el contenido principal | Comprima imágenes destacadas, utilice WebP, precargue recursos críticos, reduzca el tiempo de respuesta del servidor |
+| INP (Interacción con la siguiente pintura) | Menos de 200 ms | Qué tan rápido responde una página web a las interacciones del usuario | Reduzca el tiempo de ejecución de JavaScript, posponga scripts no críticos, divida tareas largas |
+| CLS (cambio de diseño acumulativo) | Menos de 0,1 | Estabilidad visual durante la carga | Agregue ancho/alto a todas las imágenes, reserve espacio para contenido dinámico, evite insertar contenido en la mitad superior después de la carga |
+</Accordion>
+
+### Optimización móvil
+
+Más del 60% de las búsquedas se realizan en dispositivos móviles. Google utiliza la indexación móvil primero, lo que significa que su versión móvil determina las clasificaciones. El agente ZenOpus produce diseños responsivos con la etiqueta `viewport`. La etiqueta `viewport` es necesaria para el escalado compatible con dispositivos móviles.
+
+<Accordion title="Cómo optimizar y verificar el rendimiento móvil">
+**Ejemplo de mensaje**
+
+> Revisar la experiencia móvil. Aumente los tamaños de destino del toque a un mínimo de 48x48 px, agregue espacio entre elementos interactivos, asegúrese de que el texto tenga un mínimo de 16 px, corrija cualquier desplazamiento horizontal en pantallas pequeñas.
+
+**Verificar**
+
+- Utilizando **Chrome DevTools** y **dispositivos reales**, prueba páginas clave en varios tamaños de dispositivos: prueba tamaños de iPhone, Android y tabletas.
+- Confirme que todos los flujos principales funcionen sin problemas en dispositivos móviles
+- Sin desplazamiento horizontal en ninguna página
+- Texto legible sin zoom (tamaño de fuente mínimo 16px)
+- Botones y enlaces de al menos 48 × 48 píxeles, con espacios entre ellos y fáciles de tocar.
+- Los formularios funcionan correctamente en dispositivos táctiles (entradas grandes, etiquetas claras)
+- Navegación accesible (menú de hamburguesas funcional)
+- Las imágenes y los vídeos caben dentro del ancho de la pantalla.
+- **Confirma que la etiqueta** `viewport` **existe.** Pega esto en la consola del navegador: y deberías ver:
+    ```text
+    document.querySelector('meta[nombre="viewport"]')?.outerHTML
+    ```
+    ```text
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    ```
+</Accordion>
+
+## GEO: Haga que su contenido sea compatible con AI/LLM
+
+La optimización del motor generativo (GEO) ayuda a los sistemas de inteligencia artificial como ChatGPT, Perplexity, Gemini y Claude a descubrir y citar su contenido. Los motores generativos extraen información de forma diferente a los motores de búsqueda. Muchos no ejecutan JavaScript, por lo que dependen en gran medida de HTML y esquemas estáticos.
+
+La mayoría de las mejores prácticas de GEO son extensiones de un buen SEO. Si sigue las secciones anteriores más los extras aquí, estará bien posicionado para la visibilidad de la IA.
+
+### HTML semántico y esquema para IA
+
+Los rastreadores de IA leen HTML directamente sin ejecutar JavaScript. Una estructura y un esquema claros les ayudan a extraer datos para las citas. ZenOpus El agente proporciona una estructura semántica y puede agregar un esquema cuando se solicita.
+
+<Accordion title="Cómo implementar y verificar HTML semántico y esquema para IA">
+**Ejemplo de mensaje**
+
+> Consulte la página de inicio para asegurarse de que la información importante esté en HTML simple con títulos claros. Agregue el esquema `Organization` que incluya nombre, descripción, URL, logotipo y enlaces sociales.
+
+**Verificar**
+
+- Coloque los datos clave en HTML estático (por ejemplo, qué hace, a quién presta servicios, precios)
+- Utilice títulos claros (H2, H3) para estructurar la información.
+- Agregue un esquema completo: `Organization`, `Product`, `FAQPage`, `Article`
+- Escriba en un lenguaje claro y objetivo que la IA pueda analizar y citar.
+- Mantenga los datos consistentes en su sitio, esquema y perfiles externos.
+</Accordion>
+
+### Acceso a bots de IA (robots.txt)
+
+Controla qué sistemas de IA pueden acceder a su contenido para capacitarse o responder consultas. ZenOpus El agente puede configurar `robots.txt` para permitir los bots deseados cuando se solicite.
+
+<Accordion title="Cómo implementar y verificar el acceso de los bots de IA en robots.txt">
+**Ejemplo de mensaje**
+
+> Actualice `robots.txt` para permitir GPTBot, PerplexityBot y Claude-Web, y bloquear Google-Extended y CCBot. Mantenga permitidos todos los rastreadores de motores de búsqueda estándar.
+
+**Verificar**
+
+- Decida la estrategia de visibilidad: permita las citas de IA o bloquee la capacitación de IA
+- Permitir o bloquear explícitamente bots según la estrategia
+    - Bots comunes: GPTBot (ChatGPT), PerplexityBot, Claude-Web, Google-Extended (formación), CCBot
+- Vuelva a verificar después de los cambios para asegurarse de que los bots deseados no se bloqueen accidentalmente
+
+**Ejemplo de robots.txt**
+
+```text
+Agente de usuario: *
+Permitir: /
+
+Agente de usuario: GPTBot
+Permitir: /
+
+Agente de usuario: Google extendido
+No permitir: /
+```
+</Accordion>
+
+### Patrones de contenido que se pueden citar en LLM
+
+Los sistemas de inteligencia artificial prefieren contenido claro, estructurado y fácil de citar. Proporcionar información en este formato hace que sea más probable que se cite con precisión. ZenOpus El agente puede generar secciones de preguntas frecuentes y contenido estructurado cuando se le solicite.
+
+<Accordion title="Cómo implementar y verificar patrones de contenido que se pueden citar en LLM">
+**Ejemplo de mensaje**
+
+> Actualice las respuestas a las preguntas frecuentes para que sean breves, directas y fáciles de citar para AI. Comience con la respuesta principal, incluya hechos concretos y elimine la redacción vaga de marketing.
+
+**Verificar**
+
+- Escriba respuestas claras a preguntas comunes en formato de preguntas frecuentes/Preguntas y respuestas
+- Utilice patrones de definición que sean fáciles de citar: "X es [definición clara]"
+- Evite textos de marketing vagos
+- Cree listas y viñetas para facilitar el análisis
+- Incluir estadísticas con fuentes cuando sea posible.
+
+**Ejemplos**
+
+- Malo: `Amazing transformative solutions`
+- Bueno: `USDA-certified organic dog food delivered weekly. Plans start at $45/month with free shipping over $50.`
+</Accordion>
+
+### Página de resumen estática compatible con LLM
+
+Una página de resumen dedicada hace que sea mucho más fácil para los sistemas de inteligencia artificial comprender y citar la información clave de su empresa. ZenOpus El agente puede crear páginas de resumen dedicadas con información clave en formato rastreable cuando se solicite.
+
+<Accordion title="Cómo implementar y verificar una página de resumen estática compatible con LLM">
+**Ejemplo de mensaje**
+
+> Cree una página estática `llm.html` en la carpeta pública que explique claramente qué hace la empresa, qué ofrece, en qué se diferencia, conceptos básicos de precios, preguntas frecuentes y cómo contactarnos. Agregue los esquemas `Organization` y `FAQPage` y organice la página con encabezados H2/H3 simples. Incluya esta nueva URL en sitemap.xml
+
+**Verificar**
+
+- La página se crea en una URL clara como `/llm.html` o `/about-ai.html`.
+- La página está incluida en el `sitemap.xml`.
+- El contenido está estructurado con títulos H2/H3 claros.
+- La página incluye información clave: resumen de la empresa, productos/servicios, diferenciadores, modelo de precios, datos de contacto y preguntas frecuentes.
+- Los esquemas `Organization` y `FAQPage` están presentes para que los sistemas de inteligencia artificial puedan extraer hechos estructurados.
+- El contenido es objetivo, conciso y citable (evite tonterías de marketing).
+- La información se mantiene actualizada a medida que cambian las ofertas.
+</Accordion>
+
+## Monitoreo y mantenimiento: Mantenga SEO y GEO saludables
+
+Un SEO y GEO eficaces requieren un seguimiento continuo. Utilice Google Search Console y controles periódicos para mantener su sitio en buen estado, indexado y con un buen rendimiento a lo largo del tiempo.
+
+### Configuración de Google Search Console (GSC)
+
+Google Search Console muestra cómo Google rastrea, indexa y clasifica su sitio. Es una herramienta clave para realizar un seguimiento del rendimiento de SEO y detectar problemas técnicos.
+
+<Accordion title="Cómo configurar y utilizar GSC para monitoreo y mantenimiento">
+Si estás utilizando un **dominio personalizado**, asegúrate de **reclamarlo y verificarlo** en Google Search Console.
+
+**Verificar la propiedad del sitio** (elija un método)
+
+Verifique su dominio para que Google pueda estar seguro de que usted es el propietario del sitio web antes de que le proporcione servicios. Google utiliza esta verificación para realizar un seguimiento de la indexación, el estado del mapa del sitio y el rendimiento de la búsqueda de su dominio activo.
+
+- **Registro DNS TXT** (recomendado): agregue el registro TXT en la configuración DNS de su proveedor de dominio
+- **Verificación de metaetiqueta**: prompt ZenOpus para agregar la metaetiqueta
+
+> Agregue metaetiqueta de verificación de GSC: &lt;meta name=‘google-site-verification’ content=‘YOUR_CODE’ /&gt; a &lt;head&gt;
+
+- **Carga de archivos HTML**: cargue el archivo de verificación de Google y solicite a ZenOpus que lo coloque en la raíz del sitio (normalmente `/public`).
+
+**Enviar mapa del sitio**
+
+1. En GSC, vaya a **Mapas del sitio**
+1. Ingrese la URL de su mapa del sitio: `https://yourdomain.com/sitemap.xml`
+1. Haga clic en **Enviar**
+
+Google puede tardar **entre 24 y 48 horas** en procesarlo e informar al respecto.
+
+**Utilice la herramienta de inspección de URL**
+
+Utilice esto para:
+
+- Confirme que Google ve contenido real (no una página en blanco)
+- Diagnosticar problemas de renderizado CSR
+- Compruebe si los recursos clave (JavaScript y CSS) están bloqueados
+
+Para cualquier URL:
+
+1. Ingrese la URL en la barra **Inspección de URL**
+1. Haga clic en **Probar URL activa**
+1. Abra **Ver página probada** para comprobar:
+    - Captura de pantalla de lo que ve el robot de Google
+    - HTML renderizado
+    - Errores de consola
+    - Recursos bloqueados
+1. Haga clic en **Solicitar indexación** para páginas nuevas o actualizadas (tasa limitada)
+
+**Reportes para monitorear semanalmente**
+
+- **Cobertura/Indexación de páginas:**
+    - Páginas indexadas versus páginas excluidas
+    - Errores de rastreo y motivos de exclusión
+    - Tendencia de indexación a lo largo del tiempo
+- **Rendimiento (resultados de búsqueda):**
+    - Impresiones, clics, CTR, posición media
+    - Consultas y páginas principales
+    - Páginas ganando o perdiendo visibilidad
+- **Ventajas web principales:**
+    - LCP, INP y CLS del mundo real
+    - Identificar páginas lentas y problemáticas
+    - Compare el rendimiento del móvil con el del escritorio
+- **Usabilidad móvil:**
+    - Problemas con los objetivos táctiles, la ventana gráfica y el ancho del contenido
+    - Corregir errores para mantener las clasificaciones móviles
+</Accordion>
+
+### Calendario de mantenimiento sugerido
+
+Mantener su SEO y GEO saludables requiere controles periódicos. Utilice este programa continuo para mantenerse a la vanguardia de los problemas de indexación, los cambios de rendimiento y las actualizaciones de contenido.
+
+<Accordion title="Calendario de mantenimiento: qué comprobar semanal, mensual y trimestralmente">
+**Semanal**
+
+- Verifique la cobertura de GSC para detectar nuevos errores y páginas recién indexadas
+- Un vistazo a las tendencias de rendimiento de las búsquedas
+- Ejecute la inspección de URL para las URL importantes recientemente y solicite la indexación si es necesario
+
+**Mensual**
+
+- Actualizar `sitemap.xml` si las páginas cambiaron
+- Actualizar títulos y descripciones de bajo rendimiento (páginas con CTR bajo)
+- Ejecute la **herramienta de velocidad integrada (auditoría Lighthouse)**
+- Realice una pequeña ronda de mejoras de contenido o construcción de enlaces.
+
+**Trimestral**
+
+- Haga una auditoría técnica más profunda: canónicos, `robots.txt`, esquema, enlaces internos, usabilidad móvil
+- Revise el rendimiento de las palabras clave y las principales páginas de destino
+- Actualizar contenido antiguo o en declive
+</Accordion>
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Puede mi sitio tener una buena clasificación en la búsqueda utilizando ZenOpus?">
+Sí. Las aplicaciones ZenOpus pueden clasificarse como cualquier sitio JavaScript moderno. Siempre que su contenido se cargue correctamente y los recursos clave no estén bloqueados, Google puede rastrear, renderizar, indexar y clasificar sus páginas. Ejemplos que funcionan bien hoy:
+
+- [sparklestales.com](https://sparklestales.com)
+- [workveg.com](https://workveg.com)
+- [renamify.co](https://renamify.co)
+
+Para obtener los mejores resultados, siga las recomendaciones técnicas y de contenido de esta guía, especialmente en torno a los metadatos, el rendimiento y la configuración del mapa del sitio.
+
+<Note>
+El rendimiento de la búsqueda también depende de factores fuera del control de ZenOpus, incluida la calidad del contenido, los vínculos de retroceso, la competencia y los algoritmos de clasificación de las búsquedas.
+</Note>
+</Accordion>
+<Accordion title="¿Cómo puedo obtener los mejores resultados de SEO y GEO con ZenOpus?">
+Para obtener resultados sólidos de SEO y GEO con ZenOpus, siga las mejores prácticas descritas en esta guía. Asegúrese de cubrir estos elementos esenciales:
+
+**Contenido y en la página**
+
+- Escribe contenido único y de alta calidad.
+- Apunte a una intención de búsqueda clara y a palabras clave de cola larga
+- Cree páginas completas donde sea necesario
+- Mantenga el contenido actualizado y relevante
+- Utilice títulos limpios y HTML semántico
+- Agregue el esquema JSON-LD en páginas importantes
+
+**Imágenes**
+
+- Comprimir imágenes grandes
+- Agregar texto alternativo descriptivo
+- Utilice formatos eficientes (WebP/AVIF, SVG)
+
+**Enlace interno**
+
+- Utilice texto de anclaje descriptivo y rico en palabras clave
+- Vincular páginas relacionadas entre sí
+- Asegúrese de que las páginas importantes obtengan múltiples enlaces internos
+
+**Técnico**
+
+- Optimice los elementos básicos de la Web
+- Utilice la **herramienta de velocidad** integrada para detectar las regresiones de rendimiento con antelación
+- Garantice la usabilidad móvil total
+- Establecer metadatos correctos en cada página
+- Mantenga un mapa del sitio y un archivo robots.txt precisos
+- Utilice un **dominio personalizado** y configúrelo como **dominio principal**
+- Verifica tu dominio en Google Search Console
+
+**Vínculos de retroceso**
+
+- Cree contenido digno de enlace (guías, herramientas, investigaciones)
+- Escribe publicaciones de invitados en sitios relevantes.
+- Asóciese con negocios complementarios
+- Incluya su sitio en directorios acreditados
+- Comparta actualizaciones de interés periodístico y participe en su comunidad
+</Accordion>
+<Accordion title="¿Cuánto tiempo le toma a Google indexar mi página?">
+La indexación suele tardar **de unas horas a unos días**. Puedes acelerarlo mediante:
+
+- Envío de su mapa del sitio en GSC
+- Probando la página con inspección de URL
+- Uso de **Solicitar indexación** para páginas prioritarias
+</Accordion>
+<Accordion title="¿Qué pasa si no veo la clasificación de mi página?">
+Cuando una página no aparece en los resultados de búsqueda, verifique lo esencial:
+
+- Verifique la indexación en GSC a través de Cobertura o Inspección de URL
+- Asegúrese de que su mapa del sitio esté enviado y muestre la URL
+- Revise la calidad del contenido, la alineación de la intención y el SEO en la página, como títulos, descripciones, encabezados y enlaces internos.
+- Confirme el estado técnico: buenas puntuaciones de rendimiento, usabilidad móvil total y sin JavaScript ni CSS bloqueados
+</Accordion>
+<Accordion title="¿Cuándo es ZenOpus una buena opción para SEO y GEO, y cuándo debería considerar SSR o prerenderizado?">
+ZenOpus funciona bien para muchos escenarios de SEO y GEO, especialmente sitios pequeños y medianos donde puedes administrar metadatos, enlaces internos y mapas de sitio con intención.
+
+### Buenos escenarios
+
+- Sitios de marketing y páginas de destino
+- Sitios web de inicio o negocios
+- Blogs simples o sitios de documentación (hasta ~200 páginas)
+- Portafolios y sitios personales
+- Herramientas y paneles internos (no se requiere SEO)
+- Aplicaciones detrás de la autenticación (no deben indexarse)
+- Sitios pequeños (de 5 a 20 páginas) donde los metadatos son fáciles de administrar
+- Proyectos impulsados por referencias, tráfico social, canales pagos o crecimiento impulsado por productos.
+- Blogs basados en contenido (~50+ artículos) con mantenimiento constante
+- Sitios de comercio electrónico medianos (cientos de productos) con una cuidadosa gestión de metadatos
+
+**Por qué SEO y GEO pueden funcionar bien en estos casos**
+
+- La cantidad de páginas es lo suficientemente manejable para mantener los metadatos y los mapas del sitio precisos.
+- Google presenta sitios CSR de manera confiable, por lo que el contenido aún se puede indexar y clasificar
+- El rendimiento y la optimización móvil son sencillos en ZenOpus
+- Puede mantener manualmente los elementos que más importan: títulos, descripciones, esquema, etiquetas OG y enlaces internos.
+
+### Cuando SSR o el renderizado previo pueden ayudar
+
+Para algunos proyectos grandes o altamente competitivos, las páginas renderizadas previamente o renderizadas en el servidor pueden complementar ZenOpus mejorando la eficiencia del rastreo y la confiabilidad de la vista previa.
+
+- Sitios muy grandes (de cientos a miles de páginas, catálogos grandes o bibliotecas de blogs extensas)
+- Proyectos donde la búsqueda orgánica es el principal canal de crecimiento.
+- Verticales altamente competitivas o urgentes (noticias, finanzas, legal)
+- Proyectos donde la máxima visibilidad de AI/LLM es una prioridad
+
+**Por qué se benefician de SSR o prerenderizado**
+
+- Los sitios grandes requieren automatización de metadatos y mapas de sitio
+- SSR/prerendering puede acelerar el descubrimiento inicial de contenido para los motores de búsqueda
+- Los rastreadores sociales y de inteligencia artificial que no ejecutan JavaScript obtienen vistas previas completas de inmediato
+</Accordion>
+<Accordion title="¿Un dominio personalizado ayudará a que mi sitio tenga una mejor clasificación?">
+Sí. Cambiar a un **dominio personalizado** es una de las actualizaciones más impactantes que puedes realizar si deseas:
+
+- Tráfico de búsqueda orgánico
+- Marca fuerte y a largo plazo
+- SEO competitivo
+- Vínculos de retroceso que crecen en valor con el tiempo
+- Control total sobre el SEO técnico
+
+ZenOpus te permite:
+
+- Conecte su propio dominio o subdominio
+- Elija un **dominio principal** (todos los demás dominios redirigen a él)
+
+Después de configurar su dominio personalizado, [**verifíquelo en Google Search Console**](#configuración-de-google-search-console-gsc) para que Google pueda rastrear e indexar el dominio correcto. Para obtener instrucciones de configuración detalladas, consulte [**Dominios personalizados**](/es/features/custom-domain).
+
+Un subdominio `zenopus.app` funciona bien para:
+
+- MVP y demostraciones
+- Páginas de destino temporales o experimentales
+- Herramientas internas
+- Proyectos impulsados principalmente por tráfico social o pago.
+</Accordion>
+<Accordion title="¿Pueden los motores de búsqueda de IA (Perplexity, ChatGPT, Gemini, Claude) indexar aplicaciones ZenOpus?">
+Muchos rastreadores de IA no suelen ejecutar JavaScript, por lo que dependen del HTML inicial que pueden recuperar. Esto significa que es posible que no vean el contenido mostrado en el lado del cliente.
+
+Aún puedes hacer que tu contenido sea altamente accesible para estos rastreadores asegurándote de lo siguiente:
+
+- HTML semántico limpio con datos clave en contenido estático
+- Marcado de esquema completo
+- Una página de resumen de LLM dedicada, como `/llm.html` o `/about-ai.html`), también incluida en el mapa del sitio.
+- Contenido claro y citable (definiciones, preguntas frecuentes, respuestas breves y objetivas)
+</Accordion>
+<Accordion title="¿Con qué frecuencia debo actualizar la configuración de SEO, el contenido y el mapa del sitio?">
+- **Mapa del sitio:** Actualiza cada vez que cambian las URL, o al menos mensualmente para los sitios activos.
+- **Metadatos (títulos y descripciones):** Revise mensualmente y mejore las páginas con tasas de clics bajas.
+- **Rendimiento:** Ejecute comprobaciones mensuales de Lighthouse y revise Core Web Vitals (LCP, INP, CLS) para detectar problemas de velocidad o usabilidad con anticipación.
+- **Auditoría técnica:** Realice una revisión trimestral de canónicos, robots.txt, esquema, enlaces internos, redireccionamientos y usabilidad móvil.
+- **Contenido:** Actualice o amplíe el contenido importante trimestralmente, o antes si las clasificaciones o el tráfico disminuyen.
+</Accordion>
+<Accordion title="¿Qué es el renderizado previo y cuándo lo necesito?">
+El renderizado previo (también llamado renderizado dinámico) genera una instantánea HTML estática específicamente para bots, mientras que los visitantes humanos continúan viendo la aplicación con JavaScript. Esto puede mejorar la rapidez con la que los motores de búsqueda y los rastreadores de inteligencia artificial entienden su contenido.
+
+La renderización previa es especialmente útil para:
+
+- Sitios con mucho contenido
+- Sitios que publican nuevas páginas con frecuencia
+- Nichos centrados en SEO o altamente competitivos
+- Proyectos que necesitan una indexación más rápida
+- Fuerte visibilidad de IA/LLM, ya que muchos rastreadores no ejecutan JavaScript y se benefician del HTML completamente renderizado.
+
+ZenOpus no incluye prerenderizado listo para usar, pero puedes agregarlo a través de tu hosting o proxy usando servicios externos como:
+
+- [Prerender.io](https://Prerender.io): opción confiable y ampliamente utilizada
+- [DataJelly](https://datajelly.app/): funciones similares con una configuración sencilla
+- [Rendertron](https://github.com/GoogleChrome/rendertron): alternativa de código abierto (autohospedado)
+</Accordion>
+<Accordion title="¿Cuáles son las principales limitaciones de CSR SEO y cómo puedo solucionarlas?">
+La representación del lado del cliente (CSR) funciona bien para muchos sitios, pero hay algunas cosas que se deben tener en cuenta para obtener el mejor comportamiento de SEO, GEO y vista previa. He aquí cómo abordarlos:
+
+- **La indexación puede ser ligeramente más lenta que SSR**  
+→ Envíe un mapa del sitio y utilice la herramienta de inspección de URL para páginas prioritarias.
+- **Muchos rastreadores de IA y algunos robots no ejecutan JavaScript**  
+→ Utilice un esquema y HTML semántico claro y considere agregar una página de resumen de LLM.
+- **Las plataformas sociales no ejecutan JavaScript para vistas previas de enlaces**  
+→ Agregue etiquetas Open Graph y Twitter/X Card directamente en el HTML estático.
+- **Los metadatos no se actualizan automáticamente entre rutas**  
+→ Pídale a ZenOpus que instale `react-helmet-async` y establezca títulos y descripciones únicos para cada página.
+</Accordion>
+</AccordionGroup>

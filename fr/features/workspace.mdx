@@ -1,0 +1,193 @@
+---
+title: "ZenOpus Workspace"
+description: "Gérez les projets, les membres, la facturation et les paramètres de votre équipe dans un endroit central."
+---
+Un **Workspace** est l'endroit central où vous et votre équipe créez des applications ensemble dans ZenOpus. Chaque projet vit dans un Workspace, et chaque membre collaborant avec vous accède aux projets via un Workspace.
+
+Considérez-le comme le port d’attache de votre équipe. Il regroupe vos projets, vos collaborateurs, votre facturation et vos paramètres en un seul endroit.
+
+Lorsque vous vous inscrivez à ZenOpus, votre premier Workspace personnel est créé automatiquement sur le **plan gratuit** avec une allocation de 5 crédits quotidiens. À partir de là, vous pouvez :
+
+- Inviter d'autres personnes à se joindre
+- Créer des projets
+- Améliorez votre forfait à mesure que vos besoins augmentent
+
+Vous pouvez également créer des espaces de travail supplémentaires à partir du sélecteur **Workspace** dans le coin supérieur gauche du tableau de bord.
+
+## Bases de Workspace
+
+Ce sont les règles clés qui définissent le fonctionnement des espaces de travail dans ZenOpus.
+
+- **Les projets appartiennent à un Workspace**  
+Tous les projets existent dans un Workspace.
+- **Les plans tarifaires sont de niveau Workspace**  
+Chaque Workspace a son **propre forfait et sa propre facturation**. Un abonnement payant s'applique à **un seul Workspace**.
+- **Les crédits sont partagés sur Workspace**  
+Tous les projets d’un Workspace partagent le plan et les crédits du Workspace. Cela s'applique quel que soit le membre qui envoie des messages.
+- **Vous pouvez appartenir à plusieurs espaces de travail**  
+Un seul compte ZenOpus peut être membre de plusieurs espaces de travail. Vous pouvez basculer entre eux à tout moment.
+
+## Créer un Workspace
+
+Tout utilisateur connecté peut créer un Workspace.
+
+1. Ouvrez le sélecteur **Workspace** (en haut à gauche du tableau de bord)
+1. Cliquez sur **Créer Workspace**
+1. Entrez un nom (jusqu'à 50 caractères)
+1. Cliquez sur **Créer** et configurez votre plan tarifaire
+
+## Configuration de Workspace
+
+Les propriétaires et administrateurs de Workspace peuvent configurer les paramètres, la [facturation](/fr/introduction/plans-and-credits) et les options de sécurité pour leur Workspace.
+
+### Paramètres Workspace
+
+Workspace **les propriétaires et les administrateurs** peuvent personnaliser les paramètres Workspace sous **Paramètres → Workspace**.
+
+Les paramètres disponibles incluent :
+
+| Paramètre | Descriptif |
+| --- | --- |
+| Avatar | Définissez une icône Workspace. |
+| Nom | Votre nom d’affichage Workspace (maximum 50 caractères). |
+| Poignée Workspace | Un identifiant unique pour la page de profil Workspace. |
+| Limite de crédit mensuelle par défaut pour les membres | La limite de crédit mensuelle par défaut pour tous les membres du Workspace. Laissez vide pour utiliser aucune limite . Vous pouvez configurer des limites de membres spécifiques depuis Paramètres → Personnes . |
+
+Pour gérer les forfaits et la facturation, accédez à **Paramètres → Forfaits et crédits**.
+
+### Provisionnement des utilisateurs SSO et SCIM
+
+**Approvisionnement juste à temps (Business et Enterprise)**  
+
+ Les espaces de travail avec [SSO](/fr/features/business/sso) configuré peuvent activer le **provisionnement juste à temps**. Lorsqu'un utilisateur disposant d'une adresse e-mail de domaine vérifié se connecte via le fournisseur SSO pour la première fois, il est automatiquement ajouté au Workspace avec un rôle par défaut configurable.
+
+**Approvisionnement SCIM (Entreprise)**  
+
+ Les espaces de travail d'entreprise peuvent provisionner les utilisateurs à l'aide du [protocole SCIM](/fr/features/business/scim). Cela permet à votre fournisseur d'identité de :
+
+- Créer des utilisateurs
+- Mettre à jour les adhésions
+- Désactiver les adhésions Workspace
+
+## Invitez des personnes sur votre Workspace
+
+Les membres Workspace sont les personnes avec lesquelles vous collaborez sur des projets dans un Workspace.
+
+Les éditeurs et les niveaux supérieurs peuvent inviter des membres au Workspace, soit par e-mail, soit en partageant un lien d'invitation.
+
+### Inviter par email
+
+<Note>
+Avec les **forfaits Entreprise**, vous pouvez choisir d'autoriser uniquement les **administrateurs et propriétaires** à inviter des personnes par e-mail. Accédez à **Paramètres → Confidentialité et sécurité → Restreindre les invitations Workspace.**
+</Note>
+
+1. Accédez à **Paramètres → Personnes**
+1. Cliquez sur **Inviter des membres**
+1. Saisissez une ou plusieurs adresses e-mail
+1. Sélectionnez le rôle :
+    - Propriétaire
+    - Administrateur
+    - Éditeur
+    - Visionneuse
+1. Cliquez sur **Inviter**
+
+Lors de la sélection des rôles :
+
+- Seuls les **propriétaires** peuvent inviter d'autres propriétaires
+- L'attribution de rôles tels que **administrateur ou lecteur** nécessite un **forfait payant**.
+
+### Inviter via un lien
+
+<Note>
+Les espaces de travail d'entreprise n'invitent pas de liens Support. Sur tous les autres forfaits, les administrateurs et les propriétaires peuvent désactiver entièrement les liens d'invitation depuis **Paramètres → Confidentialité et sécurité → Liens d'invitation.**
+</Note>
+
+1. Accédez à **Paramètres → Personnes**
+1. Cliquez sur **Lien d'invitation**
+1. Choisissez le rôle :
+    - Éditeur
+    - Visionneuse (disponible sur les forfaits payants)
+1. Cliquez sur **Créer un lien d'invitation**
+1. Copiez le lien et partagez-le
+
+Les liens d'invitation expirent après **5 jours** et peuvent être régénérés ou supprimés à tout moment.
+
+- Un seul **un lien actif par rôle** est autorisé à la fois.
+- La création d'un nouveau lien remplace le précédent.
+
+## Gérer les membres et les invitations Workspace
+
+Accédez à **Paramètres → Personnes** pour gérer les membres Workspace.
+
+À partir de là, vous pouvez :
+
+- Ajouter de nouveaux membres par e-mail ou par lien d'invitation
+- Révoquer une invitation
+- Modifier les rôles des membres
+- Supprimer des membres
+- Afficher l'utilisation mensuelle du crédit par membre
+- Fixer des limites de crédit à chaque membre
+- Effectuer des actions d'adhésion groupées : modifier les rôles, définir des limites de crédit ou supprimer des membres
+
+Les actions disponibles dépendent de votre rôle.
+
+## Rejoignez un Workspace
+
+Une fois que vous avez un compte ZenOpus, il existe plusieurs façons de rejoindre un Workspace.
+
+### Invitation par e-mail ou lien d'invitation
+
+Un propriétaire, un administrateur ou un éditeur Workspace vous envoie une invitation par e-mail ou vous envoie un lien d'invitation.
+
+Si **l'acceptation automatique des invitations** est activée dans les paramètres de votre compte personnel, vous êtes ajouté au Workspace sans avoir besoin d'accepter manuellement les invitations.
+
+### Trouvez le Workspace de votre équipe
+
+Si vous vous êtes inscrit avec une **adresse e-mail professionnelle**, ZenOpus peut automatiquement faire apparaître les espaces de travail appartenant à votre organisation. Cela vous aide à rejoindre le bon Workspace sans avoir besoin d'une invitation directe.
+
+<Note>
+Cette fonctionnalité est disponible pour les comptes utilisant des **domaines de messagerie non publics** (tels que `@yourcompany.com`). Les domaines publics tels que `@gmail.com` ou `@hotmail.com` ne sont pas pris en charge.
+</Note>
+
+**Comment trouver un Workspace :**
+
+1. Ouvrez le sélecteur **Workspace** (en haut à gauche du tableau de bord)
+1. Cliquez sur **Rechercher des espaces de travail** en bas de la liste déroulante et ZenOpus recherchera les espaces de travail associés à votre domaine de messagerie.
+1. Sélectionnez le Workspace que vous souhaitez rejoindre
+1. Choisissez le rôle que vous souhaitez demander
+1. Soumettez votre demande
+
+Les administrateurs et propriétaires de Workspace seront informés et pourront **approuver ou refuser votre accès**.
+
+<Tip>
+Si vous n'appartenez à aucun Workspace encore, cette option apparaît également dans la boîte de dialogue **Pas de Workspace** affichée après l'inscription.
+</Tip>
+
+## Changer d'espace de travail
+
+Ouvrez le sélecteur **Workspace** dans le coin supérieur gauche du tableau de bord et cliquez sur un nom Workspace pour y accéder.
+
+## Laissez un Workspace
+
+Vous pouvez laisser un Workspace depuis **Paramètres → Workspace**.
+
+<Warning>
+Les propriétaires ne peuvent pas quitter le Workspace à moins qu'un autre propriétaire n'existe.
+</Warning>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Combien de membres un Workspace peut-il avoir ?">
+Espaces de travail Support **membres illimités** sur tous les forfaits. Pour les espaces de travail Enterprise, des limites de membres personnalisées peuvent éventuellement être définies.
+</Accordion>
+<Accordion title="Puis-je avoir plusieurs espaces de travail ?">
+Oui. Cependant, chaque Workspace nécessite son **propre abonnement**.
+</Accordion>
+<Accordion title="Puis-je basculer entre les espaces de travail ?">
+Oui. Accédez au tableau de bord principal et cliquez sur votre nom Workspace dans le coin supérieur gauche. Dans la liste déroulante, vous verrez les autres espaces de travail auxquels vous avez accès. Sélectionnez-en un pour changer.
+</Accordion>
+<Accordion title="Puis-je changer le propriétaire Workspace ?">
+Oui. Les propriétaires peuvent promouvoir d'autres membres au rang de **propriétaires**. Un Workspace peut avoir **plusieurs propriétaires**.
+</Accordion>
+</AccordionGroup>

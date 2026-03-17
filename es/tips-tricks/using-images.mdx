@@ -1,0 +1,104 @@
+---
+title: "Usando imágenes en ZenOpus"
+description: "Cargue imágenes para chatear, reemplácelas con ediciones visuales, use URL externas o agregue archivos desde su directorio público de GitHub."
+---
+Para agregar imágenes puedes hacer una de cuatro cosas:
+
+<AccordionGroup>
+<Accordion title="Sube la imagen al chat rápido.">
+Simplemente cárguelos en el chat y explíquele al Agente de ZenOpus dónde y cómo le gustaría que aparezcan en su proyecto. Por ejemplo:
+
+> Reemplace el logo en la barra de navegación con esta imagen
+</Accordion>
+<Accordion title="Reemplácelo en el editor visual.">
+Puede reemplazar una imagen existente directamente usando la funcionalidad [editor visual](/es/features/design):
+
+<Steps>
+<Step title="Paso 1">
+Haga clic en la herramienta "Editar".
+</Step>
+<Step title="Paso 2">
+Seleccione el titular de la imagen que desea cambiar.
+
+![Editor visual que muestra un elemento de imagen seleccionado con el panel de edición abierto](/images/zenopus/tips-tricks/using-images/visual-edit-replace.png)
+</Step>
+<Step title="Paso 3">
+Cambia la imagen.
+
+![Diálogo de reemplazo de imagen en el editor visual con opciones de carga y URL](/images/zenopus/tips-tricks/using-images/visual-edit-image.png)
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Usar una URL de imagen externa">
+Una forma de agregar imágenes a su proyecto es haciendo referencia a una imagen desde una URL externa. Este método le permite utilizar imágenes alojadas en plataformas externas como Unsplash, Imgur o cualquier otro servicio de alojamiento de imágenes. ¡Tenga en cuenta los derechos de autor de uso!
+
+Aquí se explica cómo prompt ZenOpus usar una imagen externa:
+
+<Steps>
+<Step title="Paso 1">
+Encuentra la imagen que deseas utilizar.
+
+Por ejemplo, puedes visitar un sitio como Unsplash, seleccionar una imagen y copiar su URL.
+</Step>
+<Step title="Paso 2">
+En el mensaje de su proyecto, simplemente dígale a ZenOpus que use esa imagen especificando la URL. Por ejemplo:
+
+```text
+Utilice la imagen de esta URL 
+https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Pale_Blue_Dot.png/442px-Pale_Blue_Dot.png 
+para la imagen de la sección de héroe.
+```
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Usando imágenes de su directorio público de GitHub">
+Otro método para agregar imágenes a su proyecto ZenOpus es usar imágenes cargadas en el directorio `public` de su repositorio GitHub conectado. Así es como puedes hacerlo:
+
+<Steps>
+<Step title="Conecte su repositorio de GitHub">
+Asegúrese de que su proyecto esté conectado a su repositorio de GitHub. [Aquí se explica cómo conectar su repositorio](/es/integrations/git-integration).
+</Step>
+<Step title="Localice la carpeta pública">
+Dentro de su repositorio de GitHub, navegue hasta el directorio `public`. Esta carpeta se utiliza normalmente para alojar recursos como imágenes a las que se puede hacer referencia en su proyecto.
+</Step>
+<Step title="Agregar archivo">
+Haga clic en **Agregar archivo** y luego, en un menú desplegable, seleccione la opción **Subir archivos**. ![Seleccionando archivos para cargar](/images/zenopus/tips-tricks/using-images/using-images-github-upload.png)
+</Step>
+<Step title="Sube una imagen">
+El siguiente paso es transferir su imagen a su repositorio:
+
+- Arrastre y suelte la imagen en la carpeta pública, o
+- Haga clic en el enlace **“elija sus archivos”** para buscar y seleccionar el archivo de imagen.
+    ![Seleccionando archivos para cargar](/images/zenopus/tips-tricks/using-images/using-images-github-commiting.png)
+</Step>
+<Step title="Confirmar los cambios">
+Después de seleccionar su imagen, escriba un mensaje de confirmación simple (por ejemplo, "Agregar archivos de imagen para usar en la aplicación") y haga clic en **"Confirmar cambios"** para guardar el archivo en su repositorio.
+</Step>
+<Step title="Obtener la ruta de la imagen">
+Una vez cargado el archivo, selecciónelo y luego haga clic en el ícono de copiar al lado del nombre del archivo para copiar la ruta de la imagen. Esta ruta se utilizará en su mensaje ZenOpus. ![Seleccionando archivos para cargar](/images/zenopus/tips-tricks/using-images/using-images-github-selecting.png)
+</Step>
+<Step title="Utilice la imagen en ZenOpus">
+Ahora puede hacer referencia a esta imagen en su proyecto mediante un mensaje como el siguiente:
+
+```text
+Agrega una imagen adicional a la sección de héroe. 
+Esta vez, usa este de mi repositorio local: public/c-64-close-up.jpg.jpeg
+```
+
+Asegúrese de utilizar el nombre de su imagen y la ruta que copió en el paso anterior.
+
+<Warning>
+Cargar imágenes grandes en su repositorio de GitHub puede hacer que aumente de tamaño, lo que puede afectar el rendimiento de ZenOpus (tiempos de clonación de repositorios más prolongados, inicio más lento de las vistas previas/zona de pruebas).
+
+Intente optimizar sus imágenes antes de cargarlas en su carpeta `public` comprimiéndolas y utilizando dimensiones que sean relevantes para su caso de uso. Por ejemplo, no utilice una imagen de tamaño Full HD si solo se mostrará como un icono pequeño.
+</Warning>
+</Step>
+</Steps>
+
+Para ayudarlo a comprender mejor cómo integrar imágenes utilizando los métodos descritos anteriormente, tenemos un proyecto que puede explorar: [ZenOpus Ejemplo de proyecto](https://zenopus.dev/projects/e823fedf-238d-4313-86a8-1fd4bfc2a9ba). En este proyecto, puede ver las indicaciones reales y cómo funciona cada método en la práctica.
+
+Además, aquí hay un repositorio público de GitHub que incluye las confirmaciones, las imágenes cargadas y los detalles completos de la implementación. Puede ver el repositorio aquí: [GitHub: Ejemplo de agregar imágenes](https://github.com/viborc/adding-images-example).
+
+No dude en explorar el proyecto y el repositorio para profundizar su comprensión y mejorar sus habilidades de implementación.
+</Accordion>
+</AccordionGroup>

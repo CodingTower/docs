@@ -1,0 +1,116 @@
+---
+title: "Testa la tua app in un browser"
+description: "Scopri come ZenOpus utilizza i test del browser per verificare la tua app facendo clic su pulsanti, compilando moduli, testando flussi e controllando il comportamento su tutte le dimensioni dello schermo."
+---
+Il test del browser consente a ZenOpus di interagire con la tua app in un browser reale in esecuzione in un ambiente virtuale. L'agente può fare clic su pulsanti, compilare moduli, navigare tra le pagine e verificare il comportamento reale dell'utente con screenshot invece di fare affidamento solo sul codice.
+
+Utilizza i test del browser per convalidare i flussi utente, eseguire il debug di problemi visivi o comportamentali e verificare che le modifiche funzionino come previsto su schermi di dimensioni diverse.
+
+## Cosa può fare il test del browser
+
+Quando viene eseguito il test del browser, l'agente può:
+
+- Cattura screenshot dell'app
+- Fare clic su pulsanti e collegamenti
+- Compila input e invia moduli
+- Navigare tra le pagine
+- Leggere i registri della console e le richieste di rete
+- Rileva errori di runtime mentre interagisci con la tua app
+- Prova diverse dimensioni dello schermo, inclusi layout per dispositivi mobili, tablet e desktop. Per impostazione predefinita, utilizza la stessa dimensione dell'anteprima.
+
+## Come funziona il test del browser
+
+ZenOpus utilizza i test del browser in modo selettivo, dopo aver provato prima metodi di verifica più rapidi.
+
+Il test del browser può essere eseguito quando:
+
+- Chiedi esplicitamente di verificare che qualcosa funzioni. Le frasi trigger comuni includono:  
+“verifica che funzioni”, “assicurati che funzioni”, “prova questo”, “controlla se funziona”
+- I problemi visivi o dell'interfaccia utente non possono essere individuati tramite log o ispezione del codice
+- È presente una modifica di funzionalità più ampia e ZenOpus si offre di testare il flusso e tu confermi
+
+<Tip>
+Evita di chiedere a ZenOpus di *apportare una modifica importante e testarla* nello stesso prompt.
+
+Se il test del browser si blocca e lo interrompi, tutto il lavoro svolto durante quel passaggio potrebbe andare perso.
+
+Un flusso più sicuro consiste nel creare prima, quindi testare in un prompt successivo.
+</Tip>
+
+### Dove corre
+
+Il browser viene eseguito in remoto in un ambiente virtuale sicuro. Non è il tuo browser personale e non prende il sopravvento sulla tua sessione locale.
+
+- Il test del browser viene sempre eseguito rispetto all'anteprima del progetto su cui stai attualmente lavorando e testa esattamente la versione dell'app che stai visualizzando.
+- Se la tua app utilizza l'autenticazione, il test del browser viene eseguito utilizzando lo stesso utente dell'app a cui hai attualmente effettuato l'accesso come nell'anteprima. Sii esplicito se ci sono azioni o aree che non devono essere cliccate o attivate.
+- Alcune app ZenOpus Cloud utilizzano la funzione [ambienti di test e live](/it/features/environments). Quando questa funzionalità è abilitata, il test del browser viene eseguito rispetto all'anteprima del progetto nell'ambiente **test**.
+
+### Cosa succede durante un'esecuzione di test del browser
+
+Puoi seguire il processo di test in una **Visualizzazione dettagli** dedicata, dove l'agente:
+
+- Mostra i passaggi in corso, ad esempio fare clic sui pulsanti o navigare nelle pagine
+- Cattura screenshot dell'app
+- Visualizza gli URL e i risultati delle interazioni
+- Riassume cosa ha funzionato e cosa no
+
+Il test del browser è più lento delle normali azioni perché l'agente interagisce con un browser reale e verifica i risultati.
+
+### Esempio: attivare manualmente il test del browser
+
+L'esempio seguente mostra come attivare manualmente il test del browser dopo aver scoperto un problema con la pagina del profilo. Chiedi a ZenOpus di riprodurre il problema, risolverlo e quindi verificare la correzione. Ad esempio:
+
+```text
+La pagina si blocca quando clicco sul mio profilo. Riproduci nel browser, correggilo e quindi verifica che la correzione abbia funzionato.
+```
+
+![Attivazione manuale del test del browser](/images/zenopus/features/browser-testing/build-browser-testing.png)
+
+## Limitazioni
+
+- Non può interagire con strumenti basati su tela o di disegno
+- Non può caricare o scaricare file
+- Non può eseguire interazioni facendo clic con il pulsante destro del mouse
+- Può eseguire interazioni di trascinamento della selezione, ma sono meno affidabili dei clic
+- Potrebbe eseguire azioni negli appunti e selezione di testo, ma queste non sono affidabili
+- Non è affidabile per valutare i sottili dettagli del design visivo o le differenze di colore
+- Potrebbe avere difficoltà a interagire con i pulsanti di sole icone rispetto ai pulsanti con etichette di testo
+
+## Domande frequenti
+
+<AccordionGroup>
+<Accordion title="Il test del browser viene eseguito automaticamente?">
+Sì, in alcuni casi. ZenOpus può suggerire o utilizzare automaticamente il test del browser quando è necessaria la verifica, ma per impostazione predefinita è conservativo e prova prima metodi più leggeri.
+</Accordion>
+<Accordion title="Come posso assicurarmi che ZenOpus utilizzi i test del browser?">
+Puoi sempre richiedere esplicitamente il test del browser in qualsiasi momento. Le frasi trigger più comuni includono: "verifica che funzioni", "assicurati che funzioni", "prova questo", "controlla se funziona".
+
+Ad esempio:
+
+```text
+Utilizza il test del browser per verificare questo flusso.
+```
+</Accordion>
+<Accordion title="In quale ambiente viene eseguito il test del browser?">
+Il test del browser viene sempre eseguito rispetto all'anteprima del progetto su cui stai attualmente lavorando. Verifica esattamente la versione dell'app che stai visualizzando.
+
+Se il tuo progetto utilizza la **separazione dell'ambiente di test e di quello live**, il test del browser viene eseguito rispetto all'anteprima dell'ambiente di test.
+</Accordion>
+<Accordion title="Il test del browser utilizza le autorizzazioni della mia app?">
+Sì. Se la tua app utilizza l'autenticazione, l'agente accede con lo stesso utente dell'app a cui hai attualmente effettuato l'accesso e il test del browser viene eseguito utilizzando lo stesso utente dell'app.
+
+Sii esplicito se qualcosa non deve essere cliccato o attivato.
+</Accordion>
+<Accordion title="È questo il mio vero browser?">
+No. Il test del browser utilizza un browser reale in esecuzione in un ambiente virtuale remoto. Non prende il controllo del browser o della sessione locale.
+</Accordion>
+<Accordion title="Cosa succede se il test del browser continua a non riuscire a eseguire la stessa azione?">
+Se l'agente non riesce ripetutamente a interagire con lo stesso elemento, ciò potrebbe essere dovuto a limitazioni di interazione del browser (più probabile) o a un problema di fondo nella tua app, ad esempio un elemento nascosto, uno stato interrotto o un layout imprevisto.
+
+Prova quanto segue:
+
+1. Esamina gli screenshot e i registri dell'esecuzione dei test nella visualizzazione Dettagli
+1. Chiedi a ZenOpus di rendere più facile interagire con l'elemento (ad esempio, aggiungendo testo visibile o un'etichetta di accessibilità)
+1. Se il problema persiste, istruisci esplicitamente l'agente a evitare di interagire con quell'elemento
+</Accordion>
+</AccordionGroup>

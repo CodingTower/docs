@@ -1,0 +1,646 @@
+---
+title: "Envía correos electrónicos de autenticación desde tu propio dominio"
+description: "Envíe correos electrónicos de autenticación desde su propio dominio de correo electrónico con configuración automática de DNS, SPF, DKIM y DMARC para mejorar la capacidad de entrega, proteger la reputación de su dominio y fortalecer la confianza en la marca."
+---
+## ¿Qué son los correos electrónicos?
+
+Los correos electrónicos permiten que su aplicación ZenOpus Cloud envíe correos electrónicos de autenticación (confirmaciones de registro, restablecimientos de contraseña, enlaces mágicos, invitaciones y más) desde su propio dominio de correo electrónico en lugar del remitente de autenticación predeterminado ZenOpus Cloud.
+
+Por ejemplo: `noreply@notify.yourdomain.com` o `noreply@yourdomain.com`
+
+El uso de un subdominio de envío dedicado ayuda a proteger la reputación de su dominio raíz y, al mismo tiempo, mantiene la coherencia de su marca.
+
+Puedes personalizar:
+
+- Qué dominio de correo electrónico utiliza su proyecto
+- La configuración del subdominio del remitente
+- Marca de correo electrónico y estilo visual.
+- Plantillas de correo electrónico de autenticación y líneas de asunto
+
+ZenOpus maneja la verificación del dominio, la configuración de DNS, la autenticación de correo electrónico (`SPF`, `DKIM` y `DMARC`) y la infraestructura de entrega. No se requieren cuentas de proveedores de correo electrónico externos ni claves API.
+
+## Tipos de correo electrónico admitidos
+
+Por el momento, correos electrónicos Support **solo correos electrónicos de autenticación**.
+
+Los correos electrónicos de autenticación son un tipo de correo electrónico transaccional relacionado con el acceso a la cuenta y la verificación de identidad. Cloud Auth los activa automáticamente cuando los usuarios realizan acciones específicas relacionadas con la seguridad.
+
+Estos correos electrónicos de autenticación incluyen:
+
+- **Confirmar registro**  
+Se envía cuando un usuario crea una cuenta y la confirmación por correo electrónico está habilitada. Verifica que el usuario sea propietario de la dirección de correo electrónico antes de activar la cuenta.
+- **Restablecer contraseña**  
+Enviado cuando un usuario solicita restablecer su contraseña. Permite la recuperación segura de la contraseña.
+- **Enlace mágico**  
+Se envía cuando el inicio de sesión sin contraseña está habilitado y un usuario solicita un enlace de inicio de sesión. Autentica al usuario sin requerir contraseña. Puede pedirle a ZenOpus que habilite la autenticación de enlace mágico si aún no está configurado.
+- **Invitar**  
+Enviado cuando invitas a un usuario a unirse a tu proyecto (desde Nube → Usuarios). Otorga acceso a la cuenta a través de un enlace de invitación seguro.
+- **Cambio de correo electrónico**  
+Enviado cuando un usuario actualiza su dirección de correo electrónico. Confirma la propiedad de la nueva dirección antes de aplicar el cambio.
+- **Reautenticación**  
+Se envía cuando un usuario debe verificar su identidad antes de realizar una acción confidencial, como cambiar una contraseña. Normalmente incluye un código de verificación de corta duración. Puede pedirle a ZenOpus que habilite la reautenticación si aún no está configurada.
+
+<Note>
+Por el momento no se admiten correos electrónicos de marketing, boletines informativos, confirmaciones de pedidos, notificaciones de envío y otros correos electrónicos transaccionales o de notificación.
+</Note>
+
+## Disponibilidad y uso
+
+Los correos electrónicos están disponibles en **planes pagos**. Cada Workspace pagado incluye **50,000 correos electrónicos de autenticación por mes** sin costo adicional. El uso se calcula en todo el Workspace.
+
+Los correos electrónicos de autenticación adicionales se facturan a $1 por cada 1000 correos electrónicos.
+
+## ¿Por qué utilizar correos electrónicos?
+
+- **Mejor capacidad de entrega:** Es más probable que los correos electrónicos enviados desde su propio dominio lleguen a la bandeja de entrada en lugar de spam.
+- **Más confianza:** Los usuarios ven su dominio en la dirección De, lo que refuerza la credibilidad.
+- **Marca consistente:** Los correos electrónicos de autenticación coinciden con la identidad de su producto.
+- **Configuración administrada:** ZenOpus verifica su dominio y configura los registros DNS requeridos.
+- **Envío autenticado:** ZenOpus configura automáticamente [SPF, DKIM y DMARC](#what-are-spf-dkim-and-dmarc-and-do-i-need-to-configure-them) para autenticar sus correos electrónicos y mejorar la ubicación de la bandeja de entrada.
+- **Monitoreo continuo:** ZenOpus le alerta si los cambios de DNS podrían afectar la entrega de correo electrónico.
+
+## Requisitos previos
+
+Para utilizar correos electrónicos:
+
+- [ZenOpus Cloud](/es/integrations/cloud) debe estar habilitado para su proyecto.
+- Tu Workspace debe estar en un plan pago.
+- Debe poseer un dominio y tener acceso para administrar su configuración de DNS.
+- Debe ser administrador o propietario de Workspace para agregar, eliminar o verificar dominios.
+
+## Cómo funcionan los correos electrónicos
+
+Cuando configura un dominio de correo electrónico, ZenOpus:
+
+- Crea un subdominio de remitente transaccional en su dominio raíz, como `notify.yourdomain.com`
+- Le guía a través de la configuración de DNS mediante un flujo de configuración automatizado.
+- Verifica su dominio comprobando los registros DNS requeridos
+- Genera automáticamente plantillas de correo electrónico de autenticación de marca
+- Implementa un enlace de correo electrónico de autenticación que enruta los correos electrónicos de autenticación a través de su dominio de correo electrónico.
+- Activa la entrega de correo electrónico una vez que se completa la verificación de DNS
+
+Después de la verificación, los correos electrónicos de autenticación se envían desde su dominio en lugar del remitente de autenticación predeterminado ZenOpus Cloud.
+
+### Alcance y uso del dominio de correo electrónico
+
+Los dominios de correo electrónico se aprovisionan en el nivel Workspace.
+
+- Un Workspace puede tener varios dominios de correo electrónico
+- Un dominio verificado se puede utilizar en varios proyectos
+- Cada proyecto selecciona qué dominio verificado utiliza
+- Solo puede haber un dominio de correo electrónico activo por proyecto a la vez
+- Solo los dominios con estado **Verificado** pueden enviar correos electrónicos
+- Los correos electrónicos se pueden habilitar o deshabilitar por proyecto
+
+Si los correos electrónicos están deshabilitados para un proyecto, los correos electrónicos de autenticación recurren al remitente de autenticación predeterminado ZenOpus Cloud.
+
+## Agregar un dominio de correo electrónico
+
+Seleccione el dominio que desea utilizar para enviar correos electrónicos. Este será el dominio que tus usuarios verán en su bandeja de entrada.
+
+Hay dos formas de empezar:
+
+- **Desde el chat**: Pídale a ZenOpus que configure los correos electrónicos y le presentará un botón de configuración. Por ejemplo:
+    ```text
+    Quiero enviar correos electrónicos para restablecer la contraseña desde mi dominio.
+    ```
+- **Desde la configuración de la nube** : Vaya a **Nube → Correo electrónico** y haga clic en **Comenzar**.  Esto lo llevará al flujo de configuración del correo electrónico.
+
+<Steps>
+<Step title="Establecer un dominio de correo electrónico">
+- Elija un dominio Workspace existente en el menú desplegable o seleccione **Agregar un nuevo dominio de correo electrónico**, luego ingrese su dominio raíz o subdominio, por ejemplo `yourdomain.com`.
+    <Note>
+    Los dominios pueden tener hasta 5 niveles, por ejemplo `a.b.c.example.com`.
+    </Note>
+- Haga clic en **Continuar**.
+</Step>
+<Step title="Configurar el subdominio del remitente">
+Configure el prefijo del subdominio que se utilizará para enviar correos electrónicos de autenticación. La vista previa del lado derecho muestra una bandeja de entrada simulada con correos electrónicos de ejemplo de su dominio configurado.
+
+- De forma predeterminada, ZenOpus crea un  `notify` subdominio para la entrega, por ejemplo `noreply@notify.yourdomain.com`, pero puedes cambiar el subdominio.
+- Opcionalmente, puedes habilitar **Mostrar como enviado desde @tudominio.com** para que los destinatarios vean los correos electrónicos de `@yourdomain.com` en su bandeja de entrada, mientras tu subdominio transaccional maneja la entrega entre bastidores.
+- Haga clic en **Configurar dominio**.
+</Step>
+<Step title="Configuración DNS completa">
+Después de hacer clic en **Configurar dominio**, ZenOpus inicia un **flujo de configuración de DNS automatizado** (impulsado por Entri) que lo guía a través de la configuración de la delegación de zona `NS` requerida para su dominio.
+
+Si su proveedor de DNS no figura en la lista o prefiere el control manual, puede configurar los registros DNS usted mismo. Desplácese hasta la parte inferior del **Seleccione su proveedor de dominio** Entri modal y elija **Ir a nuestra configuración manual**.
+
+Tanto el método automatizado como el manual requieren verificar la propiedad de su dominio. ZenOpus aprovisionará su dominio y generará los registros DNS necesarios.
+
+<Tabs>
+<Tab title="Configuración automática">
+Siga las instrucciones en pantalla para iniciar sesión en su proveedor de DNS y autorizar a Entri a actualizar sus registros DNS.
+</Tab>
+<Tab title="Configuración manual">
+1. Copie los registros DNS mostrados.
+    - Registro `TXT` para verificación de dominio
+    - `NS` registros que apuntan a los servidores de nombres de ZenOpus
+1. Realice un seguimiento de su progreso con el contador **He copiado registros X/Y**.
+1. Ingrese los registros DNS copiados directamente en su registrador de dominio o proveedor de DNS.
+
+También puede reenviar estas instrucciones a un colega si otra persona administra su DNS.
+</Tab>
+</Tabs>
+</Step>
+<Step title="Esperar verificación">
+Una vez configurado el DNS, volverá a la página **Correos electrónicos** de su proyecto.
+
+Un banner de estado muestra el estado actual de su dominio.
+
+<Note>
+Los cambios de DNS normalmente se propagan en unas pocas horas, pero pueden tardar hasta 48 horas.
+</Note>
+
+Mientras la verificación de DNS está en curso, ZenOpus genera e implementa inmediatamente sus plantillas de correo electrónico de autenticación.
+
+Aparece un mensaje automático en el chat y se ejecuta en segundo plano:
+
+```text
+Configure ZenOpus plantillas de correo electrónico de autenticación para notify.yourdomain.com. La verificación de DNS está en curso. Haga coincidir las plantillas de correo electrónico con el estilo de mi aplicación: use los colores de mi marca, agregue mi logotipo si tengo uno y escriba la copia en el mismo tono y lenguaje que mi aplicación.
+```
+
+ZenOpus genera e implementa automáticamente seis plantillas de correo electrónico de autenticación de marca:
+
+- Aplica los colores de marca de tu aplicación.
+- Agrega su logotipo si existe uno en el proyecto.
+- Coincide con el tono y el idioma utilizados en su aplicación
+
+Puedes revisar y [personalizar las plantillas de correo electrónico](#customizing-email-templates) incluso antes de que se complete la verificación de DNS.
+</Step>
+</Steps>
+
+ZenOpus detecta automáticamente cuando se completa la verificación de DNS y activa su dominio.
+
+Una vez que el estado del dominio cambia a **Verificado**, los correos electrónicos de autenticación comienzan a enviarse desde su dominio en lugar del remitente de autenticación predeterminado ZenOpus Cloud.
+
+Hasta que se complete la verificación, los correos electrónicos de autenticación continúan enviándose utilizando el remitente predeterminado.
+
+<Note>
+Los dominios recién aprovisionados comienzan con una reputación neutral. La capacidad de entrega inicial puede fluctuar mientras su dominio genera confianza con los proveedores de bandeja de entrada a través de envíos consistentes y legítimos. Consulte [Prácticas recomendadas de capacidad de entrega de correo electrónico](#mejores-prácticas-de-entrega-de-correo-electrónico) para obtener más información.
+</Note>
+
+## Estados de dominio de correo electrónico
+
+Los dominios de correo electrónico pueden pasar por los siguientes estados:
+
+| Estado | Significado |
+| --- | --- |
+| Pendiente | La instalación ha comenzado y la configuración de DNS está en progreso |
+| Verificando | Se han detectado registros DNS y la verificación está en curso |
+| Configuración | Aprovisionamiento de dominio en curso |
+| Verificado (activo) | El dominio está listo y puede usarse para enviar correos electrónicos |
+| Sin conexión | Los registros DNS requeridos se cambiaron o eliminaron después de la verificación |
+| Fallido | Error de verificación o aprovisionamiento |
+
+<Warning>
+Los dominios son monitoreados continuamente. Si los registros DNS requeridos cambian, se eliminan o caducan, el dominio puede pasar a un estado inactivo hasta que se vuelva a verificar.
+</Warning>
+
+## Administrar dominios de correo electrónico
+
+En **Nube → Correos electrónicos**, use el menú desplegable de dominio para acceder:
+
+- **Análisis y registros**: vea las métricas de entrega para el dominio de correo electrónico y la actividad de correo electrónico para el proyecto actual que utiliza ese dominio.
+- **Administrar dominios**: vea todos los Workspace dominios de correo electrónico y sus insignias de estado, inspeccione y copie registros DNS, cambie qué dominio usa el proyecto actual, verifique manualmente un dominio, agregue un dominio o elimine un dominio.
+    <Warning>
+    Eliminar un dominio es una acción **Workspace que abarca todo**. Esto dejará de enviar correos electrónicos desde ese dominio. Cualquier proyecto que utilice ese dominio recurrirá automáticamente a los correos electrónicos de autenticación predeterminados.
+    </Warning>
+- **Agregar un nuevo dominio:** Agregue un nuevo dominio de correo electrónico Workspace.
+- **Desactivar correos electrónicos**: habilite o deshabilite los correos electrónicos para el proyecto actual. Cuando está deshabilitado, los correos electrónicos de autenticación se envían utilizando el remitente predeterminado de Cloud Auth en lugar de sus plantillas personalizadas.
+
+### Análisis y registros
+
+La vista analítica incluye:
+
+- **Tarjetas de métricas**: recuentos de envíos, entregas y rebotes para el dominio de correo electrónico
+- **Tabla de entrega**: correos electrónicos entregados versus fallidos para el dominio de correo electrónico durante 7, 30 o 90 días
+- **Registro de actividad de correo electrónico**: una lista ampliable de correos electrónicos individuales enviados para el proyecto actual, que muestra el destinatario, el estado (completado, fallido, pendiente), el tipo (correo electrónico de autenticación o correo electrónico de prueba), marcas de tiempo y seguimientos de ejecución detallados con mensajes de error para fallas.
+
+## Personalizar plantillas de correo electrónico de autenticación
+
+Cuando los correos electrónicos están habilitados, ZenOpus genera automáticamente plantillas de correo electrónico de autenticación de marca para su proyecto.
+
+La página **Correos electrónicos** incluye una pestaña para cada plantilla. Cada pestaña muestra:
+
+- **De** dirección
+- **Asunto** línea
+- **Vista previa en vivo** de la plantilla de correo electrónico representada en un iframe
+- Opciones de **Enviar prueba**, incluido el envío de un correo electrónico de prueba a su cuenta o a una dirección personalizada.
+    <Note>
+    Los correos electrónicos enviados desde dominios recién configurados pueden inicialmente terminar en spam mientras se construye la reputación.
+    </Note>
+
+### Marca automática
+
+ZenOpus aplica la marca de su aplicación automáticamente al:
+
+- Extracción de variables CSS de `src/index.css` (colores primarios, fuentes, radio del borde)
+- Detección de archivos de logotipo en `public/` y `src/assets/`
+- Cargar un logotipo detectado en un depósito de almacenamiento de activos de correo electrónico dedicado
+- Adaptar el texto del correo electrónico para que coincida con el tono y el idioma de su aplicación
+
+El fondo exterior del cuerpo del correo electrónico es siempre `#ffffff` para garantizar una representación coherente en todos los clientes de correo electrónico. Los componentes internos pueden usar los colores de su marca.
+
+### Qué puedes personalizar
+
+Puedes pedirle a ZenOpus que actualice:
+
+- Copiar y tono
+- Colores de la marca
+- Diseño y estructura
+- Colocación de imágenes y logotipos.
+- Líneas de asunto
+
+<Warning>
+El fondo exterior del cuerpo del correo electrónico debe permanecer blanco (`#ffffff`) para garantizar una representación coherente en todos los clientes de correo electrónico. Los componentes internos pueden usar los colores de su marca.
+</Warning>
+
+Por ejemplo:
+
+```text
+Haga coincidir los correos electrónicos con mi marca usando #2563eb para botones y encabezados, agregue mi logotipo en la parte superior, elimine emojis, haga que el tono sea profesional pero amigable, mueva el botón más arriba en el diseño, agregue un pie de página con Support@myapp.com y actualice las líneas de asunto para que comiencen con el nombre de mi aplicación.
+```
+
+ZenOpus actualiza las plantillas al tiempo que conserva las variables de autenticación requeridas y los enlaces de devolución de llamada seguros.
+
+### Editar plantillas manualmente
+
+Si prefiere editar el código directamente:
+
+- Las plantillas de autenticación se encuentran en `supabase/functions/_shared/email-templates/`
+- La lógica de envío se encuentra en `supabase/functions/auth-email-hook/`
+
+Las plantillas utilizan componentes de React Email con estilos en línea (los clientes de correo electrónico no utilizan CSS externo Support).
+
+Las variables de autenticación requeridas y los enlaces de devolución de llamada deben permanecer intactos o los flujos de autenticación se interrumpirán.
+
+Después de editar archivos de plantilla o líneas de asunto, debe solicitarle a ZenOpus que vuelva a implementar la función `auth-email-hook` para que los cambios surtan efecto. La redistribución actualiza la función de backend que procesa y envía sus correos electrónicos de autenticación.
+
+Por ejemplo:
+
+```text
+Volver a implementar mis plantillas de correo electrónico
+```
+
+## Mejores prácticas de entrega de correo electrónico
+
+Al enviar correos electrónicos de autenticación desde un nuevo dominio, la ubicación de la bandeja de entrada puede tardar en estabilizarse. Los proveedores de bandeja de entrada evalúan la reputación del remitente a lo largo del tiempo en función de la participación, la autenticación y los patrones de envío.
+
+Siga estas prácticas para mejorar la capacidad de entrega y construir una sólida reputación como remitente.
+
+<AccordionGroup>
+<Accordion title="Calienta nuevos dominios gradualmente">
+Los nuevos dominios de correo electrónico no tienen historial de envío. Los proveedores de bandeja de entrada los tratan con cautela porque los spammers suelen utilizar dominios nuevos y los abandonan rápidamente.
+
+La capacidad de entrega inicial puede fluctuar durante los primeros días o semanas. Esto es normal.
+
+La reputación de su dominio se construye gradualmente a medida que los usuarios reales interactúan con correos electrónicos de autenticación, como registros y restablecimiento de contraseñas.
+
+El uso de un subdominio transaccional dedicado ayuda a aislar el tráfico de autenticación y proteger la reputación de su dominio principal.
+
+**Cronología típica**
+
+- Primeros días: los correos electrónicos de prueba pueden llegar a ser spam
+- Primeras semanas: la capacidad de entrega mejora a medida que el tráfico legítimo genera reputación
+- Primeros meses: la reputación se estabiliza con envíos consistentes y comprometidos
+
+**Qué ayuda:**
+
+- Comience a enviar con tráfico de autenticación normal (registros de usuarios, restablecimiento de contraseñas)
+- Deje que el volumen crezca naturalmente a medida que se expande su base de usuarios
+- Mantenga patrones de envío consistentes durante semanas y meses
+- Asegúrese de que los correos electrónicos de autenticación sean esperados y activados por acciones reales del usuario.
+- Marque los correos electrónicos legítimos como "No spam" en su bandeja de entrada
+
+**Qué duele:**
+
+- Grandes picos repentinos en el volumen de correo electrónico de un dominio nuevo
+- Envío de correos electrónicos de prueba masivos inmediatamente después de la configuración
+- Envío inconsistente (intervalos prolongados seguidos de ráfagas repentinas)
+- Cambios provocados por el pánico en los dominios o la identidad del remitente
+
+La reputación se construye automáticamente con un comportamiento de envío coherente y legítimo a lo largo del tiempo.
+</Accordion>
+<Accordion title="Asegúrese de que la autenticación del dominio sea válida">
+La autenticación debe pasar para que los correos electrónicos lleguen a la bandeja de entrada. ZenOpus configura automáticamente `SPF`, `DKIM` y `DMARC` cuando configura su dominio de correo electrónico.
+
+Si los registros DNS se modifican o se configuran mal, la autenticación puede fallar y los correos electrónicos pueden llegar a ser spam.
+
+Confirme siempre que el estado del dominio sea **Verificado** en **Nube → Correo electrónico**.
+</Accordion>
+<Accordion title="Envíe solo correos electrónicos legítimos activados por el usuario">
+Los correos electrónicos de autenticación solo deben activarse mediante acciones reales del usuario, como registrarse o restablecer una contraseña.
+
+Evite generar tráfico artificial con fines de prueba o automatización. Los patrones de tráfico no naturales pueden afectar negativamente a la reputación del dominio.
+</Accordion>
+<Accordion title="Mantenga los correos electrónicos de autenticación estrictamente transaccionales">
+Los correos electrónicos de autenticación deben coincidir claramente con la acción reciente del usuario y explicar por qué se envió el correo electrónico.
+
+**Buenas prácticas**:
+
+- Utilice líneas de asunto sencillas ("Restablecer su contraseña", "Verificar su correo electrónico")
+- Explique claramente lo que el usuario debe hacer.
+- Haga coincidir el correo electrónico con la acción que realizó el usuario
+
+**Evitar**:
+
+- Agregar contenido de marketing o ventas adicionales a los correos electrónicos de autenticación
+- Líneas de asunto engañosas o clickbait
+- Lenguaje promocional en correos electrónicos de autenticación.
+</Accordion>
+<Accordion title="Mantenga una identidad de remitente coherente">
+Utilice un consistente:
+
+- De la dirección
+- Nombre del remitente
+- Dominio
+
+Los cambios frecuentes en la identidad del remitente reducen las señales de confianza con los proveedores de bandeja de entrada.
+</Accordion>
+<Accordion title="Evite el formato que activa el spam">
+Al personalizar plantillas de correo electrónico:
+
+**Hacer**:
+
+- Utilice líneas de asunto claras y descriptivas
+- Mantenga el formato simple y limpio
+- Utilice una proporción equilibrada de texto e imagen
+- Incluya su marca y una dirección de remitente reconocible
+- Asegúrese de que los enlaces en el correo electrónico coincidan con su dominio de envío siempre que sea posible
+
+**No**:
+
+- Utilice TODO EN MAYÚSCULAS en las líneas de asunto
+- Añadir puntuación excesiva (!!!)
+- Crear líneas de asunto engañosas
+- Utilice diseños con muchas imágenes
+- Enlace a dominios no relacionados o que no coinciden
+
+Los proveedores de bandeja de entrada buscan coherencia entre el dominio del remitente y los dominios utilizados en los enlaces. Si su correo electrónico se envía desde `yourdomain.com`, lo ideal es que los enlaces dentro del correo electrónico apunten a `yourdomain.com` o sus subdominios. Los dominios no coincidentes se utilizan comúnmente en ataques de phishing y pueden activar el filtrado de spam.
+
+El formato claro y predecible y la alineación del dominio mejoran la confianza y el compromiso.
+</Accordion>
+<Accordion title="Supervisar las tasas de rebote y las quejas">
+Las altas tasas de rebote dañan la reputación del remitente.
+
+Utilice **Análisis y registros** para monitorear:
+
+- Enviado
+- Entregado
+- Rebotado
+
+Los rebotes permanentes causados por direcciones no válidas o mal escritas son especialmente dañinos. El envío repetido a direcciones no válidas puede reducir la ubicación de la bandeja de entrada.
+
+Si las tasas de rebote aumentan:
+
+- Revisar cómo se recopilan las direcciones de correo electrónico
+- Validar entradas al registrarse
+- Evite reintentar entregas fallidas repetidamente
+
+Las quejas de spam también afectan negativamente a la reputación. Siempre se deben esperar y explicar claramente los correos electrónicos de autenticación.
+</Accordion>
+<Accordion title="Limitar las pruebas internas">
+La opción **Enviar prueba** en **Nube → Correo electrónico** es útil para la validación, pero limita las pruebas.
+
+**Por qué esto es importante**:
+
+- Los proveedores de bandeja de entrada evalúan las señales de participación de todos los correos electrónicos que envía
+- Los correos electrónicos de prueba repetidos a la misma dirección crean patrones de tráfico artificiales
+- Rebotar correos electrónicos de prueba a direcciones falsas daña su reputación
+
+**Mejor enfoque**:
+
+- Envíe algunos correos electrónicos de prueba a usted mismo o a su equipo.
+- Utilice direcciones de correo electrónico reales que usted controle
+- Evite enviar grandes cantidades de correos electrónicos de prueba
+</Accordion>
+<Accordion title="Si los correos electrónicos llegan al spam">
+Si los correos electrónicos de autenticación están marcados como spam:
+
+1. Confirme que el estado del dominio sea **Verificado**
+1. Asegúrese de que los registros DNS estén configurados correctamente
+1. Revisar las líneas de asunto y el contenido
+1. Consulta las tasas de rebote en **Análisis y registros**
+1. Reducir los picos repentinos en el volumen de envío
+1. Sea paciente. Los nuevos dominios necesitan tiempo para generar confianza con los proveedores de bandeja de entrada
+
+La capacidad de entrega mejora con un comportamiento de envío coherente y legítimo a lo largo del tiempo.
+</Accordion>
+<Accordion title="Fomentar señales de participación positivas">
+Los proveedores de bandeja de entrada consideran el compromiso al evaluar la reputación del remitente.
+
+Los correos electrónicos de autenticación generan naturalmente señales positivas cuando los usuarios:
+
+- abre el correo electrónico
+- Haga clic en el enlace de verificación o restablecimiento
+- Completar la acción prevista.
+
+Los mensajes claros y los flujos esperados aumentan la participación y mejoran la ubicación de la bandeja de entrada a largo plazo.
+</Accordion>
+<Accordion title="Comprender los algoritmos del proveedor de la bandeja de entrada">
+Los proveedores de bandeja de entrada no comparten públicamente sus criterios de filtrado de spam (para evitar que los spammers jueguen con el sistema). Sin embargo, generalmente evalúan:
+
+- **Autenticación del remitente**: ¿Están `SPF`, `DKIM` y `DMARC` configurados correctamente? (ZenOpus maneja esto automáticamente)
+- **Reputación del remitente**: ¿Cuál es su historial de rebotes, quejas e interacción?
+- **Calidad del contenido**: ¿Están claras las líneas de asunto? ¿El formato está limpio? ¿Los enlaces coinciden con su dominio?
+- **Señales de interacción**: ¿Los usuarios abren correos electrónicos? ¿Hacer clic en enlaces? ¿Responder? O marcarlos como spam
+- **Patrones de envío**: ¿Estás enviando de forma constante? ¿O en ráfagas repentinas?
+
+Piense: "¿Qué haría un phisher?" Entonces haz lo contrario. Los proveedores de bandeja de entrada quieren proteger a sus usuarios, así que demuestre en cada paso que es un remitente legítimo y sin intenciones maliciosas.
+</Accordion>
+</AccordionGroup>
+
+## Solución de problemas
+
+<AccordionGroup>
+<Accordion title="El dominio de correo electrónico está atascado en &quot;Verificar&quot;">
+Posibles causas:
+
+- Los registros DNS no se propagan completamente
+- `NS` delegación incorrecta
+- Falta el registro de verificación `TXT`
+- DNS configurado en un nivel de dominio incorrecto
+
+**Qué hacer:**
+
+- Vuelva a verificar los registros DNS exactos que se muestran en **Nube → Correo electrónico**
+- Confirmar que los registros se agregaron al dominio raíz correcto
+- Espere hasta 48 horas para la propagación.
+- Reintentar la verificación
+</Accordion>
+<Accordion title="El estado del dominio se muestra sin conexión">
+Esto significa que los registros DNS requeridos se cambiaron, eliminaron o expiraron después de la verificación.
+
+**Qué hacer:**
+
+- Revisar registros DNS en **Nube → Correo electrónico**
+- Restaurar registros faltantes `NS` o `TXT`
+- Vuelva a verificar el dominio
+</Accordion>
+<Accordion title="Los correos electrónicos no se envían.">
+Comprobar:
+
+- El dominio de correo electrónico está vinculado a su proyecto.
+- El estado del dominio es **Verificado**
+- Los correos electrónicos están habilitados para el proyecto.
+- La autenticación en la nube está habilitada
+- Estás activando un tipo de correo electrónico de autenticación compatible
+
+Utilice **Enviar prueba** en una pestaña de plantilla y verifique **Análisis y registros** para detectar errores de entrega o rebotes.
+</Accordion>
+<Accordion title="Altas tasas de rebote en análisis">
+Causas comunes:
+
+- Direcciones de correo electrónico no válidas
+- Errores tipográficos durante el registro
+- Reintentos repetidos a direcciones no válidas
+
+Valide la entrada de correo electrónico al registrarse y evite volver a intentar rebotes duros.
+</Accordion>
+<Accordion title="Los correos electrónicos de prueba llegan al spam">
+Esto es común para dominios recién aprovisionados.
+
+Evite enviar grandes volúmenes de correos electrónicos de prueba internos. Permita que los correos electrónicos orgánicos activados por los usuarios generen reputación con el tiempo.
+</Accordion>
+<Accordion title="Los cambios en mi plantilla de correo electrónico no se muestran">
+Si editó archivos de plantilla pero los usuarios aún reciben versiones antiguas:
+
+- Asegúrese de que la función `auth-email-hook` se haya vuelto a implementar
+- Pídale a ZenOpus que vuelva a implementar sus plantillas de correo electrónico
+
+Los cambios de plantilla solo entran en vigor después de la redistribución.
+</Accordion>
+<Accordion title="Utilice herramientas externas para investigar problemas de entregabilidad">
+Si los correos electrónicos llegan constantemente a la categoría de spam o son rechazados, puede utilizar las siguientes herramientas para realizar un diagnóstico más profundo.
+
+Estas herramientas son opcionales y más útiles para remitentes de mayor volumen.
+
+- [Herramientas de Google Postmaster](https://postmaster.google.com/)  
+Vea la reputación del remitente, las tasas de spam y la alineación de la autenticación para los destinatarios de Gmail.
+- [Centro de remitentes de Yahoo](https://senders.yahooinc.com/)  
+Supervise las tasas de quejas y la reputación del remitente en las bandejas de entrada de Yahoo.
+- [Búsqueda en la lista de bloqueo de Spamhaus](https://check.spamhaus.org/)  
+Compruebe si su dominio, dirección IP o URL de correo electrónico aparecen en las principales listas de bloqueo.
+- [Navegación segura de Google](https://transparencyreport.google.com/safe-browsing/search)  
+Pruebe los enlaces utilizados en sus correos electrónicos para asegurarse de que no estén marcados como inseguros.
+
+Estas herramientas ayudan a diagnosticar problemas de reputación o listas de bloqueo que pueden afectar la ubicación de la bandeja de entrada.
+</Accordion>
+</AccordionGroup>
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Qué son los correos electrónicos de autenticación en ZenOpus?">
+Los correos electrónicos de autenticación permiten que su aplicación ZenOpus Cloud envíe correos electrónicos relacionados con la cuenta, como confirmaciones de registro, restablecimientos de contraseña, enlaces mágicos, invitaciones, confirmaciones de cambios de correo electrónico y códigos de reautenticación desde su propio dominio en lugar del remitente de autenticación ZenOpus Cloud predeterminado.
+
+Cloud Auth activa automáticamente estos correos electrónicos cuando los usuarios realizan acciones relacionadas con la seguridad.
+</Accordion>
+<Accordion title="¿Los correos electrónicos de autenticación son lo mismo que los correos electrónicos transaccionales?">
+Los correos electrónicos de autenticación son un subconjunto de correos electrónicos transaccionales. Todos los correos electrónicos de autenticación son transaccionales, pero no todos los correos electrónicos transaccionales son correos electrónicos de autenticación.
+
+Correos electrónicos Support **solo correos electrónicos de autenticación**.
+</Accordion>
+<Accordion title="¿Puedo enviar correos electrónicos de marketing?">
+No. Solo se admiten correos electrónicos de autenticación (confirmaciones de registro, restablecimiento de contraseñas, enlaces mágicos, invitaciones, cambios de correo electrónico y reautenticación).
+
+Por el momento no se admiten correos electrónicos de marketing, boletines informativos, confirmaciones de pedidos y otros correos electrónicos transaccionales sin autenticación.
+</Accordion>
+<Accordion title="¿Los correos electrónicos requieren ZenOpus Cloud?">
+Sí. Los correos electrónicos requieren ZenOpus Cloud y se integran con Cloud Auth para enviar correos electrónicos de autenticación.
+</Accordion>
+<Accordion title="¿Necesito un dominio web personalizado para usar un dominio de correo electrónico?">
+No. Su dominio web personalizado controla dónde está alojada su aplicación. Un dominio de correo electrónico personalizado controla desde qué dominio se envían sus correos electrónicos.
+
+Estas son configuraciones separadas porque el alojamiento web y la entrega de correo electrónico utilizan infraestructura y registros DNS diferentes.
+
+Puede utilizar un dominio raíz completamente diferente para enviar correos electrónicos siempre que controle su DNS. Sin embargo, se recomienda utilizar un dominio que se alinee con la marca de su producto para aumentar la confianza del usuario y la capacidad de entrega.
+
+Alojar su aplicación en un dominio personalizado no configura automáticamente el envío de correo electrónico.
+</Accordion>
+<Accordion title="¿Puedo utilizar un subdominio para enviar correos electrónicos?">
+Sí. ZenOpus crea automáticamente un subdominio transaccional como `notify.yourdomain.com` para la entrega.
+
+Opcionalmente, puede mostrar los correos electrónicos como provenientes de su dominio raíz mientras la entrega se realiza a través del subdominio detrás de escena.
+
+Se recomienda utilizar un subdominio de correo electrónico dedicado porque ayuda a proteger la reputación de su dominio raíz.
+</Accordion>
+<Accordion title="¿Necesito un proveedor de correo electrónico externo como SendGrid o Resend?">
+No. ZenOpus administra la verificación del dominio, la configuración de DNS, los registros de autenticación como `SPF`, `DKIM` y `DMARC`, y la infraestructura de entrega. No es necesario administrar claves API ni cuentas de proveedores de correo electrónico de terceros.
+</Accordion>
+<Accordion title="¿Qué son SPF, DKIM y DMARC? ¿Necesito configurarlos?">
+`SPF`, `DKIM` y `DMARC` son estándares de autenticación de correo electrónico que ayudan a los proveedores de bandeja de entrada a verificar que sus correos electrónicos sean legítimos y no falsificados.
+
+Cuando envías un correo electrónico, proveedores como Gmail o Outlook comprueban que:
+
+- El correo electrónico está autorizado para ser enviado desde su dominio.
+- El mensaje no ha sido alterado en tránsito.
+- El propietario del dominio ha definido una política para manejar correos electrónicos sospechosos.
+
+Si la autenticación falla, los correos electrónicos pueden marcarse como spam, rechazarse o dañar la reputación de su dominio.
+
+ZenOpus configura y mantiene automáticamente:
+
+- **SPF (Marco de políticas del remitente):** Autoriza qué servidores pueden enviar correo electrónico para su dominio
+- **DKIM (correo identificado con claves de dominio):** firma criptográficamente los correos electrónicos para evitar la manipulación
+- **DMARC (autenticación, informes y conformidad de mensajes basados en dominio):** Define cómo los proveedores manejan la autenticación fallida y protege contra la suplantación de identidad.
+
+No es necesario configurar manualmente estos registros. ZenOpus los configura durante la verificación del dominio y los monitorea continuamente. Si los registros de autenticación se modifican, eliminan o caducan, se le notificará para que puedan restaurarse.
+</Accordion>
+<Accordion title="¿Cuántos correos electrónicos de autenticación se incluyen por mes?">
+Cada Workspace pagado incluye **50,000 correos electrónicos de autenticación por mes** sin costo adicional.
+
+El uso se calcula en todo el Workspace.
+
+Los correos electrónicos adicionales se facturan a **$1 por cada 1000 correos electrónicos**.
+</Accordion>
+<Accordion title="¿Puedo usar correos electrónicos en el plan gratuito?">
+No. Los correos electrónicos están disponibles **solo en planes pagos**. Los planes Free utilizan el remitente de autenticación ZenOpus Cloud predeterminado.
+</Accordion>
+<Accordion title="¿Cuánto tiempo lleva la verificación de DNS?">
+Los cambios de DNS normalmente se propagan en unas pocas horas, pero pueden tardar hasta 48 horas.
+
+Puede verificar el estado del dominio en **Nube → Correo electrónico**. El estado se actualiza automáticamente una vez que se completa la verificación.
+</Accordion>
+<Accordion title="¿Por qué mis correos electrónicos van a ser spam?">
+Los nuevos dominios de correo electrónico comienzan sin reputación de envío.
+
+Si los correos electrónicos de autenticación llegan a ser spam:
+
+• Confirme que el estado del dominio sea **Verificado**  
+
+ • Asegúrese de que los registros DNS no hayan cambiado  
+
+ • Evite picos repentinos en el volumen de envío  
+
+ • Evite el formato que genera spam  
+
+ • Consulta las tasas de rebote en **Análisis y registros**
+
+La capacidad de entrega mejora con el tiempo con una actividad de usuario consistente y legítima.
+</Accordion>
+<Accordion title="¿Puedo personalizar las plantillas de correo electrónico?">
+Sí. Puedes personalizar:
+
+- Copiar y tono
+- Colores de la marca
+- Diseño y estructura
+- Logotipos e imágenes
+- Líneas de asunto
+
+Puede pedirle a ZenOpus que actualice las plantillas o editarlas directamente en `supabase/functions/_shared/email-templates/`.
+
+Las variables de autenticación requeridas y los enlaces de devolución de llamada deben permanecer intactos.
+
+El fondo exterior del cuerpo del correo electrónico debe permanecer blanco (`#ffffff`) para garantizar una representación coherente en todos los clientes de correo electrónico. Los componentes internos pueden usar los colores de su marca.
+</Accordion>
+<Accordion title="¿Qué pasa si desactivo los correos electrónicos?">
+Si los correos electrónicos están deshabilitados para un proyecto, los correos electrónicos de autenticación continúan enviándose utilizando el remitente de autenticación predeterminado ZenOpus Cloud en lugar de las plantillas de su marca.
+</Accordion>
+<Accordion title="¿Qué sucede si elimino un dominio de correo electrónico?">
+Eliminar un dominio de correo electrónico es una acción **Workspace que afecta a todo**.
+
+Todos los proyectos que utilicen ese dominio recurrirán inmediatamente al remitente de autenticación predeterminado ZenOpus Cloud.
+</Accordion>
+</AccordionGroup>

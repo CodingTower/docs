@@ -1,0 +1,462 @@
+---
+title: "ビデオチュートリアル"
+description: "ZenOpus を使用して、カロリー トラッカー、CRM、フィードバック ツール、ランディング ページ、AI 搭載アプリを構築するためのステップバイステップのチュートリアルをご覧ください。"
+---
+## ZenOpus へようこそ
+
+<Accordion title="ZenOpus 101">
+<iframe src="https://www.youtube.com/embed/l2n9rpuqvdw?si=huqUvQcNK1tKTMVL" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="ZenOpus の基本を始める">
+</Step>
+<Step title="インターフェイスとコントロールを理解する">
+</Step>
+<Step title="編集機能とバージョン履歴の操作">
+</Step>
+<Step title="認証とユーザー管理の実装">
+</Step>
+<Step title="Supabase データベースとエッジ機能の使用">
+</Step>
+<Step title="GitHub の統合とコード管理">
+</Step>
+<Step title="プロジェクトとコミュニティからのフィードバックを共有する">
+</Step>
+<Step title="追加のリソースとテンプレートを調べる">
+</Step>
+</Steps>
+</Accordion>
+
+## ZenOpus チュートリアル
+
+<AccordionGroup>
+<Accordion title="AI を活用したカロリー追跡 Web アプリを構築する">
+<iframe src="https://www.youtube.com/embed/c0zhLzcVJRI?si=7vcZf5eoxIobOxdE" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+このチュートリアルでは、ZenOpus を使用して AI を活用したカロリー追跡アプリを作成し、認証、美しいレスポンシブ デザイン、OpenAI の統合、運用環境への展開を完了する方法を説明します。
+
+<Steps>
+<Step title="財団の設立">
+ZenOpus プロジェクトの基礎は適切なプロンプトです。このアプリの例は次のとおりです。
+
+```text
+次の機能を備えたカロリー追跡アプリを作成します。
+ランディング ページ、ダッシュボード、食事ページ。
+GPT-4 による分析による食事の説明または画像の入力フィールド。
+毎日の進捗状況の追跡と、認証とデータベース管理のための Supabase との統合。
+美しくモバイル対応の UI。
+```
+
+ZenOpus が UI スケルトンを生成したら、次のようにします。
+
+- ナビゲーションの設定とランディング ページのデザインを確認します。
+- プロンプトを繰り返してレイアウトを調整し、モバイルの応答性を確保します。
+
+<Note>
+UI から始めることを明確にしてください。 ZenOpus は、タスクが明確なステップに分割されている場合に最適に機能します。たとえば、プロンプトの早い段階で、ナビゲーション、ページ構造、デザイン テーマの概要を説明します。
+</Note>
+</Step>
+<Step title="UIのデザイン">
+ZenOpus は、建物の建設に似た段階的なアプローチを強調しています。
+
+- **足場**から始める: アプリの構造 (ユーザー エクスペリエンス フロー、ページ レイアウトなど) を計画します。
+- **最初のレイヤー** を追加します。基本的なデザイン要素を含む空のページを作成します。
+- **詳細**を調整する: 色、アニメーション、モバイルの応答性を追加します。
+
+<Note>
+Figma に事前に作成されたデザインがある場合は、スクリーンショットを撮って ZenOpus プロンプトに含めることができます。高解像度の画像を提供すると、より良い結果が得られます。
+</Note>
+</Step>
+<Step title="バックエンドと認証のために Supabase を統合する">
+UI の準備ができたら、バックエンド機能を追加します。
+
+1. **Supabase****アカウント**を設定し、プロジェクトを作成します。
+1. 「Connect Supabase」ボタンを押して、ZenOpus にリンクします。
+1. データ ストレージの場合、ZenOpus は SQL テーブルを生成します。たとえば:
+
+- ユーザー情報を保存する `profiles` テーブル。
+- 毎日のエントリを追跡するためにユーザーにリンクされた `meals` テーブル。
+
+<Note>
+Supabase で行レベルのセキュリティ (RLS) ルールを使用して、ユーザーのプライバシーを確保します。 ZenOpus はこれを自動的に処理します。
+</Note>
+</Step>
+<Step title="食事分析のための OpenAI の統合">
+このアプリの魅力はその AI 機能にあります。食事を分析するには:
+
+1. 開発者ダッシュボードから OpenAI API キーを取得します。
+1. 食事の説明や画像を分析するには GPT-4 を使用します。
+1. 不正アクセスを防ぐために、API キーが Edge 機能に安全に保存されていることを確認します。
+
+**含める機能:**
+
+- **食事の説明を分析**: 栄養価 (カロリー、タンパク質、炭水化物、脂肪) を推定します。
+- **画像認識**: 食事の写真をアップロードすると、GPT-4 が説明と栄養データを抽出します。
+
+<Note>
+*Pro OpenAI 統合のヒント:*
+
+- 構造化された応答には **関数呼び出し** を使用し、データがデータベースに挿入できるように正しくフォーマットされていることを確認します。
+- 「卵 2 個」などの単純な食事エントリを分析するようにアプリに依頼して、機能をテストします。
+</Note>
+</Step>
+<Step title="Stripe を使用した決済の実装">
+アプリを収益化するには、サブスクリプションベースの支払いを追加します。
+
+1. Stripe アカウントを作成し、製品を設定します (例: 月額 12 ドルの「スタンダード プラン」)。
+1. API キーと製品価格 ID を追加して、Stripe を ZenOpus と統合します。
+1. 料金を支払っていないユーザーをランディング ページにリダイレクトします。メインアプリには有料ユーザーのみがアクセスできます。
+
+<Note>
+*追加のヒント:*
+
+- Stripe の **カスタマー ポータル** を有効にして、ユーザーがサブスクリプションを管理できるようにします (支払い方法のキャンセルや更新など)。
+- 提供されたテスト用クレジット カードの詳細を使用して、Stripe のテスト モードで支払いをテストします。
+</Note>
+</Step>
+<Step title="テストとデバッグ">
+エラーは開発の自然な一部分であり、ZenOpus によりデバッグが簡素化されます。
+
+- ビルド エラーが発生するたびに、**「修復を試みる」** ボタンを使用してください。
+- バックエンドの問題については、Supabase ログで詳細なエラー レポートを確認してください。
+- Netlify にデプロイする場合は、デプロイメント ログでビルドの問題を確認してください。 ZenOpus とログを共有して、調整された修正を取得します。
+
+<Note>
+行き詰まった場合は、ZenOpus の「元に戻す」機能を使用して以前のバージョンに戻してください。これにより、クレジットと時間を節約できます。
+</Note>
+</Step>
+<Step title="アプリのデプロイ">
+アプリの準備ができたら、ZenOpus または Netlify を使用してデプロイします。
+
+1. ZenOpus のデプロイ機能を使用して、デフォルトのドメインでアプリをホストします。
+1. カスタム ドメインの場合:
+
+- GitHub リポジトリを Netlify に接続します。
+- ドメインを購入し、Netlify にリンクするように DNS 設定を構成します。
+
+<Note>
+ブランディングとSEOを向上させるために、アプリのメタデータ（ファビコン、メタタグ、OG画像）を更新します。
+</Note>
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Groq API を使用して SaaS ランディング ページを構築する">
+<iframe src="https://www.youtube.com/embed/S0k8FOmqjog?si=935gSBuflrRbljlF" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+このチュートリアルでは、ZenOpus、21st.dev、Supabase を使用して、アニメーション、API 統合、シームレスな展開を備えた、AI を活用したメール アシスタント用の完全にインタラクティブな見事なランディング ページを作成する方法を説明します。
+
+- AI を活用したデザインと UI の強化
+- アニメーションとインタラクティブ要素の追加
+- AI 電子メール拡張機能と Groq API の統合
+- 再送信を使用したお問い合わせフォームの設定
+- ZenOpus 起動を使用したページのデプロイ
+</Accordion>
+<Accordion title="フィードバック ツールを構築する">
+このセッションでは、迅速に反復して実稼働可能な結果を提供する ZenOpus の機能を紹介しました。
+
+<iframe src="https://www.youtube.com/embed/tYDqBMilHkM?si=6eD-0GoQEywncOqQ" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="認証">
+- ユーザーは、Supabase 統合を使用してサインアップ、ログイン、プロファイルの管理を行うことができます。
+- 安全なユーザー セッションにより、カスタマイズされたエクスペリエンスが可能になります。
+</Step>
+<Step title="フィードバックの送信と投票">
+- ユーザーは、タイトル、説明、画像を付けてフィードバックを送信できます。
+- 各フィードバック エントリには投票数が表示され、リアルタイムの賛成投票がサポートされます。
+</Step>
+<Step title="AI サマリーを備えた管理者ダッシュボード">
+- 管理者はすべてのフィードバックを確認し、投票でフィルターし、エントリを並べ替えることができます。
+- AI を活用したサマリーは、OpenAI と Supabase Edge Functions を使用して実用的な洞察を特定します。
+</Step>
+<Step title="ユーザープレゼンスの追跡">
+リアルタイムのプレゼンス インジケーターは、プラットフォーム上のアクティブ ユーザーを示します。
+</Step>
+<Step title="コメント付きの詳細なフィードバック ページ">
+各フィードバック エントリにはディスカッション用の専用ページがあり、チームが効率的に協力して優先順位を付けることができます。
+</Step>
+<Step title="添付ファイル">
+ユーザーは、Supabase のストレージ機能を使用して安全に保存された画像をフィードバックに添付できます。
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="製品化された開発庁を構築する">
+<iframe src="https://www.youtube.com/embed/eZsbfEA-_oI?si=ngagWq3q3Km1jY6J" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+このセッションの目標は、開発者、デザイナー、コンサルタントがサブスクリプション ベースのサービスを提供できるアプリを構築することでした。これは、DesignJoy のようなプラットフォームからインスピレーションを得たビジネス モデルです。
+
+<Steps>
+<Step title="認証とユーザー管理">
+認証は最初に実装された機能であり、ユーザーを管理するための堅牢なフレームワークを設定しました。チームは、アプリをスケーリングする際の問題を防ぐために、認証を早期に統合することの重要性を強調しました。
+
+- ユーザーのサインアップ、ログイン、プロファイル管理のための Supabase の統合。
+- アプリの使いやすさを向上させるための永続的なユーザー セッション。
+</Step>
+<Step title="Stripe サブスクリプションの統合">
+このセッションでは、サブスクリプション管理のために Stripe を統合する方法をデモンストレーションしました。
+
+- ユーザーがさまざまな価格帯にサブスクライブできるようになりました。
+- サブスクリプション ステータスを管理し、有料ユーザーのみがプレミアム機能にアクセスできるようにします。
+</Step>
+<Step title="ダッシュボードとタスク管理">
+- タスクボードとドラッグアンドドロップ機能を備えたユーザー固有のダッシュボード。
+- シームレスなコラボレーションのためのリアルタイムのタスク更新。
+</Step>
+<Step title="AIチャットボット">
+セッションは AI チャットボットの統合で終了し、OpenAI がアプリに動的機能を追加する方法を説明しました。この機能は、仮想アシスタント、コンシェルジュ、またはデータ クエリ インターフェイスとして機能するように拡張できます。
+
+- OpenAI を統合して、ユーザーのクエリにインテリジェントに応答できるチャットボットを提供します。
+- ZenOpus の効率性を示す単一のプロンプトが組み込まれています。
+</Step>
+<Step title="反復的なデバッグと改良">
+チームはリアルタイム デバッグの課題に取り組み、トラブルシューティングに関する貴重な洞察を提供しました。含まれるテクニック:
+
+- コンソール ログとエラー メッセージを使用して問題を特定します。
+- 壊れた状態でスタックすることを避けるために、以前のアプリのバージョンに戻します。
+- ZenOpus の AI を詳細なプロンプトでガイドし、正確な修正を保証します。
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="ZenOpus を使用してアドバイスを求める">
+<iframe src="https://www.youtube.com/embed/IqWfKj4mUIo?si=sIUpyvAuOH9Fu_oe" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+このチュートリアルでは、[ZenOpus](https://zenopus.dev/) の特別ゲスト [Mark Kashef](https://www.youtube.com/@Mark_Kashef) とともに、AI を活用したアプリ開発、プロンプト エンジニアリング、ワークフローの自動化について詳しく説明します。
+
+- 効果的な AI プロンプトを理解する
+- プロンプトエンジニアリングの 4 層
+- メタプロンプトテクニックとベストプラクティス
+- AI ワークフローのデバッグ戦略
+- ZenOpus と Make.com を使用した AI アプリの構築
+- UI デザインのためのビジュアル編集と Tailwind CSS の統合
+</Accordion>
+<Accordion title="Supabase と ZenOpus を使用して Luma Copycat を構築する">
+<iframe src="https://www.youtube.com/embed/-sSOyO0FiPE?si=TCamI0uASRJ2Kh6j" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+このチュートリアルでは、ZenOpus と [Supabase](/jp/integrations/supabase) を使用して Luma スタイルのイベント プラットフォームを構築します – ライブ!
+
+- Supabase と ZenOpus を統合する方法
+- 認証とユーザー管理の設定
+- データベースとリアルタイム コメントの構成
+- パフォーマンスのテストと複数のユーザーの処理
+- ライブデバッグとパフォーマンスの最適化
+</Accordion>
+<Accordion title="AI で強化された Web アプリを構築する">
+<iframe src="https://www.youtube.com/embed/gqsZGxuymTk?si=xwjEwFQCa5p8WVLh" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+このチュートリアルでは、AI で強化されたノーコード ビルダーである ZenOpus を使用して、コードを 1 行も記述せずにフルスタックのジャーナリング アプリを作成する方法を説明します。
+
+- アプリの UI を即座にデザイン
+- デザインをアップロードし、動作するアプリを生成します
+- バックエンドと認証のために Supabase を接続する
+- AI を活用した機能のために GPT-4o を実装する
+- フルスタック アプリを数分でデプロイします。
+</Accordion>
+<Accordion title="再送信を使用したシンプルな CRM の構築">
+<iframe src="https://www.youtube.com/embed/5ZL744_Wxjo?si=qrKlOL_1fAnz7rgc" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+このチュートリアルでは、開発に ZenOpus、データ ストレージに Supabase、電子メールの自動化に [再送信](/jp/integrations/resend) を使用して、シンプルかつ強力な CRM を作成する手順を説明します。
+
+- 電子メール自動化における再送信の仕組み
+- Supabase で認証メールを設定する
+- 管理者ダッシュボードと連絡先管理システムの構築
+- 電子メールテンプレートの作成とカスタマイズ
+- ニュースレターの登録とブロードキャスト電子メール機能の追加
+</Accordion>
+<Accordion title="Web 開発でインタラクティブな要素を構築する">
+<iframe src="https://www.youtube.com/embed/b-O7Ew0Q2ig?si=UPyQQdnualImIP8j" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+ZenOpus の最新アップデートにより、魅力的でインタラクティブな Web エクスペリエンスの構築がさらに簡単になりました。
+
+<Steps>
+<Step title="ビジュアル編集による簡単な UI カスタマイズ">
+ZenOpus への最大のアップグレードの 1 つは、AI クレジットを消費せずに UI 要素を即座に変更できる機能です。次のことができるようになりました。
+
+- プロジェクト上でテキストを直接編集します。
+- ボタンの色とスタイルをリアルタイムで調整します。
+- 画像をシームレスにアップロードして交換します。
+- 要素の上にマウスを置くと、簡単に調整できます。
+
+<Note>
+ユーザーは、AI の介入を必要とせずに、テキストの選択、色の変更、アイコンの交換を簡単に行うことができるため、よりスムーズなデザインの反復プロセスが可能になります。
+</Note>
+</Step>
+<Step title="高度なデバッグと API エラー処理">
+以前は、ユーザーはサードパーティ API 統合エラーに対処する際に課題に直面していました。現在 ZenOpus:
+
+- デバッグを容易にするために、より豊富なエラー メッセージが表示されます。
+- 無関係なポップアップを排除し、重要な問題に集中できるようにします。
+- AI によるエラー検出を有効にして自動修正します。
+
+<Note>
+一般的なポップアップでユーザーを圧倒するのではなく、ZenOpus はエラー コンテキストを AI に直接フィードし、問題にいつ対処する必要があるか、およびその修正方法を判断できるようになりました。
+</Note>
+</Step>
+<Step title="動的な背景とアニメーションの作成">
+ZenOpus は、**p5.js** およびその他のライブラリを使用したアニメーション要素とインタラクティブ要素のシームレスな統合をサポートするようになりました。
+
+#### プロジェクト例: インタラクティブなフラグを備えた旅行代理店の Web サイト
+
+最近のライブ デモでは、次のような旅行代理店のランディング ページを作成する方法が紹介されました。
+
+1. **アニメーション化されたヒーロー セクション**。マウスの操作に応じてフラグが動的に表示され、動きます。
+1. **ユーザーのスクロール位置に基づいて変化するスティッキー スクロール セクション**。
+1. **インタラクティブなホバー効果**。画像がユーザーの動きに反応します。
+
+#### アニメーション効果を実装する方法
+
+これらの効果を作成するには、ユーザーは次の簡単なプロセスに従いました。
+
+- **目的のアニメーションを定義します:**
+
+<Note>
+背景にマウスを置くと遠ざかるフローティング要素をインタラクティブにします。
+</Note>
+
+- **p5.js を使用してエフェクトを生成します:**
+    - 有彩色の煙のパターンを実装します。
+    - 静的な画像を動的な旗のアニメーションに置き換えます。
+- **物理ベースのインタラクションでユーザー エクスペリエンスを向上:**
+    - ユーザーのアクションに基づいて要素を動的に移動させます。
+
+<Note>
+アニメーションが機能しない場合は、ZenOpus の Plan mode を使用してデバッグし、段階的な AI ガイダンスで効果を調整します。
+</Note>
+</Step>
+<Step title="外部ライブラリからのカスタム要素のインポート">
+**21st.dev** を使用すると、ユーザーは事前に構築された UI コンポーネントを ZenOpus プロジェクトにシームレスに統合できるようになりました。
+
+1. ボタンのデザインについては **21st.dev** を参照してください。
+1. AI が生成したプロンプトをコピーします。
+1. これを ZenOpus に貼り付けて、既存のボタンを置き換えます。
+
+このアプローチにより、設計ワークフローが加速され、より洗練された、視覚的に一貫したインターフェイスが可能になります。
+
+<Note>
+これと同じ方法が **motion.dev** からアニメーション プリセットをインポートする場合にも機能し、カスタム コーディングなしで高品質のモーション エフェクトを簡単に追加できるようになります。
+</Note>
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="店員認証、カスタムドメイン、待機リスト">
+<iframe src="https://www.youtube.com/embed/tyAsNwu_xCI?si=VHCGf2IlFRQzVLeD" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+このチュートリアルでは、**ZenOpus** と **Clerk** を使用して **カスタム CRM** (顧客関係管理システム) を構築する手順を説明します。
+</Accordion>
+<Accordion title="ZenOpus と Make を使用してカスタム CRM を構築する方法">
+<iframe src="https://www.youtube.com/embed/zv4vcR7VCAk?si=BgJHeEuti27cbgYt" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+このチュートリアルでは、**ZenOpus** と **Make** を使用して **カスタム CRM** (顧客関係管理システム) を構築する手順を説明します。
+</Accordion>
+<Accordion title="1 時間で 10,000 ドルのランディング ページを構築">
+<iframe src="https://www.youtube.com/embed/VVbC80KgF9E?si=71RW1V8KgpgxTya_" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+</Accordion>
+</AccordionGroup>
+
+## 本物のマイクロ SaaS を構築、ブランド化、立ち上げましょう。
+
+スペイン語をこれほどインタラクティブに学習できることはかつてありませんでした。会話を通じてスペイン語を教えるだけでなく、完全に AI を活用してリアルタイムの音声インタラクション、ダイナミックなコース、視覚的に魅力的なコンテンツを作成するアプリを想像してみてください。このチュートリアルは、クリスチャンとハリーが構築したものを段階的に理解するのに役立ちます。
+
+<AccordionGroup>
+<Accordion title="ステップ 1: コア機能の設計">
+<iframe src="https://www.youtube.com/embed/8QDL9cCIXqU?si=JPHSSBoWO4dXl7vB" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="基礎を築く">
+AI 機能を実装する前に、**ZenOpus** を使用してアプリの **強力な基盤を構築**することに重点を置きました。これには、認証の設定、ダッシュボードの構築、ユーザー管理の実装が含まれます。
+</Step>
+<Step title="認証システム">
+- バックエンド認証用に **Supabase** を統合しました。
+- メールアドレスとパスワードによるサインアップ/ログインが可能になりました。
+- ユーザーの好みと学習の進捗状況を保存するプロファイル システムを作成しました。
+</Step>
+<Step title="ダッシュボードとナビゲーション">
+- ナビゲーション用の直感的なサイドバーを設計しました。
+- チャット、コース、ユーザー設定のセクションを作成しました。
+- レスポンシブ UI を確保し、デバイス間でシームレスなエクスペリエンスを実現します。
+</Step>
+<Step title="ユーザープロファイルとデータストレージ">
+- ユーザーの進行状況を保存するデータベース構造を追加しました。
+- ユーザーが学習設定を調整できるように設計されたプロファイル管理設定。
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="ステップ 2: Replicate を使用した AI を活用した学習機能">
+<iframe src="https://www.youtube.com/embed/eSDhk4VkVLE?si=-JhSjxsKIrPACNOK" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="AI が生成したコース">
+学習をインタラクティブにするために、OpenAI の GPT モデルを使用して AI 主導のコース生成システムを実装しました。仕組みは次のとおりです。
+
+1. ユーザーはトピックを選択します (例: 「バーベキューで尋ねる質問」)。
+1. ZenOpus は OpenAI Edge 関数を呼び出して、**10 の魅力的なスペイン語の質問**を生成します。
+1. ユーザーはクイズに答え、進捗状況を追跡し、回答に対する AI フィードバックを受け取ります。
+</Step>
+<Step title="ユーザーエンゲージメントの強化">
+- **動的に生成される質問**: 各クイズは AI によって生成され、毎回新鮮でユニークなコンテンツが保証されます。
+- **インタラクティブなフィードバック**: AI は、学習を改善するために正解と不正解の説明を提供します。
+- **進捗状況の追跡**: ユーザーはコースを保存して再訪できるため、定着率と実践力が高まります。
+</Step>
+<Step title="Replicate によるビジュアルエンゲージメントの強化">
+視覚的な学習要素を追加するために、**Replicate の Flux Schnell** 画像生成モデルを統合しました。
+
+- **自動化されたコース バナー**: すべてのコースは、トピックに一致する画像を動的に生成します。
+- **視覚的に没入できるエクスペリエンス**: AI 主導のビジュアルにより、ユーザーのエンゲージメントと維持率が向上します。
+- **高速画像処理**: Replicate の API を使用すると、エクスペリエンスを低下させることなく画像がリアルタイムで生成されます。
+</Step>
+<Step title="リアルタイムの音声会話">
+アプリ開発における大きなマイルストーンは、OpenAI のリアルタイム WebRTC API を使用した **リアルタイムのスペイン語会話練習** の追加でした。
+
+- **インタラクティブ AI 講師**: ユーザーは、スペイン語で動的に応答する AI と直接話すことができます。
+- **発音支援**: AI がリアルタイムで修正と提案を提供します。
+- **シームレスな会話**: 自然な会話の流れにより、人間の家庭教師と対話しているように感じられます。
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="ステップ 3: アプリのブランディング">
+<iframe src="https://www.youtube.com/embed/fILdgFNqvmU?si=_Xg-XTMTQuBN7bE1" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="コンセプトと対象者の設定">
+ブランド化する前に、私たちは中核となる目標を次のように定義しました。
+
+- **AI を活用したチャット** でリアルタイムのスペイン語会話が可能。
+- **自動化されたクイズ**で簡単な練習セッションが可能。
+- **構造化された学習** レッスンの保存と進捗状況の追跡。
+
+これはブランディングの選択を形作るのに役立ち、アプリの目的と確実に一致するようになりました。
+</Step>
+<Step title="命名とドメインの選択">
+私たちは、**学習の旅**を反映した短くて記憶に残る名前を目指しました。 AI を使用してブレインストーミングを行い、**Ruta** (スペイン語で「ルート」または「道」を意味) にたどり着きました。
+
+#### プロセス:
+
+- **AI を使用してキャッチーなスペイン語の単語について名前のブレインストーミング**を行いました。
+- **「Camino」や「Verbo」などのオプションをテストしました** が、「Ruta」が際立っていました。
+- **ドメインの空き状況を確認**し、すぐに**rutaap​​p.com**を確保しました。
+</Step>
+<Step title="ビジュアルアイデンティティの作成">
+私たちはすぐにブランドをデザインしました。
+
+- **ロゴ**: デザイン ライブラリから取得され、Figma で編集された **コンパスをテーマにした**アイコン。
+- **フォント ペアリング**: ロゴには **太字でモダンな書体**、アプリ インターフェイスには読みやすい UI フォントを使用しました。
+- **カラー パレット**: 旅行と発見を象徴する **Tailwind CSS ブルー** スキーム。
+- **スタイリングのインスピレーション**: **ネオブルータリズム**を実験し、コントラスト、影、境界線を微調整して、視覚的に魅力的な UI を作成しました。
+</Step>
+<Step title="一貫したユーザーエクスペリエンスの構築">
+ZenOpus を使用して、アプリ全体で **視覚的な一貫性** を確保しました。
+
+- **ランディング ページ**: AI によって生成された、ダイナミックで魅力的なヒーロー セクション。
+- **ダッシュボードとコース ページ**: ブランドのアイデンティティに合わせたスタイル。
+- **反復的なスタイリング**: **ネオ ブルータリスト** 要素を適用して、さまざまなデザイン スタイルをテストします。
+- **ユーザー フロー テスト**: サインアップからリアルタイム チャットまでのシームレスなナビゲーションを保証します。
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="ステップ 4: 最終調整、大きな賭け、ライブ開始">
+<iframe src="https://www.youtube.com/embed/12013xnxYzM?si=4qOqTgcgO_IY_G1P" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+</Accordion>
+</AccordionGroup>
+
+## コミュニティチュートリアル
+
+ZenOpus コミュニティ チュートリアルを [こちら](https://www.youtube.com/playlist?list=PLbVHz4urQBZkJ6WMXlIGc3NGsufrleogY) で確認してください。

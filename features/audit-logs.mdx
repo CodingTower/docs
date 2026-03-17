@@ -1,0 +1,92 @@
+---
+title: "Audit logs"
+description: "Monitor workspace activity with Enterprise audit logs. Filter by action, member, or time range to review events such as membership changes, project actions, authentication events, and workspace settings or configuration changes."
+---
+Audit logs provide a searchable audit trail of activity in your workspace. They show who performed an action, when it happened, what changed, and which resource was affected.
+
+Use audit logs to review workspace settings and configuration changes, track access updates, and investigate unexpected behavior. Audit logs can also support security and compliance workflows when needed.
+
+- **Available on:** Enterprise plans
+- **Access:** Workspace admins and owners
+- **Location:** Settings → Workspace → Audit logs
+
+## Audit log events
+
+Workspace audit logs include events across categories such as:
+
+| Category | Example events |
+| --- | --- |
+| Workspace membership | Member added, removed, or role updated |
+| Workspace management | Workspace settings updated Workspace deleted |
+| Workspace groups | Group created, updated, or deleted Group members added or removed |
+| Identity and access | Verified domain added or removed SSO provider added, updated, or removed SCIM provisioning actions |
+| Secrets and integrations | GitHub or Slack app installed or removed on workspace Custom MCP server created or deleted Secrets changed |
+| Projects | Project created, deleted, unpublished, or moved Collaborators added, joined, removed, or their role updated Custom domains created or deleted Supabase project or Shopify store connected or disconnected Prompt sent |
+| Authentication | SSO workspace access |
+
+## Audit log table
+
+By default, the page shows logs for **All actions**, **All members**, and **All time**. The total number of matching logs appears in the top right of the table.
+
+The table is organized into four columns:
+
+| Column | Description |
+| --- | --- |
+| Timestamp | When the event occurred, such as 4 minutes ago or about 11 hours ago . Hover to see the exact date and time. |
+| Actor | The member who performed the action. Clicking the member’s name opens a popover showing their User ID , IP address , and User Agent . From this popover, you can copy these details or filter the table by that user. |
+| Action | The type of activity, displayed as a label such as Prompt sent , Workspace updated , Member added , or Project created . |
+| Resource | The affected object, such as a project, workspace, or user. Some resources are clickable. For example, clicking a project name opens that project. |
+
+Click any row to expand it and see structured JSON details describing the event. This includes the metadata associated with that action, such as message IDs for prompt activity or specific fields that were updated in a workspace setting.
+
+## Filtering audit logs
+
+You can combine all three filters to focus on specific activity:
+
+- **All actions** lets you filter by a specific action type, such as `Member added`, `Member removed`, `Workspace updated`, `Project created`, or `Prompt sent`.
+- **All members** lets you select a workspace member using the searchable member picker.
+- **Time range** includes presets such as **All time**, **Last 7 days**, **Last 30 days**, **Last 90 days**, **This month**, and **Last month**.
+
+## How to use audit logs
+
+A typical workflow:
+
+1. Set a relevant **time range**.
+1. Filter by **member** to review activity from a specific user.
+1. Filter by **action type** to narrow results to a specific kind of change.
+1. Expand entries to inspect the full JSON details.
+1. Open affected projects or jump to related messages to review context.
+1. Use the member popover to copy details such as user ID, IP address, or user agent if needed.
+
+## Audit log data retention
+
+Logs are retained for 13 weeks, or approximately 90 days. Events older than that are automatically removed.
+
+<Note>
+Logs before February 26, 2026 may be incomplete.
+</Note>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Who can access audit logs?">
+Audit logs are available on Enterprise plans and are visible to workspace owners and admins.
+</Accordion>
+<Accordion title="How long are audit logs retained?">
+Audit logs are retained for 13 weeks, or approximately 90 days. Events older than that are automatically removed.
+</Accordion>
+<Accordion title="Can I export audit logs?">
+Audit logs do not currently support self-serve export.
+
+Audit log entries can be expanded to view structured JSON details, which can be copied if needed.
+
+If you need to integrate audit logs with a SIEM or external monitoring system, contact your account team to discuss enterprise integration options.
+</Accordion>
+<Accordion title="Why don’t I see audit logs?">
+If audit logs are not available or do not appear as expected:
+
+- Confirm your workspace is on an Enterprise plan.
+- Confirm your role includes permission to view audit logs. You must be a workspace admin or owner.
+- Clear filters and try a broader time range.
+</Accordion>
+</AccordionGroup>

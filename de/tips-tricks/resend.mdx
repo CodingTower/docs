@@ -1,0 +1,431 @@
+---
+title: "Integration erneut senden"
+description: "Senden Sie Transaktions-E-Mails, Bestätigungsnachrichten und Newsletter mit Resend mit Supabase Edge Functions."
+---
+## Was ist erneut senden?
+
+[Erneut senden](https://resend.com/emails) ist eine E-Mail-API, die für Entwickler entwickelt wurde. Der Schwerpunkt liegt auf hoher Zustellbarkeit, einfacher Integration und einem sauberen Entwicklererlebnis beim Versenden von Transaktions- und Marketing-E-Mails.
+
+## Schritt-für-Schritt-Anleitung
+
+<iframe src="https://www.youtube.com/embed/5ZL744_Wxjo?si=qrKlOL_1fAnz7rgc" title="YouTube-Videoplayer" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+Dieses Tutorial führt Sie durch den Aufbau eines voll funktionsfähigen CRM in weniger als einer Stunde – komplett mit Lead-Erfassung, E-Mail-Bestätigung, Newsletter-Abonnement und einem internen Admin-Dashboard. Sie verwenden:
+
+- **ZenOpus**: zum Generieren der Front-End- und Backend-Logik.
+- **Supabase**: zur sicheren Datenspeicherung und Authentifizierung.
+- **Erneut senden**: zum Automatisieren und Verfolgen von Transaktions- und Marketing-E-Mails.
+
+Fangen wir an.
+
+<Steps>
+<Step title="Erstellen Sie eine Landing Page mit einem Kontaktformular">
+Nutzen Sie die KI von ZenOpus, um schnell eine Landingpage für Ihr Produkt oder Ihre Dienstleistung zu erstellen.
+
+**Anleitung:**
+
+<Steps>
+<Step title="Neues ZenOpus-Projekt">
+Erstellen Sie ein neues ZenOpus-Projekt.
+</Step>
+<Step title="Eingabeaufforderung:">
+<Info>
+Erstellen Sie eine SaaS-Landingpage mit einem Kontaktformular, in dem Name, E-Mail und Nachricht erfasst werden.
+</Info>
+
+![SaaS-Landingpage mit einem Kontaktformular, das Namens-, E-Mail- und Nachrichtenfelder sammelt](/images/zenopus/tips-tricks/resend/landing-page-zenopus-project.png)
+</Step>
+<Step title="Überprüfen Sie den generierten Code">
+Überprüfen Sie den generierten Code oder verwenden Sie das Auswahltool, um Elemente zu optimieren.
+</Step>
+<Step title="Eingabevalidierung hinzufügen">
+Fügen Sie für eine bessere Benutzererfahrung eine Eingabevalidierung und ein `message`-Feld hinzu.
+
+![Kontaktformular mit Eingabevalidierung mit Namens-, E-Mail- und Nachrichtenfeldern](/images/zenopus/tips-tricks/resend/email-resend-form.png)
+</Step>
+</Steps>
+</Step>
+<Step title="Neues ZenOpus-Projekt">
+Erstellen Sie ein neues ZenOpus-Projekt.
+</Step>
+<Step title="Eingabeaufforderung:">
+<Info>
+Erstellen Sie eine SaaS-Landingpage mit einem Kontaktformular, in dem Name, E-Mail und Nachricht erfasst werden.
+</Info>
+
+![SaaS-Landingpage mit einem Kontaktformular, das Namens-, E-Mail- und Nachrichtenfelder sammelt](/images/zenopus/tips-tricks/resend/landing-page-zenopus-project.png)
+</Step>
+<Step title="Überprüfen Sie den generierten Code">
+Überprüfen Sie den generierten Code oder verwenden Sie das Auswahltool, um Elemente zu optimieren.
+</Step>
+<Step title="Eingabevalidierung hinzufügen">
+Fügen Sie für eine bessere Benutzererfahrung eine Eingabevalidierung und ein `message`-Feld hinzu.
+
+![Kontaktformular mit Eingabevalidierung mit Namens-, E-Mail- und Nachrichtenfeldern](/images/zenopus/tips-tricks/resend/email-resend-form.png)
+</Step>
+<Step title="Speichern Sie Formularübermittlungen in Supabase">
+Supabase fungiert als Ihre sichere Backend-Datenbank.
+
+<Steps>
+<Step title="Supabase-Konto">
+Erstellen Sie ein kostenloses Supabase-Konto und ein neues Projekt.
+</Step>
+<Step title="API-Schlüssel">
+Verbinden Sie in ZenOpus Ihr Supabase-Projekt mithilfe des API-Schlüssels.
+
+![Supabase-Verbindungsschnittstelle in ZenOpus mit API-Schlüsselkonfiguration](/images/zenopus/tips-tricks/resend/supabase-resend-email.png)
+</Step>
+<Step title="Erstellen Sie eine `contacts`-Tabelle mit:">
+- `id`: UUID, Primärschlüssel
+- `name`: Text
+- `email`: Text
+- `message`: Text
+- `created_at`: Zeitstempel
+</Step>
+<Step title="Einreichungslogik">
+Ändern Sie die Formularübermittlungslogik, um Daten in Supabase einzufügen.
+</Step>
+<Step title="RLS">
+Wenden Sie Supabase Row-Level Security (RLS) an, um den Zugriff nur auf authentifizierte Benutzer zu beschränken.
+</Step>
+</Steps>
+</Step>
+<Step title="Supabase-Konto">
+Erstellen Sie ein kostenloses Supabase-Konto und ein neues Projekt.
+</Step>
+<Step title="API-Schlüssel">
+Verbinden Sie in ZenOpus Ihr Supabase-Projekt mithilfe des API-Schlüssels.
+
+![Supabase-Verbindungsschnittstelle in ZenOpus mit API-Schlüsselkonfiguration](/images/zenopus/tips-tricks/resend/supabase-resend-email.png)
+</Step>
+<Step title="Erstellen Sie eine `contacts`-Tabelle mit:">
+- `id`: UUID, Primärschlüssel
+- `name`: Text
+- `email`: Text
+- `message`: Text
+- `created_at`: Zeitstempel
+</Step>
+<Step title="Einreichungslogik">
+Ändern Sie die Formularübermittlungslogik, um Daten in Supabase einzufügen.
+</Step>
+<Step title="RLS">
+Wenden Sie Supabase Row-Level Security (RLS) an, um den Zugriff nur auf authentifizierte Benutzer zu beschränken.
+</Step>
+<Step title="Senden Sie Bestätigungs-E-Mails über „Erneut senden“.">
+Richten Sie „Erneut senden“ ein, um jedes Mal, wenn ein Lead das Formular sendet, automatische Bestätigungs-E-Mails zu senden.
+
+<Steps>
+<Step title="Melden Sie sich bei Resend an">
+Melden Sie sich unter [Resend](https://resend.com) an und bestätigen Sie Ihre benutzerdefinierte Domain.
+
+- Sie werden aufgefordert, Ihre DNS-Einträge (TXT, MX) zu aktualisieren.
+- Verwenden Sie Subdomains wie `updates.domain.com`, um die E-Mail-Reputation besser zu verwalten.
+</Step>
+<Step title="API-Schlüssel">
+Integrieren Sie den API-Schlüssel über Umgebungseinstellungen oder Backend-Funktion in ZenOpus.
+</Step>
+<Step title="SDK">
+Verwenden Sie das SDK von Resend, um bei der Formularübermittlung eine Bestätigungs-E-Mail zu senden.
+
+![SDK-Integration erneut senden und bei Formularübermittlung eine Bestätigungs-E-Mail senden](/images/zenopus/tips-tricks/resend/confirmation-email-submission-resend.png)
+</Step>
+<Step title="Optional: E-Mail reagieren">
+Verwenden Sie [React Email](https://react.email) (ebenfalls von Resend), um das Erscheinungsbild Ihrer E-Mails mit wiederverwendbaren Komponenten anzupassen.
+
+![React Email-Vorlageneditor zum Anpassen des E-Mail-Designs mit wiederverwendbaren Komponenten](/images/zenopus/tips-tricks/resend/customize-email-resend.png)
+</Step>
+</Steps>
+</Step>
+<Step title="Melden Sie sich bei Resend an">
+Melden Sie sich unter [Resend](https://resend.com) an und bestätigen Sie Ihre benutzerdefinierte Domain.
+
+- Sie werden aufgefordert, Ihre DNS-Einträge (TXT, MX) zu aktualisieren.
+- Verwenden Sie Subdomains wie `updates.domain.com`, um die E-Mail-Reputation besser zu verwalten.
+</Step>
+<Step title="API-Schlüssel">
+Integrieren Sie den API-Schlüssel über Umgebungseinstellungen oder Backend-Funktion in ZenOpus.
+</Step>
+<Step title="SDK">
+Verwenden Sie das SDK von Resend, um bei der Formularübermittlung eine Bestätigungs-E-Mail zu senden.
+
+![SDK-Integration erneut senden und bei Formularübermittlung eine Bestätigungs-E-Mail senden](/images/zenopus/tips-tricks/resend/confirmation-email-submission-resend.png)
+</Step>
+<Step title="Optional: E-Mail reagieren">
+Verwenden Sie [React Email](https://react.email) (ebenfalls von Resend), um das Erscheinungsbild Ihrer E-Mails mit wiederverwendbaren Komponenten anzupassen.
+
+![React Email-Vorlageneditor zum Anpassen des E-Mail-Designs mit wiederverwendbaren Komponenten](/images/zenopus/tips-tricks/resend/customize-email-resend.png)
+</Step>
+<Step title="Erstellen Sie ein sicheres Admin-Dashboard">
+Erlauben Sie nur authentifizierten Benutzern, Leads anzuzeigen und zu verwalten.
+
+<Steps>
+<Step title="Admin-Route">
+Erstellen Sie eine `/admin`-Route in ZenOpus.
+</Step>
+<Step title="Supabase-Authentifizierung">
+Aktivieren Sie die Supabase-Authentifizierung mit E-Mail-/Passwort-Anmeldung.
+</Step>
+<Step title="Kontakte">
+Zeigen Sie die Tabelle `contacts` mit Spalten an:
+
+- Name
+- E-Mail
+- Nachrichtenvorschau
+- Einreichungsdatum
+</Step>
+<Step title="Vollständige Kontaktdaten">
+Fügen Sie einen Detailbereich (z. B. ein Schiebefenster) hinzu, der beim Klicken auf eine Zeile die vollständigen Kontaktdetails anzeigt.
+
+![CRM-Admin-Dashboard mit Kontakttabelle mit den Spalten „Name“, „E-Mail“, „Nachrichtenvorschau“ und „Übermittlungsdatum“](/images/zenopus/tips-tricks/resend/crm-resend-email.png)
+</Step>
+<Step title="Umleitungslogik">
+Fügen Sie eine Umleitungslogik hinzu, damit nicht authentifizierte Benutzer an `/login` weitergeleitet werden.
+</Step>
+</Steps>
+</Step>
+<Step title="Admin-Route">
+Erstellen Sie eine `/admin`-Route in ZenOpus.
+</Step>
+<Step title="Supabase-Authentifizierung">
+Aktivieren Sie die Supabase-Authentifizierung mit E-Mail-/Passwort-Anmeldung.
+</Step>
+<Step title="Kontakte">
+Zeigen Sie die Tabelle `contacts` mit Spalten an:
+
+- Name
+- E-Mail
+- Nachrichtenvorschau
+- Einreichungsdatum
+</Step>
+<Step title="Vollständige Kontaktdaten">
+Fügen Sie einen Detailbereich (z. B. ein Schiebefenster) hinzu, der beim Klicken auf eine Zeile die vollständigen Kontaktdetails anzeigt.
+
+![CRM-Admin-Dashboard mit Kontakttabelle mit den Spalten „Name“, „E-Mail“, „Nachrichtenvorschau“ und „Übermittlungsdatum“](/images/zenopus/tips-tricks/resend/crm-resend-email.png)
+</Step>
+<Step title="Umleitungslogik">
+Fügen Sie eine Umleitungslogik hinzu, damit nicht authentifizierte Benutzer an `/login` weitergeleitet werden.
+</Step>
+<Step title="Aktivieren Sie benutzerdefinierte E-Mail-Antworten vom Administrator">
+Ermöglichen Sie Ihrem Team, personalisierte Follow-ups zu senden.
+
+<Steps>
+<Step title="Kontaktdetailbereich">
+Fügen Sie im Kontaktdetailbereich ein **Textfeld** und **vordefinierte Vorlagen** hinzu (z. B. „Vielen Dank für Ihre Anmeldung!“).
+</Step>
+<Step title="Schaltfläche „Senden“ hinzufügen">
+Fügen Sie eine **Senden-Schaltfläche** hinzu, die mit „Erneut senden“ verknüpft ist.
+</Step>
+<Step title="Gesendete Nachrichten speichern">
+Speichern Sie jede gesendete Nachricht in einer `sent_emails`-Tabelle in Supabase:
+
+- `contact_id`
+- `subject`
+- `body`
+- `sent_at`
+
+Dadurch erhalten Sie ein durchsuchbares Protokoll aller Nachverfolgungen.
+</Step>
+</Steps>
+</Step>
+<Step title="Kontaktdetailbereich">
+Fügen Sie im Kontaktdetailbereich ein **Textfeld** und **vordefinierte Vorlagen** hinzu (z. B. „Vielen Dank für Ihre Anmeldung!“).
+</Step>
+<Step title="Schaltfläche „Senden“ hinzufügen">
+Fügen Sie eine **Senden-Schaltfläche** hinzu, die mit „Erneut senden“ verknüpft ist.
+</Step>
+<Step title="Gesendete Nachrichten speichern">
+Speichern Sie jede gesendete Nachricht in einer `sent_emails`-Tabelle in Supabase:
+
+- `contact_id`
+- `subject`
+- `body`
+- `sent_at`
+
+Dadurch erhalten Sie ein durchsuchbares Protokoll aller Nachverfolgungen.
+</Step>
+<Step title="Fügen Sie ein Newsletter-Abonnementformular hinzu">
+Verwenden Sie **Audiences** von Resend, um Abonnenten zu verwalten und Broadcast-E-Mails zu versenden.
+
+![Newsletter-Abonnementformular auf einer Landingpage zum Sammeln von E-Mail-Anmeldungen](/images/zenopus/tips-tricks/resend/subscription-newsletter-resend.png)
+
+<Steps>
+<Step title="Neues Formular hinzufügen">
+Fügen Sie auf Ihrer Landingpage ein neues Formular für die Newsletter-Anmeldung hinzu.
+</Step>
+<Step title="Kontakt erneut senden">
+Bei Einreichung:
+
+- Erstellen Sie über die API einen Resend-Kontakt
+- (Optional) Speichern Sie den Kontakt auch lokal in Supabase
+</Step>
+<Step title="Design">
+Verwenden Sie die Broadcast-E-Mail-Benutzeroberfläche von Resend, um Newsletter zu entwerfen und zu versenden.
+
+- Integrierte Abmeldelogik
+- Leistungseinblicke (Öffnungsraten, Lieferstatus)
+</Step>
+<Step title="Compliance-Check!">
+Aus Gründen der Compliance (z. B. DSGVO) sollten Sie die Implementierung eines **Double-Opt-In**-Ablaufs in Betracht ziehen.
+</Step>
+</Steps>
+</Step>
+<Step title="Neues Formular hinzufügen">
+Fügen Sie auf Ihrer Landingpage ein neues Formular für die Newsletter-Anmeldung hinzu.
+</Step>
+<Step title="Kontakt erneut senden">
+Bei Einreichung:
+
+- Erstellen Sie über die API einen Resend-Kontakt
+- (Optional) Speichern Sie den Kontakt auch lokal in Supabase
+</Step>
+<Step title="Design">
+Verwenden Sie die Broadcast-E-Mail-Benutzeroberfläche von Resend, um Newsletter zu entwerfen und zu versenden.
+
+- Integrierte Abmeldelogik
+- Leistungseinblicke (Öffnungsraten, Lieferstatus)
+</Step>
+<Step title="Compliance-Check!">
+Aus Gründen der Compliance (z. B. DSGVO) sollten Sie die Implementierung eines **Double-Opt-In**-Ablaufs in Betracht ziehen.
+</Step>
+<Step title="BONUS: Resend mit Supabase Auth verbinden">
+![Supabase-Integrationssetup zum Ersetzen der Standard-E-Mail-Authentifizierung erneut senden](/images/zenopus/tips-tricks/resend/send-batch-emails-gdpr-resend.png)
+
+Möchten Sie die Standard-E-Mail-Authentifizierung von Supabase verbessern (die Sie auf 4 E-Mails/Stunde beschränkt)?
+
+<Steps>
+<Step title="Supabase erneut senden">
+Gehen Sie zu [Resends Supabase-Integration](https://resend.com/integrations/supabase).
+</Step>
+<Step title="Authentifizierung">
+Authentifizieren Sie sich bei Ihrem Supabase-Projekt.
+</Step>
+<Step title="Domain-Einrichtung">
+Wählen Sie Ihre Domain und den Namen/E-Mail-Adresse des Absenders.
+</Step>
+<Step title="SMTP">
+Resend richtet automatisch SMTP ein und ersetzt das Standard-E-Mail-System von Supabase.
+</Step>
+<Step title="Anpassung">
+Sie können jetzt Authentifizierungs-E-Mail-Vorlagen über das Supabase-Dashboard anpassen.
+</Step>
+</Steps>
+</Step>
+<Step title="Supabase erneut senden">
+Gehen Sie zu [Resends Supabase-Integration](https://resend.com/integrations/supabase).
+</Step>
+<Step title="Authentifizierung">
+Authentifizieren Sie sich bei Ihrem Supabase-Projekt.
+</Step>
+<Step title="Domain-Einrichtung">
+Wählen Sie Ihre Domain und den Namen/E-Mail-Adresse des Absenders.
+</Step>
+<Step title="SMTP">
+Resend richtet automatisch SMTP ein und ersetzt das Standard-E-Mail-System von Supabase.
+</Step>
+<Step title="Anpassung">
+Sie können jetzt Authentifizierungs-E-Mail-Vorlagen über das Supabase-Dashboard anpassen.
+</Step>
+<Step title="Letzte Handgriffe und Best Practices">
+![Resend Audiences-Dashboard zur Verwaltung von Newsletter-Abonnenten und Broadcast-E-Mails](/images/zenopus/tips-tricks/resend/audience-resend.png)
+
+- **Fehlerbehandlung**: ZenOpus zeigt möglicherweise Buildfehler an, bei denen es sich um Fehlalarme handelt. Testen Sie Ihre Funktionalität immer live.
+- **Zurücksetzen mit Supabase**: Wenn Sie Code in ZenOpus zurücksetzen, denken Sie daran, zugehörige Supabase-Richtlinien oder -Migrationen manuell zu löschen – sie werden nicht automatisch zurückgesetzt.
+- **Tipps zur Zustellbarkeit**:
+    - Verwenden Sie Subdomains, um die Reputation zu isolieren.
+    - Fügen Sie Ihrer E-Mail immer eine Nur-Text-Version bei.
+    - Überwachen Sie die E-Mail-Leistung mit dem Insights-Dashboard von Resend.
+</Step>
+<Step title="Du bist fertig! 🎉">
+In weniger als einer Stunde haben Sie ein modernes CRM erstellt mit:
+
+- Eine Landingpage und ein Kontaktformular
+- Datenbankgestützter Lead-Speicher
+- Automatisierte E-Mail-Bestätigungen
+- Admin-Dashboard für das Lead-Management
+- Benutzerdefinierte E-Mail-Antworten
+- Newsletter-Sendungen
+- Authentifizierung und E-Mail-Überprüfung
+</Step>
+</Steps>
+
+## Möchten Sie noch weiter gehen?
+
+- Fügen Sie Support für **geplante E-Mails** über Supabase-Cron-Jobs hinzu
+- Erstellen Sie **Automatisierungsabläufe**, um E-Mails basierend auf Lead-Phasen auszulösen
+- Gestalten Sie Ihre Benutzeroberfläche für mehr Markenvertrauen und Konversion
+
+## Häufig gestellte Fragen zur Integration erneut senden
+
+<AccordionGroup>
+<Accordion title="Was ist erneut senden?">
+Resend ist eine E-Mail-API, die für Entwickler entwickelt wurde. Der Schwerpunkt liegt auf hoher Zustellbarkeit, einfacher Integration und einem sauberen Entwicklererlebnis beim Versenden von Transaktions- und Marketing-E-Mails.
+</Accordion>
+<Accordion title="Benötige ich einen kostenpflichtigen Resend-Plan, um diesem Tutorial zu folgen?">
+Nein. Sie können die gesamte CRM-Einrichtung mit **Resends kostenlosem Kontingent** abschließen, das das Senden von E-Mails von einer verifizierten Domain und bis zu 3.000 Kontakten für Marketing-E-Mails unterstützt.
+</Accordion>
+<Accordion title="Wie verifiziere ich eine Domain in Resend?">
+Gehen Sie zu Erneut senden → **Domains** → Fügen Sie Ihre Domain hinzu. Sie erhalten DNS-Einträge (TXT, MX), die Sie über Ihren DNS-Anbieter (z. B. Cloudflare, Namecheap) hinzufügen können. Klicken Sie nach dem Hinzufügen auf **Bestätigen**.
+
+<Tip>
+Verwenden Sie eine Subdomain wie `updates.yourdomain.com`, um Ihre E-Mail-Reputation zu isolieren.
+</Tip>
+</Accordion>
+<Accordion title="Warum landen meine E-Mails zum erneuten Senden im Spam?">
+Es gibt einige häufige Gründe:
+
+- Sie haben Ihre Domain nicht bestätigt
+- Ihrer E-Mail fehlt eine Nur-Text-Version
+- Sie senden von einem generischen Absender wie `onboarding@resend.dev`
+- Sie halten sich nicht an Best Practices (z. B. fehlende Abmeldelinks in Marketing-E-Mails)
+
+Nutzen Sie das **Deliverability Insights**-Panel von Resend, um umsetzbare Tipps zu erhalten.
+</Accordion>
+<Accordion title="Kann ich das Design der E-Mails, die ich versende, anpassen?">
+Ja. Verwenden Sie [React Email](https://react.email/) – eine Open-Source-Bibliothek des Resend-Teams – um gestaltete, reaktionsfähige E-Mails mit React-Komponenten zu entwerfen.
+</Accordion>
+<Accordion title="Sendet Support Marketing-E-Mails erneut oder nur transaktionale E-Mails?">
+Resend unterstützt **beides**:
+
+- **Transaktions-E-Mails** (Bestätigung, Zurücksetzen, Benachrichtigungen) über die API oder das SDK.
+- **Marketing-E-Mails** über die Funktion **Broadcast** und **Zielgruppen**.
+
+Sie können Kampagnen über das Dashboard erstellen, in der Vorschau anzeigen und verfolgen.
+</Accordion>
+<Accordion title="Wie verwalte ich Newsletter-Abonnenten in Resend?">
+Verwenden Sie **Zielgruppen**:
+
+- Fügen Sie Kontakte manuell, per CSV oder programmgesteuert über die API hinzu.
+- Jede Zielgruppe verfügt über eine eindeutige ID, mit der Sie Abonnements verknüpfen können.
+- Benutzer können sich automatisch über den integrierten Abmeldelink von Resend abmelden.
+</Accordion>
+<Accordion title="Kann ich Double-Opt-In für Newsletter einrichten?">
+Nicht standardmäßig, aber Sie können es manuell implementieren:
+
+1. Senden Sie beim Absenden des Formulars eine erste Bestätigungs-E-Mail.
+1. Bitten Sie Benutzer, auf einen Link zu klicken.
+1. Bestätigen Sie mit einem Klick ihr Abonnement und fügen Sie sie Ihrer Zielgruppe „Erneut senden“ hinzu.
+</Accordion>
+<Accordion title="Kann ich E-Mail-Verläufe in Resend planen oder automatisieren?">
+Noch nicht. „Resend“ unterstützt derzeit keine Drip-Kampagnen oder automatisierten Sequenzen.
+
+<Tip>
+Problemumgehung:
+
+Verwenden Sie **Supabase Cron Jobs**, um Aufgaben zu planen, die das erneute Versenden von E-Mails in festgelegten Intervallen auslösen.
+</Tip>
+</Accordion>
+<Accordion title="Wie verbinde ich Resend mit Supabase Auth?">
+Nutzen Sie die offizielle Supabase-Integration von Resend:
+
+1. Authentifizieren Sie sich bei Ihrem Supabase-Projekt.
+1. Geben Sie eine Domäne und einen Absendernamen an.
+1. Resend konfiguriert Ihre Supabase-Authentifizierungs-E-Mails automatisch für die Verwendung Ihres Resend-Kontos.
+</Accordion>
+<Accordion title="Wie geht Resend mit Abmeldungen um?">
+„Resend“ verarbeitet Abmeldungen automatisch:
+
+- Sie müssen in Broadcast-E-Mails einen Abmeldelink einfügen.
+- Wenn sich ein Benutzer abmeldet, wird er aus der ausgewählten Zielgruppe entfernt.
+- Dies ist für die E-Mail-Konformität erforderlich (z. B. CAN-SPAM, DSGVO).
+</Accordion>
+</AccordionGroup>

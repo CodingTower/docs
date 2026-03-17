@@ -1,0 +1,261 @@
+---
+title: "Add Google authentication to ZenOpus Cloud apps"
+description: "Add Google authentication to ZenOpus Cloud apps using managed Google OAuth or your own Google Cloud credentials."
+---
+<Note>
+This page documents **Google authentication in ZenOpus Cloud**. The managed Google authentication flow and your own credentials setup described here are available for [**ZenOpus Cloud apps only**](/integrations/cloud).
+</Note>
+
+## Overview
+
+ZenOpus supports **Sign in with Google** using industry-standard OAuth 2.0, allowing users to authenticate with their Google accounts instead of creating a password.
+
+Google authentication in [ZenOpus Cloud](/integrations/cloud) can be configured in two ways:
+
+- **Managed by ZenOpus**: ZenOpus manages the OAuth client, credentials, redirect handling, and security updates. This is the default and recommended setup.
+- **Your own credentials** (sometimes referred to as BYOK): You connect OAuth credentials from your own Google Cloud project and manage credential security and rotation.
+
+Both options provide the same sign-in experience for users.
+
+1. The user clicks **Sign in with Google** in your app
+1. Google displays a consent screen
+1. The user reviews and approves access
+1. Google redirects the user back to your app, signed in
+
+From a technical perspective, OAuth relies on:
+
+- a **Client ID** (identifies the application)
+- a **Client secret** (authorizes the application)
+- **redirect URLs** (where Google sends users after approval)
+
+ZenOpus integrates this flow directly into your application and UI.
+
+## Why use Google sign-in
+
+Google sign-in provides a familiar authentication experience and reduces friction during signup and login.
+
+- Faster onboarding without password creation
+- Trusted Google consent experience
+- Reduced password reset and account recovery overhead
+- Pre-verified email addresses provided by Google
+- Reliable user identity with profile information
+
+## Common use cases
+
+Google sign-in is commonly used for:
+
+- Consumer applications where social login is expected
+- SaaS products targeting professional users
+- Internal tools using Google Workspace
+- E-commerce accounts and order history
+- Communities or products that require verified email addresses
+
+## Google authentication setup options
+
+ZenOpus Cloud supports setting up Google authentication in two ways:
+
+- **Managed by ZenOpus**
+- **Your own credentials**
+
+The end-user experience is identical in both cases; the difference is how OAuth credentials are managed.
+
+<Tabs>
+<Tab title="Managed by ZenOpus (default)">
+ZenOpus manages the OAuth client, credentials, redirect handling, and related security updates for this flow. No Google Cloud Console configuration required.
+
+Use this option if you:
+
+- want the simplest setup
+- do not want to configure Google Cloud manually
+- do not need ownership of OAuth credentials
+- do not need custom OAuth scopes beyond the defaults (email and basic profile)
+
+When using **Managed by ZenOpus**, the Google **consent screen** is shown the first time a user signs in.
+
+The consent screen:
+
+- Shows your application name
+- Indicates that the app is requesting access via Google authentication
+- Requests access to the user’s email address and basic profile information
+
+Users are asked to approve access once. After approval, they are redirected back to your app and will not see the consent screen again unless permissions change.
+
+<Steps>
+<Step title="Prompt ZenOpus to add Google authentication">
+```text
+Add Google login to my app so that users can sign in with their Google account
+```
+
+ZenOpus will enable Google authentication automatically in **Cloud → Users → Auth → Google** and:
+
+- configure Google OAuth in the backend
+- create or update sign-in UI components
+- set up authentication state management
+- add sign-out functionality
+
+You can review the changes in the **Details** view.
+</Step>
+<Step title="Test the flow">
+After enabling Google sign-in, verify that:
+
+- a **Sign in with Google** button appears
+- users are redirected to Google for authentication
+- users return to the app in a signed-in state
+- the consent screen behaves as expected
+- users can sign in and sign out successfully
+</Step>
+</Steps>
+</Tab>
+<Tab title="Your own credentials">
+You create and manage OAuth credentials in your own Google Cloud project and connect them to ZenOpus. You are responsible for managing credential security and rotation.
+
+Use this option if you:
+
+- require OAuth under your own Google Cloud project
+- need full control over consent screen branding
+- have security or compliance requirements
+- need custom OAuth scopes beyond the defaults
+
+When using **your own credentials**, the Google **consent screen** is fully controlled by your Google Cloud project, including:
+
+- app name and branding
+- consent screen configuration
+- OAuth scopes
+
+ZenOpus uses the credentials and settings you provide without modifying the consent screen.
+
+<Steps>
+<Step title="Create OAuth credentials in Google Cloud">
+In the [Google Cloud Console](https://console.cloud.google.com), you must:
+
+- select or create a Google Cloud project
+- configure an **OAuth consent screen**
+- create an **OAuth Client ID** of type **Web application**
+
+See [Google Auth Platform documentation](https://support.google.com/cloud/topic/15540269) for all details.
+</Step>
+<Step title="Configure credentials in ZenOpus">
+- Go to **Cloud → Users → Auth → Google**.
+- Enable **Google sign-in** and select **Your own credentials**.
+- Enter your **Client ID** and **Client secret**.
+</Step>
+<Step title="Configure redirect URIs in Google Cloud">
+When using your own Google OAuth credentials, ZenOpus may display **multiple possible redirect URIs**, for example:
+
+- your default ZenOpus domain (`https://myapp.zenopus.app`)
+- one or more custom domains you’ve added (`https://myapp.com`)
+
+In Google Cloud Console, you must add **every redirect URI you intend to use** as an **Authorized redirect URI** on your OAuth client.
+
+<Note>
+Redirect URIs must match exactly. Scheme, domain, path, and trailing slashes all matter.
+</Note>
+</Step>
+<Step title="Confirm which redirect URIs are authorized in your Google OAuth client">
+ZenOpus needs to know **which redirect URIs are authorized in your Google OAuth client**. After adding them in Google Cloud, return to ZenOpus and **select the redirect URIs you have whitelisted**.
+
+By selecting redirect URIs in ZenOpus, you are confirming:
+
+- which domains are authorized in your Google OAuth client
+- which domain ZenOpus is allowed to redirect users back to after sign-in
+
+This ensures Google authentication continues to work correctly across default and custom domains.
+</Step>
+<Step title="Save your Google sign-in settings">
+Click **Save** to save and confirm your Google credentials and selected redirect URIs.
+</Step>
+<Step title="Add authentication UI to your app">
+Prompt ZenOpus to add the Google sign-in UI to your app:
+
+```text
+Add Google sign-in to my app using my own Google OAuth credentials.
+```
+
+ZenOpus will generate the UI using your custom credentials.
+</Step>
+<Step title="Test the flow">
+Before deploying to production, verify that:
+
+- a **Sign in with Google** button appears
+- redirect URIs are configured correctly
+- users return to the app in a signed-in state
+- the consent screen behaves as expected
+- users can sign in and sign out successfully
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+## Managing Google authentication
+
+You can switch between **Managed by ZenOpus** and **Your own credentials** at any time from **Cloud → Users → Auth → Google**.
+
+Switching the Google authentication setup does not affect existing user accounts. Users can continue signing in with the same Google accounts.
+
+## Troubleshooting “Your own credentials” setup
+
+<AccordionGroup>
+<Accordion title="Redirect URI mismatch">
+- Ensure every redirect URL you selected in ZenOpus is added to Google Cloud
+- Check for missing or extra trailing slashes
+- Verify the scheme (`https` vs `http`) matches exactly
+</Accordion>
+<Accordion title="Consent screen issues">
+- Ensure the OAuth consent screen is configured correctly in Google Cloud
+- Add your account as a test user if the app is not published
+- Verify required scopes are configured
+</Accordion>
+<Accordion title="Wrong OAuth client type">
+- Use a **Web application** OAuth client
+- Mobile or desktop client types are not compatible with ZenOpus’s redirect flow
+</Accordion>
+<Accordion title="Authentication not working">
+- Confirm Google sign-in is enabled in **Users → Auth → Google**
+- Verify `Client ID` and `Client secret` values (your own credentials setup)
+- Ensure authentication UI is connected to the backend
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Is the ZenOpus-managed Google authentication available for all ZenOpus apps?">
+No. **ZenOpus-managed** Google authentication is available for **ZenOpus Cloud apps only**.
+</Accordion>
+<Accordion title="Can I use Google authentication in apps not using ZenOpus Cloud?">
+Yes. Google authentication can be added to apps not using ZenOpus Cloud, but it requires a manual setup outside of ZenOpus Cloud.
+
+For example, in apps not using ZenOpus Cloud, you might:
+
+- integrate Google OAuth directly in your frontend or backend code
+- use Google’s One Tap or standard OAuth sign-in flows
+- use a third-party authentication service such as Supabase Auth
+- manage OAuth credentials, redirect handling, and session logic yourself
+
+This page documents the **ZenOpus Cloud implementation**, including managed Google authentication and your own credentials flow specific to ZenOpus Cloud.
+</Accordion>
+<Accordion title="Should I use the managed by ZenOpus option or my own credentials?">
+Use **Managed by ZenOpus** unless you specifically need to manage your own Google Cloud OAuth credentials, customize the consent screen branding, or configure custom OAuth scopes.
+</Accordion>
+<Accordion title="What information does Google share with my app?">
+By default, Google provides the user’s **email address** and **basic profile information**. No additional data is shared unless you configure custom OAuth scopes (your own credentials setup only).
+</Accordion>
+<Accordion title="Do users see the Google consent screen every time they sign in?">
+No. Users are shown the consent screen the **first time** they sign in with Google, or if requested permissions change.
+</Accordion>
+<Accordion title="Can I switch between &quot;managed&quot; and &quot;your own credentials&quot; later?">
+Yes. You can switch between **Managed by ZenOpus** and **Your own credentials** at any time. Existing user accounts are not affected.
+</Accordion>
+<Accordion title="Why am I seeing a redirect URI mismatch error?">
+This usually means the redirect URLs you selected in ZenOpus do not exactly match the **Authorized redirect URIs** configured in Google Cloud.
+
+- Ensure every redirect URL you selected in ZenOpus is added to Google Cloud.
+- Check the scheme, domain, path, and trailing slashes.
+</Accordion>
+<Accordion title="Does Google authentication replace email/password sign-in?">
+No. Google authentication is an additional sign-in method. You can offer Google sign-in alongside other authentication methods.
+</Accordion>
+<Accordion title="Do I need to configure Google Cloud Console when using &quot;Managed by ZenOpus&quot; setup?">
+No. Google Cloud Console configuration is only required when using **your own credentials**.
+</Accordion>
+</AccordionGroup>

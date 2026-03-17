@@ -1,0 +1,142 @@
+---
+title: "Conecta tu aplicación a Linear"
+description: "Conecte su aplicación a Linear para crear y actualizar problemas, leer datos del proyecto y del equipo y crear flujos de trabajo de seguimiento de problemas en sus aplicaciones ZenOpus."
+---
+[Linear](https://linear.app/) es una herramienta de gestión de proyectos creada para equipos de software. Permite que su aplicación ZenOpus funcione con problemas, proyectos, equipos, ciclos y comentarios para que pueda crear herramientas internas y automatizaciones que interactúen directamente con el Workspace lineal de su equipo.
+
+Con Linear, tu aplicación puede:
+
+- Crear y actualizar problemas y comentarios.
+- Leer datos de equipo, proyecto y ciclo
+- Cree paneles que muestren el estado y el progreso del problema
+- Automatice los flujos de trabajo de clasificación, generación de informes y planificación
+
+Linear es una buena opción cuando su aplicación necesita trabajar con tareas de ingeniería, planificación de productos o seguimiento de problemas directamente desde la interfaz de su aplicación.
+
+## Casos de uso comunes y aplicaciones de ejemplo
+
+| Aplicación de ejemplo | Mensaje de ejemplo | Descripción |
+| --- | --- | --- |
+| Formulario de informe de errores | Cree un informe de errores interno que cree un problema lineal cuando un usuario envía un informe. | Permita que los usuarios registren errores directamente en Linear desde su aplicación. La aplicación captura el envío y crea un problema lineal con el formato adecuado en la cola del equipo correcto, sin necesidad de copiar y pegar manualmente. |
+| Panel de control de velocidad | Cree un panel de sprint que muestre los problemas abiertos por equipo y estado, agrupados por ciclo. | Ofrezca a su equipo una vista en vivo del progreso del sprint sin salir de su aplicación. La aplicación lee los datos del ciclo actual de Linear y muestra los problemas por estado, asignado o prioridad. |
+| Admisión de solicitudes de funciones | Cree un formulario de admisión de solicitud de producto. Cuando alguien envía una solicitud, cree un problema lineal en el trabajo pendiente de clasificación. | Convierta automáticamente los envíos de formularios en problemas lineales estructurados. La aplicación enruta las solicitudes entrantes directamente a su trabajo pendiente de Linear para que nada se pierda. |
+| Clasificación de problemas Workspace | Cree una clasificación interna Workspace que muestre nuevos problemas lineales, me permita filtrar por equipo y prioridad, y actualizar el estado desde una sola vista. | Ayude a los equipos a revisar y gestionar el trabajo entrante de manera más eficiente. La aplicación lee problemas de Linear, los organiza en una interfaz de clasificación enfocada y permite a los usuarios actualizar prioridades o estados sin cambiar de herramienta. |
+| Panel de estado del proyecto | Cree un panel de estado del proyecto que obtenga recuentos de problemas, tasas de finalización y obstáculos de Linear. | Combine datos lineales con el contexto de su aplicación en una única vista interna. La aplicación lee métricas de proyectos y ciclos de Linear y las muestra junto con otros datos operativos. |
+
+## Cómo funcionan las conexiones lineales
+
+Cada conexión lineal está autorizada para un único Workspace lineal. Cuando conecta Linear, autoriza a ZenOpus a acceder a Linear en nombre de la cuenta autenticada.
+
+Dentro de su ZenOpus Workspace:
+
+- Puede crear múltiples conexiones lineales.
+- Cada conexión es una autorización OAuth independiente.
+- Cada conexión puede:
+    - Utilice diferentes alcances
+    - Conéctese a un Workspace lineal diferente
+- Varios proyectos dentro de un único Workspace pueden usar la misma conexión.
+
+Esto facilita la separación de entornos (por ejemplo, desarrollo y producción) o la gestión de múltiples espacios de trabajo lineales.
+
+Linear utiliza la arquitectura de puerta de enlace de ZenOpus para el manejo seguro de OAuth y la actualización automática de tokens. Consulte [Conectores basados ​​en puerta de enlace](/es/integrations/introduction#conectores-basados-en-puerta-de-enlace) para obtener detalles sobre la autenticación y los límites de uso.
+
+## Cómo conectar lineal
+
+Workspace **los administradores** y los **propietarios** pueden conectarse a Linear.
+
+Cuando se crea una conexión, Linear pasa a estar disponible en todos los proyectos en Workspace.
+
+### Requisitos previos
+
+Antes de conectar Linear, asegúrese de tener:
+
+- Una cuenta Linear que puedes autorizar a través de OAuth
+- ZenOpus Workspace rol de administrador o propietario
+
+### Configura tu conexión lineal
+
+<Warning>
+Cuando conecta Linear, sus datos de Linear serán accesibles para todos los usuarios en su Workspace.
+</Warning>
+
+<Steps>
+<Step title="Navega hasta el conector lineal">
+Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **Lineal**.
+</Step>
+<Step title="Agregar una nueva conexión">
+Haga clic en **Agregar conexión**.
+</Step>
+<Step title="Nombra la conexión">
+En **Nombre para mostrar**, ingrese un nombre para la conexión, por ejemplo `Linear (Prod)`.
+</Step>
+<Step title="Configurar ámbitos (opcional)">
+Expanda **Configuración avanzada** para revisar o ajustar los alcances de OAuth solicitados: los permisos lineales que necesita su aplicación. **Lectura** y **Escritura** se seleccionan de forma predeterminada y cubren los casos de uso más comunes.
+
+<Tip>
+Seleccione solo los alcances que necesita su aplicación. Puede actualizar los alcances más adelante editando la conexión y haciendo clic en **Reconectar**. Para obtener documentación completa sobre el alcance, consulte [Referencia de alcance lineal](https://linear.app/developers#scopes).
+</Tip>
+</Step>
+<Step title="Conéctate a Linear y autoriza la conexión">
+- Haga clic en **Conectar**. Se abre la ventana de autorización lineal, así que asegúrese de que su navegador no bloquee las ventanas emergentes.
+- Seleccione el Workspace que desea conectar, revise los permisos solicitados y haga clic en **Permitir**. Serás redirigido nuevamente a ZenOpus con una confirmación.
+</Step>
+</Steps>
+
+Cuando están conectadas, sus aplicaciones ZenOpus pueden comenzar a usar datos lineales.
+
+## Limitaciones
+
+El conector lineal no Support:
+
+- Recibir webhooks lineales entrantes o suscripciones a eventos en tiempo real.
+- Inicio de sesión lineal por usuario donde cada usuario final conecta su propia cuenta lineal
+
+## Cómo desvincular proyectos de una conexión
+
+Los editores y superiores pueden eliminar proyectos específicos de una conexión sin eliminar la conexión por completo. La conexión permanecerá disponible para otros proyectos.
+
+Para desvincular proyectos:
+
+<Steps>
+<Step title="Navegar a conectores">
+Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **Lineal**.
+</Step>
+<Step title="Abre la conexión">
+Abra la conexión que desea administrar.
+</Step>
+<Step title="Seleccionar proyectos">
+En **Proyectos vinculados**, marca los proyectos que deseas desvincular.
+</Step>
+<Step title="Confirmar">
+Haga clic en **Desvincular proyectos** y confirme.
+</Step>
+</Steps>
+
+Cuando se desvinculen, esos proyectos ya no tendrán acceso a **Linear** a través de esta conexión. Si un proyecto necesita **Lineal** nuevamente, puedes vincularlo a cualquier conexión disponible.
+
+## Cómo eliminar una conexión
+
+Los administradores y propietarios de Workspace pueden eliminar conexiones **lineales**.
+
+<Warning>
+La eliminación de una conexión es permanente y no se puede deshacer. Eliminará las credenciales de todos los proyectos vinculados y cualquier aplicación que utilice esta conexión dejará de funcionar hasta que se agregue una nueva conexión.
+</Warning>
+
+Antes de eliminar, revise la sección **Proyectos vinculados** para ver qué proyectos están utilizando actualmente la conexión.
+
+Para eliminar una conexión:
+
+<Steps>
+<Step title="Navegar a conectores">
+Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **Lineal**.
+</Step>
+<Step title="Abre la conexión">
+Abra la conexión que desea eliminar.
+</Step>
+<Step title="Revisar proyectos vinculados">
+Revise la sección **Proyectos vinculados**.
+</Step>
+<Step title="Eliminar">
+En **Eliminar esta conexión**, haz clic en **Eliminar** y confirma.
+</Step>
+</Steps>

@@ -1,0 +1,167 @@
+---
+title: "AGENTS"
+description: ""
+---
+Instructions pour les agents de documentation
+
+ZenOpus est une plate-forme de développement d'applications complète qui permet aux utilisateurs de créer des applications Web via des invites en langage naturel.
+
+Ces instructions définissent comment l'agent Mintlify AI doit créer et mettre à jour la documentation sur docs.zenopus.dev. Suivez-les systématiquement, sauf indication contraire explicite.
+
+## Précision et sécurité
+
+- N'inventez pas et n'assumez pas le comportement, les limites, les prix, la disponibilité du plan ou les éléments de l'interface utilisateur du produit.
+- Précisez toujours sur quels forfaits les fonctionnalités sont disponibles (Free, Pro, Business, Enterprise ou « tous les forfaits »).
+- Faites la distinction entre les crédits Workspace (pour la construction) et le solde Cloud/IA (pour les applications déployées).
+- Si les informations ne sont pas clairement documentées ou fournies, ne devinez pas.
+- Préférez omettre des détails plutôt que d’ajouter du contenu incertain ou spéculatif.
+- Si nécessaire, demandez des éclaircissements au lieu de faire des hypothèses ou de combler des lacunes.
+- Signalez clairement les actions irréversibles, les limitations et les inconnues, le cas échéant.
+
+## Flux d'informations requis (règle de base)
+
+Lors de la création ou de la mise à jour de pages de documentation, suivez cet ordre narratif :
+
+1. **Quoi** : expliquez quelle est la fonctionnalité, le connecteur ou le concept.
+    - Limitez-vous à 1 à 2 paragraphes courts.
+1. **Pourquoi** : expliquez pourquoi c'est important.
+    - Concentrez-vous sur la valeur, les résultats et quand l'utiliser (ou ne pas l'utiliser).
+1. **Qui** : expliquez à qui cela s'adresse.
+    - Utilisez des cas d'utilisation concrets, des exemples d'applications, des scénarios ou des tableaux.
+1. **Comment** : expliquez comment cela fonctionne ou comment l'utiliser.
+    - Incluez les étapes d'installation, la configuration, les exigences (comptes, informations d'identification), les notes de facturation et d'utilisation, les limitations et les actions irréversibles.
+    - Pour le **contenu conceptuel ou de référence**, « Comment » peut décrire le fonctionnement du concept à un niveau élevé plutôt que des instructions étape par étape.
+1. **FAQ** : ajoutez des questions fréquemment posées pour améliorer la clarté, la récupération par l'assistant IA et le classement des recherches.
+
+## Ordre des sections requis (par défaut)
+
+Utilisez cet ordre de titre exactement à moins que le contenu ne s'applique clairement pas :
+
+- Introduction (Quoi)
+- Pourquoi et quand l'utiliser
+- Cas d'utilisation courants et exemples d'applications (Qui)
+- Exigences et facturation
+- Installation / configuration (Comment)
+- FAQ
+- Limitations et dépannage (facultatif)
+
+## Ce qu'il faut inclure (liste de contrôle du contenu)
+
+- Ajoutez des **prérequis** lorsque les utilisateurs ont besoin de clés API, de comptes, de configuration d'environnement ou de dépendances.
+- Ajoutez des **FAQ** pour aider les moteurs de recherche et l'assistant Mintlify AI à comprendre et à classer le contenu.
+- Ajoutez des **sections de dépannage** pour les problèmes courants rencontrés dans les tickets Support.
+- Indiquez clairement la **propriété de la facturation**, la **consommation d'utilisation** et les **actions irréversibles**, le cas échéant.
+
+## FAQ (obligatoire)
+
+- Incluez **3 à 6 FAQ** sur la plupart des pages (en fonction de la taille de la page).
+- Rédigez des FAQ sous la forme de **questions en langage naturel** que les utilisateurs poseraient réellement.
+- Priorisez les questions sur :
+    - Facturation et propriété (ZenOpus vs fournisseur externe)
+    - Exigences relatives au compte, aux informations d'identification ou à la clé API
+    - Limites, quotas ou limites de débit
+    - Suppression, révocation ou actions irréversibles
+    - Idées fausses ou cas d’échec courants
+- Gardez les réponses concises, factuelles et écrémées.
+- Évitez le langage marketing ; optimiser pour plus de clarté et de précision de récupération.
+
+## Principes d'écriture (globaux)
+
+- Gardez les intros numérisables et courtes.
+- Préférez les résultats aux fonctionnalités de la section « Pourquoi ».
+- Utilisez des exemples concrets et réalistes dans « Qui » et « Comment ».
+- Rendez toutes les étapes sans ambiguïté, y compris les chemins exacts de l’interface utilisateur, le cas échéant.
+
+## SEO et accessibilité
+
+- Utilisez des titres descriptifs et riches en mots-clés, alignés sur ce que recherchent les utilisateurs.
+- Assurez-vous que les éléments frontaux `title` et `description` sont clairs, spécifiques et axés sur l'utilisateur.
+- Ajoutez un tableau `keywords` en frontmatter lorsqu'il améliore la visibilité (utilisez des termes pertinents et spécifiques que les utilisateurs rechercheraient ; évitez le bourrage de mots clés).
+- Préférez les titres de pages orientés vers l’action. Les titres peuvent être plus longs et plus descriptifs lorsqu’ils sont utiles.
+- Si le titre de la page est long, ajoutez `sidebarTitle` avec une version plus courte pour la navigation.
+- Utilisez un texte de lien spécifique et exploitable (évitez « cliquez ici »).
+- Maintenez une hiérarchie de titres logique (ne sautez pas de niveaux).
+- Ajoutez un texte alternatif descriptif pour toutes les images et diagrammes.
+- Structurez le contenu pour qu'il soit numérisable à l'aide de paragraphes courts, de listes et de sauts de section clairs.
+
+## Composants Mintlify (quand les utiliser)
+
+Utilisez intentionnellement les composants Mintlify pour améliorer la clarté et la lisibilité. N'abusez pas des composants.
+
+### Légendes
+
+- Utilisez `<Note>` pour un contexte utile qui prend en charge le contenu principal.
+- Utilisez `<Tip>` pour les meilleures pratiques ou les conseils d’experts.
+- Utilisez `<Warning>` pour les actions destructrices, les étapes irréversibles, les problèmes de sécurité ou les limitations critiques.
+- Utilisez `<Check>` pour confirmer le succès ou fournir des étapes de vérification.
+
+### Étapes
+
+- Utilisez `<Steps>` et `<Step>` pour les procédures en plusieurs étapes, en particulier l'installation et la configuration.
+- Préférez les étapes où les actions doivent être complétées dans l’ordre.
+- Incluez une étape de vérification ou un indicateur de réussite lorsque cela est possible.
+
+### Onglets
+
+- Utilisez `<Tabs>` pour les instructions spécifiques à la plate-forme ou les alternatives mutuellement exclusives.
+- N'utilisez pas d'onglets pour les étapes séquentielles.
+
+### Accordéons
+
+- Utilisez `<AccordionGroup>` pour le dépannage, les FAQ, les cas extrêmes ou la configuration avancée.
+- Gardez les flux de base visibles ; cachez les détails profonds derrière les accordéons.
+
+### Groupes de codes
+
+- Utilisez `<CodeGroup>` lorsque vous affichez le même exemple dans plusieurs langues.
+- Utilisez un seul bloc de code lorsqu’une seule langue est pertinente.
+
+## Public et ton
+
+- Écrivez principalement pour un **public non technique**.
+- Ne simplifiez pas à l’excès, mais expliquez les concepts non évidents.
+- Utilisez la **voix active** et la **deuxième personne** (« vous »).
+- Concentrez-vous sur la clarté, l’exactitude et l’utilité plutôt que sur le langage marketing.
+
+## Style et mise en forme
+
+- **Voix active** : Préférez la voix active pour préciser qui effectue l'action.
+    - Correct : « Supprimer le projet ».
+    - Incorrect : « Le projet est supprimé. »
+    - Exception : utilisez la voix passive lorsque vous insistez sur l'état ou le résultat.
+        - Exemple : « Le projet est enregistré. »
+- **Présent** :
+    - Utilisez le présent pour le comportement général.
+        - Correct : « Cliquez sur Enregistrer pour mettre à jour les paramètres. »
+    - Utilisez le futur uniquement pour les conséquences futures.
+        - Correct : « Vos modifications seront perdues. »
+- **Cas de peine** :
+    - Utilisez la casse des phrases pour tous les titres.
+    - Ne mettez en majuscule que le premier mot, les noms propres et les acronymes.
+    - Correct : « Paramètres du projet »
+    - Incorrect : « Paramètres du projet »
+- ** Virgule série (Oxford) ** :
+    - Incluez toujours une virgule avant le « et » ou « ou » final.
+    - Exemple : « Modifier, partager et supprimer des projets. »
+- **Dates** :
+    - Utilisez *mois jour, année* (par exemple, *31 juillet 2025*).
+    - N'utilisez pas de nombres ordinaux (1er, 2e, 3e).
+- **Références de l'interface utilisateur** :
+    - Éléments d'interface utilisateur en gras : **Paramètres**, **Supprimer le projet**.
+    - Utilisez le code en ligne pour les valeurs, les champs ou les identifiants : `project_id`.
+    - Utilisez les chemins exacts de l'interface utilisateur avec → séparateurs : **Paramètres → Confidentialité et sécurité → Visibilité du projet par défaut**
+
+## Exemples rapides
+
+- Placez tous les exemples d'invites dans des **blocs de code en texte brut**.
+- Utilisez `text wrap` pour préserver la lisibilité.
+
+Exemple :
+
+```text
+Intégrez l'API OpenWeatherMap. 
+URL de base : https://api.openweathermap.org/data/2.5. 
+Auth : clé API transmise en tant que paramètre de requête appid. 
+J'ai besoin d'un point de terminaison pour récupérer la météo actuelle : GET /weather?q={city}&units=metric&appid={API_KEY}. 
+Documents : https://openweathermap.org/current
+```

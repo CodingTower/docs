@@ -1,0 +1,219 @@
+---
+title: "Security overview"
+description: "Protect your apps with API key detection, database access controls, and AI-powered security scanning during development and before publishing."
+---
+ZenOpus provides built-in security tools to help reduce common application security risks during development and before publishing. These tools are designed to support secure application development, but they do not replace a thorough security review.
+
+You are responsible for ensuring that your app meets the security requirements appropriate for its use case, especially if it handles sensitive data or performs critical functions.
+
+## How ZenOpus keeps your apps secure
+
+ZenOpus helps secure your applications in two main ways: by preventing common security mistakes up front, and by identifying potential vulnerabilities through automated analysis.
+
+To identify vulnerabilities, ZenOpus uses four automated security scanners to check different parts of your application:
+
+- **RLS analysis**: Reviews database access policies and row-level security rules
+- **Database security check**: Reviews database schema and RLS configuration
+- **Code security review**: Analyzes application code for common security vulnerabilities
+- **Dependency audit**: Detects known vulnerabilities in npm dependencies
+
+<Warning>
+These scanners help identify common security issues, but they cannot guarantee complete security. For apps handling sensitive data or critical functionality, consider an additional professional security review.
+</Warning>
+
+The sections below explain the main areas of risk in more detail and how ZenOpus helps you address them.
+
+For practical guidance on writing secure code and avoiding common security mistakes, see [Security best practices for ZenOpus apps](/tips-tricks/security-best-practices).
+
+### Protecting API keys
+
+ZenOpus generates frontend code that runs in the browser, which means API keys and other secrets cannot be stored safely in client-side code. Exposing credentials can lead to data leaks or unauthorized access.
+
+To prevent sensitive credentials from being exposed, ZenOpus automatically detects API keys pasted into the chat and guides you to store them securely in **Secrets** instead of hardcoding them into your code.
+
+Rather than pasting credentials directly, describe what you want to build and ZenOpus will help you implement a secure setup using server-side functions and secret storage.
+
+**For example:**
+
+```text
+I want to integrate service X API to generate text responses
+```
+
+ZenOpus will guide you to:
+
+1. Store your API key securely in Secrets
+1. Create an Edge Function to make the API call server-side
+1. Call that Edge Function from your frontend code
+
+This approach keeps credentials secure and follows web security best practices.
+
+### Protecting data access with row-level security (RLS)
+
+Row-level security (RLS) policies control which users can access or modify data in your database. Misconfigured RLS rules are a common cause of data leaks.
+
+ZenOpus helps you review and reason about your RLS policies to ensure users only see and change the data they are authorized to access. Findings from the **RLS analysis** scan highlight overly permissive rules or missing access checks that could expose sensitive data.
+
+You should review RLS policies regularly, especially before publishing or after changes to authentication or database structure.
+
+### Identifying database security risks
+
+Database schemas and access rules work together to determine how data is exposed. Unsafe combinations of schema design and access policies can introduce security risks even when individual rules appear correct.
+
+ZenOpus reviews your database schema and RLS configuration together using the **Database security check** to identify patterns that could lead to unauthorized access or data exposure. This helps catch issues that may not be obvious when reviewing rules in isolation.
+
+### Identifying vulnerabilities in application code
+
+Application code can introduce security risks through patterns such as improper input handling, insecure authentication flows, or unsafe use of external services.
+
+ZenOpus analyzes your application code using the **Code security review** to identify common vulnerability patterns and provide recommendations for improving security. These checks help surface issues early, before they become exploitable in production.
+
+### Identifying vulnerabilities in dependencies
+
+Third-party libraries are a common source of security risk. Even widely used packages can introduce vulnerabilities when new issues are discovered.
+
+As part of automated security scanning, ZenOpus checks your project’s dependencies for known security vulnerabilities using the **Dependency audit**. This scan identifies vulnerable packages and provides information to help you assess and remediate the risk.
+
+Dependency vulnerability findings may appear:
+
+- In the project-level [Security view](/features/security-view), where you can review details and take action for a single project
+- In the workspace-level [Security center](/features/security-center), where workspace admins and owners can monitor vulnerabilities across multiple projects
+
+Findings include the affected package name and version, the type of vulnerability, and recommended remediation steps, such as updating to a secure version.
+
+Keeping dependencies up to date is an important part of maintaining a secure application. When critical vulnerabilities are disclosed, the Security center can help identify which projects are affected so issues can be addressed quickly.
+
+## When security scans run
+
+ZenOpus runs security scans at different points in your workflow to help catch issues early. These actions are **free and do not consume credits**.
+
+Each scanner runs only when it is relevant to your project and when changes have occurred since the last scan. For example, database scanners only run for projects with a connected database, and the dependency audit only runs when dependencies have changed.
+
+<Note>
+The **Code security review** does not run automatically. It only runs when you click **Update** in the **Security view**.
+</Note>
+
+### As you work
+
+ZenOpus automatically triggers specific scanners when relevant files change:
+
+- **RLS analysis** runs when database migration or configuration files are modified.
+- **Dependency audit** runs when your project’s dependencies change.
+- **Database security check** runs once per session as a follow-up after RLS analysis results are available.
+
+### Before publishing
+
+When you open the publish dialog, ZenOpus automatically runs the **RLS analysis**, **Database security check**, and **Dependency audit** scanners. If critical issues are found, you will be prompted to review them before proceeding.
+
+Resolve all critical issues before making your app publicly available. Publishing with unresolved critical issues is possible, but strongly discouraged, especially for production apps or apps handling sensitive user data.
+
+### On demand
+
+You can trigger a scan refresh on demand at any time using the **Update** button in the [Security view](/features/security-view). Only scanners with outdated results will run.
+
+This is the only way to run the **Code security review** scanner, which does not run automatically as you work or during publishing checks.
+
+On-demand scans are useful after significant code changes or when you want to ensure all scan results reflect the current state of your project.
+
+## Conversational security reviews
+
+Separate from the automated scanners, you can ask ZenOpus to perform a **conversational security review** at any time by prompting. This is an AI-driven review and consumes credits, just like regular chat messages.
+
+For example:
+
+```text
+Review my app's security
+```
+
+ZenOpus analyzes your project and responds with a detailed assessment. The review typically covers areas such as:
+
+- Potential vulnerabilities in your application code
+- Common issues like XSS risks, input handling, and authentication flaws
+- Database schema and row-level security (RLS) policies
+- Overall security posture with specific recommendations
+
+The scope and depth of the review depends on your project. You can also ask ZenOpus to focus on a specific area, for example:
+
+```text
+Review the authentication flow in my app.
+```
+
+or
+
+```text
+Check if my API routes are secure.
+```
+
+Conversational reviews are especially useful after significant changes or before major releases. Even if no warnings are currently shown, periodically requesting a review is a good practice for production applications.
+
+## Where to manage security
+
+ZenOpus provides two security surfaces: one for securing individual projects and one for monitoring security across an entire workspace.
+
+### Project security (Security view)
+
+Use the [**Security view**](/features/security-view) when you are building or maintaining a specific project.
+
+The Security view helps you:
+
+- Review security findings for one project
+- Understand which issues are critical and why they matter
+- Apply automatic fixes or make manual changes
+- Verify that your project is safe to publish
+
+This is the primary place to work through security issues during development and before publishing.
+
+### Workspace security (Security center)
+
+Workspace admins and owners on Business and Enterprise plans can use the [**Security center**](/features/security-center) to monitor security across all projects in a workspace.
+
+The Security center helps you:
+
+- See which projects have critical security issues
+- Identify patterns and recurring risks across teams
+- Monitor dependency vulnerabilities affecting multiple projects
+- Track overall security posture at the workspace level
+
+The Security center aggregates security information, but fixes are still applied at the project level.
+
+## Common security configurations
+
+In addition to project and workspace security reviews, ZenOpus provides account-level and authentication-related security settings. These configurations are not tied to a specific project, but they play an important role in protecting user accounts and reducing the risk of compromised credentials.
+
+You should review these settings when setting up authentication or before launching an app that allows users to sign in.
+
+### Leaked password protection
+
+If your app uses email and password authentication, you can prevent users from choosing known compromised passwords.
+
+This protection checks user passwords against the **HIBP (Have I Been Pwned) database** and rejects commonly leaked or easy-to-guess passwords. Enabling it helps reduce the risk of account takeovers caused by reused credentials.
+
+- **Using ZenOpus Cloud**: Enable **Password HIBP Check** in **Cloud → Users → Auth settings → Email**
+- **Using Supabase directly**: See the Supabase documentation on [Password strength and leaked password protection](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection) for detailed instructions.
+
+## Costs and usage
+
+ZenOpus includes both automated and conversational security tools. Most security features are free to use, while some security actions consume credits.
+
+Automated and conversational security tools are designed to work together. Use automated security tools for continuous monitoring and targeted fixes during development and before publishing. Use conversational security reviews when you want a deeper, exploratory assessment of your app’s overall security posture.
+
+### Automated security actions (free)
+
+The following automated security actions do not consume credits:
+
+- **Running security scans**  
+Refreshing security scans, such as clicking **Update** in the Security view, is free.
+- **Fixing detected issues**  
+Automatically fixing findings, including using **Try to fix all** in the Security view, is free.
+- **Reviewing and discussing findings in the Security view**  
+Asking questions or requesting fixes for a specific security finding using the **inline chat within the Security view** is free.
+
+These actions use ZenOpus’s automated security scanners or security-specific remediation tools and do not count as regular chat usage.
+
+### Conversational security actions (uses credits)
+
+The following conversational security actions consume credits, just like regular chat messages:
+
+- **Conversational security review**  
+Asking ZenOpus to “review my app’s security” in chat runs a conversational, AI-driven review and consumes credits like a normal chat message.
+- **General security questions in chat**  
+Asking security-related questions directly in the main chat, outside of automated security tools, is treated as standard chat usage and consumes credits.

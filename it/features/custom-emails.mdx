@@ -1,0 +1,646 @@
+---
+title: "Invia email di autenticazione dal tuo dominio"
+description: "Invia e-mail di autenticazione dal tuo dominio e-mail con la configurazione automatica di DNS, SPF, DKIM e DMARC per migliorare la consegna, proteggere la reputazione del tuo dominio e rafforzare la fiducia del marchio."
+---
+## Cosa sono le email
+
+Le e-mail consentono alla tua app ZenOpus Cloud di inviare e-mail di autenticazione (conferme di registrazione, reimpostazione della password, collegamenti magici, inviti e altro) dal tuo dominio e-mail anziché dal mittente di autenticazione ZenOpus Cloud predefinito.
+
+Ad esempio: `noreply@notify.yourdomain.com` o `noreply@yourdomain.com`
+
+L'utilizzo di un sottodominio di invio dedicato aiuta a proteggere la reputazione del tuo dominio principale mantenendo coerente il tuo marchio.
+
+Puoi personalizzare:
+
+- Quale dominio di posta elettronica utilizza il tuo progetto
+- La configurazione del sottodominio del mittente
+- Branding e-mail e stile visivo
+- Modelli di email di autenticazione e righe dell'oggetto
+
+ZenOpus gestisce la verifica del dominio, la configurazione DNS, l'autenticazione della posta elettronica (`SPF`, `DKIM` e `DMARC`) e l'infrastruttura di consegna. Non sono richiesti account di provider di posta elettronica esterni o chiavi API.
+
+## Tipi di email supportati
+
+Al momento, le email Support **solo email di autenticazione**.
+
+Le e-mail di autenticazione sono un tipo di e-mail transazionale relativa all'accesso all'account e alla verifica dell'identità. Vengono attivati ​​automaticamente da Cloud Auth quando gli utenti eseguono azioni specifiche relative alla sicurezza.
+
+Queste e-mail di autenticazione includono:
+
+- **Conferma la registrazione**  
+Inviato quando un utente crea un account e la conferma tramite posta elettronica è abilitata. Verifica che l'utente possieda l'indirizzo email prima di attivare l'account.
+- **Reimpostazione della password**  
+Inviato quando un utente richiede di reimpostare la propria password. Consente il recupero sicuro della password.
+- **Collegamento magico**  
+Inviato quando è abilitato l'accesso senza password e un utente richiede un collegamento di accesso. Autentica l'utente senza richiedere una password. Puoi chiedere a ZenOpus di abilitare l'autenticazione del collegamento magico se non è già configurata.
+- **Invita**  
+Inviato quando inviti un utente a partecipare al tuo progetto (da Cloud → Utenti). Concede l'accesso all'account tramite un collegamento di invito sicuro.
+- **Cambio email**  
+Inviato quando un utente aggiorna il proprio indirizzo email. Conferma la proprietà del nuovo indirizzo prima di applicare la modifica.
+- **Riautenticazione**  
+Inviato quando un utente deve verificare la propria identità prima di eseguire un'azione sensibile, come la modifica di una password. In genere include un codice di verifica di breve durata. Puoi chiedere a ZenOpus di abilitare la riautenticazione se non è già configurata.
+
+<Note>
+Al momento non sono supportate e-mail di marketing, newsletter, conferme d'ordine, notifiche di spedizione e altre e-mail transazionali o di notifica.
+</Note>
+
+## Disponibilità e utilizzo
+
+Le email sono disponibili sui **piani a pagamento**. Ogni Workspace a pagamento include **50.000 email di autenticazione al mese** senza costi aggiuntivi. L'utilizzo viene calcolato sull'intero Workspace.
+
+Le email di autenticazione aggiuntive vengono fatturate a $ 1 ogni 1.000 email.
+
+## Perché usare le email
+
+- **Migliore consegnabilità:** le email inviate dal tuo dominio hanno maggiori probabilità di raggiungere la posta in arrivo anziché lo spam.
+- **Più fiducia:** gli utenti vedono il tuo dominio nell'indirizzo Da, rafforzando la credibilità.
+- **Branding coerente:** le email di autenticazione corrispondono all'identità del tuo prodotto.
+- **Configurazione gestita:** ZenOpus verifica il tuo dominio e configura i record DNS richiesti.
+- **Invio autenticato:** ZenOpus imposta automaticamente [SPF, DKIM e DMARC](#what-are-spf-dkim-and-dmarc-and-do-i-need-to-configure-them) per autenticare le tue email e migliorare il posizionamento della casella di posta.
+- **Monitoraggio continuo:** ZenOpus ti avvisa se le modifiche DNS potrebbero influire sulla consegna delle email.
+
+## Prerequisiti
+
+Per utilizzare le e-mail:
+
+- [ZenOpus Cloud](/it/integrations/cloud) deve essere abilitato per il tuo progetto.
+- Il tuo Workspace deve avere un piano a pagamento.
+- Devi possedere un dominio e avere accesso per gestirne le impostazioni DNS.
+- Devi essere un amministratore o un proprietario Workspace per aggiungere, eliminare o verificare i domini.
+
+## Come funzionano le email
+
+Quando configuri un dominio email, ZenOpus:
+
+- Crea un sottodominio del mittente transazionale nel dominio principale, ad esempio `notify.yourdomain.com`
+- Ti guida attraverso la configurazione DNS utilizzando un flusso di configurazione automatizzato
+- Verifica il tuo dominio controllando i record DNS richiesti
+- Genera automaticamente modelli di email di autenticazione con marchio
+- Distribuisce un hook e-mail di autenticazione che instrada le e-mail di autenticazione attraverso il tuo dominio e-mail
+- Attiva la consegna della posta elettronica una volta completata la verifica DNS
+
+Dopo la verifica, le email di autenticazione vengono inviate dal tuo dominio anziché dal mittente di autenticazione ZenOpus Cloud predefinito.
+
+### Ambito e utilizzo del dominio di posta elettronica
+
+Il provisioning dei domini e-mail viene effettuato al livello Workspace.
+
+- Un Workspace può avere più domini di posta elettronica
+- Un dominio verificato può essere utilizzato su più progetti
+- Ogni progetto seleziona quale dominio verificato utilizzare
+- Può essere attivo un solo dominio email alla volta per progetto
+- Solo i domini con stato **Verificato** possono inviare email
+- Le e-mail possono essere abilitate o disabilitate per progetto
+
+Se le e-mail sono disabilitate per un progetto, le e-mail di autenticazione ricadono sul mittente di autenticazione ZenOpus Cloud predefinito.
+
+## Aggiungi un dominio di posta elettronica
+
+Seleziona il dominio che desideri utilizzare per l'invio di email. Questo sarà il dominio che i tuoi utenti vedranno nella loro casella di posta.
+
+Ci sono due modi per iniziare:
+
+- **Dalla chat**: chiedi a ZenOpus di impostare le email e verrà presentato un pulsante di configurazione. Ad esempio:
+    ```text
+    Desidero inviare e-mail di reimpostazione della password dal mio dominio.
+    ```
+- **Dalle impostazioni Cloud** : vai su **Cloud → E-mail** e fai clic su **Inizia**.  Questo ti porta al flusso di configurazione dell'email.
+
+<Steps>
+<Step title="Imposta un dominio di posta elettronica">
+- Scegli un dominio Workspace esistente dal menu a discesa oppure seleziona **Aggiungi un nuovo dominio email**, quindi inserisci il dominio principale o il sottodominio, ad esempio `yourdomain.com`.
+    <Note>
+    I domini possono avere fino a 5 livelli, ad esempio `a.b.c.example.com`.
+    </Note>
+- Fare clic su **Continua**.
+</Step>
+<Step title="Configura il sottodominio del mittente">
+Configura il prefisso del sottodominio che verrà utilizzato per l'invio delle email di autenticazione. L'anteprima sul lato destro mostra una casella di posta simulata con email di esempio provenienti dal dominio configurato.
+
+- Per impostazione predefinita, ZenOpus crea un `notify` sottodominio per la consegna, ad esempio `noreply@notify.yourdomain.com`, ma puoi modificare il sottodominio.
+- Facoltativamente, puoi abilitare **Mostra come inviato da @tuodominio.com** in modo che i destinatari vedano le email provenienti da `@yourdomain.com` nella loro casella di posta, mentre il tuo sottodominio transazionale gestisce la consegna dietro le quinte.
+- Fai clic su **Imposta dominio**.
+</Step>
+<Step title="Configurazione DNS completa">
+Dopo aver fatto clic su **Imposta dominio**, ZenOpus avvia un **flusso di configurazione DNS automatizzato** (fornito da Entri) che ti guida attraverso la configurazione della delega di zona `NS` richiesta per il tuo dominio.
+
+Se il tuo provider DNS non è nell'elenco o preferisci il controllo manuale, puoi configurare tu stesso i record DNS. Scorri fino alla fine della finestra **Seleziona il provider del tuo dominio** Entra e scegli **Vai alla nostra configurazione manuale**.
+
+Sia il metodo automatizzato che quello manuale richiedono la verifica della proprietà del tuo dominio. ZenOpus eseguirà il provisioning del tuo dominio e genererà i record DNS richiesti.
+
+<Tabs>
+<Tab title="Configurazione automatica">
+Segui le istruzioni visualizzate sullo schermo per accedere al tuo provider DNS e autorizzare Entri ad aggiornare i tuoi record DNS.
+</Tab>
+<Tab title="Configurazione manuale">
+1. Copia i record DNS visualizzati.
+    - Record `TXT` per la verifica del dominio
+    - Record `NS` che puntano ai nameserver di ZenOpus
+1. Tieni traccia dei tuoi progressi con il contatore **Ho copiato i record X/Y**.
+1. Inserisci i record DNS copiati direttamente nel tuo registrar di domini o provider DNS.
+
+Puoi anche inoltrare queste istruzioni a un collega se qualcun altro gestisce il tuo DNS.
+</Tab>
+</Tabs>
+</Step>
+<Step title="Attendi la verifica">
+Dopo aver configurato il DNS, verrai riportato alla pagina **E-mail** nel tuo progetto.
+
+Un banner di stato mostra lo stato attuale del tuo dominio.
+
+<Note>
+Le modifiche DNS in genere si propagano entro poche ore, ma potrebbero richiedere fino a 48 ore.
+</Note>
+
+Mentre è in corso la verifica DNS, ZenOpus genera e distribuisce immediatamente i modelli di email di autenticazione.
+
+Un messaggio automatico appare nella chat e viene eseguito in background:
+
+```text
+Configura i modelli email di autenticazione ZenOpus per notify.tuodominio.com. La verifica DNS è in corso. Abbina i modelli di email allo stile della mia app: usa i colori del mio marchio, aggiungi il mio logo se ne ho uno e scrivi il testo con lo stesso tono e lo stesso linguaggio della mia app.
+```
+
+ZenOpus genera e distribuisce automaticamente sei modelli di email di autenticazione con marchio:
+
+- Applica i colori del marchio della tua app
+- Aggiunge il tuo logo se ne esiste uno nel progetto
+- Corrisponde al tono e alla lingua utilizzati nella tua app
+
+Puoi rivedere e [personalizzare i modelli email](#customizing-email-templates) anche prima del completamento della verifica DNS.
+</Step>
+</Steps>
+
+ZenOpus rileva automaticamente quando la verifica DNS viene completata e attiva il tuo dominio.
+
+Una volta che lo stato del dominio diventa **Verificato**, le email di autenticazione iniziano a essere inviate dal tuo dominio anziché dal mittente di autenticazione ZenOpus Cloud predefinito.
+
+Fino al completamento della verifica, le e-mail di autenticazione continuano a essere inviate utilizzando il mittente predefinito.
+
+<Note>
+I domini appena forniti iniziano con una reputazione neutrale. La consegna iniziale può variare mentre il tuo dominio crea fiducia con i provider di posta in arrivo attraverso invii coerenti e legittimi. Per ulteriori informazioni, consulta le [Best practice per la consegna delle email](#best-practice-per-la-consegna-della-posta-elettronica).
+</Note>
+
+## Stati del dominio di posta elettronica
+
+I domini di posta elettronica possono passare attraverso i seguenti stati:
+
+| Stato | Significato |
+| --- | --- |
+| In attesa | L'installazione è iniziata e la configurazione DNS è in corso |
+| Verifica | Sono stati rilevati record DNS e la verifica è in corso |
+| Impostazione | Provisioning del dominio in corso |
+| Verificato (attivo) | Il dominio è pronto e può essere utilizzato per inviare e-mail |
+| Non in linea | I record DNS richiesti sono stati modificati o rimossi dopo la verifica |
+| Fallito | Verifica o provisioning non riusciti |
+
+<Warning>
+I domini sono costantemente monitorati. Se i record DNS richiesti vengono spostati, rimossi o scadono, il dominio potrebbe passare a uno stato inattivo fino alla nuova verifica.
+</Warning>
+
+## Gestione domini di posta elettronica
+
+In **Cloud → E-mail**, utilizza il menu a discesa del dominio per accedere a:
+
+- **Analisi e registri**: visualizza le metriche di consegna per il dominio di posta elettronica e l'attività di posta elettronica per il progetto corrente utilizzando quel dominio.
+- **Gestisci domini**: visualizza tutti i domini email Workspace e i relativi badge di stato, controlla e copia i record DNS, cambia il dominio utilizzato dal progetto corrente, verifica manualmente un dominio, aggiungi un dominio o elimina un dominio.
+    <Warning>
+    L'eliminazione di un dominio è un'azione di **Workspace**. Ciò interromperà l'invio di email da quel dominio. Qualsiasi progetto che utilizza quel dominio tornerà automaticamente alle email di autenticazione predefinite.
+    </Warning>
+- **Aggiungi un nuovo dominio:** aggiungi un nuovo dominio email Workspace.
+- **Disabilita email**: abilita o disabilita le email per il progetto corrente. Se disabilitate, le email di autenticazione vengono inviate utilizzando il mittente Cloud Auth predefinito anziché i modelli personalizzati.
+
+### Analisi e registri
+
+La vista analitica include:
+
+- **Schede metriche**: conteggi di invii, consegne e respinti per il dominio di posta elettronica
+- **Grafico di consegna**: email consegnate e non riuscite per il dominio email in 7, 30 o 90 giorni
+- **Registro attività e-mail**: un elenco espandibile di singole e-mail inviate per il progetto corrente, che mostra destinatario, stato (completato, non riuscito, in sospeso), tipo (e-mail di autenticazione o e-mail di prova), timestamp e tracce di esecuzione dettagliate con messaggi di errore per gli errori
+
+## Personalizza i modelli di email di autenticazione
+
+Quando le e-mail sono abilitate, ZenOpus genera automaticamente modelli di e-mail di autenticazione con marchio per il tuo progetto.
+
+La pagina **E-mail** include una scheda per ciascun modello. Ogni scheda mostra:
+
+- Indirizzo **Da**
+- Riga **Oggetto**
+- **Anteprima dal vivo** del modello di email visualizzato in un iframe
+- Opzioni di **Invia prova**, incluso l'invio di un'email di prova al tuo account o a un indirizzo personalizzato.
+    <Note>
+    Le e-mail inviate da domini appena configurati potrebbero inizialmente finire nello spam mentre la reputazione cresce.
+    </Note>
+
+### Marchio automatico
+
+ZenOpus applica automaticamente il branding della tua app:
+
+- Estrazione delle variabili CSS da `src/index.css` (colori primari, caratteri, raggio del bordo)
+- Rilevamento dei file del logo in `public/` e `src/assets/`
+- Caricamento di un logo rilevato in un bucket di archiviazione delle risorse di posta elettronica dedicato
+- Adattare il testo dell'e-mail al tono e al linguaggio della tua app
+
+Lo sfondo esterno del corpo dell'e-mail è sempre `#ffffff` per garantire un rendering coerente tra i client di posta elettronica. I componenti interni possono utilizzare i colori del tuo marchio.
+
+### Cosa puoi personalizzare
+
+Puoi chiedere a ZenOpus di aggiornare:
+
+- Copia e tono
+- Colori del marchio
+- Disposizione e struttura
+- Immagini e posizionamento del logo
+- Righe oggetto
+
+<Warning>
+Lo sfondo esterno del corpo dell'e-mail deve rimanere bianco (`#ffffff`) per garantire un rendering coerente tra i client di posta elettronica. I componenti interni possono utilizzare i colori del tuo marchio.
+</Warning>
+
+Ad esempio:
+
+```text
+Abbina le email al mio marchio utilizzando #2563eb per pulsanti e intestazioni, aggiungi il mio logo in alto, rimuovi gli emoji, rendi il tono professionale ma amichevole, sposta il pulsante più in alto nel layout, aggiungi un piè di pagina con Support@myapp.com e aggiorna le righe dell'oggetto in modo che inizino con il nome della mia app.
+```
+
+ZenOpus aggiorna i modelli preservando le variabili di autenticazione richieste e i collegamenti di richiamata sicuri.
+
+### Modifica i modelli manualmente
+
+Se preferisci modificare direttamente il codice:
+
+- I modelli di autenticazione si trovano in `supabase/functions/_shared/email-templates/`
+- La logica di invio si trova in `supabase/functions/auth-email-hook/`
+
+I modelli utilizzano componenti React Email con stili in linea (i client di posta elettronica non Support CSS esterni).
+
+Le variabili di autenticazione richieste e i collegamenti di callback devono rimanere intatti, altrimenti i flussi di autenticazione verranno interrotti.
+
+Dopo aver modificato i file modello o le righe dell'oggetto, devi chiedere a ZenOpus di ridistribuire la funzione `auth-email-hook` affinché le modifiche abbiano effetto. La ridistribuzione aggiorna la funzione backend che esegue il rendering e invia le email di autenticazione.
+
+Ad esempio:
+
+```text
+Ridistribuire i miei modelli di posta elettronica
+```
+
+## Best practice per la consegna della posta elettronica
+
+Quando si inviano e-mail di autenticazione da un nuovo dominio, il posizionamento della casella di posta potrebbe richiedere del tempo per stabilizzarsi. I provider di posta in arrivo valutano la reputazione del mittente nel tempo in base al coinvolgimento, all'autenticazione e ai modelli di invio.
+
+Segui queste pratiche per migliorare la consegna e costruire una solida reputazione del mittente.
+
+<AccordionGroup>
+<Accordion title="Riscalda gradualmente i nuovi domini">
+I nuovi domini email non hanno cronologia di invio. I fornitori di posta in arrivo li trattano con cautela perché spesso gli spammer utilizzano nuovi domini e li abbandonano rapidamente.
+
+La consegna iniziale può variare durante i primi giorni o settimane. Questo è normale.
+
+La reputazione del tuo dominio cresce gradualmente man mano che gli utenti reali interagiscono con le email di autenticazione come le iscrizioni e la reimpostazione delle password.
+
+L'utilizzo di un sottodominio transazionale dedicato aiuta a isolare il traffico di autenticazione e a proteggere la reputazione del dominio principale.
+
+**Cronologia tipica**
+
+- Primi giorni: le email di prova potrebbero finire nello spam
+- Prime settimane: la deliverability migliora man mano che il traffico legittimo costruisce la reputazione
+- Primi mesi: la reputazione si stabilizza con invii coerenti e coinvolti
+
+**Cosa aiuta:**
+
+- Inizia a inviare con il normale traffico di autenticazione (registrazioni utente, reimpostazione password)
+- Lascia che il volume cresca in modo naturale man mano che la tua base utenti si espande
+- Mantieni modelli di invio coerenti per settimane e mesi
+- Assicurati che le e-mail di autenticazione siano previste e attivate da azioni reali dell'utente
+- Contrassegna le email legittime come "Non spam" nella tua casella di posta
+
+**Cosa fa male:**
+
+- Grandi picchi improvvisi nel volume di posta elettronica da un dominio nuovo di zecca
+- Invio di e-mail di prova in blocco immediatamente dopo la configurazione
+- Invio incoerente (lunghi intervalli seguiti da raffiche improvvise)
+- Modifiche dettate dal panico ai domini o all'identità del mittente
+
+La reputazione si costruisce automaticamente con un comportamento di invio coerente e legittimo nel tempo.
+</Accordion>
+<Accordion title="Assicurati che l'autenticazione del dominio sia valida">
+L'autenticazione deve passare affinché le e-mail raggiungano la posta in arrivo. ZenOpus configura automaticamente `SPF`, `DKIM` e `DMARC` quando configuri il tuo dominio email.
+
+Se i record DNS vengono modificati o configurati in modo errato, l'autenticazione potrebbe fallire e le e-mail potrebbero finire nello spam.
+
+Conferma sempre che lo stato del dominio è **Verificato** in **Cloud → E-mail**.
+</Accordion>
+<Accordion title="Invia solo e-mail legittime e attivate dall'utente">
+Le e-mail di autenticazione dovrebbero essere attivate solo da azioni reali dell'utente, come la registrazione o la reimpostazione di una password.
+
+Evita di generare traffico artificiale a scopo di test o di automazione. Modelli di traffico innaturali possono influire negativamente sulla reputazione del dominio.
+</Accordion>
+<Accordion title="Mantieni le email di autenticazione strettamente transazionali">
+Le e-mail di autenticazione dovrebbero corrispondere chiaramente all'azione recente dell'utente e spiegare il motivo per cui l'e-mail è stata inviata.
+
+**Buone pratiche**:
+
+- Utilizza righe di oggetto semplici ("Reimposta la tua password", "Verifica la tua email")
+- Spiegare chiaramente cosa deve fare l'utente
+- Abbina l'e-mail all'azione eseguita dall'utente
+
+**Evita**:
+
+- Aggiunta di contenuti di marketing o upsell alle e-mail di autenticazione
+- Righe dell'oggetto fuorvianti o clickbait
+- Linguaggio promozionale nelle email di autenticazione
+</Accordion>
+<Accordion title="Mantieni l'identità del mittente coerente">
+Utilizzare un coerente:
+
+- Dall'indirizzo
+- Nome del mittente
+- Dominio
+
+Le frequenti modifiche all'identità del mittente riducono i segnali di fiducia con i provider di posta in arrivo.
+</Accordion>
+<Accordion title="Evita la formattazione che attiva lo spam">
+Quando si personalizzano i modelli di posta elettronica:
+
+**Fare**:
+
+- Utilizza argomenti chiari e descrittivi
+- Mantieni la formattazione semplice e pulita
+- Utilizza un rapporto testo-immagine equilibrato
+- Includi il nome del tuo marchio e un indirizzo mittente riconoscibile
+- Assicurati che i collegamenti nell'e-mail corrispondano al tuo dominio di invio, quando possibile
+
+**Non**:
+
+- Utilizza TUTTO MAIUSCOLO nelle righe dell'oggetto
+- Aggiungi punteggiatura eccessiva (!!!)
+- Crea righe di oggetto fuorvianti
+- Utilizza layout ricchi di immagini
+- Collegamento a domini non correlati o non corrispondenti
+
+I provider di posta in arrivo cercano coerenza tra il dominio del mittente e i domini utilizzati nei collegamenti. Se la tua email viene inviata da `yourdomain.com`, i collegamenti all'interno dell'email dovrebbero idealmente puntare a `yourdomain.com` o ai suoi sottodomini. I domini non corrispondenti vengono comunemente utilizzati negli attacchi di phishing e possono attivare il filtraggio dello spam.
+
+La formattazione chiara e prevedibile e l'allineamento del dominio migliorano la fiducia e il coinvolgimento.
+</Accordion>
+<Accordion title="Monitora la frequenza di rimbalzo e i reclami">
+Le frequenze di rimbalzo elevate danneggiano la reputazione del mittente.
+
+Utilizza **Analisi e log** per monitorare:
+
+- Inviato
+- Consegnato
+- Rimbalzato
+
+Gli hardbounce causati da indirizzi non validi o digitati in modo errato sono particolarmente dannosi. L'invio ripetuto a indirizzi non validi può ridurre il posizionamento della casella di posta.
+
+Se la frequenza di rimbalzo aumenta:
+
+- Controlla come vengono raccolti gli indirizzi email
+- Convalida gli input al momento della registrazione
+- Evitare di riprovare ripetutamente le consegne non riuscite
+
+Anche le denunce di spam influiscono negativamente sulla reputazione. Le e-mail di autenticazione dovrebbero sempre essere previste e spiegate chiaramente.
+</Accordion>
+<Accordion title="Limitare i test interni">
+L'opzione **Invia test** in **Cloud → Email** è utile per la convalida, ma limita i test.
+
+**Perché è importante**:
+
+- I fornitori di posta in arrivo valutano i segnali di coinvolgimento da tutte le email che invii
+- Email di prova ripetute allo stesso indirizzo creano modelli di traffico artificiali
+- Il rimbalzo di e-mail di prova su indirizzi falsi danneggia la tua reputazione
+
+**Approccio migliore**:
+
+- Invia alcune email di prova a te stesso o al tuo team
+- Utilizza indirizzi email reali che controlli
+- Evita di inviare grandi quantità di email di prova
+</Accordion>
+<Accordion title="Se le e-mail finiscono nello spam">
+Se le email di autenticazione sono contrassegnate come spam:
+
+1. Conferma che lo stato del dominio è **Verificato**
+1. Assicurati che i record DNS siano configurati correttamente
+1. Esamina le righe dell'oggetto e il contenuto
+1. Controlla la frequenza di rimbalzo in **Analisi e log**
+1. Riduci i picchi improvvisi nel volume di invio
+1. Sii paziente. I nuovi domini hanno bisogno di tempo per creare fiducia con i provider di posta in arrivo
+
+La consegnabilità migliora con un comportamento di invio coerente e legittimo nel tempo.
+</Accordion>
+<Accordion title="Incoraggia segnali di coinvolgimento positivi">
+I fornitori di posta in arrivo considerano il coinvolgimento quando valutano la reputazione del mittente.
+
+Le email di autenticazione generano naturalmente segnali positivi quando gli utenti:
+
+- Apri l'e-mail
+- Fare clic sul collegamento di verifica o reimpostazione
+- Completa l'azione prevista
+
+Messaggi chiari e flussi attesi aumentano il coinvolgimento e migliorano il posizionamento della casella di posta a lungo termine.
+</Accordion>
+<Accordion title="Comprendere gli algoritmi del provider di posta in arrivo">
+I fornitori di posta in arrivo non condividono pubblicamente i propri criteri di filtraggio dello spam (per impedire agli spammer di ingannare il sistema). Tuttavia generalmente valutano:
+
+- **Autenticazione mittente**: `SPF`, `DKIM` e `DMARC` sono configurati correttamente? (ZenOpus lo gestisce automaticamente)
+- **Reputazione mittente**: qual è la tua cronologia di mancati recapiti, reclami e coinvolgimento?
+- **Qualità dei contenuti**: gli oggetti sono chiari? La formattazione è pulita? I link corrispondono al tuo dominio?
+- **Segnali di coinvolgimento**: gli utenti aprono le email? Fare clic sui collegamenti? Rispondere? Oppure contrassegnali come spam
+- **Modelli di invio**: invii in modo coerente? O a raffiche improvvise?
+
+Pensa: "Cosa farebbe un phisher?" Allora fai il contrario. I provider di posta in arrivo vogliono proteggere i propri utenti, quindi dimostra in ogni passaggio che sei un mittente legittimo senza intenti dannosi.
+</Accordion>
+</AccordionGroup>
+
+## Risoluzione dei problemi
+
+<AccordionGroup>
+<Accordion title="Il dominio email è bloccato in &quot;Verifica&quot;">
+Possibili cause:
+
+- Record DNS non completamente propagati
+- Delega `NS` errata
+- `TXT` record di verifica mancante
+- DNS configurato a livello di dominio errato
+
+**Cosa fare:**
+
+- Ricontrolla gli esatti record DNS mostrati in **Cloud → Email**
+- Conferma che i record sono stati aggiunti al dominio principale corretto
+- Attendere fino a 48 ore per la propagazione
+- Riprovare la verifica
+</Accordion>
+<Accordion title="Lo stato del dominio mostra Offline">
+Ciò significa che i record DNS richiesti sono stati modificati, rimossi o scaduti dopo la verifica.
+
+**Cosa fare:**
+
+- Esamina i record DNS in **Cloud → E-mail**
+- Ripristina i record `NS` o `TXT` mancanti
+- Verifica nuovamente il dominio
+</Accordion>
+<Accordion title="Le email non vengono inviate">
+Controlla:
+
+- Il dominio email è collegato al tuo progetto
+- Lo stato del dominio è **Verificato**
+- Le email sono abilitate per il progetto
+- L'autenticazione cloud è abilitata
+- Stai attivando un tipo di email di autenticazione supportato
+
+Utilizza **Invia test** nella scheda di un modello e controlla **Analisi e registri** per errori di consegna o mancati recapiti.
+</Accordion>
+<Accordion title="Elevate frequenze di rimbalzo nell'analisi">
+Cause comuni:
+
+- Indirizzi email non validi
+- Errori di battitura durante la registrazione
+- Tentativi ripetuti verso indirizzi non validi
+
+Convalida l'input dell'e-mail al momento della registrazione ed evita di riprovare i rimbalzi forzati.
+</Accordion>
+<Accordion title="Le email di prova finiscono nello spam">
+Questo è comune per i domini appena forniti.
+
+Evita di inviare grandi volumi di email di prova interne. Consenti alle email organiche attivate dagli utenti di costruire reputazione nel tempo.
+</Accordion>
+<Accordion title="Le modifiche al mio modello di posta elettronica non vengono visualizzate">
+Se hai modificato i file modello ma gli utenti continuano a ricevere versioni precedenti:
+
+- Assicurarsi che la funzione `auth-email-hook` sia stata ridistribuita
+- Chiedi a ZenOpus di ridistribuire i tuoi modelli di email
+
+Le modifiche al modello diventano effettive solo dopo la ridistribuzione.
+</Accordion>
+<Accordion title="Utilizzare strumenti esterni per indagare sui problemi di consegna">
+Se le e-mail finiscono costantemente nello spam o vengono rifiutate, puoi utilizzare i seguenti strumenti per una diagnostica più approfondita.
+
+Questi strumenti sono facoltativi e molto utili per i mittenti con volumi più elevati.
+
+- [Strumenti di Google Postmaster](https://postmaster.google.com/)  
+Visualizza la reputazione del mittente, i tassi di spam e l'allineamento dell'autenticazione per i destinatari Gmail.
+- [Yahoo Sender Hub](https://senders.yahooinc.com/)  
+Monitora il tasso di reclami e la reputazione del mittente per le caselle di posta di Yahoo.
+- [Ricerca nella lista bloccata di Spamhaus](https://check.spamhaus.org/)  
+Controlla se il tuo dominio, indirizzo IP o URL e-mail compaiono nelle principali blocklist.
+- [Navigazione sicura di Google](https://transparencyreport.google.com/safe-browsing/search)  
+Testa i collegamenti utilizzati nelle tue e-mail per assicurarti che non siano contrassegnati come non sicuri.
+
+Questi strumenti aiutano a diagnosticare problemi di reputazione o blocklist che potrebbero influire sul posizionamento della casella di posta.
+</Accordion>
+</AccordionGroup>
+
+## Domande frequenti
+
+<AccordionGroup>
+<Accordion title="Cosa sono le email di autenticazione in ZenOpus?">
+Le e-mail di autenticazione consentono alla tua app ZenOpus Cloud di inviare e-mail relative all'account come conferme di registrazione, reimpostazione della password, collegamenti magici, inviti, conferme di modifica e-mail e codici di riautenticazione dal tuo dominio anziché dal mittente di autenticazione ZenOpus Cloud predefinito.
+
+Queste e-mail vengono attivate automaticamente da Cloud Auth quando gli utenti eseguono azioni relative alla sicurezza.
+</Accordion>
+<Accordion title="Le e-mail di autenticazione sono uguali alle e-mail transazionali?">
+Le email di autenticazione sono un sottoinsieme delle email transazionali. Tutte le e-mail di autenticazione sono transazionali, ma non tutte le e-mail transazionali sono e-mail di autenticazione.
+
+E-mail Support **Solo e-mail di autenticazione**.
+</Accordion>
+<Accordion title="Posso inviare e-mail di marketing?">
+No. Sono supportate solo le e-mail di autenticazione (conferme di registrazione, reimpostazione della password, collegamenti magici, inviti, modifica dell'e-mail e riautenticazione).
+
+Al momento non sono supportate e-mail di marketing, newsletter, conferme d'ordine e altre e-mail transazionali prive di autenticazione.
+</Accordion>
+<Accordion title="Le email richiedono ZenOpus Cloud?">
+Sì. Le e-mail richiedono ZenOpus Cloud e si integrano con Cloud Auth per inviare e-mail di autenticazione.
+</Accordion>
+<Accordion title="Ho bisogno di un dominio web personalizzato per utilizzare un dominio di posta elettronica?">
+No. Il tuo dominio web personalizzato controlla dove è ospitata la tua app. Un dominio di posta elettronica personalizzato controlla da quale dominio vengono inviate le tue email.
+
+Si tratta di configurazioni separate perché l'hosting web e la consegna della posta elettronica utilizzano record DNS e infrastrutture diversi.
+
+Puoi utilizzare un dominio root completamente diverso per l'invio di e-mail purché ne controlli il DNS. Tuttavia, è consigliabile utilizzare un dominio in linea con il marchio del prodotto per garantire la fiducia degli utenti e la consegna.
+
+L'hosting della tua app su un dominio personalizzato non configura automaticamente l'invio di email.
+</Accordion>
+<Accordion title="Posso utilizzare un sottodominio per l'invio di email?">
+Sì. ZenOpus crea automaticamente un sottodominio transazionale come `notify.yourdomain.com` per la consegna.
+
+Facoltativamente puoi visualizzare le email come provenienti dal tuo dominio principale mentre la consegna avviene attraverso il sottodominio dietro le quinte.
+
+Si consiglia di utilizzare un sottodominio email dedicato perché aiuta a proteggere la reputazione del dominio principale.
+</Accordion>
+<Accordion title="Ho bisogno di un provider di posta elettronica esterno come SendGrid o Resend?">
+No. ZenOpus gestisce la verifica del dominio, la configurazione DNS, i record di autenticazione come `SPF`, `DKIM` e `DMARC` e l'infrastruttura di consegna. Non è necessario gestire chiavi API o account di provider di posta elettronica di terze parti.
+</Accordion>
+<Accordion title="Cosa sono SPF, DKIM e DMARC e devo configurarli?">
+`SPF`, `DKIM` e `DMARC` sono standard di autenticazione e-mail che aiutano i provider di posta in arrivo a verificare che le tue e-mail siano legittime e non contraffatte.
+
+Quando invii un'email, provider come Gmail o Outlook controllano che:
+
+- L'e-mail è autorizzata per essere inviata dal tuo dominio
+- Il messaggio non è stato modificato durante il trasporto
+- Il proprietario del dominio ha definito una politica per la gestione delle e-mail sospette
+
+Se l'autenticazione fallisce, le email potrebbero essere contrassegnate come spam, rifiutate o danneggiare la reputazione del tuo dominio.
+
+ZenOpus configura e mantiene automaticamente:
+
+- **SPF (Sender Policy Framework):** Autorizza quali server possono inviare e-mail per il tuo dominio
+- **DKIM (DomainKeys Identified Mail):** firma crittograficamente le e-mail per impedirne la manomissione
+- **DMARC (Autenticazione, reporting e conformità dei messaggi basati sul dominio):** Definisce il modo in cui i provider gestiscono l'autenticazione non riuscita e protegge dallo spoofing
+
+Non è necessario configurare manualmente questi record. ZenOpus li configura durante la verifica del dominio e li monitora continuamente. Se i record di autenticazione vengono modificati, rimossi o scadono, riceverai una notifica in modo che possano essere ripristinati.
+</Accordion>
+<Accordion title="Quante email di autenticazione sono incluse al mese?">
+Ogni Workspace a pagamento include **50.000 email di autenticazione al mese** senza costi aggiuntivi.
+
+L'utilizzo viene calcolato sull'intero Workspace.
+
+Le email aggiuntive vengono fatturate a **$ 1 per 1.000 email**.
+</Accordion>
+<Accordion title="Posso utilizzare le email nel piano gratuito?">
+No. Le email sono disponibili solo sui **piani a pagamento**. I piani Free utilizzano il mittente di autenticazione ZenOpus Cloud predefinito.
+</Accordion>
+<Accordion title="Quanto tempo richiede la verifica DNS?">
+Le modifiche DNS in genere si propagano entro poche ore, ma possono richiedere fino a 48 ore.
+
+Puoi controllare lo stato del dominio in **Cloud → Email**. Lo stato si aggiorna automaticamente una volta completata la verifica.
+</Accordion>
+<Accordion title="Perché le mie email finiscono nello spam?">
+I nuovi domini di posta elettronica iniziano senza reputazione di invio.
+
+Se le email di autenticazione finiscono nello spam:
+
+• Conferma che lo stato del dominio è **Verificato**  
+
+ • Assicurarsi che i record DNS non siano cambiati  
+
+ • Evitare picchi improvvisi nel volume di invio  
+
+ • Evitare la formattazione che attiva lo spam  
+
+ • Controlla la frequenza di rimbalzo in **Analisi e log**
+
+La deliverability migliora nel tempo con attività utente coerenti e legittime.
+</Accordion>
+<Accordion title="Posso personalizzare i modelli di email?">
+Sì. Puoi personalizzare:
+
+- Copia e tono
+- Colori del marchio
+- Disposizione e struttura
+- Loghi e immagini
+- Righe oggetto
+
+Puoi chiedere a ZenOpus di aggiornare i modelli o modificarli direttamente in `supabase/functions/_shared/email-templates/`.
+
+Le variabili di autenticazione richieste e i collegamenti di richiamata devono rimanere intatti.
+
+Lo sfondo esterno del corpo dell'e-mail deve rimanere bianco (`#ffffff`) per garantire un rendering coerente tra i client di posta elettronica. I componenti interni possono utilizzare i colori del tuo marchio.
+</Accordion>
+<Accordion title="Cosa succede se disabilito le email?">
+Se le e-mail sono disabilitate per un progetto, le e-mail di autenticazione continuano a essere inviate utilizzando il mittente di autenticazione ZenOpus Cloud predefinito anziché i modelli con marchio.
+</Accordion>
+<Accordion title="Cosa succede se elimino un dominio email?">
+L'eliminazione di un dominio email è un'azione estesa a **Workspace**.
+
+Tutti i progetti che utilizzano quel dominio torneranno immediatamente al mittente di autenticazione ZenOpus Cloud predefinito.
+</Accordion>
+</AccordionGroup>

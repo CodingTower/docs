@@ -1,0 +1,298 @@
+---
+title: "FAQ"
+description: "Answers to common questions about building apps, managing projects, account settings, security, and how ZenOpus works."
+---
+## Getting started
+
+<AccordionGroup>
+<Accordion title="What is ZenOpus?">
+ZenOpus is an AI-powered platform that enables users of any skill level to create full-stack websites through natural language. Simply describe what you want, and ZenOpus builds it for you.
+</Accordion>
+<Accordion title="What can I build with ZenOpus?">
+If you can imagine it, you can build it with ZenOpus. From simple landing pages to powerful tools tailored for niche use cases, ZenOpus gives you the flexibility to create whatever you need, without limits.
+</Accordion>
+<Accordion title="Do I need coding experience to build with ZenOpus?">
+No. ZenOpus is designed for all levels of experience. Whether you’re a developer or a non-technical user, you can create websites using ZenOpus.
+</Accordion>
+<Accordion title="How do I create a project?">
+To create a project, simply type a message into the message box on the dashboard. Just describe what you want to build and ZenOpus will take it from there and generate a starting point for your project. Remember to start small and build in increments!
+</Accordion>
+<Accordion title="Can I reuse an existing project?">
+Yes, you can remix an existing public project or one of your own. Remixing allows you to reuse the current state of a project as a starting point and build upon it. It’s a great way to explore new ideas, make adjustments, or iterate with different changes while preserving the original version.
+</Accordion>
+</AccordionGroup>
+
+## Building with ZenOpus
+
+<AccordionGroup>
+<Accordion title="How do I build efficiently with ZenOpus?">
+Building efficiently with ZenOpus is all about using the right techniques. Anyone can do it with a bit of practice. To help you get started, check out our [guide](https://mastering-zenopus.zenopus.app/).
+</Accordion>
+<Accordion title="How should I structure my prompts for the best results?">
+- Be clear and specific.
+- Focus on one feature at a time.
+- Build incrementally.
+- Use buzz-words for getting the design right.
+</Accordion>
+<Accordion title="What should I do when I hit an error?">
+<Steps>
+<Step title="Try-to-fix button">
+Use **Try-to-fix** option. ZenOpus will try to solve the issue automatically. Using the button doesn’t deduct any credits.
+</Step>
+<Step title="Investigate">
+If **Try-to-fix** doesn’t resolve the issue, ask the ZenOpus Agent to investigate the issue. Explain what you are seeing and what specific parts aren’t working.
+</Step>
+<Step title="Revert to an older version">
+If that doesn’t work, you can preview an older working version and then revert to that version if needed, or revert and edit a past message to explore a different approach. Nothing gets lost — all changes made after that point stay in the chat and can be reapplied anytime.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="What is refactoring, and why is it important?">
+Refactoring improves code structure and efficiency without altering functionality. It helps:
+
+- Optimize performance by removing redundancies.
+- Improve maintainability for future updates.
+- Prevent conflicts by structuring logic more clearly.
+</Accordion>
+<Accordion title="Can I connect my project to a backend to store data?">
+If you need to add backend capabilities to your application, you can:
+
+- Connect to ZenOpus’s built-in backend -  [ZenOpus Cloud](/features/cloud)
+- Use ZenOpus’s native [Supabase integration](/integrations/supabase)
+</Accordion>
+<Accordion title="Can I add login to my website?">
+Yes, you can add authentication by using [ZenOpus Cloud](/features/cloud) or integrating with [Supabase](/integrations/supabase). Simply prompt the AI to add it and follow the instructions.
+</Accordion>
+<Accordion title="Can I add third-party APIs to my project?">
+Yes, you can integrate APIs like OpenAI, Stripe, and more by specifying them in your prompt. Read more [here](/integrations/introduction).
+</Accordion>
+<Accordion title="Can I store sensitive API keys in ZenOpus?">
+No! Never enter your API keys directly in ZenOpus. If you’re integrating with an API, we recommend you use secrets in [ZenOpus Cloud](/features/cloud) or [Supabase](/integrations/supabase) to store your API keys, in combination with their Edge Functions.
+</Accordion>
+<Accordion title="How do I add payments to my website?">
+You can add payments by adding Stripe to your project. See [Stripe integration](/integrations/stripe) to set it up.
+</Accordion>
+<Accordion title="How can I improve SEO for my project?">
+Ensure the best results by following our [Implement SEO and GEO best practices](/tips-tricks/seo-geo) guide.
+</Accordion>
+<Accordion title="How long does it take to complete a project?">
+It depends on complexity. By breaking tasks into smaller steps, planning ahead, and refining based on feedback, you can move quickly while ensuring quality.
+</Accordion>
+</AccordionGroup>
+
+## Features
+
+<AccordionGroup>
+<Accordion title="How do I find the Project settings?">
+You can find the **Project settings** by clicking your project name at the top left of the editor and then selecting **Settings**.
+</Accordion>
+<Accordion title="Can I change the visibility of my project?">
+Yes, navigate to the **Project settings** where you can change the visibility. See [Control project visibility](/features/private-projects) for more information.
+</Accordion>
+<Accordion title="Can I request access to private projects?">
+Yes. When navigating to a private project, you can request viewer or editor access from the project owner. This keeps private work secure while making collaboration easier.
+</Accordion>
+<Accordion title="Can I hide the ZenOpus badge?">
+Yes, navigate to the **Project settings** where you’ll find the option to hide the badge. Only paying users can toggle off the badge.
+</Accordion>
+<Accordion title="Can I rename a project?">
+Yes, navigate to the **Project settings** and where you’ll find the option to rename the project.
+</Accordion>
+<Accordion title="How do I copy (remix) a project?">
+To make a copy of a project, you **remix** it. Go to the **Project Settings** and select the **Remix** option.
+
+Remixing creates an exact copy of the project in your currently selected workspace. You can then edit it independently.
+
+<Note>
+You can only remix public projects from other users if the project is not connected to Supabase.
+</Note>
+</Accordion>
+<Accordion title="Can I delete a project?">
+Yes, navigate to the **Project settings** and where you’ll find the option to **Delete** the project.
+
+<Note>
+This is final and there is no way to restore deleted projects.
+</Note>
+</Accordion>
+<Accordion title="What is Plan mode?">
+Plan mode (previously Chat mode) is ideal for planning features, debugging issues, and understanding changes before writing or modifying code. See [Brainstorm with Plan mode](/features/plan-mode) for more information.
+</Accordion>
+<Accordion title="Can I see the code that ZenOpus generates and manually edit it?">
+Yes. You can see the code and manually edit the code using ZenOpus’s [Code mode](/features/code-mode).
+</Accordion>
+<Accordion title="Can I manually edit text or colors?">
+Yes, you can edit text or colors using [Visual Edits](/features/visual-edit).
+</Accordion>
+<Accordion title="Can I collaborate on my projects?">
+Yes, you can collaborate on projects inside ZenOpus. See [Collaboration](/features/collaboration) for more information.
+</Accordion>
+<Accordion title="How do I publish my project?">
+See [Publish](/features/publish) and follow the steps outlined there to publish your project.
+</Accordion>
+<Accordion title="How do I add a custom domain to my project?">
+See [Custom domain](/features/custom-domain) to add a custom domain to your project.
+</Accordion>
+<Accordion title="Can I see analytics for my published projects?">
+Yes. See [Project analytics](/features/project-analytics) for more information.
+</Accordion>
+<Accordion title="Can I add images to a ZenOpus prompt?">
+Yes. Images as design inspiration, sketches of your desired layout, or screenshots of UI flaws are super helpful while designing your website.
+</Accordion>
+<Accordion title="Can I add videos to a ZenOpus prompt?">
+Videos aren’t supported yet, but screenshots can often do the job.
+</Accordion>
+<Accordion title="Can I export all of my project's code?">
+Yes. By transferring your code to GitHub, you can export your code and do whatever you’d like with it. See [GitHub integration](/integrations/github) for more information.
+</Accordion>
+<Accordion title="Can I start a project by importing code from an external source such as GitHub?">
+No, currently there is no way to start a ZenOpus project from already existing code on for example GitHub.
+</Accordion>
+<Accordion title="How do I see my project history?">
+You can view your project history by simply scrolling up in the chat or pressing the **View history** icon on top of the chat. You can also select older versions to preview them or restore your project to that version.
+</Accordion>
+<Accordion title="Can I revert to an earlier version of my project?">
+Yes. You can preview an older working version and then revert to that version if needed, or edit a past message and revert to explore a different approach. Nothing gets lost — all changes made after that point stay in the chat and can be reapplied anytime.
+
+- Find the option to revert under each response in the chat or in the history tab when you select the version you want to revert to.
+- Find the option to edit a past message and revert under each past message you sent in the chat.
+</Accordion>
+</AccordionGroup>
+
+## ZenOpus API
+
+<Accordion title="What can I do with the ZenOpus API?">
+The **ZenOpus API** makes it possible to create and share ZenOpus apps programmatically — turning ideas, prompts, or even images into fully-generated applications with a single link.
+
+The first release, **Build with URL**, allows you to generate apps directly from a shareable URL. With it, you can:
+
+- Embed a **Build with ZenOpus** button on your website or application.
+- Share predefined prompts via URLs with friends, colleagues, or on social media.
+- Automate app generation as part of internal workflows.
+- Rapidly prototype apps using URLs with prompts and reference images.
+
+Learn about the feature and real-world use cases in our announcement post: [Build apps from a link with ZenOpus Build with URL](https://zenopus.dev/blog/introducing-zenopus-api-build-with-url).
+
+Read the full technical guide here: [ZenOpus API: Build with URL documentation](/integrations/build-with-url).
+</Accordion>
+
+## Managing your account
+
+<AccordionGroup>
+<Accordion title="Can I change the email I use to login?">
+Unfortunately, changing the email address directly is not possible at this time. As a workaround, you can create a new account with your desired email address and transfer your projects by following these steps:
+
+1. Make your existing projects public temporarily and copy the URL.
+1. Access the URL whilst logged in to your new account.
+1. Remix the projects into your new account. Please note that projects connected to Supabase have to be disconnected from Supabase before you can remix them.
+1. Once the projects are transferred, you can make them private again if needed.
+
+Note: If your target workspace is on a paid plan, remixing public projects may be necessary for access. Remixed projects won’t carry over subscription-level features unless the new workspace has them too.
+</Accordion>
+<Accordion title="Can I delete my account?">
+To delete your account, go to **Settings → Your Account**, scroll down and press **Delete account**. This will permanently remove your account and all associated data.
+</Accordion>
+<Accordion title="Can I reactivate a deleted account?">
+No, you can’t reactivate a deleted account. However, after pressing the button to delete the account, this action can be cancelled within 48 hours to stop the deletion.
+</Accordion>
+<Accordion title="Can I change the workspace owner?">
+Yes, an owner can add multiple workspace owners.
+</Accordion>
+<Accordion title="How can I transfer project ownership to someone else?">
+One way around this is to remix the project, and the person who remixes the project will now be the owner of that version.
+</Accordion>
+<Accordion title="How do I enable two-factor authentication (2FA)?">
+**Two-factor authentication (2FA)** adds an extra layer of security to your ZenOpus account by requiring a one-time code when you sign in, in addition to your usual sign-in method.
+
+### Set up 2FA
+
+1. Go to **Settings → Account → Your account** and enable **Two-factor authentication.**
+1. Choose and set up a verification method by following the on-screen instructions:
+    - **Authenticator app (recommended)**  
+    Use an app such as Google Authenticator, Microsoft Authenticator, Authy, or 1Password to generate time-based one-time codes.
+    - **Phone (SMS)**  
+    Receive 6-digit verification codes by text message.
+1. Click **Verify & Enable**.
+
+#### Signing in with 2FA
+
+When you sign in:
+
+1. Complete your usual sign-in method.
+1. Choose a verification method.
+1. Enter the 6-digit code from your authenticator app or SMS.
+
+#### Managing 2FA
+
+- You can add or remove 2FA methods from your account settings at any time.
+- We recommend keeping **at least two methods** configured to avoid getting locked out.
+</Accordion>
+<Accordion title="What are vibe coding levels and how do I add them to my LinkedIn account?">
+Vibe coding levels reflect how actively you use ZenOpus, based on the number of messages you send while building. Your level increases automatically as you use ZenOpus more.
+
+The levels are:
+
+- **Bronze**: Getting started with ZenOpus
+- **Silver**: Regular ZenOpus user
+- **Gold**: Active ZenOpus builder
+- **Platinum**: Highly engaged ZenOpus builder
+- **Diamond**: Top-tier ZenOpus engagement
+
+You can view your level in **Settings → Your account**. Optionally, you can connect your LinkedIn account to display your current level under **Licenses & certifications**. This is fully optional and can be disconnected at any time.
+
+For more information, see [Vibe coding LinkedIn certification](/tips-tricks/linkedin-certification) (Beta).
+</Accordion>
+</AccordionGroup>
+
+## Policies and security
+
+<AccordionGroup>
+<Accordion title="How can I get support?">
+Go to [Help & Support](https://zenopus.dev/support).
+</Accordion>
+<Accordion title="Where can I find ZenOpus's privacy policy?">
+Go to [Privacy policy](https://zenopus.dev/privacy).
+</Accordion>
+<Accordion title="Where can I find ZenOpus's Terms of Service?">
+Go to [Terms of Service](https://zenopus.dev/terms).
+</Accordion>
+<Accordion title="What is ZenOpus's refund policy?">
+Please see our [Terms of Service](https://zenopus.dev/terms) to read more about our refund policy.
+</Accordion>
+<Accordion title="Is ZenOpus compliant with security standards?">
+Yes, ZenOpus is compliant with industry-recognized security standards and follows best practices for data protection and risk management. We undergo independent third-party audits and maintain certifications such as ISO 27001:2022 and SOC 2 Type II. You can view our current compliance status, subprocessors and policies [here](https://trust.zenopus.dev/)
+</Accordion>
+<Accordion title="Is ZenOpus GDPR compliant?">
+Yes, ZenOpus is fully GDPR compliant. We follow strict data protection and privacy practices in accordance with the General Data Protection Regulation (GDPR), which applies to all organizations handling personal data of individuals within the EU. Our systems are continuously monitored to ensure compliance, and we are committed to protecting user data globally.
+</Accordion>
+<Accordion title="How can I make my account more secure?">
+Enable **two-factor authentication (2FA)** from your account settings. See *How do I enable two-factor authentication?*
+</Accordion>
+</AccordionGroup>
+
+## How ZenOpus works
+
+<AccordionGroup>
+<Accordion title="What tech stacks does ZenOpus know?">
+ZenOpus builds front-end using React, Tailwind & Vite, and can connect to OpenAPI backends. Support for data persistence and authentication is available using ZenOpus Cloud or Supabase.
+</Accordion>
+<Accordion title="Does ZenOpus support mobile app development?">
+No, ZenOpus is focused on **web applications**, but you can design mobile-friendly web apps.
+</Accordion>
+<Accordion title="How does ZenOpus remember context?">
+ZenOpus processes recent messages to maintain context. For the best results, include relevant details in each prompt to ensure clarity and accuracy.
+</Accordion>
+<Accordion title="Who owns the projects and the code that ZenOpus creates?">
+You as the creator do!
+</Accordion>
+</AccordionGroup>
+
+## About ZenOpus
+
+<AccordionGroup>
+<Accordion title="Where is ZenOpus based?">
+ZenOpus is **100% made in Europe**, with headquarters in **Stockholm, Sweden.**
+</Accordion>
+<Accordion title="Is ZenOpus hiring?">
+Yes! Check out our open positions [here](https://zenopus.dev/careers).
+</Accordion>
+</AccordionGroup>

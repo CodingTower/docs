@@ -1,0 +1,104 @@
+---
+title: "Bilder in ZenOpus verwenden"
+description: "Laden Sie Bilder zum Chatten hoch, ersetzen Sie sie durch visuelle Bearbeitungen, verwenden Sie externe URLs oder fügen Sie Dateien aus Ihrem öffentlichen GitHub-Verzeichnis hinzu."
+---
+Um Bilder hinzuzufügen, haben Sie vier Möglichkeiten:
+
+<AccordionGroup>
+<Accordion title="Laden Sie das Bild in den Prompt-Chat hoch">
+Laden Sie sie einfach im Chat hoch und erklären Sie dem Agenten von ZenOpus, wo und wie sie in Ihrem Projekt erscheinen sollen. Zum Beispiel:
+
+> Ersetzen Sie das Logo in der Navigationsleiste durch dieses Bild
+</Accordion>
+<Accordion title="Ersetzen Sie es im visuellen Editor">
+Sie können ein vorhandenes Bild direkt mit der Funktionalität des [visuellen Editors](/de/features/design) ersetzen:
+
+<Steps>
+<Step title="Schritt 1">
+Klicken Sie auf das Werkzeug „Bearbeiten“.
+</Step>
+<Step title="Schritt 2">
+Wählen Sie den Bildhalter aus, den Sie ändern möchten.
+
+![Visueller Editor, der ein Bildelement zeigt, das bei geöffnetem Bearbeitungsfeld ausgewählt wurde](/images/zenopus/tips-tricks/using-images/visual-edit-replace.png)
+</Step>
+<Step title="Schritt 3">
+Ändern Sie das Bild.
+
+![Dialogfeld zum Ersetzen von Bildern im visuellen Editor mit Upload- und URL-Optionen](/images/zenopus/tips-tricks/using-images/visual-edit-image.png)
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Verwendung einer externen Bild-URL">
+Eine Möglichkeit, Ihrem Projekt Bilder hinzuzufügen, besteht darin, von einer externen URL auf ein Bild zu verweisen. Mit dieser Methode können Sie Bilder verwenden, die auf externen Plattformen wie Unsplash, Imgur oder einem anderen Bild-Hosting-Dienst gehostet werden. Beachten Sie die Nutzungsrechte!
+
+So verwenden Sie prompt ZenOpus ein externes Bild:
+
+<Steps>
+<Step title="Schritt 1">
+Suchen Sie das Bild, das Sie verwenden möchten.
+
+Sie können beispielsweise eine Website wie Unsplash besuchen, ein Bild auswählen und dessen URL kopieren.
+</Step>
+<Step title="Schritt 2">
+Weisen Sie ZenOpus in Ihrer Projektaufforderung einfach an, dieses Bild zu verwenden, indem Sie die URL angeben. Zum Beispiel:
+
+```text
+Verwenden Sie das Bild von dieser URL 
+https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Pale_Blue_Dot.png/442px-Pale_Blue_Dot.png 
+für das Bild im Heldenbereich.
+```
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Verwenden von Bildern aus Ihrem öffentlichen GitHub-Verzeichnis">
+Eine weitere Methode zum Hinzufügen von Bildern zu Ihrem ZenOpus-Projekt ist die Verwendung von Bildern, die in das `public`-Verzeichnis Ihres verbundenen GitHub-Repositorys hochgeladen wurden. So können Sie es machen:
+
+<Steps>
+<Step title="Verbinden Sie Ihr GitHub-Repository">
+Stellen Sie sicher, dass Ihr Projekt mit Ihrem GitHub-Repo verbunden ist. [So verbinden Sie Ihr Repo](/de/integrations/git-integration).
+</Step>
+<Step title="Suchen Sie den öffentlichen Ordner">
+Navigieren Sie in Ihrem GitHub-Repository zum Verzeichnis `public`. Dieser Ordner wird normalerweise zum Hosten von Assets wie Bildern verwendet, auf die in Ihrem Projekt verwiesen werden kann.
+</Step>
+<Step title="Datei hinzufügen">
+Klicken Sie auf **Datei hinzufügen** und wählen Sie dann aus einem Dropdown-Menü die Option **Dateien hochladen** aus. ![Dateien zum Hochladen auswählen](/images/zenopus/tips-tricks/using-images/using-images-github-upload.png)
+</Step>
+<Step title="Laden Sie ein Bild hoch">
+Der nächste Schritt besteht darin, Ihr Bild in Ihr Repo zu übertragen:
+
+- Ziehen Sie das Bild per Drag & Drop in den öffentlichen Ordner oder
+- Klicken Sie auf den Link **„Dateien auswählen“**, um die Bilddatei zu durchsuchen und auszuwählen.
+    ![Dateien zum Hochladen auswählen](/images/zenopus/tips-tricks/using-images/using-images-github-commiting.png)
+</Step>
+<Step title="Übernehmen Sie die Änderungen">
+Nachdem Sie Ihr Bild ausgewählt haben, schreiben Sie eine einfache Commit-Nachricht (z. B. „Hinzufügen von Bilddateien zur Verwendung in der App“) und klicken Sie auf **„Änderungen übernehmen“**, um die Datei in Ihrem Repository zu speichern.
+</Step>
+<Step title="Rufen Sie den Bildpfad ab">
+Sobald die Datei hochgeladen ist, wählen Sie sie aus und klicken Sie dann auf das Kopiersymbol neben dem Dateinamen, um den Pfad des Bildes zu kopieren. Dieser Pfad wird in Ihrer ZenOpus-Eingabeaufforderung verwendet. ![Dateien zum Hochladen auswählen](/images/zenopus/tips-tricks/using-images/using-images-github-selecting.png)
+</Step>
+<Step title="Verwenden Sie das Bild in ZenOpus">
+Sie können dieses Bild jetzt in Ihrem Projekt referenzieren, indem Sie eine Eingabeaufforderung wie die folgende verwenden:
+
+```text
+Fügen Sie dem Heldenbereich ein zusätzliches Bild hinzu. 
+Verwenden Sie dieses Mal dieses aus meinem lokalen Repo: public/c-64-close-up.jpg.jpeg
+```
+
+Stellen Sie sicher, dass Sie den Bildnamen und den Pfad verwenden, die Sie im vorherigen Schritt kopiert haben.
+
+<Warning>
+Das Hochladen großer Bilder in Ihr GitHub-Repo kann dazu führen, dass es größer wird, was sich auf die Leistung auswirken kann (längere Repo-Klonzeiten, langsamerer Start von Vorschauen/Sandbox).
+
+Versuchen Sie, Ihre Bilder zu optimieren, bevor Sie sie in Ihren `public`-Ordner hochladen, indem Sie sie komprimieren und für Ihren Anwendungsfall relevante Abmessungen verwenden. Verwenden Sie beispielsweise kein Bild im Full-HD-Format, wenn es nur als kleines Symbol angezeigt wird.
+</Warning>
+</Step>
+</Steps>
+
+Um Ihnen zu helfen, besser zu verstehen, wie Sie Bilder mit den oben beschriebenen Methoden integrieren, haben wir ein Projekt, das Sie erkunden können: [ZenOpus Projektbeispiel](https://zenopus.dev/projects/e823fedf-238d-4313-86a8-1fd4bfc2a9ba). In diesem Projekt können Sie die tatsächlichen Eingabeaufforderungen und die Funktionsweise der einzelnen Methoden in der Praxis sehen.
+
+Darüber hinaus gibt es hier ein öffentliches GitHub-Repository, das die Commits, hochgeladenen Bilder und vollständige Implementierungsdetails enthält. Sie können das Repository hier anzeigen: [GitHub: Beispiel für das Hinzufügen von Bildern](https://github.com/viborc/adding-images-example).
+
+Erkunden Sie gerne das Projekt und das Repository, um Ihr Verständnis zu vertiefen und Ihre Implementierungsfähigkeiten zu verbessern.
+</Accordion>
+</AccordionGroup>

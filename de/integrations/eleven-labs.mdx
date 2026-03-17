@@ -1,0 +1,126 @@
+---
+title: "Verbinden Sie Ihre App mit ElevenLabs"
+description: "Verbinden Sie Ihre App mit ElevenLabs, einer KI-Audioplattform, um hochwertige Sprach- und Audioinhalte zu generieren."
+---
+[ElevenLabs](https://elevenlabs.io/) ist eine KI-Audioplattform, mit der Ihre ZenOpus-App **gesprochene Audio- und sprachgesteuerte Erlebnisse** generieren kann. Es wurde für Apps entwickelt, die realistische Text-zu-Sprache, Charakterstimmen oder Audioausgabe als Kernbestandteil des Produkterlebnisses benötigen.
+
+Mit ElevenLabs kann Ihre App:
+
+- Wandeln Sie Text in hochwertige synthetisierte Sprache um
+- Verwenden Sie Charakterstimmen oder Markenerzähler
+- Erstellen Sie Podcasts, Audiozusammenfassungen oder gesprochene Inhalte
+- Ermöglichen Sie Konversations- oder sprachbasierte Interaktionen in Echtzeit
+- Support Barrierefreiheit durch bildschirmlose oder freihändige Erlebnisse
+
+ElevenLabs eignet sich gut, wenn Ihre App auf **Sprachausgabe oder Audio-First-Interaktion** und nicht auf reinen Textschnittstellen angewiesen ist.
+
+## Häufige Anwendungsfälle und Beispiel-Apps
+
+| Beispiel-App | Beispielaufforderung | Beschreibung |
+| --- | --- | --- |
+| Sprachgesteuerte Assistenten | Erstellen Sie einen sprachgesteuerten Assistenten. Benutzer stellen Fragen und die App antwortet laut mit ElevenLabs-Stimmen. | Erstellen Sie sprachgesteuerte Assistenten, die gesprochene Antworten statt reiner Textantworten liefern. Die App akzeptiert Benutzereingaben, generiert eine Antwort, wandelt diese Antwort mithilfe einer ausgewählten Stimme in gesprochenes Audio um und liefert Audio als primäre Ausgabe. |
+| Tägliche Briefing-Apps | Nutzen Sie ElevenLabs und erstellen Sie eine tägliche Briefing-App, die jeden Morgen Kennzahlen oder Zusammenfassungen vorliest. | Stellen Sie tägliche Briefings als Audio bereit, damit Benutzer beim Multitasking zuhören können. Die App stellt ein Briefing aus ausgewählten Quellen (z. B. Kennzahlen, Dashboards oder Zusammenfassungen) zusammen, generiert eine gesprochene Version und bietet eine In-App-Wiedergabe. |
+| Generatoren für Podcasts und erzählte Inhalte | Nutzen Sie ElevenLabs und erstellen Sie eine App, die Artikel oder Story-Eingabeaufforderungen in erzählte Audio-Episoden umwandelt. | Verwandeln Sie geschriebene Inhalte in kommentierte Audio-Episoden, die Benutzer bei Bedarf anhören können. Die App wandelt Artikel oder Aufforderungen in Skripte um, generiert Kommentare (optional mit mehreren Stimmen) und gibt vollständige Audioepisoden zum Anhören auf Abruf aus. |
+| Apps für Kindergeschichten und Geschichtenerzählen | Nutzen Sie ElevenLabs und erstellen Sie eine Story-App, die erzählte Geschichten mit Charakterstimmen generiert. | Generieren Sie erzählte Geschichten mit ausdrucksstarken Charakterstimmen für immersive Storytelling-Erlebnisse. Die App erstellt Geschichten basierend auf benutzerdefinierten Eingaben, weist den Charakteren Stimmen zu und erzeugt als primäre Ausgabe vollständig erzählte Audiodaten. |
+| Lern- und Lehr-Apps | Nutzen Sie ElevenLabs und erstellen Sie eine Lern-App, die Lektionen oder Übungen vorliest. | Support Lernen durch gesprochenen Unterricht und erzählte Bildungsinhalte. Die App wandelt Lektionen, Übungen oder Erklärungen in gesprochenes Audio um und liefert Kommentare als Kernbestandteil des Lernerlebnisses. |
+| Fitness-, Wellness- und geführte Erlebnis-Apps | Nutzen Sie ElevenLabs und erstellen Sie eine Fitness- oder Wellness-App, die gesprochene Anleitungen liefert. | Bieten Sie geführte Erlebnisse durch Audio-First-Anweisungen und Eingabeaufforderungen. Die App generiert gesprochene Anleitungen für Routinen, Sitzungen oder Übungen und liefert während des gesamten Erlebnisses kontinuierlich Audio. |
+| Barrierefreiheitsfunktionen | Nutzen Sie ElevenLabs und erstellen Sie eine App, die Inhalte für Benutzer vorliest, die eine Audioausgabe bevorzugen oder benötigen. | Aktivieren Sie den Audio-First-Zugriff auf App-Inhalte, damit diese genutzt werden können, ohne auf den Bildschirm angewiesen zu sein. Die App generiert automatisch gesprochenes Audio für relevante Inhalte und stellt Audio als primäre Art und Weise bereit, wie Benutzer Informationen konsumieren, und unterstützt so die Verwendung ohne Bildschirm oder ohne Hände. |
+
+## So verbinden Sie ElevenLabs
+
+Workspace **Administratoren** und **Eigentümer** können ElevenLabs verbinden.
+
+Sie können mehrere ElevenLabs-Verbindungen mit unterschiedlichen API-Schlüsseln und mit unterschiedlichen Zugriffsebenen erstellen, was für die Trennung von Umgebungen (z. B. Entwicklung und Produktion) oder die Verwaltung von Ratenbeschränkungen nützlich ist.
+
+Wenn die Verbindung hergestellt wird, wird ElevenLabs für alle Projekte im Workspace verfügbar.
+
+### Voraussetzungen
+
+Stellen Sie vor dem Anschließen von ElevenLabs sicher, dass Sie über Folgendes verfügen:
+
+- Ein ElevenLabs-Konto und ein API-Schlüssel
+    <Note>
+    Für die gesamte über diesen Anschluss durchgeführte Audiogenerierung oder -verarbeitung werden ElevenLabs-Credits verbraucht (basierend auf dem ausgewählten Modell und der Eingangslänge). Die Abrechnung erfolgt direkt über ElevenLabs und nicht über ZenOpus.
+    </Note>
+- ZenOpus Workspace Besitzer- oder Administratorrolle
+
+### Schritt 1: Erstellen Sie ein ElevenLabs-Konto und einen API-Schlüssel
+
+Mit einem API-Schlüssel können Sie eine Verbindung zur ElevenLabs-API herstellen und deren Funktionen nutzen. Sie können mehrere Schlüssel mit unterschiedlichen Zugriffsebenen erstellen.
+
+So erstellen Sie einen ElevenLabs-API-Schlüssel:
+
+1. Gehen Sie zu [ElevenLabs](https://elevenlabs.io/app/developers/api-keys?source=zenopus) und richten Sie Ihr Konto ein.
+1. Klicken Sie unter **Entwickler → API-Schlüssel** auf **Schlüssel erstellen**.
+1. Geben Sie dem Schlüssel einen aussagekräftigen Namen, zum Beispiel `ZenOpus integration`.
+1. Aktivieren Sie **Schlüssel einschränken**.
+1. Legen Sie ein monatliches **Kreditlimit** fest.
+1. Wählen Sie je nach den Anforderungen Ihrer App aus, welche Funktionsendpunkte dieser Schlüssel verwenden kann.
+1. Kopieren Sie den generierten API-Schlüssel und bewahren Sie ihn sicher auf.
+    <Info>
+    Ihr API-Schlüssel funktioniert wie ein Passwort. Bewahren Sie es sicher auf und geben Sie es niemals öffentlich weiter. Sie benötigen es im nächsten Schritt.
+    </Info>
+
+### Schritt 2: ElevenLabs mit ZenOpus verbinden
+
+Sie können mehrere Verbindungen mit unterschiedlichen API-Schlüsseln erstellen.
+
+So verbinden Sie ElevenLabs:
+
+1. Gehen Sie zu **Einstellungen → Konnektoren → Gemeinsame Konnektoren** und wählen Sie **ElevenLabs**.
+1. Klicken Sie auf **Verbindung hinzufügen**.
+1. **Anzeigename**: Benennen Sie die Verbindung, zum Beispiel `ElevenLabs Prod`.
+1. Geben Sie unter **Authentifizierung** Ihren ElevenLabs-API-Schlüssel (`sk_xxxxxxxx…`) ein.
+1. Klicken Sie auf **Erstellen**.
+
+Sobald die Verbindung hergestellt ist, können Ihre ZenOpus-Apps mithilfe von ElevenLabs mit der Generierung von Sprache und Audio beginnen.
+
+## So entkoppeln Sie Projekte von einer Verbindung
+
+Redakteure und höher können bestimmte Projekte aus einer Verbindung entfernen, ohne die Verbindung vollständig zu löschen. Für andere Projekte bleibt die Verbindung weiterhin verfügbar.
+
+Um die Verknüpfung von Projekten aufzuheben:
+
+<Steps>
+<Step title="Navigieren Sie zu Anschlüssen">
+Gehen Sie zu **Einstellungen → Konnektoren → Gemeinsame Konnektoren** und wählen Sie **ElevenLabs**.
+</Step>
+<Step title="Öffnen Sie die Verbindung">
+Öffnen Sie die Verbindung, die Sie verwalten möchten.
+</Step>
+<Step title="Wählen Sie Projekte aus">
+Markieren Sie unter **Verknüpfte Projekte** die Projekte, deren Verknüpfung Sie aufheben möchten.
+</Step>
+<Step title="Bestätigen">
+Klicken Sie auf **Projekte verknüpfen** und bestätigen Sie.
+</Step>
+</Steps>
+
+Wenn die Verknüpfung aufgehoben wird, haben diese Projekte über diese Verbindung keinen Zugriff mehr auf **ElevenLabs**. Wenn ein Projekt erneut **ElevenLabs** benötigt, können Sie es mit jeder verfügbaren Verbindung verknüpfen.
+
+## So löschen Sie eine Verbindung
+
+Workspace-Administratoren und Besitzer können **ElevenLabs**-Verbindungen löschen.
+
+<Warning>
+Das Löschen einer Verbindung ist dauerhaft und kann nicht rückgängig gemacht werden. Dadurch werden die Anmeldeinformationen aus allen verknüpften Projekten entfernt und alle Apps, die diese Verbindung verwenden, funktionieren nicht mehr, bis eine neue Verbindung hinzugefügt wird.
+</Warning>
+
+Überprüfen Sie vor dem Löschen den Abschnitt **Verknüpfte Projekte**, um zu sehen, welche Projekte derzeit die Verbindung verwenden.
+
+So löschen Sie eine Verbindung:
+
+<Steps>
+<Step title="Navigieren Sie zu Anschlüssen">
+Gehen Sie zu **Einstellungen → Konnektoren → Gemeinsame Konnektoren** und wählen Sie **ElevenLabs**.
+</Step>
+<Step title="Öffnen Sie die Verbindung">
+Öffnen Sie die Verbindung, die Sie entfernen möchten.
+</Step>
+<Step title="Überprüfen Sie verknüpfte Projekte">
+Sehen Sie sich den Abschnitt **Verknüpfte Projekte** an.
+</Step>
+<Step title="Löschen">
+Klicken Sie unter **Diese Verbindung löschen** auf **Löschen** und bestätigen Sie.
+</Step>
+</Steps>

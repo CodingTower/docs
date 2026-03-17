@@ -1,0 +1,93 @@
+---
+title: "ZenOpus KI"
+description: "Fügen Sie Ihren ZenOpus-Apps mit ZenOpus AI leistungsstarke KI-Funktionen hinzu. Keine API-Schlüssel oder Einrichtung erforderlich. Aktivieren Sie Zusammenfassungen, Chatbots, Fragen und Antworten zu Dokumenten, Übersetzung, Automatisierung und mehr."
+---
+Normalerweise bedeutet das Hinzufügen von KI zu einer App, API-Schlüssel zu suchen, die Abrechnung mit Anbietern einzurichten und alles selbst zu vernetzen. ZenOpus AI macht es einfach, Ihrer App schnell leistungsstarke KI-Funktionen hinzuzufügen, sodass Sie sofort mit der Entwicklung intelligenterer und ansprechenderer Apps beginnen können.
+
+Einige Beispiele sind:
+
+- **KI-Zusammenfassungen** – Verdichten Sie lange Texte automatisch zu klaren Erkenntnissen
+- **KI-Chatbot oder Agent** – integrieren Sie Konversationshelfer in Ihre App
+- **Sentiment-Erkennung** – Verstehen Sie Benutzerfeedback im großen Maßstab
+- **Fragen und Antworten zu Dokumenten** – ermöglichen Sie Benutzern, direkt Fragen zu Ihren Inhalten zu stellen
+- **Kreative Generierung** – Brainstorming, Texterstellung oder Ideenerweiterung
+- **Mehrsprachige Übersetzung** – globale Benutzer nahtlos bedienen
+- **Aufgabenerledigung** – Automatisieren Sie sich wiederholende oder mehrstufige Arbeitsabläufe (Agentenfunktionalität)
+- **Bild- und Dokumentanalyse** – Schnelles Extrahieren, Zusammenfassen und Interpretieren wichtiger Informationen aus Bildern und Dokumenten, um unstrukturierte Inhalte in umsetzbare Erkenntnisse umzuwandeln
+- **Workflow-Automatisierung** – Erledigen Sie wiederkehrende Aufgaben, treffen Sie Entscheidungen und optimieren Sie Prozesse, um Zeit zu sparen und Fehler zu reduzieren.
+
+## Aktivieren von ZenOpus AI
+
+<Note>
+Für das beste Erlebnis empfehlen wir die Verwendung von ZenOpus AI mit [ZenOpus Cloud](/de/integrations/cloud).
+</Note>
+
+Standardmäßig ist ZenOpus AI für Ihr Workspace und in den ZenOpus AI-Tool-Berechtigungen aktiviert. Das bedeutet, dass ZenOpus auf Anfrage automatisch KI-Funktionalität hinzufügt. Sie können das ZenOpus AI-Verhalten für Ihre Projekte unter **Einstellungen → Connectors → Gemeinsam genutzte Connectors → ZenOpus AI → Berechtigungen verwalten** verwalten.
+
+### Standard-KI-Modell
+
+ZenOpus AI verwendet **Gemini 3 Flash** als Standardmodell. Wenn Sie ein anderes Modell oder eine andere Modellkombination verwenden möchten, können Sie Ihre Auswahl direkt in der Eingabeaufforderung angeben, wenn Sie die KI-Funktionalität anfordern. Eine Übersicht über unterstützte KI-Modelle finden Sie unter [Unterstützte KI-Modelle](/de/features/ai#supported-ai-models).
+
+### Berechtigungseinstellungen
+
+Die Standardeinstellung für die KI-Integration ist **Immer zulassen**, was bedeutet, dass ZenOpus KI automatisch in Ihren Projekten verwendet wird. Sie können Ihre Präferenz jederzeit über **Einstellungen → Connectors → Gemeinsam genutzte Connectors → ZenOpus AI → Berechtigungen verwalten** ändern.
+
+Wählen Sie zwischen:
+
+- **Immer zulassen**: ZenOpus führt die Aktion automatisch aus, ohne eine Überprüfung oder Genehmigung anzufordern.
+- **Jedes Mal nachfragen**: ZenOpus bittet Sie um Ihre Zustimmung, wann immer die Aktion erforderlich ist. Wenn Sie beispielsweise einen Chatbot hinzufügen möchten, können Sie:
+    - **Zulassen**: Aktivieren Sie die Integration für das aktuelle Projekt.
+    - **Ablehnen**: Die Integration für diese Anfrage ablehnen (möglicherweise werden Sie später erneut gefragt).
+    - **Einstellungen anpassen**: Ändern Sie das Standardverhalten für zukünftige Projekte (hat keine Auswirkungen auf das aktuelle Projekt).
+- **Niemals zulassen**: ZenOpus blockiert die Aktion, informiert Sie darüber, dass AI erforderlich ist, und weist Sie an, ZenOpus AI zu aktivieren.
+
+## Nutzung und Preise
+
+ZenOpus AI läuft auf einem **nutzungsbasierten Preismodell**. Das bedeutet, dass Ihre Kosten mit der von Ihnen genutzten Menge skalieren und nicht durch Ihr Abonnement abgedeckt sind.
+
+Die Kosten für die Nutzung von ZenOpus AI sind genau die gleichen wie für den direkten Kontakt zum LLM-Anbieter. Es gibt keine versteckten Gebühren. Um die Kosten zu überprüfen, beziehen Sie sich auf die offiziellen Quellen, die in unserer Liste der unterstützten KI-Modelle unten verlinkt sind.
+
+Jeder Workspace beinhaltet **1 $ kostenlose KI-Nutzung pro Monat** für den Einstieg. Danach können Benutzer mit kostenpflichtigen Tarifen ihr Guthaben aufladen, wobei die Kosten vom gewählten Basismodell abhängen.
+
+<Note>
+**Vorübergehendes Angebot, Änderungen vorbehalten:** Bis zum Ende des ersten Quartals 2026 erhält jeder Workspace 25 $ Cloud und 1 $ AI pro Monat, auch für Benutzer mit dem Free-Plan.
+</Note>
+
+Sie können Ihre KI-Nutzungskosten unter **Einstellungen → Cloud- und KI-Balance** verfolgen und verwalten. Weitere Details und Beispiele finden Sie unter [Nutzungsbasierte Cloud- und KI-Preise](/de/features/cloud#usage-based-cloud-and-ai-pricing).
+
+## Unterstützte KI-Modelle
+
+ZenOpus AI verwendet **Gemini 3 Flash** als Standardmodell, Sie können den Agenten jedoch auffordern, ein anderes Modell oder eine andere Modellkombination zu verwenden.
+
+| Modell | Beschreibung | Am besten für |
+| --- | --- | --- |
+| Gemini 3 Flash (Standard) | Ein schnelles, effizientes Gemini-Modell, das für den reaktionsschnellen, universellen Einsatz und interaktive Agenten-Workflows optimiert ist. Gleicht Geschwindigkeit, Kosten und überzeugende Argumente für eine chatzentrierte und iterative Entwicklung aus. | Schnelle interaktive Builds, Agent-Workflows und allgemeine Anwendungsfälle, bei denen es auf Reaktionsfähigkeit ankommt |
+| Gemini 3.1 Pro | Googles leistungsstärkstes Gemini-3-Modell, das die Leistung und Zuverlässigkeit der Gemini-3-Pro-Serie verbessert. Es liefert stärkere Argumente, eine verbesserte Token-Effizienz und fundiertere, sachlich konsistente Antworten. Optimiert für Software-Engineering-Workflows, präzise Werkzeugnutzung und zuverlässige mehrstufige Ausführung bei komplexen Agentenaufgaben. Langsamer und teurer. | Agentische Arbeitsabläufe, erweiterte Codierung, Verständnis langer Kontexte, multimodales Denken und algorithmische Entwicklung |
+| Nano Banana 2 (Gemini 3.1 Flash-Image) | Schnelles Bildgenerierungs- und Bearbeitungsmodell basierend auf der neuesten Bildarchitektur von Gemini. Kombiniert starke visuelle Qualität mit schnellerer Generierung und Iteration, verbesserter Themenkonsistenz, präziser Textwiedergabe und Support für hochauflösende Ausgaben. | Schnelle Bildgenerierung, iterative visuelle Bearbeitung, Produktmodelle, Marketingressourcen und kreative Arbeitsabläufe, die eine schnelle Abwicklung erfordern |
+| Nano-Banane Pro | Hochwertiges Bildgenerierungs- und Bearbeitungsmodell basierend auf der Bildarchitektur von Gemini 3, optimiert für detaillierte visuelle Darstellungen, Textwiedergabe in Bildern und die Komposition mehrerer Bilder. | Erstellung visueller Assets, umfangreiche Bild-Workflows, Infografiken, Rapid Prototyping von Design/kreativen Inhalten |
+| Zwillinge 2.5 Pro | Der klügste und komplexeste Zwilling. Hohe Argumentation, großer Kontext, langsamer und am teuersten. | Tiefgründiges Denken, fortgeschrittene Codierung, Recherche, komplexe multimodale Aufgaben |
+| Gemini 2.5 Flash | Ein ausgewogenes Gemini-Modell, das eine gute Argumentationsleistung mit geringerer Latenz und geringeren Kosten als Pro bietet. | Assistenten, Analysen, allgemeine Arbeitsabläufe, bei denen es auf Geschwindigkeit und Intelligenz ankommt |
+| Gemini 2.5 Flash Lite | Die schnellste und kostengünstigste Gemini-Option, konzipiert für einfache Aufgaben mit hohem Durchsatz und begrenzter Argumentationstiefe. | Umfangreiche, leichte Aufgaben wie Klassifizierung, Zusammenfassung, Übersetzung |
+| Gemini 2.5 Flash-Image | Optimiert für die Generierung von Bildern. Sehr günstig pro Bild, nicht für Textbegründungen gedacht. | Bilderzeugung, schnelle visuelle Ausgabe |
+| GPT-5.2 | OpenAIs neuestes Flaggschiffmodell der GPT-5-Serie, entwickelt für professionelle Wissensarbeit, komplexe Argumentation und mehrstufige Aufgaben, mit verbessertem Codeverständnis und Langformkohärenz. | Komplexes Denken, tiefgreifende Codierung und analytische Arbeitsabläufe sowie Wissensaufgaben mit langem Kontext |
+| GPT-5 | Hochpräzises Allzweckmodell mit starken Argumentationsfähigkeiten. Höhere Latenz und Kosten im Vergleich zu kleineren GPT-5-Varianten. | Genauigkeitskritische Aufgaben, komplexe Entscheidungsfindung und hochwertige Argumentation |
+| GPT-5 Mini | Ausgewogenes GPT-5. Günstiger und schneller als GPT-5, weniger komplex, aber stark allgemein einsetzbar. | Assistenten, mittelkomplexes Denken, Geschäftsabläufe |
+| GPT-5 Nano | Günstigstes und schnellstes GPT-5. Sehr einfache Argumentation, am besten für schnelle oder einfache Antworten. | Zusammenfassungen, Klassifizierung, Extraktion, einfache Aufgaben mit hohem Volumen |
+
+### Beste und kostengünstigste Auswahl
+
+- **Beste Gesamtintelligenz**: GPT-5.2, Gemini 3.1 Pro und Gemini 2.5 Pro (tiefe Argumentation, aber am teuersten)
+- **Beste Balance (Geschwindigkeit + Kosten + Intelligenz)**: Gemini 3 Flash, GPT-5 Mini und Gemini 2.5 Flash
+- **Am kostengünstigsten für die Skalierung**: GPT-5 Nano und Gemini 2.5 Flash Lite (einfach, schnell, am günstigsten)
+- **Am besten für Bilder**: Nano Banana 2, Nano Banana Pro und Gemini 2.5 Flash Image
+
+## Workspace Tarifgrenzen
+
+Um eine zuverlässige Leistung und einen fairen Zugriff für alle Benutzer zu gewährleisten, wendet ZenOpus AI Ratenbegrenzungen pro Workspace an. Diese Grenzwerte tragen dazu bei, die Systemstabilität aufrechtzuerhalten, Missbrauch zu verhindern, Kosten zu kontrollieren und allen ein einheitliches Erlebnis zu bieten.
+
+Wenn Ihre Anfragen die zulässige Rate überschreiten, gibt der Server den Statuscode **429 Too Many Requests** zurück und die Anfrage wird nicht verarbeitet.
+
+Tariflimits sind für kostenlose Nutzer restriktiver, während kostenpflichtige Tarife höhere Schwellenwerte und mehr Flexibilität beinhalten.
+
+- **Free-Planbenutzer**: Upgraden Sie jederzeit, um Ihre Limits zu erhöhen.
+- **Benutzer eines kostenpflichtigen Plans**: Wenden Sie sich an [ZenOpus Support](https://zenopus.dev/support), wenn Sie zusätzliche Kapazität benötigen.

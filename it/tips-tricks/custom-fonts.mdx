@@ -1,0 +1,74 @@
+---
+title: "Utilizzo di caratteri personalizzati (Google)."
+description: "Applica caratteri sicuri per il Web come Arial o Courier New oppure importa Google Fonts per nome o URL per personalizzare la tipografia del tuo progetto."
+---
+Attualmente, ZenOpus non Support dirige il caricamento di caratteri personalizzati.
+
+Tuttavia, esistono diversi modi semplici per utilizzare caratteri sicuri per il Web o incorporare caratteri personalizzati nei tuoi progetti. Di seguito ti guideremo attraverso i metodi disponibili per **utilizzare caratteri web-safe** e **Google Fonts**:
+
+<AccordionGroup>
+<Accordion title="Utilizzando un carattere sicuro per il Web">
+<Info>
+**Cosa sono i caratteri sicuri per il Web?**
+
+I caratteri sicuri per il Web sono caratteri comunemente installati sulla maggior parte dei sistemi operativi (Windows, macOS, Linux e così via) e sono visibili su tutti i dispositivi.
+
+Questi caratteri garantiscono che il tuo testo appaia coerente su diversi browser e piattaforme senza la necessità di caricare risorse esterne. Alcuni dei caratteri più comuni sicuri per il Web sono:
+
+- Arial/Helvetica
+- Times New Roman
+- Georgia
+- Corriere Nuovo
+- Verdana
+- Tahoma
+- MS Trabucco
+- Lucida Sans Unicode
+</Info>
+
+Se desideri utilizzare un carattere sicuro per il Web nel tuo progetto, puoi specificare il carattere direttamente nel tuo prompt. Ad esempio, se desideri utilizzare **Courier New** per un'intestazione o un titolo nella sezione degli eroi, fai semplicemente riferimento al carattere in base al nome nel prompt.
+
+```text
+Utilizza Courier New come carattere dell'intestazione nella sezione degli eroi per il titolo principale.
+```
+
+I caratteri sicuri per il Web come Courier New garantiscono che il tuo progetto avrà una tipografia coerente su tutte le piattaforme senza richiedere risorse esterne per caricare il carattere. Tuttavia, possono limitare la tua creatività. Fortunatamente, ci sono opzioni come la possibilità di utilizzare Google Fonts.
+</Accordion>
+<Accordion title="Utilizzo dei caratteri Google">
+Se preferisci utilizzare caratteri personalizzati, ZenOpus funziona bene con **Google Fonts**. Ciò ti consente di utilizzare facilmente un'ampia gamma di caratteri nel tuo progetto. Puoi fare riferimento a un carattere Google per nome o collegandoti direttamente alla risorsa del carattere.
+
+### Utilizzo per nome
+
+Nella richiesta, puoi specificare il nome di un carattere Google e ZenOpus lo includerà nel tuo progetto. Ad esempio:
+
+```text
+Utilizza Playfair Display come primo carattere del titolo dei sottotitoli nella sezione degli eroi. 
+
+Assicurati di utilizzare l'hook useEffect React per applicare correttamente il carattere.
+```
+
+### Utilizzo tramite collegamento
+
+In alternativa, puoi fornire un collegamento diretto al carattere Google e ZenOpus utilizzerà quel carattere nel tuo progetto. Puoi ottenere il collegamento da [Google Fonts](https://fonts.google.com) selezionando il carattere desiderato e copiando il collegamento.
+
+Ecco come prompt ZenOpus utilizzare un carattere Google tramite un collegamento:
+
+```text
+Aggiungi questo collegamento al carattere Google https://fonts.google.com/specimen/Dancing+Script 
+e usa questo carattere per il terzo sottotitolo.
+
+Assicurati di caricare il carattere utilizzando l'hook useEffect React.
+```
+
+Seguendo questi metodi, puoi personalizzare la tipografia del tuo progetto ZenOpus utilizzando caratteri sicuri per il Web o Google Fonts.
+
+## Ulteriori apprendimenti ed esempi
+
+Per vedere questi metodi di integrazione dei caratteri in azione, puoi esplorare uno dei nostri progetti di esempio: [ZenOpus progetto di esempio utilizzando i caratteri](https://zenopus.dev/projects/3a826f38-d9cb-4d60-b4da-30a9b00149c8).
+
+In questo progetto troverai suggerimenti reali che dimostrano come abbiamo applicato diversi stili di carattere, inclusi caratteri sicuri per il Web come Courier New e caratteri personalizzati di Google Fonts.
+
+![Diversi caratteri utilizzati nel progetto ZenOpus](/images/zenopus/tips-tricks/custom-fonts/using-custom-fonts-example.png)
+
+Inoltre, per uno sguardo più tecnico su come sono stati integrati i caratteri, controlla questo repository pubblico: [GitHub: aggiunta-font-esempio](https://github.com/viborc/adding-fonts-example). Include tutti i dettagli di implementazione, mostrando come i vari caratteri sono stati caricati e applicati nel progetto.
+</Accordion>
+</AccordionGroup>

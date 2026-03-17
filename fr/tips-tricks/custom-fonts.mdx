@@ -1,0 +1,74 @@
+---
+title: "Utiliser des polices personnalisées (Google)"
+description: "Appliquez des polices Web sécurisées comme Arial ou Courier New, ou importez des polices Google par nom ou URL pour personnaliser la typographie de votre projet."
+---
+Actuellement, ZenOpus ne dirige pas Support les téléchargements de polices personnalisées.
+
+Cependant, il existe plusieurs façons simples d'utiliser la sécurité Web ou d'incorporer des polices personnalisées dans vos projets. Ci-dessous, nous vous guiderons à travers les méthodes disponibles pour **utiliser Web-Safe** et **Google Fonts** :
+
+<AccordionGroup>
+<Accordion title="Utiliser une police sécurisée pour le Web">
+<Info>
+**Que sont les polices sécurisées pour le Web ?**
+
+Les polices Web sécurisées sont des polices couramment installées sur la plupart des systèmes d'exploitation (Windows, macOS, Linux, etc.) et visibles sur tous les appareils.
+
+Ces polices garantissent la cohérence de votre texte sur différents navigateurs et plates-formes sans avoir besoin de charger de ressources externes. Certaines des polices Web sécurisées les plus courantes sont :
+
+- Arial/Helvética
+- Times New Roman
+- Géorgie
+- Courrier Nouveau
+- Verdane
+- Tahoma
+- Trébuchet MS
+- Lucida Sans Unicode
+</Info>
+
+Si vous souhaitez utiliser une police sécurisée pour le Web dans votre projet, vous pouvez spécifier la police directement dans votre invite. Par exemple, si vous souhaitez utiliser **Courier New** pour un en-tête ou un titre dans la section héros, référencez simplement la police par son nom dans votre invite.
+
+```text
+Utilisez Courier New comme police de titre dans la section héros pour le titre principal.
+```
+
+Les polices Web sécurisées telles que Courier New garantissent que votre projet aura une typographie cohérente sur toutes les plates-formes sans nécessiter de ressources externes pour charger la police. Cependant, ils peuvent limiter votre créativité. Heureusement, il existe des options telles que la possibilité d'utiliser Google Fonts.
+</Accordion>
+<Accordion title="Utiliser les polices Google">
+Si vous préférez utiliser des polices personnalisées, ZenOpus fonctionne parfaitement avec **Google Fonts**. Cela vous permet d'utiliser facilement une large gamme de polices dans votre projet. Vous pouvez soit référencer une police Google par son nom, soit en créant un lien direct vers la ressource de police.
+
+### Utilisation par nom
+
+Dans votre invite, vous pouvez spécifier le nom d'une police Google et ZenOpus l'inclura dans votre projet. Par exemple :
+
+```text
+Utilisez Playfair Display comme première police de titre de sous-titre dans la section héros. 
+
+Assurez-vous d'utiliser le hook useEffect React pour appliquer la police correctement.
+```
+
+### Utilisation par lien
+
+Vous pouvez également fournir un lien direct vers la police Google, et ZenOpus utilisera cette police dans votre projet. Vous pouvez obtenir le lien depuis [Google Fonts](https://fonts.google.com) en sélectionnant la police souhaitée et en copiant le lien.
+
+Voici comment prompt ZenOpus utiliser une police Google via un lien :
+
+```text
+Ajoutez ce lien de police Google https://fonts.google.com/specimen/Dancing+Script 
+et utilisez cette police pour le troisième sous-titre.
+
+Assurez-vous de charger la police à l’aide du hook useEffect React.
+```
+
+En suivant ces méthodes, vous pouvez personnaliser la typographie de votre projet ZenOpus à l'aide de polices sécurisées pour le Web ou de Google Fonts.
+
+## Apprentissage complémentaire et exemples
+
+Pour voir ces méthodes d'intégration de polices en action, vous pouvez explorer l'un de nos exemples de projets : [ZenOpus utilisant un exemple de projet de polices](https://zenopus.dev/projects/3a826f38-d9cb-4d60-b4da-30a9b00149c8).
+
+Dans ce projet, vous trouverez de véritables invites démontrant comment nous avons appliqué différents styles de police, y compris des polices sécurisées pour le Web comme Courier New et des polices personnalisées de Google Fonts.
+
+![Différentes polices utilisées dans le projet ZenOpus](/images/zenopus/tips-tricks/custom-fonts/using-custom-fonts-example.png)
+
+De plus, pour un aperçu plus technique de la façon dont les polices ont été intégrées, consultez ce référentiel public : [GitHub : add-fonts-example](https://github.com/viborc/adding-fonts-example). Il comprend tous les détails de mise en œuvre, montrant comment les différentes polices ont été chargées et appliquées dans le projet.
+</Accordion>
+</AccordionGroup>

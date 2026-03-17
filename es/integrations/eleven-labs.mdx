@@ -1,0 +1,126 @@
+---
+title: "Conecta tu aplicación a ElevenLabs"
+description: "Conecte su aplicación a ElevenLabs, una plataforma de audio con IA, para generar contenido de voz y audio de alta calidad."
+---
+[ElevenLabs](https://elevenlabs.io/) es una plataforma de audio de IA que permite que tu aplicación ZenOpus genere **audio hablado y experiencias impulsadas por voz**. Está diseñado para aplicaciones que necesitan conversión de texto a voz, voces de personajes o salida de audio realistas como parte central de la experiencia del producto.
+
+Con ElevenLabs, tu aplicación puede:
+
+- Convierta texto en voz sintetizada de alta calidad
+- Utilice voces de personajes o narradores de marca.
+- Genere podcasts, resúmenes de audio o contenido hablado
+- Impulsa interacciones conversacionales o basadas en voz en tiempo real
+- Support accesibilidad a través de experiencias sin pantalla o manos libres
+
+ElevenLabs es una buena opción cuando su aplicación depende de **salida hablada o interacción de audio** en lugar de interfaces de solo texto.
+
+## Casos de uso comunes y aplicaciones de ejemplo
+
+| Aplicación de ejemplo | Mensaje de ejemplo | Descripción |
+| --- | --- | --- |
+| Asistentes habilitados por voz | Cree un asistente habilitado por voz. Los usuarios hacen preguntas y la aplicación responde en voz alta utilizando las voces de ElevenLabs. | Cree asistentes habilitados por voz que brinden respuestas habladas en lugar de respuestas de solo texto. La aplicación acepta entradas del usuario, genera una respuesta, convierte esa respuesta en audio hablado usando una voz seleccionada y entrega audio como salida principal. |
+| Aplicaciones de información diaria | Utilice ElevenLabs y cree una aplicación de informes diarios que lea métricas o resúmenes todas las mañanas. | Entregue resúmenes diarios en formato de audio para que los usuarios puedan escucharlos mientras realizan múltiples tareas. La aplicación compila un resumen de fuentes seleccionadas (por ejemplo, métricas, paneles o resúmenes), genera una versión hablada y proporciona reproducción en la aplicación. |
+| Generadores de podcasts y contenidos narrados | Utilice ElevenLabs y cree una aplicación que convierta artículos o indicaciones de historias en episodios de audio narrados. | Convierta el contenido escrito en episodios de audio narrados que los usuarios puedan escuchar a pedido. La aplicación transforma artículos o indicaciones en guiones, genera narraciones (opcionalmente usando múltiples voces) y genera episodios de audio completos para escucharlos bajo demanda.
+| Aplicaciones de cuentos y cuentacuentos infantiles | Utilice ElevenLabs y cree una aplicación de historias que genere historias narradas con voces de personajes. | Genere historias narradas con voces de personajes expresivas para experiencias narrativas inmersivas. La aplicación crea historias basadas en entradas definidas por el usuario, asigna voces a los personajes y produce audio completamente narrado como resultado principal. |
+| Aplicaciones de aprendizaje e instrucción | Utilice ElevenLabs y cree una aplicación de aprendizaje que lea lecciones o ejercicios en voz alta. | Support aprendizaje a través de instrucción hablada y contenido educativo narrado. La aplicación convierte lecciones, ejercicios o explicaciones en audio hablado y ofrece narración como parte central de la experiencia de aprendizaje. |
+| Aplicaciones de fitness, bienestar y experiencias guiadas | Utilice ElevenLabs y cree una aplicación de fitness o bienestar que ofrezca orientación hablada. | Proporcione experiencias guiadas a través de instrucciones e indicaciones en audio. La aplicación genera guía hablada para rutinas, sesiones o ejercicios y ofrece audio de forma continua durante toda la experiencia. |
+| Funciones de accesibilidad | Utilice ElevenLabs y cree una aplicación que lea contenido en voz alta para los usuarios que prefieren o requieren salida de audio. | Habilite el acceso de audio primero al contenido de la aplicación para que pueda consumirse sin depender de la pantalla. La aplicación genera automáticamente audio hablado para contenido relevante y ofrece audio como la forma principal en que los usuarios consumen información, admitiendo el uso sin pantalla o con manos libres. |
+
+## Cómo conectar ElevenLabs
+
+Workspace **los administradores** y los **propietarios** pueden conectar ElevenLabs.
+
+Puedes crear múltiples conexiones de ElevenLabs usando diferentes claves API y con diferentes niveles de acceso, lo cual es útil para separar entornos (por ejemplo, desarrollo y producción) o administrar límites de velocidad.
+
+Cuando se crea la conexión, ElevenLabs pasa a estar disponible en todos los proyectos en Workspace.
+
+### Requisitos previos
+
+Antes de conectar ElevenLabs, asegúrate de tener:
+
+- Una cuenta de ElevenLabs y una clave API
+    <Note>
+    Toda generación o procesamiento de audio realizado a través de este conector consume créditos de ElevenLabs (según el modelo seleccionado y la longitud de entrada), y la facturación la maneja directamente ElevenLabs, no ZenOpus.
+    </Note>
+- ZenOpus Workspace propietario o rol de administrador
+
+### Paso 1: Crea una cuenta de ElevenLabs y una clave API
+
+Una clave API te permite conectarte a la API de ElevenLabs y utilizar sus funciones. Puede crear varias claves con diferentes niveles de acceso.
+
+Para crear una clave API de ElevenLabs:
+
+1. Vaya a [ElevenLabs](https://elevenlabs.io/app/developers/api-keys?source=zenopus) y configure su cuenta.
+1. En **Desarrolladores → Claves API**, haga clic en **Crear clave**.
+1. Asigne a la clave un nombre descriptivo, por ejemplo, `ZenOpus integration`.
+1. Active **Restringir clave**.
+1. Establezca un **límite de crédito** mensual.
+1. Elija qué puntos finales de funciones puede usar esta clave, según lo que necesite su aplicación.
+1. Copie la clave API generada y guárdela de forma segura.
+    <Info>
+    Su clave API funciona como una contraseña. Mantenlo seguro y nunca lo compartas públicamente. Lo necesitarás en el siguiente paso.
+    </Info>
+
+### Paso 2: Conecta ElevenLabs a ZenOpus
+
+Puede crear múltiples conexiones usando diferentes claves API.
+
+Para conectar ElevenLabs:
+
+1. Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **ElevenLabs**.
+1. Haga clic en **Agregar conexión**.
+1. **Nombre para mostrar**: asigne un nombre a la conexión, por ejemplo `ElevenLabs Prod`.
+1. En **Autenticación**, ingresa tu clave API de ElevenLabs (`sk_xxxxxxxx…`).
+1. Haga clic en **Crear**.
+
+Cuando están conectadas, tus aplicaciones ZenOpus pueden comenzar a generar voz y audio usando ElevenLabs.
+
+## Cómo desvincular proyectos de una conexión
+
+Los editores y superiores pueden eliminar proyectos específicos de una conexión sin eliminar la conexión por completo. La conexión permanecerá disponible para otros proyectos.
+
+Para desvincular proyectos:
+
+<Steps>
+<Step title="Navegar a conectores">
+Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **ElevenLabs**.
+</Step>
+<Step title="Abre la conexión">
+Abra la conexión que desea administrar.
+</Step>
+<Step title="Seleccionar proyectos">
+En **Proyectos vinculados**, marca los proyectos que deseas desvincular.
+</Step>
+<Step title="Confirmar">
+Haga clic en **Desvincular proyectos** y confirme.
+</Step>
+</Steps>
+
+Cuando se desvinculen, esos proyectos ya no tendrán acceso a **ElevenLabs** a través de esta conexión. Si un proyecto vuelve a necesitar **ElevenLabs**, puedes vincularlo a cualquier conexión disponible.
+
+## Cómo eliminar una conexión
+
+Los administradores y propietarios de Workspace pueden eliminar conexiones de **ElevenLabs**.
+
+<Warning>
+La eliminación de una conexión es permanente y no se puede deshacer. Eliminará las credenciales de todos los proyectos vinculados y cualquier aplicación que utilice esta conexión dejará de funcionar hasta que se agregue una nueva conexión.
+</Warning>
+
+Antes de eliminar, revise la sección **Proyectos vinculados** para ver qué proyectos están utilizando actualmente la conexión.
+
+Para eliminar una conexión:
+
+<Steps>
+<Step title="Navegar a conectores">
+Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **ElevenLabs**.
+</Step>
+<Step title="Abre la conexión">
+Abra la conexión que desea eliminar.
+</Step>
+<Step title="Revisar proyectos vinculados">
+Revise la sección **Proyectos vinculados**.
+</Step>
+<Step title="Eliminar">
+En **Eliminar esta conexión**, haz clic en **Eliminar** y confirma.
+</Step>
+</Steps>

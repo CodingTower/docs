@@ -1,0 +1,104 @@
+---
+title: "Control project visibility"
+description: "Choose public, workspace, or restricted project visibility to control who can view, remix, or collaborate on your projects."
+---
+Project visibility controls who can view, edit, and remix **your project in the editor**.
+
+This includes access to your code, work in progress, and changes that have not yet been published. Depending on your plan, you can keep a project restricted to yourself, collaborate privately with your workspace, or make it public.
+
+<Note>
+**Project visibility vs website access (important difference)**
+
+ZenOpus uses two independent visibility settings:
+
+- **Project visibility (editor access)** controls who can view and edit your project in the editor, including your source code, work-in-progress, and any changes that have not been published yet.
+- **Website access (published URL access)** controls who can visit the published app at its live URL.
+
+These settings are independent. Publishing does not change who can access your project in the editor, and changing project visibility does not affect who can visit the published app.
+</Note>
+
+## Privacy by default
+
+As of December 2025, **all projects default to workspace visibility for all plans**. This means your projects are private to your workspace by default and only become public when you choose to change their visibility.
+
+## Manage project visibility
+
+Project visibility can be managed at both the **workspace level** and **project level**.
+
+- Workspace **admins and owners** can set the **default visibility** for all new projects in **Settings → Privacy & security → Default project visibility**.
+- You can override the workspace default for individual projects at any time in **Project settings → Project visibility**.
+
+### Project visibility options
+
+You can set project visibility to:
+
+- **Public** (not available for Enterprise)  
+**Anyone can view and remix** the project in the editor.
+- **Workspace** (default for all plans)  
+Only **workspace members can view and collaborate** on the project in the editor. Ideal for team collaboration while keeping work private and secure.
+- **Restricted** (available for Business and above)  
+**Only you can view and edit the project in the editor**. Use this for early exploration, prototyping, or personal experiments. You can change it to workspace visibility when you’re ready to share and collaborate with your team.
+
+<Note>
+**Important note:**
+
+- **Before November 6, 2025:** Projects were **public by default** for free plans, and only paid workspaces could change visibility.
+- **After November 6, 2025:** New projects default to **workspace visibility** for all plans, and all workspaces can update visibility of existing projects.
+- **From December, 2025:** All projects default to **workspace visibility** for all plans.
+</Note>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Does publishing my project give everyone access to my project and code?">
+No. Publishing only makes the app available at the published URL. It does not grant anyone access to your project in the editor or your project code, and it does not make your project automatically remixable.
+
+Access to the editor, code, and unpublished changes is always controlled by **project visibility**. Only projects with public project visibility can be viewed or remixed by anyone.
+
+Access to the published app is controlled separately through website access settings. For more information, see [Publish your app](/features/publish).
+</Accordion>
+<Accordion title="Does project visibility affect who can visit my published app?">
+No. Project visibility controls access to your project in the editor. Who can visit the live app at its published URL is controlled separately through website access settings. See [Publish your app](/features/publish) for more information.
+</Accordion>
+<Accordion title="How do project visibility and website access work together?">
+Project visibility and website access are **independent settings**. You can combine them in different ways depending on your needs.
+
+- **Project visibility** controls who can access the **project in the editor**, including code and work in progress.
+- **Website access** controls who can visit the **published app** at its live URL.
+
+Below are common configurations:
+
+1. **Internal team app****Result:** Only workspace members can view and edit the project in the editor and visit the published app.
+    - Project visibility: Workspace
+    - Website access: Workspace
+1. **Private work-in-progress, public app****Result:** Only you can view and edit the project in the editor, but anyone with the link can visit the published app.
+    - Project visibility: Restricted
+    - Website access: Anyone
+1. **Team-built, publicly shared app****Result:** Only workspace members can view and edit the project in the editor, but anyone with the link can visit the published app.
+    - Project visibility: Workspace
+    - Website access: Anyone
+1. **Open collaboration****Result:** Anyone can view and remix the project in the editor, and anyone with the link can visit the published app.
+    - Project visibility: Public
+    - Website access: Anyone
+1. **Private prototype shared internally****Result:** Only you can view and edit the project in the editor, and only workspace members can visit the published app.
+    - Project visibility: Restricted
+    - Website access: Workspace
+
+<Note>
+**Key reminder:** Publishing does not change who can access your project in the editor, and project visibility does not affect who can visit the published app.
+</Note>
+</Accordion>
+<Accordion title="Can I change the project visibility after creating it?">
+Yes, you can change your project’s visibility at any time. Go to **Project settings → Project visibility** and select a different option, depending on your plan. The change takes effect immediately, and you can switch between visibility settings as often as needed.
+</Accordion>
+<Accordion title="What's the difference between workspace and restricted visibility in practice?">
+**Workspace visibility** allows all workspace members to view and collaborate on the project in the editor. This is ideal for team projects where you want input and contributions from colleagues.
+
+**Restricted visibility** means only you can see and edit the project in the editor. Other workspace members will not see it in the workspace project list. This is useful for early-stage ideas, personal experiments, or prototypes you are not ready to share yet. You can change it to workspace visibility when you are ready to collaborate.
+</Accordion>
+<Accordion title="Can I restrict access to specific people within the workspace?">
+Yes. Create the project with **Restricted** visibility. The project will only be visible to you.
+
+When you’re ready to share, click **Share** and invite specific people, assigning roles as needed.
+</Accordion>
+</AccordionGroup>

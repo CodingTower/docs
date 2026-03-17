@@ -1,0 +1,143 @@
+---
+title: "Connect your app to Twitch"
+description: "Connect your app to Twitch to build custom stream overlays, display live stream data, track channel activity, and create tools for creators and communities directly from your ZenOpus app."
+---
+[Twitch](https://www.twitch.tv/) is a live streaming platform focused on gaming, creative content, and real-time community interaction. The Twitch connector lets your ZenOpus app access Twitch’s Helix API so you can power stream overlays, dashboards, and community tools that react to what is happening on a channel.
+
+With Twitch, your app can:
+
+- Display live chat from a Twitch channel
+- Show follower and subscriber counts
+- Track custom goals such as follower or subscription milestones
+- Look up stream status, viewer counts, and channel metadata
+- Retrieve clips, schedules, and channel information
+- Send chat messages to a Twitch channel
+- Search channels, games, and categories
+
+Twitch is a good fit when your app lives alongside a stream. Examples include overlays, moderation tools, event dashboards, and creator analytics apps.
+
+## Common use cases and example apps
+
+| Example app | Example prompt | Description |
+| --- | --- | --- |
+| Custom stream overlay | Build a stream overlay that shows my live chat, latest follower, and current sub goal in my brand colors. | Replace generic overlay tools with a fully custom overlay. The app displays chat using Twitch’s IRC connection and fetches follower and subscription data through the Twitch API to render a branded overlay for the stream that can be added as a browser source in streaming software like OBS Studio (Open Broadcaster Software. |
+| Subscriber or follower goal tracker | Build an overlay widget that shows a progress bar toward my 1000 follower goal. | Display milestone progress live on stream. The app fetches follower or subscriber counts from Twitch and renders a progress bar that updates as the numbers change. |
+| Live chat overlay | Build a live chat overlay that shows recent messages from my Twitch channel. | Display chat messages directly in a stream overlay. The app connects to Twitch chat using the IRC WebSocket endpoint and renders incoming messages in real time. |
+| Event broadcast overlay | Build a tournament overlay where moderators can update scores and match info during the broadcast. | Power overlays for live events or tournaments. Moderators update match information through a control panel and the overlay reflects the updates instantly for viewers. |
+| Multi-channel stream tracker | Build a dashboard that shows which channels from my list are currently live. | Monitor a list of streamers and see who is live right now. The app checks stream status across multiple channels and displays viewer counts and stream titles. |
+| Clip discovery browser | Build an app where I can search for a Twitch channel and browse their top clips. | Explore highlights from Twitch channels. The app retrieves clips from the Twitch API and presents them in a searchable interface. |
+| Moderator dashboard | Build a moderation panel that lists followers and lets moderators send chat announcements. | Give moderators a structured interface for managing community activity. The app retrieves follower data and lets moderators post messages to chat directly from the dashboard. |
+
+## How Twitch connections work
+
+Twitch uses OAuth 2.0 for authentication. When you connect Twitch, you authorize ZenOpus to access Twitch on behalf of the authenticated account.
+
+Twitch uses ZenOpus’s gateway architecture for secure OAuth handling and automatic token refresh. See [Gateway-based connectors](/integrations/introduction#gateway-based-connectors) for details on authentication and usage limits.
+
+Each Twitch connection is tied to one Twitch account. You can create multiple connections if needed. For example, you might connect separate accounts for development, production, or different creators.
+
+## How to connect Twitch
+
+Workspace **admins** and **owners** can connect Twitch.
+
+When the connection is created, Twitch becomes available across all projects in the workspace.
+
+### Prerequisites
+
+Before connecting Twitch, make sure you have:
+
+- A Twitch account
+- A ZenOpus workspace admin or owner role
+
+### Step 1: Choose the account to connect
+
+Your connection uses a Twitch account directly. No developer application or API key is required.
+
+Make sure the connected account has the permissions required for your use case.
+
+For example:
+
+- To read follower data, the account must have moderator access for the channel.
+- To send chat messages, the account must have permission to post in the channel.
+- To access subscription data, the connected account must be the channel owner.
+
+For most overlay setups, connecting the streamer’s own account provides the broadest access.
+
+### Step 2: Connect Twitch to ZenOpus
+
+1. Go to **Settings → Connectors → Shared connectors** and select **Twitch**.
+1. Click **Add connection**.
+1. In **Display name**, enter a name for the connection. For example `Twitch Production`.
+1. **Configure scopes (optional)**Expand **Advanced settings** to configure the Twitch API permissions your app needs.Default scopes include:Additional scopes are available for features such as clips management, predictions, polls, analytics, and channel points.Only enable the scopes your app needs. You can update scopes later by editing the connection and selecting **Reconnect**.For the full list of scopes, see the [Twitch OAuth scope reference](https://dev.twitch.tv/docs/authentication/scopes/).
+    - `user:read:email` — View the account’s email
+    - `channel:read:subscriptions` — View channel subscription data
+    - `moderator:read:followers` — View follower data for moderated channels
+    - `user:write:chat` — Send messages to Twitch chat
+1. Click **Connect**. A Twitch authorization window will open. Make sure pop-ups are allowed.
+1. Log in to Twitch, review the requested permissions, and click **Authorize**.
+
+Once authorization is complete, the connection will appear in ZenOpus and your apps can begin using Twitch data.
+
+## Limitations
+
+The Twitch connector currently cannot:
+
+- **Read Twitch chat in real time through the gateway**  
+
+ Twitch chat uses IRC over WebSocket, which cannot be proxied through the ZenOpus gateway.To read chat messages, your app must connect directly to Twitch’s chat endpoint: `wss://irc-ws.chat.twitch.tv`Reading public chat does not require authentication. Sending chat messages through the Twitch API does require authentication.
+- **Receive EventSub webhooks**  
+
+ Incoming Twitch events such as stream start notifications or follow events are not currently supported.
+- **Support per-user Twitch login**  
+
+ Each connection authenticates a single Twitch account. End users of your app cannot connect their own Twitch accounts through this connector.
+
+## How to unlink projects from a connection
+
+Editors and above can remove specific projects from a connection without deleting the connection entirely. The connection will remain available for other projects.
+
+To unlink projects:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Twitch**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to manage.
+</Step>
+<Step title="Select projects">
+Under **Linked projects**, check the projects you want to unlink.
+</Step>
+<Step title="Confirm">
+Click **Unlink projects** and confirm.
+</Step>
+</Steps>
+
+When unlinked, those projects will no longer have access to **Twitch** through this connection. If a project needs **Twitch** again, you can link it to any available connection.
+
+## How to delete a connection
+
+Workspace admins and owners can delete **Twitch** connections.
+
+<Warning>
+Deleting a connection is permanent and cannot be undone. It will remove the credentials from all linked projects, and any apps using this connection will stop working until a new connection is added.
+</Warning>
+
+Before deleting, review the **Linked projects** section to see which projects are currently using the connection.
+
+To delete a connection:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Twitch**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to remove.
+</Step>
+<Step title="Review linked projects">
+Review the **Linked projects** section.
+</Step>
+<Step title="Delete">
+Under **Delete this connection**, click **Delete** and confirm.
+</Step>
+</Steps>

@@ -1,0 +1,98 @@
+---
+title: "Costruisci in sicurezza con ambienti di test e live (beta)"
+description: "Separa in modo sicuro gli ambienti di test e di produzione in ZenOpus Cloud. Crea in Test, pubblica intenzionalmente su Live e previeni modifiche accidentali ai dati di produzione."
+---
+<Note>
+Disponibile per progetti cloud e **gratuito durante la versione beta**. Il prezzo sarà deciso in un secondo momento.
+</Note>
+
+Gli ambienti di test e live ti consentono di separare lo **sviluppo** dai **dati di produzione** mentre lavori su progetti [ZenOpus Cloud](/it/integrations/cloud).
+
+- **Test**: il tuo ambiente di sviluppo. ZenOpus viene sempre creato in Test quando gli ambienti Test e Live sono abilitati.
+- **Live**: il tuo ambiente di produzione. Questo è ciò con cui interagiscono gli utenti reali. Aggiornato solo quando pubblichi esplicitamente.
+
+Questo ti offre un modo sicuro per:
+
+- Sperimenta nuove funzionalità e modifiche allo schema
+- Testa integrazioni, flussi di lavoro e funzioni edge
+- Evita modifiche involontarie ai dati di produzione
+
+Isolando il lavoro di sviluppo in Test e pubblicandolo intenzionalmente, mantieni Live stabile continuando a iterare rapidamente.
+
+## Prerequisiti
+
+- Il progetto deve utilizzare **ZenOpus Cloud**.
+- È necessario **pubblicare almeno una volta** per creare un **database attivo** prima di abilitare Test.
+
+## Come funziona
+
+Quando abiliti gli ambienti Test e Live, ZenOpus crea un **database Test** insieme al tuo **database Live (produzione)**.
+
+Quanto segue viene **copiato da Live a Test solo una volta, durante la configurazione**:
+
+- Schema della banca dati
+- Dati della banca dati
+- Configurazione della nuvola
+
+Questo è l'unico momento in cui i dati o la configurazione cloud vengono copiati tra ambienti.
+
+Dopodiché:
+
+- ZenOpus **crea sempre in Test, mai in Live**
+- Durante la creazione in Test, ZenOpus può fare riferimento al contesto di Live per facilitare il debug dei problemi, ma non modifica mai i dati Live
+- Gli ambienti di test e live si evolvono in modo indipendente
+- Il codice dell'applicazione e lo schema del database vengono sincronizzati tramite la pubblicazione
+- I dati del database e la configurazione del cloud non vengono mai condivisi, ripristinati o sovrascritti
+- La pubblicazione della struttura delle sincronizzazioni, non del contenuto
+
+**Pubblicazione di aggiornamenti sul funzionamento della tua app**. Quando pubblichi, ZenOpus sincronizza il codice dell'applicazione e la struttura del database da Test a Live (mai il contrario) in modo che l'app di produzione si comporti allo stesso modo.
+
+<Note>
+Prima di ogni pubblicazione, ZenOpus crea automaticamente un backup del tuo **database live**. Ciò garantisce la possibilità di recuperare i dati di produzione se accade qualcosa di imprevisto durante o dopo la pubblicazione. Contatta Support se hai bisogno di aiuto per ripristinare un backup.
+</Note>
+
+**La pubblicazione non modifica i dati esistenti o la modalità di configurazione dell'istanza Cloud**. Ogni ambiente possiede in modo permanente i propri dati e le proprie impostazioni.
+
+| Componente dell'applicazione | Descrizione | Sincronizzato in pubblicazione e condiviso tra ambienti? |
+| --- | --- | --- |
+| Codice dell'applicazione | La logica della tua app (frontend, backend, funzioni edge), che definisce come funziona la tua app. Test integrato | Sì |
+| Schema del database | La struttura del tuo database (tabelle, colonne, indici, migrazioni). Test integrato | Sì* |
+| Dati del database | Il contenuto del tuo database (righe, utenti, record, caricamenti). Specifico per l'ambiente | No |
+| Configurazione cloud | Impostazioni dell'ambiente come autenticazione, segreti, variabili di ambiente, integrazioni e funzionalità. Specifico per l'ambiente | No |
+
+***Migrazioni di schemi sicure** che non dovrebbero causare perdite di dati (ad esempio, aggiunta di tabelle o colonne) vengono **applicate automaticamente a Live al momento della pubblicazione**.
+
+**Le migrazioni dei dati** (spostamento o trasformazione dei dati esistenti) **non vengono eseguite automaticamente**. Se una modifica potrebbe **rischio di perdita di dati**, ZenOpus:
+
+- Spiega la situazione
+- Fornisce una query SQL
+- Ti chiede di eseguirlo manualmente nell'editor SQL
+
+## Abilita gli ambienti di test e live
+
+Per abilitare gli ambienti Test e Live, attenersi alla procedura seguente:
+
+1. Vai su **Visualizzazione cloud → Impostazioni avanzate**.
+1. Seleziona l'opzione **Abilita ambienti di test e live**.
+1. Completa il flusso di onboarding.
+1. Fai clic sul pulsante **Abilita ambienti di test e live**.
+
+### Test e visualizzazione Live Cloud
+
+Quando abiliti gli ambienti Test e Live, puoi passare da **Test** a **Live** nella vista Cloud per controllare dati e impostazioni. Questo selettore controlla solo **cosa stai visualizzando**, non **dove viene creato ZenOpus**.
+
+<Warning>
+La modifica dei dati in tempo reale o della configurazione del Live Cloud (autenticazione, segreti, integrazioni) influisce sulla tua app di produzione **immediatamente**.
+</Warning>
+
+## Rimuovere il database di prova
+
+È possibile eliminare il database dei test da **Cloud → Impostazioni avanzate → Zona di pericolo**.
+
+Questa azione:
+
+- Elimina tutti i dati del test
+- Disabilita la funzionalità degli ambienti Test e Live
+- Non influisce sui dati in tempo reale
+
+Se necessario, puoi riattivare gli ambienti Test e Live in un secondo momento. Ciò creerà un nuovo database di test dallo stato Live corrente.

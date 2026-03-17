@@ -1,0 +1,462 @@
+---
+title: "Videotutoriales"
+description: "Vea tutoriales paso a paso para crear rastreadores de calorías, CRM, herramientas de retroalimentación, páginas de destino y aplicaciones con tecnología de inteligencia artificial con ZenOpus."
+---
+## Bienvenido a ZenOpus
+
+<Accordion title="ZenOpus 101">
+<iframe src="https://www.youtube.com/embed/l2n9rpuqvdw?si=huqUvQcNK1tKTMVL" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Comenzando con los conceptos básicos de ZenOpus">
+</Step>
+<Step title="Comprender la interfaz y los controles">
+</Step>
+<Step title="Trabajar con funciones de edición e historial de versiones">
+</Step>
+<Step title="Implementación de autenticación y gestión de usuarios.">
+</Step>
+<Step title="Uso de bases de datos Supabase y funciones perimetrales">
+</Step>
+<Step title="Integración de GitHub y gestión de código.">
+</Step>
+<Step title="Compartir proyectos y comentarios de la comunidad">
+</Step>
+<Step title="Explorando recursos y plantillas adicionales">
+</Step>
+</Steps>
+</Accordion>
+
+## ZenOpus tutoriales
+
+<AccordionGroup>
+<Accordion title="Cree una aplicación web de seguimiento de calorías impulsada por IA">
+<iframe src="https://www.youtube.com/embed/c0zhLzcVJRI?si=7vcZf5eoxIobOxdE" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+En este tutorial, lo guiaremos en la creación de una aplicación de seguimiento de calorías impulsada por IA con ZenOpus, completa con autenticación, un hermoso diseño responsivo, integración de OpenAI e implementación en producción.
+
+<Steps>
+<Step title="Estableciendo la base">
+La base de cualquier proyecto ZenOpus es un buen mensaje. Para esta aplicación, aquí hay un ejemplo:
+
+```text
+Cree una aplicación de seguimiento de calorías con las siguientes características:
+Página de destino, panel de control y página de comidas.
+Campos de entrada para descripciones de comidas o imágenes, con análisis impulsado por GPT-4.
+Seguimiento diario del progreso e integración con Supabase para autenticación y gestión de bases de datos.
+Interfaz de usuario hermosa y adaptable a dispositivos móviles.
+```
+
+Una vez que ZenOpus genera el esqueleto de la interfaz de usuario:
+
+- Revise la configuración de navegación y el diseño de la página de destino.
+- Repita el mensaje para refinar el diseño y garantizar la capacidad de respuesta móvil.
+
+<Note>
+Sea explícito acerca de comenzar con la interfaz de usuario. ZenOpus funciona mejor cuando las tareas se dividen en pasos claros. Por ejemplo, describa la navegación, las estructuras de las páginas y los temas de diseño al principio del mensaje.
+</Note>
+</Step>
+<Step title="Diseñando la interfaz de usuario">
+ZenOpus enfatiza un enfoque paso a paso, similar a la construcción de un edificio:
+
+- Comience con **andamios**: planifique la estructura de su aplicación (por ejemplo, flujo de experiencia del usuario, diseño de página).
+- Agregue la **primera capa**: cree páginas vacías con elementos de diseño básicos.
+- Refine los **detalles**: agregue colores, animaciones y capacidad de respuesta móvil.
+
+<Note>
+Si tiene diseños prefabricados en Figma, puede tomar capturas de pantalla e incluirlas en su mensaje ZenOpus. Proporcionar imágenes de alta resolución garantiza mejores resultados.
+</Note>
+</Step>
+<Step title="Integre Supabase para backend y autenticación">
+Una vez que la interfaz de usuario esté lista, es hora de agregar la funcionalidad de backend:
+
+1. Configure una cuenta **Supabase****** y cree un proyecto.
+1. Vincúlelo a ZenOpus presionando el botón “Conectar Supabase”.
+1. Para el almacenamiento de datos, ZenOpus generará tablas SQL. Por ejemplo:
+
+- Una tabla `profiles` para almacenar información del usuario.
+- Una tabla `meals` vinculada a los usuarios para realizar un seguimiento de las entradas diarias.
+
+<Note>
+Utilice reglas de seguridad a nivel de fila (RLS) en Supabase para garantizar la privacidad del usuario. ZenOpus puede manejar esto automáticamente.
+</Note>
+</Step>
+<Step title="Integración de OpenAI para el análisis de comidas">
+La magia de esta aplicación radica en sus capacidades de inteligencia artificial. Para analizar comidas:
+
+1. Obtenga una clave API de OpenAI desde su panel de desarrollador.
+1. Utilice GPT-4 para analizar descripciones o imágenes de comidas.
+1. Asegúrese de que las claves API estén almacenadas de forma segura en las funciones de Edge para evitar el acceso no autorizado.
+
+**Características a incluir:**
+
+- **Analizar descripciones de comidas**: Calcule los valores nutricionales (calorías, proteínas, carbohidratos, grasas).
+- **Reconocimiento de imágenes**: cargue una foto de la comida y GPT-4 extraerá una descripción y datos nutricionales.
+
+<Note>
+*Pro Consejos para la integración de OpenAI:*
+
+- Utilice **llamadas a funciones** para respuestas estructuradas, asegurando que los datos tengan el formato correcto para la inserción en la base de datos.
+- Pruebe la funcionalidad pidiéndole a la aplicación que analice entradas de comidas simples como "2 huevos".
+</Note>
+</Step>
+<Step title="Implementación de pagos con Stripe">
+Para monetizar la aplicación, agregue pagos basados en suscripción:
+
+1. Cree una cuenta de Stripe y configure un producto (por ejemplo, "Plan estándar" por $12 al mes).
+1. Integre Stripe con ZenOpus agregando la clave API y el ID del precio del producto.
+1. Redirigir a los usuarios que no pagan a la página de destino. Sólo los usuarios que pagan pueden acceder a la aplicación principal.
+
+<Note>
+*Consejos adicionales:*
+
+- Habilite el **portal del cliente** de Stripe para permitir a los usuarios administrar las suscripciones (por ejemplo, cancelar o actualizar los métodos de pago).
+- Pruebe los pagos en el modo de prueba de Stripe utilizando los datos de la tarjeta de crédito de prueba proporcionados.
+</Note>
+</Step>
+<Step title="Pruebas y depuración">
+Los errores son una parte natural del desarrollo y ZenOpus simplifica la depuración:
+
+- Utilice el botón **“Intentar arreglar”** siempre que se produzca un error de compilación.
+- Para problemas de backend, consulte los registros de Supabase para obtener informes de errores detallados.
+- Si realiza la implementación en Netlify, revise los registros de implementación para detectar cualquier problema de compilación. Comparta registros con ZenOpus para obtener correcciones personalizadas.
+
+<Note>
+Si te quedas atascado, vuelve a una versión anterior usando la función "Revertir" de ZenOpus. Esto ahorra créditos y tiempo.
+</Note>
+</Step>
+<Step title="Implementando su aplicación">
+Una vez que su aplicación esté lista, impleméntela con ZenOpus o Netlify:
+
+1. Utilice la función de implementación de ZenOpus para alojar la aplicación en un dominio predeterminado.
+1. Para dominios personalizados:
+
+- Conecte su repositorio de GitHub a Netlify.
+- Compre un dominio y configure los ajustes de DNS para vincularlo a Netlify.
+
+<Note>
+Actualice los metadatos de su aplicación (favicon, metaetiquetas, imagen OG) para una mejor marca y SEO.
+</Note>
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Cree una página de destino SaaS con la API de Groq">
+<iframe src="https://www.youtube.com/embed/S0k8FOmqjog?si=935gSBuflrRbljlF" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+En este tutorial, le mostraremos cómo crear una página de inicio impresionante y totalmente interactiva para un asistente de correo electrónico con tecnología de inteligencia artificial utilizando ZenOpus, 21st.dev y Supabase, ¡completa con animaciones, integraciones de API e implementación perfecta!
+
+- Diseño impulsado por IA y mejoras en la interfaz de usuario
+- Agregar animaciones y elementos interactivos
+- Integración de mejoras de correo electrónico de IA con la API de Groq
+- Configurar un formulario de contacto con Reenviar
+- Implementación de la página usando ZenOpus Launch
+</Accordion>
+<Accordion title="Crear una herramienta de comentarios">
+La sesión mostró las capacidades de ZenOpus para iterar rápidamente y ofrecer resultados listos para producción.
+
+<iframe src="https://www.youtube.com/embed/tYDqBMilHkM?si=6eD-0GoQEywncOqQ" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Autenticación">
+- Los usuarios pueden registrarse, iniciar sesión y administrar perfiles mediante la integración de Supabase.
+- Las sesiones de usuario seguras permiten experiencias personalizadas.
+</Step>
+<Step title="Envío de comentarios y votación">
+- Los usuarios pueden enviar comentarios con títulos, descripciones e imágenes.
+- Cada entrada de comentarios muestra el recuento de votos y admite votaciones positivas en tiempo real.
+</Step>
+<Step title="Panel de administración con resúmenes de IA">
+- Los administradores pueden revisar todos los comentarios, filtrar por votos y ordenar las entradas.
+- Los resúmenes basados en IA identifican información procesable utilizando OpenAI y Supabase Edge Functions.
+</Step>
+<Step title="Seguimiento de presencia del usuario">
+Los indicadores de presencia en tiempo real muestran a los usuarios activos en la plataforma.
+</Step>
+<Step title="Páginas de comentarios detalladas con comentarios">
+Cada entrada de comentarios tiene una página dedicada a las discusiones, lo que permite a los equipos colaborar y priorizar de manera eficiente.
+</Step>
+<Step title="Archivos adjuntos">
+Los usuarios pueden adjuntar imágenes a los comentarios, almacenadas de forma segura utilizando las capacidades de almacenamiento de Supabase.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Construir una agencia de desarrollo productizada">
+<iframe src="https://www.youtube.com/embed/eZsbfEA-_oI?si=ngagWq3q3Km1jY6J" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+El objetivo de esta sesión era crear una aplicación que permitiera a los desarrolladores, diseñadores o consultores ofrecer servicios basados en suscripción, un modelo de negocio inspirado en plataformas como DesignJoy.
+
+<Steps>
+<Step title="Autenticación y gestión de usuarios">
+La autenticación fue la primera característica implementada, estableciendo un marco sólido para administrar usuarios. El equipo enfatizó la importancia de integrar la autenticación tempranamente para evitar problemas al escalar la aplicación.
+
+- Integración de Supabase para registros de usuarios, inicios de sesión y gestión de perfiles.
+- Sesiones de usuario persistentes para mejorar la usabilidad de la aplicación.
+</Step>
+<Step title="Integración de suscripción de Stripe">
+La sesión demostró cómo integrar Stripe para la gestión de suscripciones:
+
+- Permitió a los usuarios suscribirse a diferentes niveles de precios.
+- Estado de suscripción administrado, lo que garantiza que solo los usuarios pagos accedan a funciones premium.
+</Step>
+<Step title="Panel de control y gestión de tareas">
+- Paneles de control específicos del usuario con paneles de tareas y funcionalidad de arrastrar y soltar.
+- Actualizaciones de tareas en tiempo real para una colaboración perfecta.
+</Step>
+<Step title="Chatbot de IA">
+La sesión concluyó con la integración de un chatbot de IA, que ilustra cómo OpenAI puede agregar funcionalidad dinámica a las aplicaciones. Esta función podría ampliarse para servir como asistente virtual, conserje o interfaz de consulta de datos.
+
+- OpenAI integrado para proporcionar un chatbot capaz de responder de forma inteligente a las consultas de los usuarios.
+- Integrado en un único mensaje, que muestra la eficiencia de ZenOpus.
+</Step>
+<Step title="Depuración y refinamiento iterativos">
+El equipo abordó desafíos de depuración en tiempo real y ofreció información valiosa para la resolución de problemas. Técnicas incluidas:
+
+- Uso de registros de consola y mensajes de error para identificar problemas.
+- Volver a versiones anteriores de la aplicación para evitar quedarse atascado en estados rotos.
+- Guiar la IA de ZenOpus con indicaciones detalladas para garantizar correcciones precisas.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Solicitar consejos con ZenOpus">
+<iframe src="https://www.youtube.com/embed/IqWfKj4mUIo?si=sIUpyvAuOH9Fu_oe" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+En este tutorial, profundizamos en el desarrollo de aplicaciones impulsadas por IA, la ingeniería rápida y la automatización del flujo de trabajo con el invitado especial de [ZenOpus](https://zenopus.dev/), [Mark Kashef](https://www.youtube.com/@Mark_Kashef).
+
+- Comprender las indicaciones efectivas de la IA
+- Los cuatro niveles de ingeniería rápida
+- Técnicas de metaincitación y mejores prácticas
+- Estrategias de depuración para flujos de trabajo de IA
+- Creación de una aplicación de IA con ZenOpus y Make.com
+- Integración de Visual Edits y Tailwind CSS para el diseño de UI
+</Accordion>
+<Accordion title="Construya un Luma Copycat con Supabase y ZenOpus">
+<iframe src="https://www.youtube.com/embed/-sSOyO0FiPE?si=TCamI0uASRJ2Kh6j" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+En este tutorial, crearemos una plataforma de eventos estilo Luma usando ZenOpus y [Supabase](/es/integrations/supabase) – ¡en vivo!
+
+- Cómo integrar Supabase con ZenOpus
+- Configurar la autenticación y la gestión de usuarios
+- Configuración de bases de datos y comentarios en tiempo real
+- Prueba de rendimiento y manejo de múltiples usuarios
+- Depuración en vivo y optimización del rendimiento
+</Accordion>
+<Accordion title="Cree una aplicación web mejorada con IA">
+<iframe src="https://www.youtube.com/embed/gqsZGxuymTk?si=xwjEwFQCa5p8WVLh" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+En este tutorial, le mostraremos cómo usar ZenOpus, un generador sin código mejorado con IA, para crear una aplicación de registro de diario completa sin escribir una sola línea de código.
+
+- Diseña la interfaz de usuario de tu aplicación al instante
+- Sube tu diseño y genera una aplicación que funcione
+- Conecte Supabase para backend y autenticación
+- Implemente GPT-4o para funciones impulsadas por IA
+- ¡Implemente una aplicación completa en minutos!
+</Accordion>
+<Accordion title="Cree un CRM simple con Resend">
+<iframe src="https://www.youtube.com/embed/5ZL744_Wxjo?si=qrKlOL_1fAnz7rgc" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+En este tutorial, explicaremos la creación de un CRM sencillo pero potente utilizando ZenOpus para el desarrollo, Supabase para el almacenamiento de datos y [Reenviar](/es/integrations/resend) para la automatización del correo electrónico.
+
+- Cómo funciona Resend para la automatización del correo electrónico
+- Configurar correos electrónicos de autenticación con Supabase
+- Creación de un panel de administración y un sistema de gestión de contactos
+- Crear y personalizar plantillas de correo electrónico
+- Agregar funcionalidad de suscripción al boletín informativo y transmisión de correo electrónico
+</Accordion>
+<Accordion title="Cree elementos interactivos en el desarrollo web">
+<iframe src="https://www.youtube.com/embed/b-O7Ew0Q2ig?si=UPyQQdnualImIP8j" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+¡Crear experiencias web atractivas e interactivas ahora es más fácil con las últimas actualizaciones de ZenOpus!
+
+<Steps>
+<Step title="Personalización de la interfaz de usuario sin esfuerzo con ediciones visuales">
+Una de las mayores mejoras de ZenOpus es la capacidad de modificar elementos de la interfaz de usuario instantáneamente sin consumir créditos de IA. Ahora puedes:
+
+- Edite texto directamente en su proyecto.
+- Ajuste los colores y estilos de los botones en tiempo real.
+- Cargue e intercambie imágenes sin problemas.
+- Pase el cursor sobre los elementos para realizar ajustes rápidos.
+
+<Note>
+Los usuarios ahora pueden seleccionar texto, cambiar colores o intercambiar íconos sin esfuerzo sin necesidad de intervención de IA, lo que permite un proceso de iteración de diseño más fluido.
+</Note>
+</Step>
+<Step title="Depuración avanzada y manejo de errores de API">
+Anteriormente, los usuarios enfrentaban desafíos al lidiar con errores de integración de API de terceros. ZenOpus ahora:
+
+- Muestra mensajes de error más completos para facilitar la depuración.
+- Elimina ventanas emergentes irrelevantes, mejorando el enfoque en temas críticos.
+- Habilita la detección de errores basada en IA para correcciones automáticas.
+
+<Note>
+En lugar de abrumar a los usuarios con ventanas emergentes genéricas, ZenOpus ahora introduce el contexto de error directamente en su IA, que puede decidir cuándo es necesario abordar un problema y cómo solucionarlo.
+</Note>
+</Step>
+<Step title="Crear fondos y animaciones dinámicas">
+ZenOpus ahora admite la integración perfecta de elementos animados e interactivos usando **p5.js** y otras bibliotecas.
+
+#### Proyecto de ejemplo: sitio web de agencia de viajes con banderas interactivas
+
+Una demostración en vivo reciente mostró cómo crear una página de inicio de agencia de viajes que incluye:
+
+1. **Una sección de héroe animada** con banderas que aparecen y se mueven dinámicamente en respuesta a las interacciones del mouse.
+1. **Una sección de desplazamiento fijo** que cambia según la posición de desplazamiento del usuario.
+1. **Efectos de desplazamiento interactivos** donde las imágenes reaccionan a los movimientos del usuario.
+
+#### Cómo implementar efectos animados
+
+Para crear estos efectos, los usuarios siguieron este sencillo proceso:
+
+- **Defina la animación deseada:**
+
+<Note>
+Haga que el fondo sea interactivo con elementos flotantes que se alejan al pasar el cursor sobre él.
+</Note>
+
+- **Utilice p5.js para generar efectos:**
+    - Implemente un patrón de humo cromático.
+    - Cambie imágenes estáticas por animaciones dinámicas de banderas.
+- **Mejore la experiencia del usuario con interacciones basadas en la física:**
+    - Haga que los elementos se muevan dinámicamente según las acciones del usuario.
+
+<Note>
+Si una animación no funciona, use Plan mode de ZenOpus para depurar y refinar el efecto con guía de IA paso a paso.
+</Note>
+</Step>
+<Step title="Importación de elementos personalizados desde bibliotecas externas">
+Con **21st.dev**, los usuarios ahora pueden integrar componentes de interfaz de usuario prediseñados sin problemas en proyectos ZenOpus.
+
+1. Busque en **21st.dev** un diseño de botón.
+1. Copie el mensaje generado por IA.
+1. Pégalo en ZenOpus y reemplaza un botón existente.
+
+Este enfoque acelera los flujos de trabajo de diseño y permite interfaces más pulidas y visualmente cohesivas.
+
+<Note>
+Este mismo método funciona para importar ajustes preestablecidos de animación desde **motion.dev**, lo que facilita agregar efectos de movimiento de alta calidad sin codificación personalizada.
+</Note>
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Autenticación de cajero, dominios personalizados y listas de espera">
+<iframe src="https://www.youtube.com/embed/tyAsNwu_xCI?si=VHCGf2IlFRQzVLeD" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+En este tutorial, veremos cómo crear un **CRM** (sistema de gestión de relaciones con el cliente) personalizado utilizando **ZenOpus** y **Clerk**.
+</Accordion>
+<Accordion title="Cómo crear un CRM personalizado con ZenOpus y Make">
+<iframe src="https://www.youtube.com/embed/zv4vcR7VCAk?si=BgJHeEuti27cbgYt" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+En este tutorial, veremos cómo crear un **CRM** (sistema de gestión de relaciones con el cliente) personalizado utilizando **ZenOpus** y **Make**.
+</Accordion>
+<Accordion title="Creación de una página de destino de 10.000 dólares en 1 hora">
+<iframe src="https://www.youtube.com/embed/VVbC80KgF9E?si=71RW1V8KgpgxTya_" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+</Accordion>
+</AccordionGroup>
+
+## Cree, marque y lance un micro-SaaS real, ¡en vivo!
+
+¡Aprender español nunca ha sido tan interactivo! Imagine una aplicación que no solo le enseñe español a través de conversaciones, sino que también cree interacciones de voz en tiempo real, cursos dinámicos y contenido visualmente atractivo, totalmente impulsado por IA. Este tutorial puede ayudarle a seguir paso a paso lo que construyeron Kristian y Harry:
+
+<AccordionGroup>
+<Accordion title="Paso 1: Diseño de las funciones principales">
+<iframe src="https://www.youtube.com/embed/8QDL9cCIXqU?si=JPHSSBoWO4dXl7vB" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Sentando las bases">
+Antes de implementar funciones de IA, nos concentramos en **construir una base sólida** para la aplicación usando **ZenOpus**. Esto incluyó configurar la autenticación, estructurar el panel e implementar la gestión de usuarios.
+</Step>
+<Step title="Sistema de autenticación">
+- **Supabase** integrada para autenticación de backend.
+- Habilitado el registro/inicio de sesión con correo electrónico y contraseña.
+- Creé un sistema de perfiles para almacenar las preferencias del usuario y el progreso del aprendizaje.
+</Step>
+<Step title="Panel de control y navegación">
+- Diseñé una barra lateral intuitiva para la navegación.
+- Secciones creadas para chat, cursos y configuración de usuario.
+- Interfaz de usuario responsiva garantizada para una experiencia perfecta en todos los dispositivos.
+</Step>
+<Step title="Perfiles de usuario y almacenamiento de datos">
+- Se agregó una estructura de base de datos para almacenar el progreso del usuario.
+- Configuraciones de administración de perfiles diseñadas donde los usuarios pueden ajustar las preferencias de aprendizaje.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Paso 2: Funciones de aprendizaje impulsadas por IA con Replicate">
+<iframe src="https://www.youtube.com/embed/eSDhk4VkVLE?si=-JhSjxsKIrPACNOK" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Cursos generados por IA">
+Para que el aprendizaje sea interactivo, implementamos un sistema de generación de cursos impulsado por IA utilizando el modelo GPT de OpenAI. Así es como funciona:
+
+1. Los usuarios seleccionan un tema (por ejemplo, “Preguntas para hacer en una barbacoa”).
+1. ZenOpus llama a una función OpenAI Edge para generar **10 preguntas interesantes en español**.
+1. Los usuarios completan cuestionarios, realizan un seguimiento del progreso y reciben comentarios de la IA sobre sus respuestas.
+</Step>
+<Step title="Mejorar la participación del usuario">
+- **Preguntas generadas dinámicamente**: cada cuestionario se genera mediante IA, lo que garantiza contenido nuevo y único en todo momento.
+- **Comentarios interactivos**: la IA proporciona explicaciones de las respuestas correctas e incorrectas para mejorar el aprendizaje.
+- **Seguimiento del progreso**: los usuarios pueden guardar y volver a visitar los cursos, mejorando la retención y la práctica.
+</Step>
+<Step title="Mejora del compromiso visual con Replicate">
+Para agregar un elemento de aprendizaje visual, integramos el modelo de generación de imágenes **Flux Schnell** de Replicate:
+
+- **Banners de cursos automatizados**: cada curso genera dinámicamente una imagen que coincide con el tema.
+- **Experiencia visualmente inmersiva**: las imágenes impulsadas por IA mejoran la participación y retención del usuario.
+- **Procesamiento rápido de imágenes**: Al utilizar la API de Replicate, las imágenes se generan en tiempo real sin ralentizar la experiencia.
+</Step>
+<Step title="Conversaciones de voz en tiempo real">
+Un hito importante en el desarrollo de la aplicación fue la incorporación de **práctica de habla hispana en tiempo real** utilizando la API WebRTC en tiempo real de OpenAI:
+
+- **Tutor interactivo de IA**: Los usuarios pueden hablar directamente con una IA que responde dinámicamente en español.
+- **Asistencia de pronunciación**: la IA proporciona correcciones y sugerencias en tiempo real.
+- **Conversaciones fluidas**: el flujo natural de la conversación te hace sentir como si estuvieras interactuando con un tutor humano.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Paso 3: Marcar la aplicación">
+<iframe src="https://www.youtube.com/embed/fILdgFNqvmU?si=_Xg-XTMTQuBN7bE1" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Estableciendo el concepto y la audiencia">
+Antes de la marca, definimos nuestros objetivos principales:
+
+- **Chat con tecnología de IA** para conversaciones en español en tiempo real.
+- **Pruebas automatizadas** para sesiones de práctica rápidas.
+- **Aprendizaje estructurado** con almacenamiento de lecciones y seguimiento del progreso.
+
+Esto ayudó a dar forma a nuestras elecciones de marca, asegurando que estuvieran alineadas con el propósito de la aplicación.
+</Step>
+<Step title="Selección de nombres y dominios">
+Nuestro objetivo era un nombre breve y memorable que reflejara el **viaje de aprendizaje**. Usando IA, hicimos una lluvia de ideas y llegamos a **Ruta**.
+
+#### Proceso:
+
+- **Lluvia de ideas sobre nombres** usando IA para palabras pegadizas en español.
+- **Opciones probadas** como “Camino” y “Verbo”, pero “Ruta” se destacó.
+- **Comprobé la disponibilidad del dominio** y aseguré **rutaapp.com** de inmediato.
+</Step>
+<Step title="Creando una identidad visual">
+Rápidamente diseñamos la marca:
+
+- **Logotipo**: un icono **con temática de brújula** procedente de bibliotecas de diseño y editado en Figma.
+- **Emparejamiento de fuentes**: se utilizó una **tipo de letra moderna y en negrita** para el logotipo y una fuente de interfaz de usuario legible para la interfaz de la aplicación.
+- **Paleta de colores**: un esquema **Tailwind CSS azul** para simbolizar viajes y descubrimientos.
+- **Inspiración de estilo**: Experimenté con **neobrutalismo**, ajustando el contraste, las sombras y los bordes para crear una interfaz de usuario visualmente atractiva.
+</Step>
+<Step title="Construyendo una experiencia de usuario coherente">
+Usando ZenOpus, aseguramos **consistencia visual** en toda la aplicación:
+
+- **Página de inicio**: generada por IA con una sección de héroes dinámica y atractiva.
+- **Panel de control y páginas del curso**: Diseñados para que coincidan con la identidad de la marca.
+- **Estilo iterativo**: elementos **neobrutalistas** aplicados para probar diferentes estilos de diseño.
+- **Prueba de flujo de usuario**: navegación fluida garantizada desde el registro hasta el chat en tiempo real.
+</Step>
+</Steps>
+</Accordion>
+<Accordion title="Paso 4: ajustes finales, grandes apuestas y lanzamiento en vivo">
+<iframe src="https://www.youtube.com/embed/12013xnxYzM?si=4qOqTgcgO_IY_G1P" title="reproductor de vídeos de youtube" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+</Accordion>
+</AccordionGroup>
+
+## Tutoriales comunitarios
+
+Consulte los tutoriales de la comunidad ZenOpus [aquí](https://www.youtube.com/playlist?list=PLbVHz4urQBZkJ6WMXlIGc3NGsufrleogY).

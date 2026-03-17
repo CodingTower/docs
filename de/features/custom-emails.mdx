@@ -1,0 +1,646 @@
+---
+title: "Senden Sie Authentifizierungs-E-Mails von Ihrer eigenen Domain"
+description: "Senden Sie Authentifizierungs-E-Mails von Ihrer eigenen E-Mail-Domäne mit automatischer DNS-, SPF-, DKIM- und DMARC-Einrichtung, um die Zustellbarkeit zu verbessern, den Ruf Ihrer Domäne zu schützen und das Markenvertrauen zu stärken."
+---
+## Was sind E-Mails?
+
+Mit E-Mails kann Ihre ZenOpus Cloud-App Authentifizierungs-E-Mails (Anmeldebestätigungen, Passwort-Resets, magische Links, Einladungen und mehr) von Ihrer eigenen E-Mail-Domäne anstelle des standardmäßigen ZenOpus Cloud-Auth-Absenders senden.
+
+Zum Beispiel: `noreply@notify.yourdomain.com` oder `noreply@yourdomain.com`
+
+Die Verwendung einer dedizierten Sende-Subdomain trägt dazu bei, den Ruf Ihrer Root-Domain zu schützen und gleichzeitig Ihr Branding konsistent zu halten.
+
+Sie können Folgendes anpassen:
+
+- Welche E-Mail-Domäne Ihr Projekt verwendet
+- Die Konfiguration der Absender-Subdomain
+- E-Mail-Branding und visueller Stil
+- Vorlagen und Betreffzeilen für Authentifizierungs-E-Mails
+
+ZenOpus übernimmt die Domänenüberprüfung, die DNS-Konfiguration, die E-Mail-Authentifizierung (`SPF`, `DKIM` und `DMARC`) und die Bereitstellungsinfrastruktur. Es sind keine externen E-Mail-Anbieterkonten oder API-Schlüssel erforderlich.
+
+## Unterstützte E-Mail-Typen
+
+Derzeit sind E-Mails Support **nur Authentifizierungs-E-Mails**.
+
+Authentifizierungs-E-Mails sind eine Art Transaktions-E-Mail im Zusammenhang mit dem Kontozugriff und der Identitätsprüfung. Sie werden automatisch von Cloud Auth ausgelöst, wenn Benutzer bestimmte sicherheitsrelevante Aktionen ausführen.
+
+Zu diesen Authentifizierungs-E-Mails gehören:
+
+- **Anmeldung bestätigen**  
+Wird gesendet, wenn ein Benutzer ein Konto erstellt und die E-Mail-Bestätigung aktiviert ist. Überprüft, ob der Benutzer Eigentümer der E-Mail-Adresse ist, bevor das Konto aktiviert wird.
+- **Passwort zurücksetzen**  
+Wird gesendet, wenn ein Benutzer das Zurücksetzen seines Passworts anfordert. Ermöglicht eine sichere Passwortwiederherstellung.
+- **Magischer Link**  
+Wird gesendet, wenn die passwortlose Anmeldung aktiviert ist und ein Benutzer einen Anmeldelink anfordert. Authentifiziert den Benutzer, ohne dass ein Passwort erforderlich ist. Sie können ZenOpus bitten, die Magic-Link-Authentifizierung zu aktivieren, sofern diese noch nicht konfiguriert ist.
+- **Einladen**  
+Wird gesendet, wenn Sie einen Benutzer einladen, Ihrem Projekt beizutreten (von Cloud → Benutzer). Gewährt Kontozugriff über einen sicheren Einladungslink.
+- **E-Mail-Änderung**  
+Wird gesendet, wenn ein Benutzer seine E-Mail-Adresse aktualisiert. Bestätigt den Besitz der neuen Adresse, bevor die Änderung übernommen wird.
+- **Neuauthentifizierung**  
+Wird gesendet, wenn ein Benutzer seine Identität überprüfen muss, bevor er eine vertrauliche Aktion durchführt, beispielsweise das Ändern eines Passworts. Enthält normalerweise einen kurzlebigen Bestätigungscode. Sie können ZenOpus bitten, die erneute Authentifizierung zu aktivieren, sofern diese noch nicht konfiguriert ist.
+
+<Note>
+Marketing-E-Mails, Newsletter, Bestellbestätigungen, Versandbenachrichtigungen und andere Transaktions- oder Benachrichtigungs-E-Mails werden derzeit nicht unterstützt.
+</Note>
+
+## Verfügbarkeit und Nutzung
+
+E-Mails sind bei **kostenpflichtigen Plänen** verfügbar. Jeder bezahlte Workspace beinhaltet **50.000 Authentifizierungs-E-Mails pro Monat** ohne zusätzliche Kosten. Die Nutzung wird über den gesamten Workspace berechnet.
+
+Zusätzliche Authentifizierungs-E-Mails werden mit 1 US-Dollar pro 1.000 E-Mails berechnet.
+
+## Warum E-Mails verwenden?
+
+- **Bessere Zustellbarkeit:** E-Mails, die von Ihrer eigenen Domain gesendet werden, erreichen eher den Posteingang als Spam.
+- **Mehr Vertrauen:** Benutzer sehen Ihre Domain in der Absenderadresse, was die Glaubwürdigkeit stärkt.
+- **Konsistentes Branding:** Authentifizierungs-E-Mails passen zu Ihrer Produktidentität.
+- **Verwaltete Einrichtung:** ZenOpus überprüft Ihre Domain und konfiguriert die erforderlichen DNS-Einträge.
+- **Authentifizierter Versand:** ZenOpus richtet automatisch [SPF, DKIM und DMARC](#what-are-spf-dkim-and-dmarc-and-do-i-need-to-configure-them) ein, um Ihre E-Mails zu authentifizieren und die Platzierung im Posteingang zu verbessern.
+- **Kontinuierliche Überwachung:** ZenOpus warnt Sie, wenn DNS-Änderungen Auswirkungen auf die E-Mail-Zustellung haben könnten.
+
+## Voraussetzungen
+
+So verwenden Sie E-Mails:
+
+- [ZenOpus Cloud](/de/integrations/cloud) muss für Ihr Projekt aktiviert sein.
+- Ihr Workspace muss einen kostenpflichtigen Tarif haben.
+- Sie müssen Eigentümer einer Domäne sein und Zugriff auf die Verwaltung ihrer DNS-Einstellungen haben.
+- Sie müssen ein Workspace-Administrator oder -Besitzer sein, um Domänen hinzuzufügen, zu löschen oder zu überprüfen.
+
+## So funktionieren E-Mails
+
+Wenn Sie eine E-Mail-Domäne konfigurieren, ZenOpus:
+
+- Erstellt eine transaktionale Absender-Subdomäne unter Ihrer Stammdomäne, z. B. `notify.yourdomain.com`
+- Führt Sie mithilfe eines automatisierten Einrichtungsablaufs durch die DNS-Konfiguration
+- Verifiziert Ihre Domain durch Überprüfung der erforderlichen DNS-Einträge
+- Generiert automatisch Marken-Authentifizierungs-E-Mail-Vorlagen
+- Stellt einen Authentifizierungs-E-Mail-Hook bereit, der Authentifizierungs-E-Mails über Ihre E-Mail-Domäne weiterleitet
+- Aktiviert die E-Mail-Zustellung, sobald die DNS-Überprüfung abgeschlossen ist
+
+Nach der Überprüfung werden Authentifizierungs-E-Mails von Ihrer Domain und nicht vom standardmäßigen ZenOpus Cloud Auth-Absender gesendet.
+
+### Umfang und Nutzung der E-Mail-Domäne
+
+E-Mail-Domänen werden auf der Ebene Workspace bereitgestellt.
+
+- Ein Workspace kann mehrere E-Mail-Domänen haben
+- Eine verifizierte Domain kann projektübergreifend verwendet werden
+- Jedes Projekt wählt aus, welche verifizierte Domäne es verwendet
+- Pro Projekt kann jeweils nur eine E-Mail-Domäne aktiv sein
+- Nur Domains mit dem Status **Verifiziert** können E-Mails senden
+- E-Mails können pro Projekt aktiviert oder deaktiviert werden
+
+Wenn E-Mails für ein Projekt deaktiviert sind, greifen Authentifizierungs-E-Mails auf den Standard-Auth-Absender ZenOpus Cloud zurück.
+
+## Fügen Sie eine E-Mail-Domäne hinzu
+
+Wählen Sie die Domain aus, die Sie zum Versenden von E-Mails verwenden möchten. Dies ist die Domain, die Ihre Benutzer in ihrem Posteingang sehen.
+
+Es gibt zwei Möglichkeiten, zu beginnen:
+
+- **Aus dem Chat**: Bitten Sie ZenOpus, E-Mails einzurichten, und es wird eine Schaltfläche zum Einrichten angezeigt. Zum Beispiel:
+    ```text
+    Ich möchte E-Mails zum Zurücksetzen des Passworts von meiner Domain aus senden.
+    ```
+- **In den Cloud-Einstellungen**: Gehen Sie zu **Cloud → E-Mail** und klicken Sie auf **Erste Schritte**.  Dadurch gelangen Sie zum E-Mail-Einrichtungsablauf.
+
+<Steps>
+<Step title="Legen Sie eine E-Mail-Domäne fest">
+- Wählen Sie eine vorhandene Workspace-Domäne aus der Dropdown-Liste aus oder wählen Sie **Neue E-Mail-Domäne hinzufügen** und geben Sie dann Ihre Stammdomäne oder Subdomäne ein, zum Beispiel `yourdomain.com`.
+    <Note>
+    Domänen können bis zu 5 Ebenen haben, zum Beispiel `a.b.c.example.com`.
+    </Note>
+- Klicken Sie auf **Weiter**.
+</Step>
+<Step title="Konfigurieren Sie die Absender-Subdomain">
+Konfigurieren Sie das Subdomain-Präfix, das zum Senden von Authentifizierungs-E-Mails verwendet wird. Die Vorschau auf der rechten Seite zeigt einen simulierten Posteingang mit Beispiel-E-Mails von Ihrer konfigurierten Domain.
+
+- Standardmäßig erstellt ZenOpus eine `notify`-Subdomain für die Zustellung, zum Beispiel `noreply@notify.yourdomain.com`, aber Sie können die Subdomain ändern.
+- Optional können Sie **Anzeigen als gesendet von @yourdomain.com** aktivieren, damit Empfänger E-Mails von `@yourdomain.com` in ihrem Posteingang sehen, während Ihre Transaktions-Subdomain die Zustellung im Hintergrund übernimmt.
+- Klicken Sie auf **Domäne einrichten**.
+</Step>
+<Step title="Vollständige DNS-Konfiguration">
+Nachdem Sie auf **Domäne einrichten** geklickt haben, startet ZenOpus einen **automatisierten DNS-Konfigurationsablauf** (unterstützt von Entri), der Sie durch die Einrichtung der erforderlichen `NS`-Zonendelegierung für Ihre Domäne führt.
+
+Wenn Ihr DNS-Anbieter nicht aufgeführt ist oder Sie eine manuelle Steuerung bevorzugen, können Sie DNS-Einträge selbst konfigurieren. Scrollen Sie zum Ende des Eingabefensters **Wählen Sie Ihren Domain-Anbieter aus** und wählen Sie **Zu unserer manuellen Einrichtung gehen**.
+
+Sowohl bei der automatisierten als auch bei der manuellen Methode ist eine Überprüfung der Inhaberschaft Ihrer Domain erforderlich. ZenOpus stellt Ihre Domain bereit und generiert die erforderlichen DNS-Einträge.
+
+<Tabs>
+<Tab title="Automatische Einrichtung">
+Befolgen Sie die Anweisungen auf dem Bildschirm, um sich bei Ihrem DNS-Anbieter anzumelden und Entri zu autorisieren, Ihre DNS-Einträge zu aktualisieren.
+</Tab>
+<Tab title="Manuelle Einrichtung">
+1. Kopieren Sie die angezeigten DNS-Einträge.
+    - `TXT`-Eintrag zur Domänenüberprüfung
+    - `NS`-Datensätze, die auf die Nameserver von ZenOpus verweisen
+1. Verfolgen Sie Ihren Fortschritt mit dem Zähler **Ich habe X/Y-Datensätze kopiert**.
+1. Geben Sie die kopierten DNS-Einträge direkt in Ihren Domain-Registrar oder DNS-Anbieter ein.
+
+Sie können diese Anweisungen auch an einen Kollegen weiterleiten, wenn jemand anderes Ihr DNS verwaltet.
+</Tab>
+</Tabs>
+</Step>
+<Step title="Warten Sie auf die Bestätigung">
+Nachdem DNS konfiguriert wurde, kehren Sie zur Seite **E-Mails** in Ihrem Projekt zurück.
+
+Ein Statusbanner zeigt den aktuellen Status Ihrer Domain an.
+
+<Note>
+DNS-Änderungen breiten sich normalerweise innerhalb weniger Stunden aus, es kann jedoch bis zu 48 Stunden dauern.
+</Note>
+
+Während die DNS-Überprüfung läuft, generiert ZenOpus sofort Ihre Authentifizierungs-E-Mail-Vorlagen und stellt sie bereit.
+
+Im Chat erscheint eine automatisierte Eingabeaufforderung, die im Hintergrund ausgeführt wird:
+
+```text
+Richten Sie ZenOpus-Authentifizierungs-E-Mail-Vorlagen für notify.yourdomain.com ein. Die DNS-Überprüfung ist im Gange. Passen Sie die E-Mail-Vorlagen an den Stil meiner App an: Verwenden Sie meine Markenfarben, fügen Sie mein Logo hinzu, falls vorhanden, und verfassen Sie den Text im gleichen Ton und in der gleichen Sprache wie meine App.
+```
+
+ZenOpus generiert und stellt automatisch sechs E-Mail-Vorlagen für die Markenauthentifizierung bereit:
+
+- Wendet die Markenfarben Ihrer App an
+- Fügt Ihr Logo hinzu, falls eines im Projekt vorhanden ist
+- Entspricht dem in Ihrer App verwendeten Ton und der Sprache
+
+Sie können die E-Mail-Vorlagen überprüfen und [anpassen](#customizing-email-templates), noch bevor die DNS-Überprüfung abgeschlossen ist.
+</Step>
+</Steps>
+
+ZenOpus erkennt automatisch, wann die DNS-Überprüfung abgeschlossen ist, und aktiviert Ihre Domain.
+
+Sobald sich der Domänenstatus in **Verifiziert** ändert, werden Authentifizierungs-E-Mails von Ihrer Domäne anstelle des standardmäßigen Auth-Absenders ZenOpus Cloud gesendet.
+
+Bis die Verifizierung abgeschlossen ist, werden Authentifizierungs-E-Mails weiterhin über den Standardabsender gesendet.
+
+<Note>
+Neu bereitgestellte Domains beginnen mit einer neutralen Reputation. Die anfängliche Zustellbarkeit kann schwanken, während Ihre Domain durch konsistentes, legitimes Senden Vertrauen bei Posteingangsanbietern aufbaut. Weitere Informationen finden Sie unter [Best Practices für die E-Mail-Zustellbarkeit](#best-practices-für-die-e-mail-zustellbarkeit).
+</Note>
+
+## E-Mail-Domänenstatus
+
+E-Mail-Domänen können die folgenden Status durchlaufen:
+
+| Status | Bedeutung |
+| --- | --- |
+| Ausstehend | Das Setup wurde gestartet und die DNS-Konfiguration wird ausgeführt |
+| Verifizieren | DNS-Einträge wurden erkannt und die Überprüfung wird durchgeführt |
+| Einrichten | Domänenbereitstellung läuft |
+| Verifiziert (Aktiv) | Domain ist bereit und kann zum Versenden von E-Mails verwendet werden |
+| Offline | Erforderliche DNS-Einträge wurden nach der Überprüfung geändert oder entfernt |
+| Fehlgeschlagen | Überprüfung oder Bereitstellung fehlgeschlagen |
+
+<Warning>
+Domains werden kontinuierlich überwacht. Wenn erforderliche DNS-Einträge abweichen, entfernt werden oder ablaufen, kann die Domäne bis zur erneuten Überprüfung in einen inaktiven Zustand übergehen.
+</Warning>
+
+## E-Mail-Domänen verwalten
+
+Verwenden Sie in **Cloud → E-Mails** das Domänen-Dropdown-Menü, um auf Folgendes zuzugreifen:
+
+- **Analysen und Protokolle**: Zeigen Sie Zustellungsmetriken für die E-Mail-Domäne und die E-Mail-Aktivität für das aktuelle Projekt an, das diese Domäne verwendet.
+- **Domänen verwalten**: Sehen Sie sich alle Workspace-E-Mail-Domänen und ihre Status-Badges an, überprüfen und kopieren Sie DNS-Einträge, wechseln Sie die Domäne, die das aktuelle Projekt verwendet, überprüfen Sie eine Domäne manuell, fügen Sie eine Domäne hinzu oder löschen Sie eine Domäne.
+    <Warning>
+    Das Löschen einer Domain ist eine **Workspace-weite Aktion**. Dadurch werden keine E-Mails mehr von dieser Domain gesendet. Jedes Projekt, das diese Domäne verwendet, greift automatisch auf Standard-Authentifizierungs-E-Mails zurück.
+    </Warning>
+- **Neue Domäne hinzufügen:** Fügen Sie eine neue E-Mail-Domäne Workspace hinzu.
+- **E-Mails deaktivieren**: E-Mails für das aktuelle Projekt aktivieren oder deaktivieren. Wenn diese Option deaktiviert ist, werden Authentifizierungs-E-Mails über den standardmäßigen Cloud Auth-Absender und nicht über Ihre benutzerdefinierten Vorlagen gesendet.
+
+### Analysen und Protokolle
+
+Die Analyseansicht umfasst:
+
+- **Metrikkarten**: Anzahl der gesendeten, zugestellten und zurückgesendeten Nachrichten für die E-Mail-Domäne
+- **Zustelldiagramm**: Zugestellte vs. fehlgeschlagene E-Mails für die E-Mail-Domäne über 7, 30 oder 90 Tage
+- **E-Mail-Aktivitätsprotokoll**: Eine erweiterbare Liste einzelner E-Mails, die für das aktuelle Projekt gesendet wurden und Empfänger, Status (abgeschlossen, fehlgeschlagen, ausstehend), Typ (Authentifizierungs-E-Mail oder Test-E-Mail), Zeitstempel und detaillierte Ausführungsverfolgungen mit Fehlermeldungen für Fehler anzeigen
+
+## Passen Sie Authentifizierungs-E-Mail-Vorlagen an
+
+Wenn E-Mails aktiviert sind, generiert ZenOpus automatisch Marken-Authentifizierungs-E-Mail-Vorlagen für Ihr Projekt.
+
+Die Seite **E-Mails** enthält eine Registerkarte für jede Vorlage. Auf jeder Registerkarte wird Folgendes angezeigt:
+
+- **Von** Adresse
+- **Betreffzeile**
+- **Live-Vorschau** der in einem Iframe gerenderten E-Mail-Vorlage
+- Optionen zum **Test senden**, einschließlich des Sendens einer Test-E-Mail an Ihr Konto oder an eine benutzerdefinierte Adresse.
+    <Note>
+    E-Mails, die von neu konfigurierten Domänen gesendet werden, landen möglicherweise zunächst im Spam, während sich der Ruf aufbaut.
+    </Note>
+
+### Automatisches Branding
+
+ZenOpus wendet das Branding Ihrer App automatisch an, indem:
+
+- Extrahieren von CSS-Variablen aus `src/index.css` (Primärfarben, Schriftarten, Rahmenradius)
+- Erkennen von Logodateien in `public/` und `src/assets/`
+- Hochladen eines erkannten Logos in einen speziellen Speicherbereich für E-Mail-Assets
+- Anpassen des E-Mail-Textes an den Ton und die Sprache Ihrer App
+
+Der äußere E-Mail-Körperhintergrund ist immer `#ffffff`, um eine konsistente Darstellung über alle E-Mail-Clients hinweg sicherzustellen. Innere Komponenten können Ihre Markenfarben verwenden.
+
+### Was Sie anpassen können
+
+Sie können ZenOpus bitten, Folgendes zu aktualisieren:
+
+- Kopieren und tonen
+- Markenfarben
+- Layout und Struktur
+- Platzierung von Bildern und Logos
+- Betreffzeilen
+
+<Warning>
+Der äußere Hintergrund des E-Mail-Textes muss weiß bleiben (`#ffffff`), um eine konsistente Darstellung auf allen E-Mail-Clients sicherzustellen. Innere Komponenten können Ihre Markenfarben verwenden.
+</Warning>
+
+Zum Beispiel:
+
+```text
+Ordnen Sie die E-Mails meiner Marke zu, indem Sie #2563eb für Schaltflächen und Überschriften verwenden, oben mein Logo hinzufügen, Emojis entfernen, den Ton professionell, aber freundlich gestalten, die Schaltfläche im Layout nach oben verschieben, eine Fußzeile mit Support@myapp.com hinzufügen und die Betreffzeilen so aktualisieren, dass sie mit meinem App-Namen beginnen.
+```
+
+ZenOpus aktualisiert Vorlagen und behält dabei die erforderlichen Authentifizierungsvariablen und sicheren Rückruflinks bei.
+
+### Bearbeiten Sie Vorlagen manuell
+
+Wenn Sie den Code lieber direkt bearbeiten möchten:
+
+- Authentifizierungsvorlagen befinden sich unter `supabase/functions/_shared/email-templates/`
+- Die Sendelogik befindet sich unter `supabase/functions/auth-email-hook/`
+
+Vorlagen verwenden React Email-Komponenten mit Inline-Stilen (E-Mail-Clients verwenden kein externes CSS).
+
+Erforderliche Authentifizierungsvariablen und Rückruflinks müssen intakt bleiben, sonst werden die Authentifizierungsflüsse unterbrochen.
+
+Nachdem Sie Vorlagendateien oder Betreffzeilen bearbeitet haben, müssen Sie ZenOpus bitten, die Funktion `auth-email-hook` erneut bereitzustellen, damit die Änderungen wirksam werden. Durch die erneute Bereitstellung wird die Backend-Funktion aktualisiert, die Ihre Authentifizierungs-E-Mails rendert und sendet.
+
+Zum Beispiel:
+
+```text
+Stellen Sie meine E-Mail-Vorlagen erneut bereit
+```
+
+## Best Practices für die E-Mail-Zustellbarkeit
+
+Beim Versenden von Authentifizierungs-E-Mails von einer neuen Domäne kann es einige Zeit dauern, bis sich die Platzierung im Posteingang stabilisiert. Posteingangsanbieter bewerten die Reputation des Absenders im Laufe der Zeit anhand von Engagement, Authentifizierung und Sendemustern.
+
+Befolgen Sie diese Vorgehensweisen, um die Zustellbarkeit zu verbessern und einen guten Ruf als Absender aufzubauen.
+
+<AccordionGroup>
+<Accordion title="Erwärmen Sie neue Domänen schrittweise">
+Neue E-Mail-Domänen haben keinen Sendeverlauf. Posteingangsanbieter gehen vorsichtig damit um, da Spammer häufig neue Domains verwenden und diese schnell wieder verlassen.
+
+Die anfängliche Zustellbarkeit kann in den ersten Tagen oder Wochen schwanken. Das ist normal.
+
+Der Ruf Ihrer Domain baut sich nach und nach auf, wenn echte Benutzer mit Authentifizierungs-E-Mails wie Anmeldungen und Passwort-Resets interagieren.
+
+Die Verwendung einer dedizierten Transaktions-Subdomain hilft, den Authentifizierungsverkehr zu isolieren und die Reputation Ihrer primären Domain zu schützen.
+
+**Typischer Zeitplan**
+
+- Die ersten Tage: Test-E-Mails landen möglicherweise im Spam
+- Die ersten paar Wochen: Die Zustellbarkeit verbessert sich, da legitimer Traffic den Ruf stärkt
+- Erste Monate: Der Ruf stabilisiert sich durch konsequentes, engagiertes Senden
+
+**Was hilft:**
+
+- Beginnen Sie mit dem Senden mit normalem Authentifizierungsdatenverkehr (Benutzeranmeldungen, Kennwortzurücksetzungen).
+- Lassen Sie das Volumen auf natürliche Weise wachsen, wenn Ihre Benutzerbasis wächst
+- Behalten Sie über Wochen und Monate hinweg konsistente Sendemuster bei
+- Stellen Sie sicher, dass Authentifizierungs-E-Mails erwartet und durch echte Benutzeraktionen ausgelöst werden
+- Markieren Sie legitime E-Mails in Ihrem Posteingang als „Kein Spam“.
+
+**Was tut weh:**
+
+- Plötzliche große Spitzen im E-Mail-Volumen einer brandneuen Domain
+- Versenden von Massentest-E-Mails unmittelbar nach der Einrichtung
+- Inkonsistentes Senden (lange Lücken, gefolgt von plötzlichen Ausbrüchen)
+- Panikbedingte Änderungen an Domänen oder Absenderidentität
+
+Die Reputation baut sich automatisch mit einem konsistenten, legitimen Sendeverhalten im Laufe der Zeit auf.
+</Accordion>
+<Accordion title="Stellen Sie sicher, dass die Domänenauthentifizierung gültig ist">
+Die Authentifizierung muss erfolgreich sein, damit E-Mails den Posteingang erreichen. ZenOpus konfiguriert automatisch `SPF`, `DKIM` und `DMARC`, wenn Sie Ihre E-Mail-Domäne einrichten.
+
+Wenn DNS-Einträge geändert oder falsch konfiguriert werden, kann die Authentifizierung fehlschlagen und E-Mails landen möglicherweise im Spam.
+
+Bestätigen Sie immer, dass der Domänenstatus **Verifiziert** in **Cloud → E-Mail** lautet.
+</Accordion>
+<Accordion title="Senden Sie nur legitime, vom Benutzer ausgelöste E-Mails">
+Authentifizierungs-E-Mails sollten nur durch echte Benutzeraktionen ausgelöst werden, beispielsweise durch die Anmeldung oder das Zurücksetzen eines Passworts.
+
+Vermeiden Sie die Generierung von künstlichem Datenverkehr zu Test- oder Automatisierungszwecken. Unnatürliche Verkehrsmuster können sich negativ auf die Reputation einer Domain auswirken.
+</Accordion>
+<Accordion title="Sorgen Sie dafür, dass Authentifizierungs-E-Mails ausschließlich transaktionsorientiert sind">
+Authentifizierungs-E-Mails sollten eindeutig mit der letzten Aktion des Benutzers übereinstimmen und erklären, warum die E-Mail gesendet wurde.
+
+**Gute Praktiken**:
+
+- Verwenden Sie einfache Betreffzeilen („Passwort zurücksetzen“, „E-Mail-Adresse bestätigen“).
+- Erklären Sie klar und deutlich, was der Benutzer tun muss
+- Ordnen Sie die E-Mail der Aktion zu, die der Benutzer ausgeführt hat
+
+**Vermeiden**:
+
+- Hinzufügen von Marketinginhalten oder Upsells zu Authentifizierungs-E-Mails
+- Irreführende oder Clickbait-Betreffzeilen
+- Werbesprache in Authentifizierungs-E-Mails
+</Accordion>
+<Accordion title="Behalten Sie eine konsistente Absenderidentität bei">
+Verwenden Sie ein konsistentes:
+
+- Absenderadresse
+- Absendername
+- Domäne
+
+Häufige Änderungen der Absenderidentität verringern die Vertrauenssignale bei Posteingangsanbietern.
+</Accordion>
+<Accordion title="Vermeiden Sie Spam-auslösende Formatierungen">
+Beim Anpassen von E-Mail-Vorlagen:
+
+**Tun**:
+
+- Verwenden Sie klare, beschreibende Betreffzeilen
+- Halten Sie die Formatierung einfach und sauber
+- Verwenden Sie ein ausgewogenes Text-Bild-Verhältnis
+- Geben Sie Ihren Markennamen und eine erkennbare Absenderadresse an
+- Stellen Sie nach Möglichkeit sicher, dass die Links in der E-Mail mit Ihrer Absenderdomäne übereinstimmen
+
+**Nicht**:
+
+- Verwenden Sie in Betreffzeilen ALLE GROSSBUCHSTABEN
+- Fügen Sie übermäßige Interpunktion hinzu (!!!)
+- Erstellen Sie irreführende Betreffzeilen
+- Verwenden Sie bildlastige Layouts
+- Link zu nicht verwandten oder nicht übereinstimmenden Domains
+
+Posteingangsanbieter achten auf Konsistenz zwischen der Absenderdomäne und den in Links verwendeten Domänen. Wenn Ihre E-Mail von `yourdomain.com` gesendet wird, sollten Links in der E-Mail idealerweise auf `yourdomain.com` oder seine Subdomains verweisen. Nicht übereinstimmende Domänen werden häufig bei Phishing-Angriffen verwendet und können eine Spam-Filterung auslösen.
+
+Eine klare, vorhersehbare Formatierung und Domänenausrichtung verbessern das Vertrauen und das Engagement.
+</Accordion>
+<Accordion title="Überwachen Sie Absprungraten und Beschwerden">
+Hohe Absprungraten schaden dem Ruf des Absenders.
+
+Verwenden Sie **Analysen und Protokolle**, um Folgendes zu überwachen:
+
+- Gesendet
+- Geliefert
+- Abgeprallt
+
+Besonders schädlich sind Hard Bounces, die durch ungültige oder falsch eingegebene Adressen verursacht werden. Wiederholtes Senden an ungültige Adressen kann die Platzierung im Posteingang beeinträchtigen.
+
+Wenn die Absprungraten steigen:
+
+- Überprüfen Sie, wie E-Mail-Adressen erfasst werden
+- Validieren Sie Ihre Eingaben bei der Anmeldung
+- Vermeiden Sie es, fehlgeschlagene Zustellungen wiederholt zu versuchen
+
+Auch Spam-Beschwerden wirken sich negativ auf den Ruf aus. Authentifizierungs-E-Mails sollten immer erwartet und klar erklärt werden.
+</Accordion>
+<Accordion title="Beschränken Sie interne Tests">
+Die Option **Test senden** in **Cloud → E-Mail** ist für die Validierung nützlich, schränkt jedoch Ihre Tests ein.
+
+**Warum das wichtig ist**:
+
+- Posteingangsanbieter werten Engagement-Signale aller von Ihnen gesendeten E-Mails aus
+- Wiederholte Test-E-Mails an dieselbe Adresse erzeugen künstliche Verkehrsmuster
+- Das Weiterleiten von Test-E-Mails an gefälschte Adressen schadet Ihrem Ruf
+
+**Besserer Ansatz**:
+
+- Senden Sie ein paar Test-E-Mails an sich selbst oder Ihr Team
+- Verwenden Sie echte E-Mail-Adressen, die Sie kontrollieren
+- Vermeiden Sie den Versand großer Mengen an Test-E-Mails
+</Accordion>
+<Accordion title="Wenn E-Mails im Spam landen">
+Wenn Authentifizierungs-E-Mails als Spam markiert sind:
+
+1. Bestätigen Sie, dass der Domainstatus **Verifiziert** ist.
+1. Stellen Sie sicher, dass die DNS-Einträge korrekt konfiguriert sind
+1. Überprüfen Sie Betreffzeilen und Inhalt
+1. Überprüfen Sie die Absprungraten in **Analysen und Protokolle**
+1. Reduzieren Sie plötzliche Spitzen im Sendevolumen
+1. Seien Sie geduldig. Neue Domains brauchen Zeit, um Vertrauen bei Posteingangsanbietern aufzubauen
+
+Die Zustellbarkeit verbessert sich mit der Zeit durch konsistentes, legitimes Sendeverhalten.
+</Accordion>
+<Accordion title="Fördern Sie positive Engagement-Signale">
+Posteingangsanbieter berücksichtigen das Engagement, wenn sie die Reputation des Absenders bewerten.
+
+Authentifizierungs-E-Mails erzeugen natürlich positive Signale, wenn Benutzer:
+
+- Öffnen Sie die E-Mail
+- Klicken Sie auf den Link zur Bestätigung oder zum Zurücksetzen
+- Führen Sie die beabsichtigte Aktion aus
+
+Klare Nachrichten und erwartete Abläufe steigern das Engagement und verbessern die langfristige Platzierung im Posteingang.
+</Accordion>
+<Accordion title="Grundlegendes zu den Algorithmen des Posteingangsanbieters">
+Posteingangsanbieter geben ihre Spam-Filterkriterien nicht öffentlich bekannt (um zu verhindern, dass Spammer das System manipulieren). Sie bewerten jedoch im Allgemeinen:
+
+- **Absenderauthentifizierung**: Sind `SPF`, `DKIM` und `DMARC` richtig konfiguriert? (ZenOpus erledigt dies automatisch)
+- **Reputation des Absenders**: Wie ist Ihre Historie an Bounces, Beschwerden und Interaktionen?
+- **Inhaltsqualität**: Sind die Betreffzeilen klar? Ist die Formatierung sauber? Passen die Links zu Ihrer Domain?
+- **Engagementsignale**: Öffnen Benutzer E-Mails? Klicken Sie auf Links? Antwort? Oder markieren Sie sie als Spam
+- **Sendemuster**: Senden Sie regelmäßig? Oder in plötzlichen Ausbrüchen?
+
+Denken Sie: „Was würde ein Phisher tun?“ Dann machen Sie das Gegenteil. Posteingangsanbieter möchten ihre Benutzer schützen. Zeigen Sie daher bei jedem Schritt, dass Sie ein legitimer Absender ohne böswillige Absicht sind.
+</Accordion>
+</AccordionGroup>
+
+## Fehlerbehebung
+
+<AccordionGroup>
+<Accordion title="E-Mail-Domain bleibt im Status „Überprüfen“ hängen">
+Mögliche Ursachen:
+
+- DNS-Einträge wurden nicht vollständig weitergegeben
+- `NS`-Delegierung falsch
+- `TXT` Verifizierungsdatensatz fehlt
+- DNS auf falscher Domänenebene konfiguriert
+
+**Was zu tun ist:**
+
+- Überprüfen Sie noch einmal die genauen DNS-Einträge, die unter **Cloud → E-Mail** angezeigt werden.
+- Bestätigen Sie, dass Datensätze zur richtigen Stammdomäne hinzugefügt wurden
+- Warten Sie bis zu 48 Stunden auf die Ausbreitung
+- Versuchen Sie die Überprüfung erneut
+</Accordion>
+<Accordion title="Der Domänenstatus wird als „Offline“ angezeigt">
+Dies bedeutet, dass erforderliche DNS-Einträge nach der Überprüfung geändert, entfernt oder abgelaufen sind.
+
+**Was zu tun ist:**
+
+- Überprüfen Sie DNS-Einträge in **Cloud → E-Mail**
+- Stellen Sie fehlende `NS`- oder `TXT`-Datensätze wieder her
+- Überprüfen Sie die Domäne erneut
+</Accordion>
+<Accordion title="E-Mails werden nicht gesendet">
+Überprüfen Sie:
+
+- Die E-Mail-Domäne ist mit Ihrem Projekt verknüpft
+- Der Domainstatus ist **Verifiziert**
+- E-Mails sind für das Projekt aktiviert
+- Cloud Auth ist aktiviert
+- Sie lösen einen unterstützten Authentifizierungs-E-Mail-Typ aus
+
+Verwenden Sie **Test senden** auf einer Vorlagenregisterkarte und überprüfen Sie **Analysen und Protokolle** auf Zustellungsfehler oder Bounces.
+</Accordion>
+<Accordion title="Hohe Absprungraten in der Analyse">
+Häufige Ursachen:
+
+- Ungültige E-Mail-Adressen
+- Tippfehler bei der Anmeldung
+- Wiederholte Versuche zu ungültigen Adressen
+
+Überprüfen Sie die E-Mail-Eingabe bei der Anmeldung und vermeiden Sie erneute Versuche bei Hardbounces.
+</Accordion>
+<Accordion title="Test-E-Mails landen im Spam">
+Dies ist bei neu bereitgestellten Domänen üblich.
+
+Vermeiden Sie den Versand großer Mengen interner Test-E-Mails. Ermöglichen Sie organischen, von Benutzern ausgelösten E-Mails, mit der Zeit einen guten Ruf aufzubauen.
+</Accordion>
+<Accordion title="Die Änderungen meiner E-Mail-Vorlage werden nicht angezeigt">
+Wenn Sie Vorlagendateien bearbeitet haben, Benutzer aber immer noch alte Versionen erhalten:
+
+- Stellen Sie sicher, dass die Funktion `auth-email-hook` erneut bereitgestellt wurde
+- Bitten Sie ZenOpus, Ihre E-Mail-Vorlagen erneut bereitzustellen
+
+Vorlagenänderungen werden erst nach der erneuten Bereitstellung wirksam.
+</Accordion>
+<Accordion title="Verwenden Sie externe Tools, um Zustellbarkeitsprobleme zu untersuchen">
+Wenn E-Mails regelmäßig im Spam landen oder abgelehnt werden, können Sie die folgenden Tools für eine tiefergehende Diagnose verwenden.
+
+Diese Tools sind optional und am nützlichsten für Versender mit größerem Volumen.
+
+- [Google Postmaster-Tools](https://postmaster.google.com/)  
+Sehen Sie sich die Reputation des Absenders, die Spam-Raten und die Authentifizierungsausrichtung für Gmail-Empfänger an.
+- [Yahoo Sender Hub](https://senders.yahooinc.com/)  
+Überwachen Sie die Beschwerderaten und die Absenderreputation für Yahoo-Posteingänge.
+- [Spamhaus-Blocklist-Suche](https://check.spamhaus.org/)  
+Überprüfen Sie, ob Ihre Domain, IP-Adresse oder E-Mail-URLs auf den wichtigsten Sperrlisten angezeigt werden.
+- [Google Safe Browsing](https://transparencyreport.google.com/safe-browsing/search)  
+Testen Sie die in Ihren E-Mails verwendeten Links, um sicherzustellen, dass sie nicht als unsicher gekennzeichnet werden.
+
+Diese Tools helfen bei der Diagnose von Reputations- oder Sperrlistenproblemen, die sich auf die Platzierung im Posteingang auswirken können.
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Was sind Authentifizierungs-E-Mails in ZenOpus?">
+Authentifizierungs-E-Mails ermöglichen es Ihrer ZenOpus Cloud-App, kontobezogene E-Mails wie Anmeldebestätigungen, Passwort-Resets, magische Links, Einladungen, E-Mail-Änderungsbestätigungen und erneute Authentifizierungscodes von Ihrer eigenen Domain anstelle des standardmäßigen ZenOpus Cloud-Authentifizierungsabsenders zu senden.
+
+Diese E-Mails werden automatisch von Cloud Auth ausgelöst, wenn Benutzer sicherheitsrelevante Aktionen durchführen.
+</Accordion>
+<Accordion title="Sind Authentifizierungs-E-Mails dasselbe wie Transaktions-E-Mails?">
+Authentifizierungs-E-Mails sind eine Teilmenge der Transaktions-E-Mails. Alle Authentifizierungs-E-Mails sind transaktional, aber nicht alle Transaktions-E-Mails sind Authentifizierungs-E-Mails.
+
+E-Mails Support **Nur Authentifizierungs-E-Mails**.
+</Accordion>
+<Accordion title="Kann ich Marketing-E-Mails versenden?">
+Nein. Es werden nur Authentifizierungs-E-Mails unterstützt (Anmeldebestätigungen, Passwort-Resets, magische Links, Einladungen, E-Mail-Änderung und erneute Authentifizierung).
+
+Marketing-E-Mails, Newsletter, Bestellbestätigungen und andere Transaktions-E-Mails ohne Authentifizierung werden derzeit nicht unterstützt.
+</Accordion>
+<Accordion title="Benötigen E-Mails ZenOpus Cloud?">
+Ja. E-Mails erfordern ZenOpus Cloud und lassen sich in Cloud Auth integrieren, um Authentifizierungs-E-Mails zu senden.
+</Accordion>
+<Accordion title="Benötige ich eine benutzerdefinierte Webdomäne, um eine E-Mail-Domäne zu verwenden?">
+Nein. Ihre benutzerdefinierte Webdomäne steuert, wo Ihre App gehostet wird. Eine benutzerdefinierte E-Mail-Domäne steuert, von welcher Domäne Ihre E-Mails gesendet werden.
+
+Dabei handelt es sich um separate Konfigurationen, da Webhosting und E-Mail-Zustellung unterschiedliche DNS-Einträge und Infrastrukturen verwenden.
+
+Sie können für den E-Mail-Versand eine völlig andere Stammdomäne verwenden, solange Sie deren DNS kontrollieren. Für das Vertrauen der Benutzer und die Zustellbarkeit wird jedoch die Verwendung einer Domain empfohlen, die zu Ihrer Produktmarke passt.
+
+Durch das Hosten Ihrer App auf einer benutzerdefinierten Domäne wird der E-Mail-Versand nicht automatisch konfiguriert.
+</Accordion>
+<Accordion title="Kann ich eine Subdomain zum E-Mail-Versand verwenden?">
+Ja. ZenOpus erstellt automatisch eine Transaktions-Subdomäne wie `notify.yourdomain.com` für die Zustellung.
+
+Sie können E-Mails optional als von Ihrer Root-Domain stammend anzeigen, während die Zustellung im Hintergrund über die Subdomain erfolgt.
+
+Die Verwendung einer dedizierten E-Mail-Subdomain wird empfohlen, da sie dazu beiträgt, den Ruf Ihrer Root-Domain zu schützen.
+</Accordion>
+<Accordion title="Benötige ich einen externen E-Mail-Anbieter wie SendGrid oder Resend?">
+Nein. ZenOpus verwaltet die Domänenüberprüfung, die DNS-Konfiguration, Authentifizierungsdatensätze wie `SPF`, `DKIM` und `DMARC` sowie die Bereitstellungsinfrastruktur. Sie müssen keine API-Schlüssel oder E-Mail-Anbieter-Konten von Drittanbietern verwalten.
+</Accordion>
+<Accordion title="Was sind SPF, DKIM und DMARC und muss ich sie konfigurieren?">
+`SPF`, `DKIM` und `DMARC` sind E-Mail-Authentifizierungsstandards, die Posteingangsanbietern dabei helfen, zu überprüfen, ob Ihre E-Mails legitim und nicht gefälscht sind.
+
+Beim Versenden einer E-Mail prüfen Anbieter wie Gmail oder Outlook Folgendes:
+
+- Die E-Mail darf von Ihrer Domain aus gesendet werden
+- Die Nachricht wurde während der Übertragung nicht verändert
+- Der Domaininhaber hat eine Richtlinie zum Umgang mit verdächtigen E-Mails definiert
+
+Wenn die Authentifizierung fehlschlägt, werden E-Mails möglicherweise als Spam markiert oder abgelehnt oder die Reputation Ihrer Domain wird beeinträchtigt.
+
+ZenOpus konfiguriert und verwaltet automatisch:
+
+- **SPF (Sender Policy Framework):** Autorisiert, welche Server E-Mails für Ihre Domain senden können
+- **DKIM (DomainKeys Identified Mail):** Signiert E-Mails kryptografisch, um Manipulationen zu verhindern
+- **DMARC (Domain-based Message Authentication, Reporting, and Conformance):** Definiert, wie Anbieter mit fehlgeschlagener Authentifizierung umgehen und schützt vor Spoofing
+
+Sie müssen diese Datensätze nicht manuell konfigurieren. ZenOpus richtet sie bei der Domänenverifizierung ein und überwacht sie kontinuierlich. Wenn Authentifizierungsdatensätze geändert, entfernt oder ablaufen, werden Sie benachrichtigt, damit sie wiederhergestellt werden können.
+</Accordion>
+<Accordion title="Wie viele Authentifizierungs-E-Mails sind pro Monat enthalten?">
+Jeder bezahlte Workspace beinhaltet **50.000 Authentifizierungs-E-Mails pro Monat** ohne zusätzliche Kosten.
+
+Die Nutzung wird über den gesamten Workspace berechnet.
+
+Für zusätzliche E-Mails wird **1 USD pro 1.000 E-Mails** berechnet.
+</Accordion>
+<Accordion title="Kann ich E-Mails im kostenlosen Plan nutzen?">
+Nein. E-Mails sind nur bei kostenpflichtigen Plänen verfügbar. Free-Pläne verwenden den standardmäßigen ZenOpus Cloud-Auth-Absender.
+</Accordion>
+<Accordion title="Wie lange dauert die DNS-Verifizierung?">
+DNS-Änderungen breiten sich normalerweise innerhalb weniger Stunden aus, es kann jedoch bis zu 48 Stunden dauern.
+
+Sie können den Domainstatus unter **Cloud → E-Mail** überprüfen. Der Status wird automatisch aktualisiert, sobald die Überprüfung abgeschlossen ist.
+</Accordion>
+<Accordion title="Warum landen meine E-Mails im Spam?">
+Neue E-Mail-Domänen haben zunächst keine Absender-Reputation.
+
+Wenn Authentifizierungs-E-Mails im Spam landen:
+
+• Bestätigen Sie, dass der Domänenstatus **Verifiziert** ist.  
+
+ • Stellen Sie sicher, dass sich die DNS-Einträge nicht geändert haben  
+
+ • Vermeiden Sie plötzliche Spitzen beim Sendevolumen  
+
+ • Vermeiden Sie Spam-auslösende Formatierungen  
+
+ • Überprüfen Sie die Absprungraten in **Analysen und Protokollen**
+
+Die Zustellbarkeit verbessert sich im Laufe der Zeit bei konsistenter, legitimer Benutzeraktivität.
+</Accordion>
+<Accordion title="Kann ich die E-Mail-Vorlagen anpassen?">
+Ja. Sie können Folgendes anpassen:
+
+- Kopieren und tonen
+- Markenfarben
+- Layout und Struktur
+- Logos und Bilder
+- Betreffzeilen
+
+Sie können ZenOpus bitten, die Vorlagen zu aktualisieren oder sie direkt in `supabase/functions/_shared/email-templates/` zu bearbeiten.
+
+Erforderliche Authentifizierungsvariablen und Rückruflinks müssen intakt bleiben.
+
+Der äußere Hintergrund des E-Mail-Textes muss weiß bleiben (`#ffffff`), um eine konsistente Darstellung auf allen E-Mail-Clients sicherzustellen. Innere Komponenten können Ihre Markenfarben verwenden.
+</Accordion>
+<Accordion title="Was passiert, wenn ich E-Mails deaktiviere?">
+Wenn E-Mails für ein Projekt deaktiviert sind, werden Authentifizierungs-E-Mails weiterhin mit dem Standard-Auth-Absender ZenOpus Cloud anstelle Ihrer Markenvorlagen gesendet.
+</Accordion>
+<Accordion title="Was passiert, wenn ich eine E-Mail-Domain lösche?">
+Das Löschen einer E-Mail-Domäne ist eine **workspaceweite Aktion**.
+
+Alle Projekte, die diese Domäne verwenden, greifen sofort auf den Standard-Auth-Absender ZenOpus Cloud zurück.
+</Accordion>
+</AccordionGroup>

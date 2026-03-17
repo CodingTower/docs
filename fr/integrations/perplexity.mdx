@@ -1,0 +1,126 @@
+---
+title: "Connectez votre application à Perplexity"
+description: "Connectez votre application à Perplexity, un moteur de recherche alimenté par l'IA, pour récupérer des informations en temps réel avec des citations vérifiables."
+---
+[Perplexity](https://www.perplexity.ai/) est une plate-forme de recherche d'IA qui renvoie des réponses concises fondées sur des données Web en direct et étayées par des sources. Il est conçu pour les applications qui ont besoin d'**informations récentes et fiables**, plutôt que de connaissances statiques ou de formation uniquement.
+
+Avec Perplexity, votre application peut :
+
+- Répondez aux questions en utilisant des informations à jour sur le Web
+- Générez des résumés avec des citations claires et vérifiables
+- Comparez les entreprises, les produits ou les marchés en temps réel
+- Réduisez les heures de recherche manuelle en quelques secondes
+
+Perplexity est un bon choix lorsque votre application dépend d'**informations récentes et étayées par des sources**, telles que des actualités, des recherches, des informations sur le marché ou une vérification des faits.
+
+## Cas d'utilisation courants et exemples d'applications
+
+| Exemple d'application | Exemple d'invite | Descriptif |
+| --- | --- | --- |
+| Assistants de préparation des ventes | Utilisez Perplexity et créez un assistant de préparation des ventes qui rassemble le contexte de l'entreprise avant chaque appel. | Obtenez des aperçus de l'entreprise, des actualités récentes, des changements de direction et des signaux de risque à l'aide de la recherche en direct. L'application exécute des requêtes Perplexity avant une réunion et présente un briefing concis et cité pour les commerciaux. |
+| Outils d'études de concurrence et de marché | Créez un outil de recherche de concurrents en utilisant Perplexity. | Résumez les événements de financement, les lancements de produits, les changements de positionnement et l'activité du marché. L'application exécute plusieurs recherches Perplexity en parallèle et regroupe les résultats dans un tableau de bord de recherche. |
+| Suivi des réglementations ou des politiques | Créez une application qui suit les mises à jour réglementaires à l'aide de Perplexity. | Surveillez les nouvelles décisions, les modifications de politique ou les mises à jour de conformité en fonction de sources récentes. L'application interroge régulièrement Perplexity et fait apparaître des informations nouvellement publiées ou mises à jour avec des citations. |
+| Applications de vérification des faits (« Est-ce vrai ? ») | Créez une application de vérification des faits à l'aide de la recherche Perplexity. | Vérifiez les affirmations en récupérant les sources à l’appui et contredisant. L'application accepte une déclaration en entrée et renvoie une réponse synthétisée avec les références citées. |
+| Assistants de recherche | Utilisez Perplexity et créez un assistant de recherche qui répond aux questions ouvertes. | Répondez à des questions telles que « Que s'est-il passé dans cette industrie cette semaine ? » ou "Qui sont les principaux concurrents pour X ?" L'application utilise Perplexity pour générer des réponses structurées et citées. |
+
+## Comment connecter Perplexité
+
+Workspace **les administrateurs** et les **propriétaires** peuvent connecter Perplexity.
+
+Vous pouvez créer plusieurs connexions Perplexity à l'aide de différentes clés API, ce qui est utile pour séparer les environnements (par exemple, développement et production) ou pour gérer les limites de débit.
+
+Lorsque la connexion est créée, Perplexity devient disponible dans tous les projets du Workspace.
+
+### Conditions préalables
+
+Avant de connecter Perplexity, assurez-vous d'avoir :
+
+- Un compte Perplexity avec des autorisations d'administrateur pour la facturation et la gestion des clés API
+- Une clé API Perplexity
+- ZenOpus Workspace rôle de propriétaire ou d'administrateur
+
+<Note>
+Vous devez avoir un compte Perplexity actif avec accès API. Toutes les demandes de recherche et de réponse effectuées via ce connecteur consomment votre utilisation de l'API Perplexity et la facturation est gérée directement par Perplexity, et non par ZenOpus.
+</Note>
+
+### Étape 1 : Créez un compte Perplexity et une clé API
+
+Une clé API vous permet de vous connecter à l'API Perplexity et d'utiliser ses fonctionnalités. Vous pouvez créer plusieurs clés API dans Perplexity.
+
+Pour créer une clé API Perplexity :
+
+1. Accédez à [Perplexité](https://www.perplexity.ai/) et créez votre compte.
+1. Accédez à **Compte (icône de profil) → API**.
+1. Accédez au **groupe API** pour configurer votre organisation. Remplissez le nom, l'adresse et les informations fiscales de votre organisation.
+1. Accédez à **Facturation API** et cliquez sur **Ajouter un mode de paiement** pour saisir les informations de votre carte de crédit.
+1. Accédez à **Clé API** et cliquez sur **Créer une clé**. Donnez à votre clé un nom descriptif, par exemple, `ZenOpus integration`.
+1. Copiez la clé API générée et stockez-la en toute sécurité.
+    <Info>
+    Votre clé API fonctionne comme un mot de passe. Gardez-le en sécurité et ne le partagez jamais publiquement. Vous en aurez besoin à l’étape suivante.
+    </Info>
+
+Consultez la documentation Perplexity pour des instructions détaillées : [Groupes API et facturation](https://docs.perplexity.ai/getting-started/api-groups).
+
+### Étape 2 : Connectez Perplexity à ZenOpus
+
+Vous pouvez créer plusieurs connexions à l'aide de différentes clés API.
+
+Pour connecter Perplexité :
+
+1. Accédez à **Paramètres → Connecteurs → Connecteurs partagés** et sélectionnez **Perplexité**.
+1. Cliquez sur **Ajouter une connexion**.
+1. **Nom d'affichage** : nommez la connexion, par exemple `Perplexity Prod`.
+1. Sous **Authentification**, saisissez votre clé API Perplexity (`pplx-xxxx…`).
+1. Cliquez sur **Créer**.
+
+Une fois connectées, vos applications ZenOpus peuvent commencer à utiliser Perplexity pour récupérer des informations citées en temps réel.
+
+## Comment dissocier des projets d'une connexion
+
+Les éditeurs et les éditeurs supérieurs peuvent supprimer des projets spécifiques d'une connexion sans supprimer entièrement la connexion. La connexion restera disponible pour d'autres projets.
+
+Pour dissocier des projets :
+
+<Steps>
+<Step title="Accédez aux connecteurs">
+Accédez à **Paramètres → Connecteurs → Connecteurs partagés** et sélectionnez **Perplexité**.
+</Step>
+<Step title="Ouvrir la connexion">
+Ouvrez la connexion que vous souhaitez gérer.
+</Step>
+<Step title="Sélectionnez des projets">
+Sous **Projets liés**, cochez les projets dont vous souhaitez dissocier.
+</Step>
+<Step title="Confirmer">
+Cliquez sur **Dissocier les projets** et confirmez.
+</Step>
+</Steps>
+
+Une fois dissociés, ces projets n'auront plus accès à **Perplexity** via cette connexion. Si un projet a à nouveau besoin de **Perplexity**, vous pouvez le lier à n'importe quelle connexion disponible.
+
+## Comment supprimer une connexion
+
+Les administrateurs et propriétaires Workspace peuvent supprimer les connexions **Perplexity**.
+
+<Warning>
+La suppression d'une connexion est permanente et ne peut être annulée. Cela supprimera les informations d'identification de tous les projets liés et toutes les applications utilisant cette connexion cesseront de fonctionner jusqu'à ce qu'une nouvelle connexion soit ajoutée.
+</Warning>
+
+Avant de supprimer, consultez la section **Projets liés** pour voir quels projets utilisent actuellement la connexion.
+
+Pour supprimer une connexion :
+
+<Steps>
+<Step title="Accédez aux connecteurs">
+Accédez à **Paramètres → Connecteurs → Connecteurs partagés** et sélectionnez **Perplexité**.
+</Step>
+<Step title="Ouvrir la connexion">
+Ouvrez la connexion que vous souhaitez supprimer.
+</Step>
+<Step title="Examiner les projets liés">
+Consultez la section **Projets liés**.
+</Step>
+<Step title="Supprimer">
+Sous **Supprimer cette connexion**, cliquez sur **Supprimer** et confirmez.
+</Step>
+</Steps>

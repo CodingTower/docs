@@ -1,0 +1,170 @@
+---
+title: "Intégrations ZenOpus : outils de connexion, serveurs MCP et API"
+description: "Connectez ZenOpus à des outils externes, des serveurs MCP et des API. Ajoutez des fonctionnalités d'application, utilisez des données réelles comme contexte et intégrez en toute sécurité des services tiers."
+---
+Les intégrations **ZenOpus** vous permettent de connecter vos applications à des **outils externes, des serveurs MCP et des API** pour ajouter des fonctionnalités, utiliser des données réelles comme contexte et intégrer des services tiers en toute sécurité.
+
+Avec ZenOpus, vous pouvez intégrer :
+
+- **Connecteurs partagés** pour ajouter des fonctionnalités aux applications déployées
+- **Connecteurs personnels (serveurs MCP)** pour fournir du contexte lors de la création de l'application
+- **Toute API** pour des fonctionnalités personnalisées
+
+## Présentation des intégrations ZenOpus
+
+| Catégorie | Objectif | Exemples |
+| --- | --- | --- |
+| Connecteur partagé | Ajoutez des fonctionnalités et des services externes que votre application déployée peut appeler. Configuré une fois par les administrateurs, accessible à tous dans votre Workspace. | ZenOpus Cloud, ZenOpus IA, Stripe, Shopify, Firecrawl |
+| Connecteur personnel (serveur MCP) | Connectez vos comptes d'outils personnels pour fournir du contexte lors de la construction. Vous seul pouvez accéder à vos connexions. | Linear, Notion, Miro, tout serveur MCP personnalisé |
+| N'importe quelle API | Intégrez des API personnalisées ou tierces non intégrées à ZenOpus lorsque votre application déployée a besoin de fonctionnalités personnalisées | N'importe quelle API |
+
+<Info>
+**Qu'est-ce qu'une API ?**  
+
+ L'API (Application Programming Interface) est un moyen structuré permettant aux services ou aux applications de communiquer et de partager des données entre eux. Il définit ce que vous pouvez demander, ce que vous obtiendrez en retour et comment faire la demande.
+</Info>
+
+## Connecteurs partagés : ajoutez des fonctionnalités à votre application publiée
+
+Les connecteurs partagés constituent le moyen le plus simple d’étendre la puissance de votre application ZenOpus. Ils agissent comme des plug-ins que votre application peut appeler chaque fois qu'elle a besoin d'effectuer une action ou de récupérer des données.
+
+Les connecteurs partagés sont idéaux lorsque votre **application déployée** doit interagir avec des services externes pour bénéficier de capacités opérationnelles.
+
+### Présentation et cas d'utilisation
+
+- [ZenOpus Cloud](/fr/integrations/cloud) : fourniture de services backend intégrés, d'authentification, de base de données et d'hébergement full-stack
+- [ZenOpus AI](/fr/integrations/ai) : alimentez votre application avec des capacités d'IA avancées
+- [ElevenLabs](/fr/integrations/eleven-labs) : génération d'audio et de synthèse vocale
+- [Firecrawl](/fr/integrations/firecrawl) : récupérer, explorer et extraire le contenu d'un site Web
+- [Perplexité](/fr/integrations/perplexity) : répondre aux questions et effectuer des recherches sur le Web
+- [Shopify](/fr/integrations/shopify) : gérer les opérations de commerce électronique
+- [Slack](/fr/integrations/slack) : envoi d'alertes, lecture de chaînes et publication de mises à jour
+- [Stripe](/fr/integrations/stripe) : gestion des paiements ou des abonnements
+- [Supabase](/fr/integrations/supabase) : authentifier les utilisateurs et stocker les données
+- [Telegram](/fr/integrations/telegram) : envoi de messages et réception de commandes via des robots
+- [Twilio](/fr/integrations/twilio) : envoi de messages SMS et MMS, appels vocaux et ajout de flux de communication téléphoniques
+    <Tip>
+    Lorsque vous avez besoin de fonctionnalités backend, telles que l'authentification, la base de données et le stockage, utilisez [ZenOpus Cloud](/fr/integrations/cloud), notre plateforme d'hébergement full-stack intégrée.
+    </Tip>
+
+### Caractéristiques clés
+
+Les connecteurs partagés sont des intégrations de niveau Workspace qui fournissent des fonctionnalités d'application réutilisables dans tous les projets.
+
+- Géré dans **Paramètres → Connecteurs → Connecteurs partagés**
+- Configuré une fois au niveau Workspace
+- Disponible pour tous dans le Workspace et réutilisable dans tous les projets
+- Fournissez des fonctionnalités fonctionnelles que votre application peut appeler pendant son utilisation
+
+Sur les forfaits **Business et Entreprise**, les administrateurs et propriétaires de Workspace peuvent gérer la disponibilité du connecteur partagé pour le Workspace :
+
+- Activez ou désactivez des connecteurs partagés spécifiques à l'aide des paramètres du connecteur (icône en forme de roue dentée) dans **Paramètres → Connecteurs → Connecteurs partagés**.
+
+<Note>
+ZenOpus Cloud ne peut pas être désactivé pour le Workspace.
+</Note>
+
+### Connecteurs basés sur une passerelle
+
+Certains connecteurs partagés utilisent une **passerelle sécurisée** entre votre application ZenOpus et le service tiers (par exemple, Slack).
+
+Avec des connecteurs basés sur une passerelle :
+
+- **L'authentification est gérée automatiquement**La passerelle gère OAuth et actualise les jetons expirant en arrière-plan. Ainsi, une fois connectée, votre intégration continue de fonctionner sans ré-authentification manuelle.
+- **Les informations d'identification ne sont jamais exposées dans votre projet**Les jetons sont stockés en toute sécurité dans la passerelle et ne sont pas visibles dans les paramètres du projet ni accessibles aux administrateurs Workspace. Votre application appelle simplement le connecteur et l'authentification est gérée en arrière-plan
+- **Il existe une limite d'utilisation par projet**Les connecteurs Gateway autorisent jusqu'à **1 000 requêtes par minute par connecteur et par projet**. Chaque projet a sa propre limite indépendante, donc l'utilisation dans un projet n'affecte pas les autres. La plupart des applications n'approcheront pas ce seuil, mais si vous créez des automatisations à grand volume ou des opérations fréquentes en arrière-plan, vous devez concevoir en gardant cette limite à l'esprit.
+
+D'autres connecteurs partagés peuvent utiliser différents modèles d'authentification selon le service. Certains se connectent directement à l'aide de clés API, tandis que d'autres sont entièrement gérés par ZenOpus. Le modèle de passerelle est spécifiquement utilisé pour les services basés sur OAuth qui nécessitent une gestion sécurisée des jetons et une actualisation automatique.
+
+## Connecteurs personnels : fournir du contexte lors de la création d'applications
+
+[Connecteurs personnels (serveurs MCP)](/fr/integrations/mcp-servers) permettent à l'agent ZenOpus d'accéder à vos outils et contenus internes, **pendant la création de l'application**. Ils fournissent un contexte permettant à l'agent de créer des applications qui reflètent vos flux de travail réels.
+
+Utilisez des connecteurs personnels lorsque votre application doit être créée à l’aide du contenu réel sur lequel s’appuie déjà votre organisation.
+
+### Présentation et cas d'utilisation
+
+- **Amplitude :** utilisation des analyses de produits et des commentaires pour éclairer les décisions relatives aux applications
+- **Atlassian (Jira et Confluence) :** alignement avec les tickets, les feuilles de route et la documentation
+- **Granola :** transformant les notes de réunion, les décisions et les actions en spécifications et en tâches
+- **Linéaire :** importation de problèmes et de spécifications pour générer des fonctionnalités
+- **Miro :** accès à vos tableaux et diagrammes Miro pour générer des prototypes interactifs
+- **Notion :** référencer des documents et des pages pour guider le comportement de l'application
+- **n8n :** mise en miroir ou connexion aux workflows d'automatisation existants
+- **Polar :** utilisation des données de facturation, de produits et d'abonnement pour élaborer des applications SaaS
+- **Sanité :** accès au contenu et aux schémas du CMS pour créer des applications basées sur le contenu
+- **Serveurs MCP personnalisés :** connexion de systèmes internes ou tiers
+
+### Caractéristiques clés
+
+Les connecteurs personnels vous permettent de connecter vos propres outils pour fournir du contexte lors de la création (et non des fonctionnalités de l'application).
+
+- Géré dans **Paramètres → Connecteurs → Connecteurs personnels**
+- Connexions par utilisateur, ce qui signifie que vous seul pouvez accéder et gérer vos connexions
+- Non partagé avec d'autres membres de Workspace
+- Non inclus dans votre application déployée
+
+Sur les forfaits **Business et Entreprise**, les administrateurs et propriétaires de Workspace peuvent gérer la disponibilité des connecteurs personnels pour le Workspace :
+
+- Activez ou désactivez tous les **accès au serveur MCP** dans **Paramètres → Confidentialité et sécurité**
+- Activez ou désactivez des serveurs MCP spécifiques à l'aide des paramètres du connecteur (icône en forme de roue dentée) dans **Paramètres → Connecteurs → Connecteurs personnels**.
+
+## Intégrez n'importe quelle API avec ZenOpus
+
+ZenOpus peut s'intégrer à **n'importe quelle API externe**, publique ou privée, authentifiée ou non. Il s'agit du type d'intégration le plus flexible, vous permettant d'apporter des fonctionnalités que ZenOpus ne propose pas nativement à Support.
+
+Lorsque vous demandez à ZenOpus d'intégrer une API, il choisit automatiquement la bonne approche :
+
+- **Si l'API ne nécessite aucune authentification**, votre application appelle directement l'API.
+- **Si l'API nécessite une authentification**, ZenOpus vous invite à activer le cloud et à ajouter un secret, et crée automatiquement une fonction Edge pour protéger les informations d'identification sensibles.
+
+### API sans authentification
+
+Si une API ne nécessite aucune information d’identification, aucune configuration n’est requise. Demandez simplement à ZenOpus d'intégrer l'API. Par exemple :
+
+```text
+Intégrez Chuck Norris Jokes : https://api.chucknorris.io/jokes/random
+```
+
+ZenOpus détecte qu'aucune clé n'est requise et ajoute la fonctionnalité directement à votre application.
+
+### API authentifiées (nécessite des secrets)
+
+Pour les API qui nécessitent des informations d'authentification ou des clés API, ZenOpus gère l'intégration en toute sécurité à l'aide de ZenOpus Cloud. Les informations d'identification sont stockées en tant que secrets dans le projet Cloud lié et accessibles uniquement via Edge Functions, garantissant ainsi leur protection.
+
+**Configuration**
+
+1. Demandez à ZenOpus d'intégrer l'API et d'inclure les détails clés :
+    - URL de point de terminaison et méthodes HTTP
+    - Méthode d'authentification (en-tête de clé API, paramètre de requête, jeton Bearer, OAuth)
+    - En-têtes obligatoires (Content-Type, en-têtes personnalisés)
+    - Exemples de formats de requête et de réponse (JSON, params, bodys)
+    - Spécification OpenAPI ou lien de documentation
+1. Activez [ZenOpus Cloud](/fr/integrations/cloud).
+1. Ajoutez votre clé API sous **Cloud → Secrets.**
+
+**Par exemple :**
+
+```text
+Intégrez l'API OpenWeatherMap. 
+URL de base : https://api.openweathermap.org/data/2.5. 
+Auth : clé API transmise en tant que paramètre de requête appid. 
+J'ai besoin d'un point de terminaison pour récupérer la météo actuelle : GET /weather?q={city}&units=metric&appid={API_KEY}. 
+Documents : https://openweathermap.org/current
+```
+
+ZenOpus génère l'intégration avec une fonction Edge et un widget météo où les utilisateurs peuvent entrer une ville et récupérer des données météorologiques.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Quelles intégrations ZenOpus Support ?">
+ZenOpus prend en charge trois types d'intégrations : **connecteurs partagés**, **connecteurs personnels (serveurs MCP)** et **toute API**. Les connecteurs partagés ajoutent des fonctionnalités aux applications déployées, les connecteurs personnels fournissent un contexte lors de la création d'applications et les intégrations d'API vous permettent de vous connecter à n'importe quel service externe non intégré à ZenOpus.
+</Accordion>
+<Accordion title="Quelle est la différence entre les connecteurs partagés et les connecteurs personnels dans ZenOpus ?">
+Les **connecteurs partagés** sont utilisés par les applications déployées pour appeler des services externes et sont configurés une fois au niveau Workspace. **Les connecteurs personnels (serveurs MCP)** sont utilisés uniquement lors de la création de l'application pour permettre à l'agent ZenOpus d'accéder à vos outils et à votre contenu, et ne sont jamais inclus dans l'application déployée.
+</Accordion>
+<Accordion title="ZenOpus peut-il s'intégrer à n'importe quelle API ?">
+Oui. ZenOpus peut s'intégrer à **n'importe quelle API externe**, publique ou privée. Les API sans authentification peuvent être appelées directement, tandis que les API authentifiées sont intégrées en toute sécurité à l'aide de ZenOpus Cloud, de secrets et de fonctions Edge pour protéger les informations d'identification.
+</Accordion>
+</AccordionGroup>

@@ -1,0 +1,181 @@
+---
+title: "Projektsicherheitsansicht"
+description: "Überprüfen Sie Sicherheitsergebnisse, beheben Sie Schwachstellen und verwalten Sie Abhängigkeitsrisiken für ein einzelnes Projekt vor der Veröffentlichung."
+---
+## Was ist die Sicherheitsansicht?
+
+Die Sicherheitsansicht zeigt Sicherheitsergebnisse für ein einzelnes Projekt. Es vereint Ergebnisse von **vier automatisierten Sicherheitsscannern**, die verschiedene Teile Ihrer Anwendung analysieren:
+
+- [RLS-Analyse](/de/features/security#schützen-des-datenzugriffs-mit-sicherheit-auf-zeilenebene-rls): Überprüft Sicherheitsrichtlinien auf Zeilenebene für Datenbanktabellen
+- [Datenbanksicherheitsprüfung](/de/features/security#identifizieren-von-datenbanksicherheitsrisiken): Überprüft das Datenbankschema und die RLS-Konfiguration auf unsichere Muster
+- [Codesicherheitsüberprüfung](/de/features/security#identifizieren-von-schwachstellen-im-anwendungscode): Analysiert Anwendungscode auf häufige Schwachstellen
+- [Abhängigkeitsprüfung](/de/features/security#identifizieren-von-schwachstellen-in-abhängigkeiten): Durchsucht `npm`-Abhängigkeiten nach bekannten Sicherheitslücken
+
+Die Ergebnisse dieser Scanner werden zusammen in der Sicherheitsansicht angezeigt, damit Sie Risiken verstehen, Maßnahmen ergreifen und überprüfen können, ob Ihr Projekt zur Veröffentlichung bereit ist.
+
+Einzelheiten zur Funktionsweise der einzelnen Scanner und zum Ausführungszeitpunkt der Scans finden Sie unter [Sicherheitsübersicht](/de/features/security).
+
+Sie finden die Registerkarte **Sicherheit** in jedem ZenOpus-Projekt, indem Sie auf die Schaltfläche `+` neben **Vorschau** klicken.
+
+<Tip>
+Die Sicherheitsansicht konzentriert sich auf ein einzelnes Projekt.
+
+- Um Sicherheitsergebnisse und Abhängigkeitsrisiken über mehrere Projekte hinweg zu überwachen, verwenden Sie das [Sicherheitscenter](/de/features/security-center).
+- Praktische Anleitungen zum Schreiben von sicherem Code und zur Vermeidung häufiger Sicherheitsfehler finden Sie unter [Bewährte Sicherheitsmethoden für ZenOpus-Apps](/de/tips-tricks/security-best-practices).
+</Tip>
+
+## Warum die Sicherheitsansicht verwenden?
+
+- **Probleme frühzeitig erkennen**  
+Sicherheitsprobleme lassen sich während der Entwicklung einfacher beheben als nach der Bereitstellung. Die Sicherheitsansicht hilft dabei, häufige Probleme wie falsch konfigurierten Datenbankzugriff, unsichere Codemuster oder anfällige Abhängigkeiten zu erkennen, bevor Ihre App live geht.
+- **Konzentrieren Sie sich auf das Wesentliche**  
+Nicht alle Sicherheitsbefunde bergen das gleiche Risiko. Die Ergebnisse werden nach Schweregrad kategorisiert, sodass Sie kritische Probleme zuerst priorisieren und später Empfehlungen mit geringerem Risiko prüfen können.
+- **Sparen Sie Zeit mit geführten Korrekturen**  
+Viele Ergebnisse beinhalten automatisierte Abhilfemöglichkeiten oder klare Anleitungen. Sie können ZenOpus bitten, bestimmte Probleme direkt zu beheben und die daraus resultierenden Änderungen zu überprüfen.
+- **Verfolgen Sie die Sicherheit, während sich Ihr Projekt weiterentwickelt**  
+Wenn sich Ihr Projekt ändert, können frühere Scanergebnisse veraltet sein. Die Sicherheitsansicht zeigt deutlich an, wann Scans aktualisiert werden müssen, sodass Sie immer den aktuellen Sicherheitsstatus Ihres Projekts kennen.
+
+## Verbesserung der Scangenauigkeit mit Kontext
+
+Klicken Sie auf **Kontext hinzufügen**, um den Sicherheitskontext Ihres Projekts zu beschreiben. Dies hilft KI-Scannern dabei, Empfehlungen anzupassen und Fehlalarme zu reduzieren.
+
+Zu den nützlichen Kontexten gehören:
+
+- Der Zweck des Projekts
+- Wer nutzt die App?
+- Ob Daten sensibel sind
+- Ob es sich bei der Umgebung um Entwicklung, Staging oder Produktion handelt
+
+Der Kontext wird im [Wissen](/de/features/knowledge) Ihres Projekts gespeichert und gilt für zukünftige Scans. Der Sicherheitskontext sollte Fakten zu Ihrem Projekt beschreiben und nicht das Ignorieren legitimer Risiken rechtfertigen.
+
+## Scanstatus verstehen
+
+Der Scanstatus oben in der Sicherheitsansicht zeigt an, ob Ihre Sicherheitsergebnisse Ihre letzten Änderungen widerspiegeln.
+
+- **Aktuell**: Alle Scanner spiegeln die aktuelle Version Ihres Projekts wider.
+- **Veraltet**: Ein oder mehrere Scanner wurden seit der Projektänderung nicht ausgeführt.
+- **Scannen**: Derzeit werden Scans ausgeführt.
+
+Scanergebnisse sind an eine bestimmte Version Ihres Codes gebunden. Wenn sich Ihr Projekt ändert, sind frühere Ergebnisse möglicherweise nicht mehr korrekt und werden als veraltet markiert.
+
+## Scans aktualisieren
+
+Klicken Sie auf **Aktualisieren**, um alle veralteten Scanner zu aktualisieren. Diese Aktion ist **kostenlos und verbraucht keine Credits**. Nur Scanner, die aktualisiert werden müssen, werden ausgeführt.
+
+<Note>
+Der Code-Sicherheitsüberprüfungsscanner wird nur ausgeführt, wenn Sie auf „Aktualisieren“ klicken, und wird nicht automatisch ausgeführt.
+</Note>
+
+Sie sollten Scans aktualisieren:
+
+- Vor der Veröffentlichung
+- Nach erheblichen Code- oder Datenbankänderungen
+- Beim Hinzufügen oder Aktualisieren von Abhängigkeiten
+- Regelmäßig für Produktionsanwendungen
+
+## Behebung von Sicherheitsbefunden
+
+Alle Ergebnisse werden unter **Erkannte Probleme** angezeigt und nach **Schweregrad** gruppiert. Wenn Fehler vorhanden sind, werden diese in der Ansicht standardmäßig zuerst angezeigt.
+
+- **Fehler**: Kritische Probleme, die Ihre sofortige Aufmerksamkeit erfordern
+- **Warnung**: Probleme, die Sie überprüfen und gegebenenfalls beheben sollten
+- **Info**: Vorschläge zur Umsetzung
+
+Klicken Sie auf ein Ergebnis, um es zu erweitern und alle Details anzuzeigen, einschließlich:
+
+- Welcher Scanner hat den Befund ergeben?
+- Eine ausführliche Erläuterung des Problems
+- Warum das Thema für die Sicherheit wichtig ist
+- Vorgeschlagene Abhilfemaßnahmen
+
+Sie können Erkenntnisse auf verschiedene Arten bearbeiten:
+
+- **Einen bestimmten Befund beheben**  
+Nutzen Sie den Inline-Chat innerhalb einer Feststellung, um ZenOpus zu bitten, das Problem zu analysieren oder zu beheben. Diese Aktion ist kostenlos und verbraucht keine Credits.
+- **Mehrere Befunde gleichzeitig beheben**  
+Verwenden Sie **Versuchen, alles zu beheben**, um eine automatische Korrektur für alle Ergebnisse im aktuellen Filter zu versuchen. Diese Aktion ist kostenlos und verbraucht keine Credits. Automatische Korrekturen erfordern, dass der Scan zur **Code-Sicherheitsüberprüfung** auf dem neuesten Stand ist. Überprüfen Sie immer die Änderungen, die ZenOpus vornimmt, und testen Sie sie gründlich.
+
+Wenn ein Befund nicht auf Ihren Anwendungsfall zutrifft, können Sie ihn unter Angabe einer Begründung **ignorieren**. Ignorierte Befunde bleiben sichtbar, werden mit der Markierung „Ignoriert“ gekennzeichnet und können jederzeit wiederhergestellt werden.
+
+Das Ignorieren von Erkenntnissen sollte eine bewusste Entscheidung sein. Wenn Sie sich nicht sicher sind, ob ein Befund zutrifft, bitten Sie ZenOpus um Klärung, bevor Sie ihn ignorieren.
+
+Alle Aktionen innerhalb der Sicherheitsansicht sind kostenlos. Konversationssicherheitsüberprüfungen im Chat verbrauchen Credits. Weitere Informationen finden Sie unter [Sicherheitsübersicht](/de/features/security).
+
+## Erweiterte Funktionen
+
+Wenn die **Erweiterte Ansicht** aktiviert ist, werden in der Sicherheitsansicht zusätzliche Tools und Details für eine tiefergehende Inspektion und Kontrolle angezeigt.
+
+### Status pro Scanner
+
+Schalten Sie **Erweiterte Ansicht** um und klicken Sie auf das Scanstatus-Badge, um detaillierte Informationen zu jedem Scanner anzuzeigen, einschließlich:
+
+- Wann jeder Scanner zuletzt ausgeführt wurde
+- Ob die Ergebnisse aktuell sind
+- Welche Scanner sind derzeit veraltet?
+
+Dies hilft Ihnen, genau zu verstehen, was überprüft wurde, was möglicherweise veraltet ist und ob Sie die Scans aktualisieren müssen.
+
+### Abhängigkeiten verwalten
+
+Wenn die **Erweiterte Ansicht** aktiviert ist, zeigt die Sicherheitsansicht einen Abschnitt **Projektabhängigkeiten** an, in dem alle Produktions-`npm`-Abhängigkeiten und bekannten Schwachstellen aufgeführt sind.
+
+Für jede Abhängigkeit können Sie Folgendes sehen:
+
+- Paketname und Version
+- Die Anzahl der Sicherheitslücken wird nach Schweregrad geordnet, einschließlich „Kritisch“, „Hoch“ und „Mittel“.
+- Eine **Hier beheben**-Aktion für anfällige Pakete
+
+Sie können auch:
+
+- Filtern Sie, um nur anfällige Pakete anzuzeigen
+- Lösen Sie eine neue Abhängigkeitsprüfung aus
+- Laden Sie einen JSON-Bericht aller Abhängigkeiten und Schwachstellen für Audits oder Compliance-Überprüfungen herunter
+
+Abhängigkeiten auf dem neuesten Stand zu halten, ist eine der effektivsten Möglichkeiten, Sicherheitsrisiken im Laufe der Zeit zu reduzieren, insbesondere wenn neue Schwachstellen aufgedeckt werden.
+
+## Best Practices für die Verwendung der Sicherheitsansicht
+
+Die Sicherheitsansicht ist für die fortlaufende Verwendung während der gesamten Entwicklung konzipiert und nicht nur für eine abschließende Überprüfung vor der Veröffentlichung. Die folgenden Best Practices spiegeln die häufige Verwendung durch Bauherren wider.
+
+- **Sicherheitsergebnisse auf dem neuesten Stand halten**  
+Überprüfen Sie die Ergebnisse regelmäßig und aktualisieren Sie die Scans, wenn die Ergebnisse veraltet sind, insbesondere nach dem Hinzufügen von Funktionen, dem Ändern des Datenbankzugriffs oder dem Aktualisieren von Abhängigkeiten.
+- **Kritische Probleme priorisieren**  
+Behandeln Sie Ergebnisse auf Fehlerebene vor Warnungen oder Informationselementen. Kritische Erkenntnisse stellen oft ausnutzbare Schwachstellen dar.
+- **Verwenden Sie beide Scan-Ansätze**  
+Nutzen Sie automatisierte Scans in der Sicherheitsansicht für strukturierte Prüfungen und gezielte Korrekturen. Ergänzen Sie sie, indem Sie ZenOpus regelmäßig im Chat bitten, „die Sicherheit meiner App zu überprüfen“, um eine narrative Analyse zu erhalten, die möglicherweise Probleme erkennt, die die automatischen Scanner übersehen.
+- **Abhängigkeitsrisiko proaktiv verwalten**  
+Überprüfen Sie regelmäßig den Abschnitt über Abhängigkeiten und beheben Sie Sicherheitslücken mit hohem Schweregrad umgehend.
+- **Korrekturen überprüfen und verifizieren**  
+Automatisierte Korrekturen können Zeit sparen, aber überprüfen Sie immer die Änderungen und testen Sie Ihre App, bevor Sie mit der Entwicklung fortfahren.
+- **Seien Sie vorsichtig, wenn Sie Ergebnisse ignorieren**  
+Ignorieren Sie Erkenntnisse nur, wenn sie eindeutig nicht zutreffen. Überprüfen Sie ignorierte Erkenntnisse erneut, während sich Ihr Projekt weiterentwickelt.
+- **Weitere Überwachung nach der Veröffentlichung**  
+Das Veröffentlichen ist nicht das Ende der Sicherheitsarbeit. Überwachen Sie neue Erkenntnisse, während sich Ihre App im Laufe der Zeit ändert.
+
+<Warning>
+Automatisierte Scans helfen dabei, häufige Probleme zu erkennen, können jedoch keine vollständige Sicherheit garantieren. Ziehen Sie bei Apps, die vertrauliche Daten oder kritische Funktionen verarbeiten, eine zusätzliche professionelle Sicherheitsüberprüfung in Betracht.
+</Warning>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Wie greife ich auf die Sicherheitsansicht zu?">
+Sie finden die Registerkarte **Sicherheit** in jedem ZenOpus-Projekt, indem Sie auf die Schaltfläche `+` neben **Vorschau** klicken.
+</Accordion>
+<Accordion title="Was bedeutet veraltet?">
+Die Ergebnisse eines Scanners sind veraltet, wenn sich Ihr Projekt seit dem letzten Scan geändert hat. Klicken Sie auf **Aktualisieren**, um die Ergebnisse zu aktualisieren. Aktionen für veraltete Ergebnisse sind deaktiviert, um zu verhindern, dass auf veraltete Informationen reagiert wird.
+</Accordion>
+<Accordion title="Was ist der Unterschied zwischen Update und der Aufforderung an ZenOpus, die Sicherheit zu überprüfen?">
+**Update** aktualisiert die automatischen Sicherheitsscanner und aktualisiert die in der Sicherheitsansicht angezeigten Ergebnisse. Diese Aktion ist kostenlos und verbraucht keine Credits.
+
+**Wenn Sie ZenOpus bitten, die Sicherheit Ihrer App** im Chat zu überprüfen, wird eine separate KI-gesteuerte Überprüfung ausgelöst, die einen narrativen Bericht und Empfehlungen bereitstellt. Die Scannerergebnisse oder der Scanstatus werden nicht aktualisiert. Konversationssicherheitsüberprüfungen im Chat verbrauchen Credits.
+
+Beide Ansätze ergänzen sich.
+</Accordion>
+<Accordion title="Kann ich die Sicherheitsansicht für veröffentlichte Projekte verwenden?">
+Ja. Überwachen Sie die Sicherheit nach der Veröffentlichung weiterhin, insbesondere beim Hinzufügen von Funktionen oder beim Aktualisieren von Abhängigkeiten.
+</Accordion>
+<Accordion title="Was passiert, wenn ich mit kritischen Erkenntnissen veröffentliche?">
+ZenOpus warnt Sie vor der Veröffentlichung, wenn kritische Probleme vorliegen. Sie können sich trotzdem für eine Veröffentlichung entscheiden, davon wird jedoch dringend abgeraten, da kritische Ergebnisse in der Regel ausnutzbare Schwachstellen darstellen.
+</Accordion>
+</AccordionGroup>

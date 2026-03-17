@@ -1,0 +1,64 @@
+---
+title: "動画の利用"
+description: "YouTube ビデオを埋め込むか、ビデオ ファイルを GitHub リポジトリにアップロードして、ZenOpus プロジェクトで参照します。"
+---
+ZenOpus は、プロジェクトにビデオを埋め込むための 2 つの方法を提供します。以下では、両方のオプションについて段階的に説明します。
+
+<AccordionGroup>
+<Accordion title="外部ビデオへのリンク">
+<Tip>
+ビデオを組み込む最も簡単かつ推奨される方法は、YouTube などの外部でホストされているビデオにリンクすることです。
+</Tip>
+
+<CodeGroup>
+```text title="プロンプトの例"
+このビデオを埋め込む
+https://www.youtube.com/watch?v=dQw4w9WgXcQ 
+ヒーローコンテンツセクションにあります。
+```
+</CodeGroup>
+</Accordion>
+<Accordion title="GitHub パブリック フォルダーのビデオを使用する">
+<Warning>
+大きなビデオを GitHub リポジトリにアップロードすると、サイズが大きくなり、ZenOpus のパフォーマンスに影響を与える可能性があります (リポジトリのクローン作成時間が長くなり、プレビュー/サンドボックスの起動が遅くなります)。
+
+より良いオプションは、ホストされたサービス (YouTube など) または S3 などのファイル ストレージ オプションを使用することです。これにより、前の手順で説明したように、基本的に参照できる URL が提供されます。
+</Warning>
+
+ビデオをプロジェクトの GitHub リポジトリにアップロードして、直接参照できます。その方法は次のとおりです。
+
+<Steps>
+<Step title="GitHub リポジトリに接続する">
+まず、プロジェクトが GitHub リポジトリにリンクされていることを確認します。 [リポジトリを設定する方法は次のとおりです](/jp/integrations/git-integration)。
+</Step>
+<Step title="パブリックフォルダーにアクセスする">
+接続されたリポジトリ内で、`public` ディレクトリに移動します。このフォルダーは、画像、ビデオ、その他のメディアなどのプロジェクト アセットをホストするために特に使用されます。
+</Step>
+<Step title="動画をアップロードする">
+これで、ビデオをドラッグ アンド ドロップするか、**「ファイルを選択」** をクリックしてローカル マシンからファイルを参照してアップロードすることで、パブリック フォルダーにビデオを追加できるようになります。
+</Step>
+<Step title="ファイルをコミットする">
+ビデオ ファイルを選択した後、短いコミット メッセージ (例: 「アプリで使用する火星のビデオを追加します」) を入力し、**「変更をコミット」** をクリックします。 ![ビデオ ファイルをコミットしています](/images/zenopus/tips-tricks/using-videos/using-videos-github-commiting.png)
+</Step>
+<Step title="ビデオパスを取得する">
+アップロードが完了したら、ビデオ ファイルをクリックし、コピー アイコン :octicons-copy-16: を使用してそのパスをコピーします。このパスは次のステップで必要になります。 ![ビデオ ファイルのパスをコピー](/images/zenopus/tips-tricks/using-videos/using-videos-github-selecting.png)
+</Step>
+<Step title="ZenOpus のビデオを参照してください。">
+これで、プロンプトでファイル パスを指定してビデオを埋め込むことができます。たとえば、次のようなプロンプトを使用できます。
+
+<CodeGroup>
+```bash title="プロンプトの例"
+Insert an additional video into the introduction section using this file: 
+public/mars-video-nasa.mp4
+```
+</CodeGroup>
+
+前にコピーした正確なファイル パスを使用していることを確認してください。
+</Step>
+</Steps>
+
+これらのメソッドの動作を確認するには、サンプル プロジェクトの 1 つを参照してください: [ZenOpus using videos example project](https://zenopus.dev/projects/380835ab-c8d7-4f45-9b0d-51ec04294457)。両方の方法を使用してビデオがどのように統合されるかを示す実際のプロンプトが表示されます。
+
+さらに、ビデオ追加プロセスの技術的な詳細については、パブリック リポジトリ [GitHub: ビデオ アップロードの例](https://github.com/viborc/adding-videos-example) を参照してください。これには、プロジェクトで使用されるビデオのアップロードと実装の詳細が含まれます。
+</Accordion>
+</AccordionGroup>

@@ -1,0 +1,150 @@
+---
+title: "Verbinden Sie Ihre App mit Telegram"
+description: "Verbinden Sie Ihre App mit Telegram, um über Telegram-Bots Nachrichten zu senden, Befehle zu empfangen und mit Benutzern zu interagieren."
+---
+[Telegram](https://telegram.org/) ist eine Messaging-Plattform, mit der Ihre ZenOpus-App über Chats, Gruppen und Kanäle mit Benutzern kommunizieren kann. Der Telegram-Connector ermöglicht die Telegram-Integration für Ihre App und ermöglicht es ihr, Benachrichtigungen zu senden, auf Benutzernachrichten zu reagieren und Workflows direkt aus Telegram-Konversationen auszulösen.
+
+Telegram-Bots fungieren als Chat-Schnittstelle für Ihre App und ermöglichen es Benutzern, Updates zu erhalten oder mit App-Funktionen zu interagieren, ohne die App-Oberfläche öffnen zu müssen.
+
+Mit Telegram kann Ihre App:
+
+- Senden Sie Nachrichten, Fotos, Dokumente und andere Medien an Benutzer oder Gruppen
+- Empfangen und Beantworten von Benutzernachrichten und -befehlen (über Abfrage)
+- Erstellen Sie interaktive Schaltflächen und benutzerdefinierte Tastaturen
+- Führen Sie Benutzer durch Arbeitsabläufe wie Buchung, Bestellung oder Übermittlung von Anfragen
+- Übermitteln Sie Warnungen, Berichte und Erinnerungen per Chat
+- Übertragen Sie Aktualisierungen an Telegram-Gruppen oder -Kanäle
+
+Telegram eignet sich gut, wenn Ihre App Benutzer über Ereignisse benachrichtigen, Aktualisierungen übertragen oder Benutzern ermöglichen muss, Informationen direkt per Chat anzufordern.
+
+## Häufige Anwendungsfälle und Beispiel-Apps
+
+| Beispiel-App | Beispielaufforderung | Beschreibung |
+| --- | --- | --- |
+| Online-Shop mit Telegram-Benachrichtigungen und Auftragsverfolgung | Erstellen Sie einen Online-Shop, in dem Kunden Bestellungen aufgeben können, senden Sie unserem Team eine Telegram-Nachricht, wenn eine neue Bestellung erstellt wird, und ermöglichen Sie Kunden, eine Nachricht mit ihrer Bestellnummer an einen Telegram-Bot zu senden, um den Lieferstatus zu überprüfen. | Verwalten Sie Geschäftsaktivitäten und Kundenaktualisierungen über Telegram. Wenn ein Kunde eine Bestellung in der App aufgibt, sendet die App eine Nachricht mit den Bestelldetails an einen Telegram-Chat für das Team. Kunden können dem Telegram-Bot auch ihre Bestellnummer mitteilen, und die App gibt den aktuellen Lieferstatus zurück. |
+| API-Überwachungs-Dashboard mit Telegram-Benachrichtigungen | Erstellen Sie ein Überwachungs-Dashboard, das unsere API jede Minute überprüft und eine Telegram-Benachrichtigung sendet, wenn der Dienst nicht mehr reagiert. | Überwachen Sie Systeme und senden Sie Warnungen per Telegram, wenn Probleme auftreten. Die App überprüft den Servicezustand nach einem Zeitplan und sendet eine Nachricht an einen Telegram-Chat, wenn Ausfallzeiten oder Fehler erkannt werden, damit das Team schnell reagieren kann. |
+| Kunden-Posteingang Support mit Telegram-Chat | Erstellen Sie eine Support-Posteingangs-App, mit der Kunden einem Telegram-Bot eine Nachricht senden können und die Konversation in unserem Support-Dashboard angezeigt wird. | Stellen Sie dem Kunden Support durch Telegram-Gespräche zur Verfügung. Benutzer senden eine Nachricht an den Telegram-Bot, die App zeichnet die Anfrage im Support-System auf und das Team kann über das Dashboard oder automatisierte Antworten antworten. |
+| Analytics-Dashboard mit Telegram-Berichten | Erstellen Sie ein KPI-Dashboard, das tägliche Kennzahlen berechnet und jeden Morgen eine Zusammenfassung an die Telegram-Gruppe unseres Teams sendet. | Liefern Sie wiederkehrende Berichte über Telegram. Die App aggregiert Kennzahlen nach einem Zeitplan und sendet eine formatierte Zusammenfassungsnachricht an einen Telegram-Chat oder eine Telegram-Gruppe, damit Teams auf dem Laufenden bleiben können, ohne das Dashboard öffnen zu müssen. |
+| Marktdaten-Tracker mit Telegram-Preisalarmen | Erstellen Sie einen Marktdaten-Tracker, der Kryptowährungs- oder Aktienkurse überwacht und eine Telegram-Nachricht sendet, wenn ein ausgewählter Preisschwellenwert erreicht wird. | Senden Sie Benachrichtigungen, wenn sich die verfolgten Werte ändern. Die App überwacht Finanzdaten über eine API und sendet eine Telegram-Nachricht, wenn ein Preis einen konfigurierten Schwellenwert überschreitet, damit Benutzer sofort reagieren können. |
+
+## So funktionieren Telegram-Verbindungen
+
+Jede Telegram-Verbindung verwendet ein **Bot-Token**, das einen einzelnen Telegram-Bot darstellt, der über [@BotFather](https://t.me/BotFather) erstellt wurde.
+
+Innerhalb Ihres ZenOpus Workspace:
+
+- Jede Verbindung repräsentiert **einen Telegram-Bot**
+- Sie können **mehrere Verbindungen** erstellen, wenn Sie mehrere Bots verwenden möchten
+- Mehrere Projekte können die **gleiche Verbindung** verwenden
+
+Telegram verwendet ein **Bot-Token-Authentifizierungsmodell**, nicht OAuth, daher gibt es keinen Autorisierungsfluss oder Token-Aktualisierungsprozess.
+
+Telegram nutzt die Gateway-Architektur von ZenOpus für die sichere Verarbeitung von Anmeldeinformationen. Weitere Informationen zu Authentifizierungs- und Nutzungsbeschränkungen finden Sie unter [Gateway-basierte Connectors](/de/integrations/introduction#gateway-basierte-konnektoren).
+
+## So verbinden Sie Telegram
+
+Workspace **Administratoren** und **Eigentümer** können Telegram verbinden.
+
+Wenn eine Verbindung hergestellt wird, wird Telegram für alle Projekte im Workspace verfügbar.
+
+### Voraussetzungen
+
+Bevor Sie Telegram verbinden, stellen Sie sicher, dass Sie Folgendes haben:
+
+- Ein Telegram-Konto
+- Ein Telegram-Bot und Bot-Token, erstellt mit [@BotFather](https://t.me/BotFather)
+- ZenOpus Workspace Rolle **Administrator oder Besitzer**
+
+### Schritt 1: Erstellen Sie einen Telegram-Bot und erhalten Sie ein Bot-Token
+
+Telegram-Bots werden über [@BotFather](https://t.me/BotFather), das offizielle Bot-Management-Tool von Telegram, erstellt und verwaltet.
+
+So erstellen Sie einen Bot und erhalten ein Token:
+
+1. Öffnen Sie Telegram und suchen Sie nach **@BotFather** oder gehen Sie zu [https://t.me/BotFather](https://t.me/BotFather).
+1. Senden Sie den Befehl `/newbot`.
+1. Befolgen Sie die Anweisungen:
+    - Wählen Sie einen Anzeigenamen für Ihren Bot
+    - Wählen Sie einen Benutzernamen, der auf `bot` endet (z. B. `myapp_notify_bot`).
+1. BotFather generiert ein **Bot-Token**, das wie folgt aussieht:
+    ```text
+    123456789:ABCDefghIJKLMnopQRStuvWXYz1234567
+    ```
+1. Kopieren Sie den Token und bewahren Sie ihn sicher auf.
+
+<Info>
+Ihr Bot-Token funktioniert wie ein Passwort. Bewahren Sie es sicher auf und stellen Sie es niemals öffentlich zur Verfügung. Sie benötigen es im nächsten Schritt.
+</Info>
+
+Ausführliche Anweisungen finden Sie in der Telegram-Dokumentation: [BotFather](https://core.telegram.org/bots/features#botfather)
+
+### Schritt 2: Telegram mit ZenOpus verbinden
+
+1. Gehen Sie zu **Einstellungen → Connectors → Gemeinsam genutzte Connectors**.
+1. Wählen Sie **Telegramm**.
+1. Klicken Sie auf **Verbindung hinzufügen**.
+1. Geben Sie die Verbindungsdetails ein:
+    - **Anzeigename**: Geben Sie der Verbindung einen beschreibenden Namen (z. B. `Telegram Prod`).
+    - **Bot-Token**: Fügen Sie das Bot-Token ein, das Sie von @BotFather erhalten haben.
+1. Klicken Sie auf **Erstellen**.
+
+ZenOpus überprüft das Token und stellt die Verbindung her. Sobald die Verbindung hergestellt ist, können Ihre ZenOpus-Apps mit dem Senden und Empfangen von Telegram-Nachrichten beginnen.
+
+## Einschränkungen
+
+Der Telegram-Connector funktioniert derzeit nicht Support:
+
+- **Webhooks** zum Empfang eingehender Nachrichten. Verwenden Sie stattdessen `getUpdates` (Polling), um eingehende Nachrichten zu empfangen.
+- **Telegram-Anmeldung pro Benutzer** (jeder Endbenutzer verbindet sein eigenes Konto)
+
+Um eingehende Nachrichten zu empfangen, sollte Ihre App regelmäßig Updates von der Telegram Bot API anfordern.
+
+## So entkoppeln Sie Projekte von einer Verbindung
+
+Redakteure und höher können bestimmte Projekte aus einer Verbindung entfernen, ohne die Verbindung vollständig zu löschen. Für andere Projekte bleibt die Verbindung weiterhin verfügbar.
+
+Um die Verknüpfung von Projekten aufzuheben:
+
+<Steps>
+<Step title="Navigieren Sie zu Anschlüssen">
+Gehen Sie zu **Einstellungen → Connectors → Gemeinsam genutzte Connectors** und wählen Sie **Telegram**.
+</Step>
+<Step title="Öffnen Sie die Verbindung">
+Öffnen Sie die Verbindung, die Sie verwalten möchten.
+</Step>
+<Step title="Wählen Sie Projekte aus">
+Markieren Sie unter **Verknüpfte Projekte** die Projekte, deren Verknüpfung Sie aufheben möchten.
+</Step>
+<Step title="Bestätigen">
+Klicken Sie auf **Projekte verknüpfen** und bestätigen Sie.
+</Step>
+</Steps>
+
+Wenn die Verknüpfung aufgehoben wird, haben diese Projekte über diese Verbindung keinen Zugriff mehr auf **Telegram**. Wenn ein Projekt erneut **Telegram** benötigt, können Sie es mit jeder verfügbaren Verbindung verknüpfen.
+
+## So löschen Sie eine Verbindung
+
+Workspace-Administratoren und -Besitzer können **Telegram**-Verbindungen löschen.
+
+<Warning>
+Das Löschen einer Verbindung ist dauerhaft und kann nicht rückgängig gemacht werden. Dadurch werden die Anmeldeinformationen aus allen verknüpften Projekten entfernt und alle Apps, die diese Verbindung verwenden, funktionieren nicht mehr, bis eine neue Verbindung hinzugefügt wird.
+</Warning>
+
+Überprüfen Sie vor dem Löschen den Abschnitt **Verknüpfte Projekte**, um zu sehen, welche Projekte derzeit die Verbindung verwenden.
+
+So löschen Sie eine Verbindung:
+
+<Steps>
+<Step title="Navigieren Sie zu Anschlüssen">
+Gehen Sie zu **Einstellungen → Connectors → Gemeinsam genutzte Connectors** und wählen Sie **Telegram**.
+</Step>
+<Step title="Öffnen Sie die Verbindung">
+Öffnen Sie die Verbindung, die Sie entfernen möchten.
+</Step>
+<Step title="Überprüfen Sie verknüpfte Projekte">
+Sehen Sie sich den Abschnitt **Verknüpfte Projekte** an.
+</Step>
+<Step title="Löschen">
+Klicken Sie unter **Diese Verbindung löschen** auf **Löschen** und bestätigen Sie.
+</Step>
+</Steps>

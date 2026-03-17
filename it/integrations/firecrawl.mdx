@@ -1,0 +1,153 @@
+---
+title: "Collega la tua app a Firecrawl"
+description: "Collega la tua app a Firecrawl, uno scraper e crawler basato sull'intelligenza artificiale, per estrarre dati strutturati dai siti web."
+---
+[Firecrawl](https://www.firecrawl.dev/) è una piattaforma di web scraping e scansione che consente alla tua app ZenOpus di funzionare con **dati di siti web in tempo reale**. È progettato per le app che devono recuperare, aggiornare e strutturare continuamente le informazioni dai siti Web, anziché fare affidamento su importazioni una tantum o set di dati statici.
+
+Con Firecrawl, la tua app può:
+
+- Raschia gli URL in JSON strutturato
+- Scansione di interi siti Web, incluse mappe dei siti, pagine secondarie e navigazione
+- Estrai testo pulito, metadati, dettagli del prodotto, tabelle e altro ancora
+- Gestisci siti con uso intensivo di JavaScript, caricamento lento e modalità cookie
+- Recupera i dati in tempo reale in base a una pianificazione per mantenere aggiornati i risultati
+
+Firecrawl è una buona soluzione quando la tua app dipende da **contenuti del sito web in tempo reale o che cambiano frequentemente**.
+
+## Casi d'uso comuni e app di esempio
+
+| Applicazione di esempio | Esempio di richiesta | Descrizione |
+| --- | --- | --- |
+| Tracker della concorrenza | Costruisci un tracker della concorrenza. Gli utenti aggiungono gli URL della concorrenza. Analizza ogni URL con Firecrawl, archivia istantanee, ricontrolla in base a una pianificazione e mostra cosa è cambiato. | Monitora e analizza i concorrenti nel tuo spazio monitorando i cambiamenti sui loro siti web. L'utente aggiunge gli URL della concorrenza da monitorare e l'app rielabora tali URL nel tempo per evidenziare ciò che è cambiato, ad esempio pagine dei prezzi, aggiornamenti del prodotto, revisioni della documentazione o annunci di funzionalità. |
+| Aggregatori di lavoro | Costruisci un aggregatore di lavori. Gli utenti scelgono le aziende da un elenco preimpostato. Utilizza Firecrawl per estrarre elenchi dalla pagina delle carriere di ciascuna azienda, strutturare i risultati, mantenerli aggiornati ed evidenziare nuovi ruoli. | Estrai annunci di lavoro da più fonti (ad esempio Greenhouse, Lever o Workday) e presentali in un'unica interfaccia unificata. L'utente seleziona le aziende da un elenco preimpostato e l'app inserisce gli elenchi in risultati strutturati e mantiene aggiornato il feed man mano che compaiono nuovi ruoli. |
+| Strumenti di arricchimento del piombo | Costruisci uno strumento di arricchimento dei lead. Gli utenti entrano nei domini aziendali. Esegui la scansione delle pagine chiave con Firecrawl (informazioni, team, carriere, contatti) ed estrai i dettagli aziendali disponibili pubblicamente in un profilo strutturato. | Arricchisci i profili aziendali utilizzando le informazioni disponibili pubblicamente dai siti Web aziendali. L'utente incolla un dominio aziendale (o carica un elenco) e l'app esegue la scansione delle pagine chiave per estrarre informazioni su persone e società, segnali dello stack tecnologico, posizioni, carriere e dettagli di contatto, salvando i campi estratti per ciascuna azienda. |
+| Monitor prezzi e-commerce | Costruisci un monitor dei prezzi. Gli utenti salvano gli URL dei prodotti. Utilizza Firecrawl per estrarre prezzi e disponibilità, controllare un programma, memorizzare la cronologia e avvisare sulle modifiche. | Tieni traccia della disponibilità e dei prezzi dei prodotti sui siti di e-commerce. L'utente salva gli URL dei prodotti e l'app li controlla secondo una pianificazione, registra istantanee, segnala modifiche e avvisa gli utenti quando i prezzi scendono o i prodotti tornano in stock. |
+| Estrattori di asset di marca | Costruisci un kit estrattore di marca. Gli utenti inseriscono l'URL di un sito Web. Utilizza Firecrawl per estrarre colori, caratteri e loghi e generare un semplice kit di marca. | Genera kit di marca leggeri da qualsiasi sito web. L'utente inserisce l'URL di un'azienda e l'app analizza le pagine relative al marchio per estrarre caratteri, colori, loghi e token di stile. |
+| Estrattori di conoscenza | Costruisci un estrattore di conoscenza. Gli utenti incollano un URL. Utilizza Firecrawl per restituire markdown + metadati puliti, salvarli e consentire la risincronizzazione. | Trasforma qualsiasi pagina web in contenuti puliti e riutilizzabili. L'utente incolla un URL e l'app converte la pagina in markdown pulito, metadati strutturati, testo leggibile ed elementi strutturati utili come tabelle, rendendola pronta per la ricerca, il riepilogo o il riutilizzo. |
+
+## Come collegare Firecrawl
+
+Workspace **amministratori** e **proprietari** possono connettere Firecrawl. Quando aggiungi una connessione, puoi scegliere tra:
+
+- **Gestito da ZenOpus** (non è richiesto alcun account Firecrawl o chiave API)
+    <Tip>
+    Firecrawl può essere utilizzato gratuitamente fino al ZenOpus fino al 30 aprile 2026 quando scegli Gestito da ZenOpus.
+    </Tip>
+- **Le tue credenziali** (porta la tua chiave API Firecrawl)
+
+Una volta creata la connessione, Firecrawl diventa disponibile in tutti i progetti nel Workspace.
+
+Segui i passaggi di configurazione riportati di seguito in base a come desideri connettere Firecrawl.
+
+<Tabs>
+<Tab title="Gestito da ZenOpus">
+Scegli questa opzione se desideri la configurazione più rapida. Non è necessario creare un account Firecrawl o una chiave API. ZenOpus fornisce e gestisce le credenziali per te.
+
+Per connettere Firecrawl:
+
+1. Vai a **Impostazioni → Connettori → Connettori condivisi** e seleziona **Firecrawl**.
+1. Fai clic su **Aggiungi connessione**.
+1. **Nome visualizzato**: assegna un nome alla connessione, ad esempio `Firecrawl Prod`.
+1. In **Autenticazione**, seleziona **Gestito da ZenOpus**.
+1. Fare clic su **Crea**.
+
+Una volta connesse, le tue app ZenOpus possono iniziare a utilizzare Firecrawl per acquisire, eseguire la scansione e mantenere aggiornati i dati del sito web.
+</Tab>
+<Tab title="Le tue credenziali">
+Porta le tue credenziali se desideri utilizzare il tuo account Firecrawl, gestire direttamente la fatturazione o controllare i limiti di velocità e gli ambienti con le tue chiavi API.
+
+<Note>
+Tutte le operazioni di scraping e scansione eseguite tramite questo connettore consumano l'utilizzo di Firecrawl e la fatturazione viene gestita direttamente da Firecrawl, non da ZenOpus.
+</Note>
+
+Puoi creare più connessioni Firecrawl utilizzando chiavi API diverse, il che è utile per separare gli ambienti (ad esempio, sviluppo e produzione) o gestire i limiti di velocità.
+
+### Prerequisiti
+
+Prima di connettere Firecrawl, assicurati di avere:
+
+- Un account Firecrawl e una chiave API
+- ZenOpus Workspace proprietario o ruolo di amministratore
+
+### Passaggio 1: crea un account Firecrawl e una chiave API
+
+Puoi creare più chiavi API in Firecrawl. Ciò è utile per ambienti o limiti di velocità diversi.
+
+Per creare una chiave API Firecrawl:
+
+1. Vai a [Firecrawl](https://www.firecrawl.dev/) e configura il tuo account.
+1. Vai alla dashboard di Firecrawl e vai alla [pagina delle chiavi API](https://www.firecrawl.dev/app/api-keys).
+1. Fare clic su **Crea**.
+1. Assegna alla chiave un nome descrittivo, ad esempio `ZenOpus integration`.
+1. Copia la chiave API generata e archiviala in modo sicuro.
+    <Info>
+    La tua chiave API funziona come una password. Mantienilo al sicuro e non condividerlo mai pubblicamente. Ne avrai bisogno nel passaggio successivo.
+    </Info>
+
+Firecrawl fornisce crediti gratuiti al momento dell'iscrizione, sufficienti per testare la connessione e completare questa configurazione.
+
+### Passaggio 2: collega Firecrawl a ZenOpus
+
+Puoi creare più connessioni utilizzando chiavi API diverse.
+
+Per connettere Firecrawl:
+
+1. Vai a **Impostazioni → Connettori → Connettori condivisi** e seleziona **Firecrawl**.
+1. Fai clic su **Aggiungi connessione**.
+1. **Nome visualizzato**: assegna un nome alla connessione, ad esempio `Firecrawl Prod`.
+1. In **Autenticazione**, seleziona **Le tue credenziali** e utilizza la tua chiave API Firecrawl (`fc-xxxxxxxx…`).
+1. Fare clic su **Crea**.
+
+Una volta connesse, le tue app ZenOpus possono iniziare a utilizzare Firecrawl per acquisire, eseguire la scansione e mantenere aggiornati i dati del sito web.
+</Tab>
+</Tabs>
+
+## Come scollegare i progetti da una connessione
+
+Gli editor e i livelli superiori possono rimuovere progetti specifici da una connessione senza eliminare completamente la connessione. La connessione rimarrà disponibile per altri progetti.
+
+Per scollegare i progetti:
+
+<Steps>
+<Step title="Passare ai connettori">
+Vai a **Impostazioni → Connettori → Connettori condivisi** e seleziona **Firecrawl**.
+</Step>
+<Step title="Apri la connessione">
+Apri la connessione che desideri gestire.
+</Step>
+<Step title="Seleziona progetti">
+In **Progetti collegati**, seleziona i progetti che desideri scollegare.
+</Step>
+<Step title="Conferma">
+Fai clic su **Scollega progetti** e conferma.
+</Step>
+</Steps>
+
+Una volta scollegati, tali progetti non avranno più accesso a **Firecrawl** tramite questa connessione. Se un progetto necessita nuovamente di **Firecrawl**, puoi collegarlo a qualsiasi connessione disponibile.
+
+## Come eliminare una connessione
+
+Gli amministratori e i proprietari Workspace possono eliminare le connessioni **Firecrawl**.
+
+<Warning>
+L'eliminazione di una connessione è permanente e non può essere annullata. Rimuoverà le credenziali da tutti i progetti collegati e tutte le app che utilizzano questa connessione smetteranno di funzionare finché non verrà aggiunta una nuova connessione.
+</Warning>
+
+Prima dell'eliminazione, esamina la sezione **Progetti collegati** per vedere quali progetti stanno attualmente utilizzando la connessione.
+
+Per eliminare una connessione:
+
+<Steps>
+<Step title="Passare ai connettori">
+Vai a **Impostazioni → Connettori → Connettori condivisi** e seleziona **Firecrawl**.
+</Step>
+<Step title="Apri la connessione">
+Apri la connessione che desideri rimuovere.
+</Step>
+<Step title="Esaminare i progetti collegati">
+Consulta la sezione **Progetti collegati**.
+</Step>
+<Step title="Elimina">
+In **Elimina questa connessione**, fai clic su **Elimina** e conferma.
+</Step>
+</Steps>

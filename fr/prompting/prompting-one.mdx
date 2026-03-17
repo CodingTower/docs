@@ -1,0 +1,235 @@
+---
+title: "Inviter les meilleures pratiques"
+description: "Planifiez avant de demander, construisez par composant, utilisez du contenu réel et appliquez des mots à la mode en matière de conception pour obtenir des résultats cohérents et de haute qualité."
+---
+![Boîte d'invite ZenOpus](/images/zenopus/prompting/prompting-one/prompting-prompt-box.png)
+
+Ce playbook rassemble les techniques, stratégies et principes les plus efficaces pour obtenir les meilleurs résultats possibles avec ZenOpus. Que vous soyez novice en matière d'invite ou prêt à affiner vos compétences, vous trouverez des conseils pratiques et des exemples clairs pour vous aider à transformer vos idées en une interface utilisateur raffinée, rapidement et systématiquement.
+
+## Faites en sorte que ZenOpus pose des questions de clarification
+
+L'un des moyens les plus efficaces d'obtenir de meilleurs résultats avec ZenOpus est de le laisser combler les lacunes avant d'écrire du code. Après avoir indiqué la fonctionnalité ou la modification que vous souhaitez, ajoutez une ligne à la fin de votre invite comme :
+
+> "Posez-moi toutes les questions dont vous avez besoin afin de bien comprendre ce que j'attends de cette fonctionnalité et comment je l'envisage."
+
+Il est recommandé d'utiliser Plan mode pour cette approche.
+
+ZenOpus répondra par des questions de suivi ciblées et souvent perspicaces, parfois des questions que vous n'auriez pas pensé à préciser. Ce processus aide à clarifier vos besoins dès le départ et évite les malentendus ou les efforts inutiles plus tard.
+
+Si vous n'avez pas essayé de demander de cette manière, essayez-le : vous remarquerez probablement que les nouvelles fonctionnalités se rapprochent de votre véritable intention, avec moins d'allers-retours.
+
+## Phase 1 : Poser les bases
+
+### 1. Planifiez avant de demander
+
+Avant d'utiliser ZenOpus, définissez ce que vous construisez. Sauter cette étape, c'est comme commencer un tableau sans décider ce que vous peignez. Utilisez une session de planification rapide (stylo et papier, notes vocales, ChatGPT, tout ce qui fonctionne) pour répondre à ces quatre questions :
+
+- Quel est ce produit ou cette fonctionnalité ?
+- C'est pour qui ?
+- Pourquoi vont-ils l’utiliser ?
+- Quelle est l’action clé que l’utilisateur doit entreprendre ?
+
+Vous n'écrivez pas un document de spécifications. Vous fixez la direction. Plus votre réflexion est alignée, plus vos invites sont précises. Des idées vagues produisent des résultats vagues. Une réflexion claire conduit à des résultats clairs.
+
+**Exemple rapide**
+
+```text
+Créez un site d'une page pour une application de budgétisation destinée aux pigistes de la génération Z. Le CTA principal devrait être « Commencez à épargner plus intelligemment ». Concentrez-vous sur une esthétique audacieuse et expressive avec du texte large et des couleurs percutantes.
+```
+
+### 2. Cartographiez visuellement le parcours utilisateur
+
+Le design ne concerne pas les écrans individuels, mais ce qui se passe entre eux. Les meilleurs résultats de ZenOpus proviennent d’un flux clair et logique. Cartographiez le parcours de votre utilisateur depuis l'arrivée sur la page jusqu'à la réalisation d'une action clé.
+
+Pensez par transitions :
+
+- Que voit l’utilisateur en premier ?
+- Qu’est-ce qui construit la confiance ?
+- Qu’est-ce qui leur donne la confiance nécessaire pour agir ?
+- Où mène cette action ?
+
+<Info>
+Même un simple croquis en trois étapes — Héros → Fonctionnalités → CTA — peut rendre vos invites 10 fois plus efficaces.
+</Info>
+
+> "Vous n'empilez pas des blocs. Vous guidez le comportement. Chaque section doit avoir une raison d'exister et une raison pour mener à la suivante."
+
+### 3. Commencez par bien concevoir
+
+Votre langage visuel est une base, pas une couche de finition. ZenOpus doit connaître l'apparence que vous souhaitez, très tôt. Sinon, votre interface pourrait fonctionner mais sembler totalement erronée. Ne résolvez pas les problèmes de conception plus tard. Décidez-les dès le départ.
+
+Choisissez une direction, par exemple :
+
+- Calme et élégant
+- Audacieux et disruptif
+- Premium et élégant
+
+Ensuite, introduisez ce style directement dans votre invite à l'aide de mots à la mode, de descripteurs de ton et de modèles d'interface utilisateur. Vous pouvez même créer une « invite de style de démarrage » et la réutiliser dans toutes les sections pour plus de cohérence.
+
+> "Vous ne vous dirigez pas vers un bon design. Vous vous y incitez."
+
+**Exemple rapide**
+
+```text
+Utilisez un design calme et inspiré du bien-être. Dégradés doux, tons de terre sourds, coins arrondis et rembourrage généreux. La police est « Inter ». Le ton général doit être doux et rassurant.
+```
+
+## Phase 2 : Penser en systèmes
+
+### 4. Invite par composant, pas par page
+
+ZenOpus fonctionne mieux lorsque vous créez votre interface utilisateur en parties modulaires et non en pages complètes à la fois. Lui demander de générer une page de destination entière, c'est comme mettre une recette dans un mixeur. Vous obtiendrez quelque chose, mais ce ne sera pas utilisable.
+
+Au lieu de cela, abordez vos invites comme si vous construisiez avec des briques Lego. Chaque bloc doit avoir un objectif et une structure clairs : une section héros, une grille de fonctionnalités, un curseur de témoignage, un tableau de prix. Créez-en un, examinez-le, affinez-le, puis passez au suivant.
+
+Lorsque vous invitez par composant, vous gagnez en clarté, en contrôle et en flexibilité. Si quelque chose ne semble pas correct, vous pouvez corriger uniquement ce blocage au lieu de réafficher une page entière. Cela vous aide également à faire évoluer votre conception sur plusieurs pages : les composants peuvent être réutilisés et adaptés sans avoir à réécrire à partir de zéro.
+
+> "Une invite pleine page vous génère du bruit. Une invite basée sur une section vous génère un signal."
+
+**Exemple rapide**
+
+```text
+Créez une barre de menu flottante avec effet glassmorphisme. Incluez les icônes Accueil, Recherche, Musique, Favoris, Ajouter, Profil et Paramètres. Ajoutez une animation flottante douce et des interactions de survol fluides.
+```
+
+### 5. Concevoir avec du contenu réel
+
+ZenOpus ne fonctionne pas bien avec le contenu d'espace réservé tel que « lorem ipsum » ou « fonctionnalité 1 / fonctionnalité 2 ». Le modèle est formé pour répondre à la structure et à l'intention, et le moyen le plus rapide de montrer l'intention est d'utiliser de vrais mots.
+
+Même si votre copie finale n'est pas prête, utilisez une copie qui reflète votre message. Si vous créez une page pour une application de méditation, écrivez ce qu'un utilisateur lirait réellement. Ne faites pas semblant.
+
+Cela n'aide pas seulement ZenOpus à générer de meilleures mises en page et espacements, mais cela vous aide également à prendre des décisions de conception plus judicieuses. Un vrai titre peut nécessiter deux lignes au lieu d’une. Un CTA pourrait mieux fonctionner s’il s’agit d’un verbe plutôt que d’un nom. Le texte d’espace réservé masque ces problèmes. Le contenu réel les révèle tôt.
+
+> "Le design aime les contraintes. Le vrai contenu crée les bonnes."
+
+**Exemple rapide**
+
+```text
+Section Héros avec titre : "Concevez calmement". Sous-texte : "Transformez le stress en structure avec ZenOpus." CTA : "Commencer à créer Free." Utilisez une mise en page centrée sur le texte avec un espacement vertical généreux.
+```
+
+### 6. Parlez atomique : boutons, cartes, modaux
+
+ZenOpus pense en atomes. Plus la langue de votre interface utilisateur est petite et spécifique, meilleures sont ses performances. Au lieu de demander une « section avec une inscription », dites : « Ajoutez un formulaire avec un champ de saisie pour l'e-mail et un bouton CTA arrondi ». Ces instructions atomiques sont interprétées comme des modèles natifs.
+
+Pensez comme un système. Décrivez les cartes, les badges, les bascules, les puces, les champs de formulaire, les listes déroulantes, etc. Ne dites pas « une interface utilisateur » lorsque vous pouvez dire « un modal avec un toast réussi après la soumission ».
+
+Ce vocabulaire atomique vous permet également de superposer progressivement la complexité. Commencez avec une carte. Ajoutez ensuite un badge. Ajoutez ensuite des états de survol. Chaque couche s'appuie naturellement sur la précédente. Cela vous donne plus de contrôle et une sortie plus fidèle, sans réécrire les invites.
+
+> « Plus la pièce est petite, plus la réponse est intelligente. »
+
+**Exemple rapide**
+
+```text
+Créez une carte avec une photo de profil utilisateur, un nom et un bouton de suivi. Ajoutez un badge pour les utilisateurs vérifiés et affichez une info-bulle lorsque vous survolez le badge.
+```
+
+### 7. Utilisez des mots à la mode pour composer avec l’esthétique
+
+Le style visuel est l’une des parties les plus importantes – et les plus mal comprises – des invites dans ZenOpus. Il ne suffit pas de décrire la mise en page. Vous devez guider l'outil sur l'ambiance. Les mots à la mode sont le moyen le plus rapide d’y parvenir.
+
+ZenOpus comprend des termes tels que « minimal », « expressif », « cinématographique », « ludique », « premium » et « axé sur les développeurs ». Ce ne sont pas des superflus : ce sont des paramètres pouvant être activés qui influencent la typographie, l'espacement, l'ombre, le rayon de la bordure et la palette de couleurs.
+
+Utilisez ces mots au début de vos invites. Mieux encore, incluez-les dans chaque section. Vous obtiendrez des conceptions cohérentes à tous les niveaux et éviterez l’aspect redouté de « l’interface utilisateur par défaut ».
+
+Vous pouvez également mélanger et assortir des mots à la mode pour faire évoluer votre ton. Une page peut commencer « audacieuse et disruptive » dans le héros et devenir « calme et rassurante » dans la section tarification. Vous n’êtes pas limité à un seul style : vous concevez avec intention.
+
+> "Le design n'est pas seulement une structure. C'est un ton. Les mots à la mode le définissent."
+
+**Exemple rapide**
+
+```text
+Concevez un héros de page de destination qui semble premium et cinématographique. Utilisez une profondeur superposée, des surfaces translucides, un flou de mouvement doux et un contraste spectaculaire entre le titre et l'arrière-plan.
+```
+
+## Phase 3 : Construire avec précision
+
+### 8. Utilisez des modèles d'invite pour les mises en page
+
+Les invites sont plus faciles à rédiger et bien plus efficaces lorsque vous utilisez des modèles structurés et reproductibles. Considérez-les comme des recettes de mise en page. Plutôt que d’essayer d’expliquer votre mise en page à partir de zéro à chaque fois, décrivez-la en utilisant un rythme cohérent.
+
+Une bonne invite de mise en page divise la section en parties visuelles, clarifie leur ordre et définit leur style. La plupart des modèles suivent une structure « en-tête → contenu → action », mais vous pouvez personnaliser ce flux en fonction de ce que vous concevez.
+
+Commencez à créer une bibliothèque d’invites personnelle. Par exemple, rédigez une structure incontournable pour une grille de fonctionnalités, un curseur de témoignage ou un tableau de prix. Réutilisez et remixez ces modèles avec de légères modifications pour correspondre à différentes pages.
+
+Il ne s’agit pas d’être rigide. Il s’agit d’être efficace. ZenOpus répond mieux à un langage d'invite structuré, étendu et prévisible. Les modèles d'invite vous rendent plus rapide et votre sortie plus cohérente sur tous les écrans.
+
+**Exemple rapide**
+
+```text
+Créez une section de fonctionnalités avec un titre centré, suivi de trois cartes alignées horizontalement. Chaque carte comprend une icône en haut, un titre et une brève description. Les cartes doivent avoir des ombres douces et se soulever en survol.
+```
+
+### 9. Ajouter des visuels via URL
+
+Vous voulez que votre mise en page paraisse réelle ? Déposez des démonstrations de produits, des clips générés par Midjourney ou des vidéos de didacticiel à l'aide d'URL. ZenOpus prend en charge l'intégration de vidéos lorsque vous y êtes clairement invité.
+
+Invite à indiquer le placement (par exemple, sous le héros ou à l'intérieur d'une carte de fonctionnalité), le style (par exemple, coins arrondis, lecture automatique, sourdine) et le contexte (pourquoi il est là).
+
+**Exemple rapide**
+
+```text
+Intégrez une vidéo de démonstration de produit de Midjourney. Utilisez cette URL : https://cdn.midjourney.com/video/cb84f296-92a0-4a37-a0e3-1c9c95299488/0.mp4. Placez-le sous la section des fonctionnalités dans une carte pleine largeur avec une ombre douce.
+```
+
+### 10. Contexte de calque avec le bouton Modifier
+
+Le bouton Modifier est l'une des fonctionnalités les plus puissantes de ZenOpus, mais seulement si vous l'utilisez correctement. Au lieu de réécrire les invites complètes lorsque quelque chose doit changer, utilisez la fonction d'édition pour vous concentrer sur des calques ou des éléments spécifiques. Cela vous permet d’itérer rapidement sans perturber ce qui fonctionne déjà.
+
+Pensez aux modifications comme aux remplacements de conception. Ce ne sont pas des remplacements, ce sont des ajustements. Par exemple, vous pouvez sélectionner un bouton CTA et modifier uniquement la copie, ou modifier la disposition d'une carte sans affecter la typographie de la section entière.
+
+Cela garde votre projet propre et modulaire. Vous évitez les ballonnements rapides, vous avancez plus vite et vous réduisez le risque de casser quelque chose qui allait déjà bien. L'édition vous donne également plus de confiance pour expérimenter, puisque vous ne recommencez pas à chaque fois.
+
+Lors de l’édition, soyez précis dans votre langue. Dites exactement ce que vous souhaitez changer et ce qui doit rester le même. Utilisez des instructions telles que « remplacer », « mettre à jour » ou « ajuster » au lieu de déclarations générales telles que « améliorer cela ».
+
+**Exemple d'invite (dans la modification)**
+
+```text
+Remplacez le texte du bouton CTA par « Commencer » et augmentez le remplissage à 24 px horizontalement. Conservez la couleur d’arrière-plan et la police existantes.
+```
+
+## Phase 4 : Itérer et expédier
+
+### 11. Construisez en gardant ZenOpus Cloud à l'esprit
+
+La conception d'une mise en page n'est qu'une partie de la création d'un produit. Si vous souhaitez que vos projets ZenOpus fassent plus que paraître esthétiques, vous devez réfléchir à la manière dont ils fonctionneront réellement – ​​et notre Cloud intégré est un excellent point de départ.
+
+Le cloud gère l'authentification des utilisateurs, les bases de données, le stockage et même les fonctions périphériques, le tout d'une manière qui se marie bien avec les interfaces modernes. Et ZenOpus vous permet de façonner votre interface utilisateur pour qu'elle corresponde à ces comportements du monde réel dès l'invite.
+
+Lorsque vous concevez en pensant au Cloud, commencez par anticiper :
+
+- **Logique d'authentification** — Que doit afficher l'interface utilisateur si l'utilisateur est connecté ou déconnecté ?
+- **Contenu dynamique** — Extrayez-vous des données utilisateur, des publications, des éléments ou des métriques à partir d'un tableau ?
+- **États** — Que se passe-t-il si les données sont vides, sont toujours en cours de chargement ou échouent ?
+
+Cette réflexion précoce vous aide à créer des sections plus intelligentes et facilite le développement ultérieur.
+
+**Exemple rapide**
+
+```text
+Si l'utilisateur est connecté via Cloud, affichez son image de profil et son nom en haut à droite. Sinon, affichez un bouton "Connexion" et acheminez-les vers l'écran d'authentification.
+```
+
+> Astuce : Vous n'avez pas besoin d'un backend fonctionnel pendant la conception, mais en façonnant votre interface utilisateur comme si elle existait déjà, vous pourrez pérenniser votre mise en page.
+
+### 12. Le contrôle de version est votre ami
+
+ZenOpus enregistre automatiquement vos modifications, mais cela ne signifie pas que vous devez agir rapidement sans réfléchir. Si vous ne gardez pas trace de ce que vous avez modifié et pourquoi, vous ne faites que du bruit et vous perdrez rapidement le contrôle.
+
+Un bon versioning ne consiste pas à nommer les fichiers. Il s’agit de penser par itérations. Apportez un changement significatif à la fois. Mettez à jour votre copie de héros. Ajoutez une grille de fonctionnalités. Ajustez la mise en page. Vérifiez le résultat. Alors avancez.
+
+C’est ainsi que les véritables systèmes de conception sont construits, couche par couche, avec intention.
+
+Même si ZenOpus gère les versions en arrière-plan, adoptez votre propre système :
+
+- Pensez par étapes (par exemple, mise en page verrouillée, contenu ajouté, logique câblée)
+- Utilisez des notes dans vos invites (par exemple, « Texte CTA modifié et espacement des cartes ajusté »)
+- Prévisualisez avant les changements majeurs et dupliquez si vous êtes sur le point de prendre un risque
+
+> "Sauvegarde automatique ne signifie pas auto-organisation. Construisez intentionnellement. Itérez en toute connaissance de cause."
+
+** Habitude rapide **
+
+```text
+Avant d'apporter une modification majeure, dupliquez la version actuelle et étiquetez-la. Petit coût, gros filet de sécurité.
+```

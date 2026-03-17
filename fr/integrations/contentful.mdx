@@ -1,0 +1,136 @@
+---
+title: "Connectez votre application à Contentful"
+description: "Connectez votre application à Contentful pour récupérer et afficher le contenu publié à partir de votre CMS sans tête, y compris les entrées, les ressources et le texte enrichi."
+---
+[Contentful](https://www.contentful.com/) est un CMS sans tête qui sépare la gestion du contenu de la façon dont le contenu est présenté. Le connecteur Contentful permet à votre application ZenOpus de récupérer le contenu publié à partir de votre espace Contentful à l'aide de l'API Content Delivery (CDA). Votre application peut ensuite afficher des pages basées sur le contenu, des catalogues de produits, des blogs ou de la documentation alimentés par le contenu stocké dans Contentful.
+
+Avec Contentful, votre application peut :
+
+- Récupérez les entrées, les ressources et les types de contenu publiés depuis votre espace
+- Diffusez du contenu via l'API de diffusion de contenu basée sur le CDN de Contentful
+- Créez des pages et des mises en page dynamiques alimentées par le contenu de votre CMS
+- Filtrer et paginer les entrées par type de contenu, paramètres régionaux ou valeurs de champ
+- Afficher les champs de texte enrichi dans l'interface utilisateur de votre application
+
+<Note>
+Le connecteur Contentful est en **lecture seule**. Il ne Support crée, met à jour ou supprime du contenu. Toute la gestion de contenu s'effectue dans l'application Web Contentful ou via l'API Contentful Management.
+</Note>
+
+## Cas d'utilisation courants et exemples d'applications
+
+| Exemple d'application | Exemple d'invite | Descriptif |
+| --- | --- | --- |
+| Sites de marketing et de pages de destination | Utilisez Contentful et créez un site marketing où la page d'accueil et les pages de fonctionnalités sont chargées à partir de Contentful. | Créez des pages marketing alimentées par du contenu CMS. L'application récupère les entrées de page de Contentful et les restitue sous forme de composants afin que les éditeurs puissent mettre à jour le texte et les images sans modifier le code. |
+| Applications de catalogue de produits | Utilisez Contentful et créez un catalogue de produits qui affiche les produits stockés dans mon espace Contentful avec des filtres de catégorie. | Afficher les listes de produits gérées dans Contentful. L'application récupère les entrées de produits, restitue les fiches produits et prend en charge le filtrage et la pagination en fonction des champs stockés dans le CMS. |
+| Blogs et plateformes éditoriales | Utilisez Contentful et créez un blog qui charge des articles de Contentful et restitue du texte et des images riches. | Créez un blog soutenu par du contenu Contentful. L'application récupère les entrées d'articles, résout les ressources liées et affiche les champs de texte enrichi sous forme de contenu formaté. |
+| Sites de documentation | Utilisez Contentful et créez un site de documentation où chaque page de document est stockée en tant qu'entrée dans Contentful. | Créez une documentation basée sur le contenu du CMS. L'application récupère les entrées de documentation et génère une navigation et des pages à partir de la structure de contenu dans Contentful. |
+| Applications de contenu multilingue | Utilisez Contentful et créez une application qui charge le contenu dans la langue de l'utilisateur à l'aide des paramètres régionaux Contentful. | Diffusez du contenu localisé à partir de Contentful. L'application récupère les entrées dans les paramètres régionaux demandés et restitue le contenu traduit en fonction de la langue de l'utilisateur. |
+| Pages d'événements et d'annonces | Utilisez Contentful et créez une page de liste d'événements qui charge les événements à venir à partir de Contentful et les trie par date. | Afficher les listes d'événements gérées dans Contentful. L'application récupère les entrées d'événements, les trie par champs de date et affiche les événements à venir que les éditeurs conservent dans le CMS. |
+
+## Comment se connecter à Contentful
+
+Workspace **les administrateurs** et les **propriétaires** peuvent se connecter à Contentful.
+
+Vous pouvez créer plusieurs connexions Contentful à l'aide de différentes clés API ou de différents espaces. Cela peut être utile pour séparer les environnements de développement et de production ou pour connecter plusieurs espaces Contentful.
+
+Lorsque la connexion est créée, Contentful devient disponible dans tous les projets du Workspace.
+
+### Conditions préalables
+
+Avant de vous connecter à Contentful, assurez-vous d'avoir :
+
+- Un compte Contentful avec un espace qui contient du contenu publié
+- Un **jeton d'accès Content Delivery API (CDA)** pour cet espace
+- Votre **ID d'espace**
+- ZenOpus Workspace rôle de propriétaire ou d'administrateur
+
+<Note>
+Toutes les requêtes API effectuées via ce connecteur utilisent votre jeton d'accès à l'API Content Delivery. L'utilisation de l'API est prise en compte dans les limites de votre forfait Contentful et la facturation est gérée directement par Contentful, et non par ZenOpus.
+</Note>
+
+### Étape 1 : Recherchez votre identifiant d'espace et créez un jeton d'accès CDA
+
+Votre Space ID et votre jeton d'accès CDA sont tous deux disponibles dans l'application Web Contentful.
+
+**Pour trouver votre ID d'espace :**
+
+1. Connectez-vous à [app.contentful.com](https://app.contentful.com).
+1. Ouvrez l'espace que vous souhaitez connecter.
+1. Accédez à **Paramètres → Paramètres généraux**.
+1. Copiez l'**ID d'espace**.
+
+Consultez la documentation Contentful pour obtenir des instructions détaillées : [Rechercher l'ID d'espace](https://www.contentful.com/help/spaces/find-space-id)
+
+**Pour créer un jeton d'accès à l'API Content Delivery :**
+
+1. Dans le même espace, accédez à **Paramètres → Clés API**.
+1. Cliquez sur **Ajouter une clé API** ou ouvrez une clé existante.
+1. Donnez à la clé un nom tel que `ZenOpus integration`.
+1. Copiez le **jeton d'accès à l'API Content Delivery**.
+
+Consultez la documentation Contentful pour obtenir des instructions détaillées : [Authentification](https://www.contentful.com/developers/docs/references/authentication/)
+
+<Warning>
+Votre jeton d'accès fonctionne comme un mot de passe. Gardez-le en sécurité et ne le partagez jamais publiquement. Vous aurez besoin à la fois de l’ID Space et du jeton d’accès à l’étape suivante.
+</Warning>
+
+### Étape 2 : Connectez Contentful à ZenOpus
+
+1. Accédez à **Paramètres → Connecteurs → Connecteurs partagés** et sélectionnez **Contenu**.
+1. Cliquez sur **Ajouter une connexion**.
+1. Saisissez un **Nom d'affichage**, par exemple `Contentful Prod`.
+1. Saisissez votre **ID d'espace**.
+1. Saisissez votre **jeton d'accès à l'API Content Delivery**.
+1. Cliquez sur **Connecter**.
+
+Une fois connectées, vos applications ZenOpus peuvent commencer à récupérer du contenu depuis votre espace Contentful.
+
+## Comment dissocier des projets d'une connexion
+
+Les éditeurs et les éditeurs supérieurs peuvent supprimer des projets spécifiques d'une connexion sans supprimer entièrement la connexion. La connexion restera disponible pour d'autres projets.
+
+Pour dissocier des projets :
+
+<Steps>
+<Step title="Accédez aux connecteurs">
+Accédez à **Paramètres → Connecteurs → Connecteurs partagés** et sélectionnez **Contenu**.
+</Step>
+<Step title="Ouvrir la connexion">
+Ouvrez la connexion que vous souhaitez gérer.
+</Step>
+<Step title="Sélectionnez des projets">
+Sous **Projets liés**, cochez les projets dont vous souhaitez dissocier.
+</Step>
+<Step title="Confirmer">
+Cliquez sur **Dissocier les projets** et confirmez.
+</Step>
+</Steps>
+
+Une fois dissociés, ces projets n'auront plus accès à **Contentful** via cette connexion. Si un projet a à nouveau besoin de **Contentful**, vous pouvez le lier à n'importe quelle connexion disponible.
+
+## Comment supprimer une connexion
+
+Les administrateurs et propriétaires Workspace peuvent supprimer les connexions **Contentful**.
+
+<Warning>
+La suppression d'une connexion est permanente et ne peut être annulée. Cela supprimera les informations d'identification de tous les projets liés et toutes les applications utilisant cette connexion cesseront de fonctionner jusqu'à ce qu'une nouvelle connexion soit ajoutée.
+</Warning>
+
+Avant de supprimer, consultez la section **Projets liés** pour voir quels projets utilisent actuellement la connexion.
+
+Pour supprimer une connexion :
+
+<Steps>
+<Step title="Accédez aux connecteurs">
+Accédez à **Paramètres → Connecteurs → Connecteurs partagés** et sélectionnez **Contenu**.
+</Step>
+<Step title="Ouvrir la connexion">
+Ouvrez la connexion que vous souhaitez supprimer.
+</Step>
+<Step title="Examiner les projets liés">
+Consultez la section **Projets liés**.
+</Step>
+<Step title="Supprimer">
+Sous **Supprimer cette connexion**, cliquez sur **Supprimer** et confirmez.
+</Step>
+</Steps>

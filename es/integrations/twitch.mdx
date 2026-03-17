@@ -1,0 +1,143 @@
+---
+title: "Conecta tu aplicación a Twitch"
+description: "Conecte su aplicación a Twitch para crear superposiciones de transmisión personalizadas, mostrar datos de transmisión en vivo, realizar un seguimiento de la actividad del canal y crear herramientas para creadores y comunidades directamente desde su aplicación ZenOpus."
+---
+[Twitch](https://www.twitch.tv/) es una plataforma de transmisión en vivo centrada en juegos, contenido creativo e interacción comunitaria en tiempo real. El conector Twitch permite que tu aplicación ZenOpus acceda a la API Helix de Twitch para que puedas impulsar superposiciones de transmisión, paneles y herramientas comunitarias que reaccionen a lo que sucede en un canal.
+
+Con Twitch, tu aplicación puede:
+
+- Mostrar chat en vivo desde un canal de Twitch
+- Mostrar recuentos de seguidores y suscriptores
+- Realice un seguimiento de objetivos personalizados, como hitos de seguidores o suscripciones.
+- Busque el estado de la transmisión, el recuento de espectadores y los metadatos del canal
+- Recuperar clips, horarios e información de canales
+- Enviar mensajes de chat a un canal de Twitch
+- Buscar canales, juegos y categorías
+
+Twitch es una buena opción cuando tu aplicación se encuentra junto a una transmisión. Los ejemplos incluyen superposiciones, herramientas de moderación, paneles de eventos y aplicaciones de análisis para creadores.
+
+## Casos de uso comunes y aplicaciones de ejemplo
+
+| Aplicación de ejemplo | Mensaje de ejemplo | Descripción |
+| --- | --- | --- |
+| Superposición de transmisión personalizada | Cree una superposición de transmisión que muestre mi chat en vivo, mi último seguidor y el objetivo secundario actual en los colores de mi marca. | Reemplace las herramientas de superposición genéricas con una superposición totalmente personalizada. La aplicación muestra el chat usando la conexión IRC de Twitch y obtiene datos de seguidores y suscripción a través de la API de Twitch para generar una superposición de marca para la transmisión que se puede agregar como fuente del navegador en software de transmisión como OBS Studio (Open Broadcaster Software).
+| Rastreador de objetivos de suscriptores o seguidores | Cree un widget superpuesto que muestre una barra de progreso hacia mi objetivo de 1000 seguidores. | Muestra el progreso de los hitos en vivo durante la transmisión. La aplicación obtiene recuentos de seguidores o suscriptores de Twitch y muestra una barra de progreso que se actualiza a medida que cambian los números. |
+| Superposición de chat en vivo | Cree una superposición de chat en vivo que muestre mensajes recientes de mi canal de Twitch. | Muestra mensajes de chat directamente en una superposición de flujo. La aplicación se conecta al chat de Twitch mediante el punto final IRC WebSocket y muestra los mensajes entrantes en tiempo real. |
+| Superposición de transmisión de eventos | Cree una superposición del torneo donde los moderadores puedan actualizar los puntajes y la información de los partidos durante la transmisión. | Superposiciones de energía para eventos o torneos en vivo. Los moderadores actualizan la información de las coincidencias a través de un panel de control y la superposición refleja las actualizaciones instantáneamente para los espectadores. |
+| Rastreador de transmisiones multicanal | Cree un panel que muestre qué canales de mi lista están activos actualmente. | Supervise una lista de transmisores y vea quién está en vivo en este momento. La aplicación verifica el estado de la transmisión en múltiples canales y muestra el recuento de espectadores y los títulos de la transmisión. |
+| Navegador de descubrimiento de clips | Cree una aplicación donde pueda buscar un canal de Twitch y explorar sus clips principales. | Explora lo más destacado de los canales de Twitch. La aplicación recupera clips de la API de Twitch y los presenta en una interfaz con capacidad de búsqueda. |
+| Panel del moderador | Cree un panel de moderación que enumere a los seguidores y permita a los moderadores enviar anuncios de chat. | Ofrezca a los moderadores una interfaz estructurada para gestionar la actividad de la comunidad. La aplicación recupera datos de los seguidores y permite a los moderadores publicar mensajes para chatear directamente desde el panel. |
+
+## Cómo funcionan las conexiones de Twitch
+
+Twitch utiliza OAuth 2.0 para la autenticación. Cuando conectas Twitch, autorizas a ZenOpus a acceder a Twitch en nombre de la cuenta autenticada.
+
+Twitch utiliza la arquitectura de puerta de enlace de ZenOpus para un manejo seguro de OAuth y una actualización automática de tokens. Consulte [Conectores basados en puerta de enlace](/es/integrations/introduction#conectores-basados-en-puerta-de-enlace) para obtener detalles sobre la autenticación y los límites de uso.
+
+Cada conexión de Twitch está vinculada a una cuenta de Twitch. Puede crear múltiples conexiones si es necesario. Por ejemplo, puedes conectar cuentas separadas para desarrollo, producción o diferentes creadores.
+
+## Cómo conectar Twitch
+
+Workspace **los administradores** y los **propietarios** pueden conectarse a Twitch.
+
+Cuando se crea la conexión, Twitch estará disponible en todos los proyectos en Workspace.
+
+### Requisitos previos
+
+Antes de conectar Twitch, asegúrese de tener:
+
+- Una cuenta de Twitch
+- Un rol de administrador o propietario ZenOpus Workspace
+
+### Paso 1: elige la cuenta para conectarte
+
+Tu conexión utiliza una cuenta de Twitch directamente. No se requiere ninguna aplicación de desarrollador ni clave API.
+
+Asegúrese de que la cuenta conectada tenga los permisos necesarios para su caso de uso.
+
+Por ejemplo:
+
+- Para leer los datos de los seguidores, la cuenta debe tener acceso de moderador al canal.
+- Para enviar mensajes de chat, la cuenta debe tener permiso para publicar en el canal.
+- Para acceder a los datos de suscripción, la cuenta conectada debe ser la propietaria del canal.
+
+Para la mayoría de las configuraciones de superposición, conectar la propia cuenta del transmisor proporciona el acceso más amplio.
+
+### Paso 2: conecta Twitch a ZenOpus
+
+1. Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **Twitch**.
+1. Haga clic en **Agregar conexión**.
+1. En **Nombre para mostrar**, ingresa un nombre para la conexión. Por ejemplo `Twitch Production`.
+1. **Configurar alcances (opcional)**Expanda **Configuración avanzada** para configurar los permisos de la API de Twitch que necesita su aplicación. Los alcances predeterminados incluyen: Hay alcances adicionales disponibles para funciones como administración de clips, predicciones, encuestas, análisis y puntos de canal. Habilite solo los alcances que su aplicación necesita. Puedes actualizar los alcances más adelante editando la conexión y seleccionando **Reconectar**. Para obtener la lista completa de alcances, consulta la [Referencia del alcance de Twitch OAuth](https://dev.twitch.tv/docs/authentication/scopes/).
+    - `user:read:email` — Ver el correo electrónico de la cuenta
+    - `channel:read:subscriptions` — Ver datos de suscripción al canal
+    - `moderator:read:followers` — Ver datos de seguidores de canales moderados
+    - `user:write:chat` — Enviar mensajes al chat de Twitch
+1. Haga clic en **Conectar**. Se abrirá una ventana de autorización de Twitch. Asegúrese de que las ventanas emergentes estén permitidas.
+1. Inicie sesión en Twitch, revise los permisos solicitados y haga clic en **Autorizar**.
+
+Una vez que se complete la autorización, la conexión aparecerá en ZenOpus y tus aplicaciones podrán comenzar a usar datos de Twitch.
+
+## Limitaciones
+
+El conector Twitch actualmente no puede:
+
+- **Lee el chat de Twitch en tiempo real a través de la puerta de enlace**  
+
+ El chat de Twitch utiliza IRC a través de WebSocket, que no se puede enviar mediante proxy a través de la puerta de enlace ZenOpus. Para leer mensajes de chat, su aplicación debe conectarse directamente al punto final del chat de Twitch: `wss://irc-ws.chat.twitch.tv`Leer el chat público no requiere autenticación. Enviar mensajes de chat a través de la API de Twitch requiere autenticación.
+- **Recibir webhooks de EventSub**  
+
+ Actualmente no se admiten eventos entrantes de Twitch, como notificaciones de inicio de transmisión o eventos de seguimiento.
+- **Support inicio de sesión de Twitch por usuario**  
+
+ Cada conexión autentica una única cuenta de Twitch. Los usuarios finales de su aplicación no pueden conectar sus propias cuentas de Twitch a través de este conector.
+
+## Cómo desvincular proyectos de una conexión
+
+Los editores y superiores pueden eliminar proyectos específicos de una conexión sin eliminar la conexión por completo. La conexión permanecerá disponible para otros proyectos.
+
+Para desvincular proyectos:
+
+<Steps>
+<Step title="Navegar a conectores">
+Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **Twitch**.
+</Step>
+<Step title="Abre la conexión">
+Abra la conexión que desea administrar.
+</Step>
+<Step title="Seleccionar proyectos">
+En **Proyectos vinculados**, marca los proyectos que deseas desvincular.
+</Step>
+<Step title="Confirmar">
+Haga clic en **Desvincular proyectos** y confirme.
+</Step>
+</Steps>
+
+Cuando se desvinculen, esos proyectos ya no tendrán acceso a **Twitch** a través de esta conexión. Si un proyecto necesita **Twitch** nuevamente, puedes vincularlo a cualquier conexión disponible.
+
+## Cómo eliminar una conexión
+
+Los administradores y propietarios de Workspace pueden eliminar conexiones de **Twitch**.
+
+<Warning>
+La eliminación de una conexión es permanente y no se puede deshacer. Eliminará las credenciales de todos los proyectos vinculados y cualquier aplicación que utilice esta conexión dejará de funcionar hasta que se agregue una nueva conexión.
+</Warning>
+
+Antes de eliminar, revise la sección **Proyectos vinculados** para ver qué proyectos están utilizando actualmente la conexión.
+
+Para eliminar una conexión:
+
+<Steps>
+<Step title="Navegar a conectores">
+Vaya a **Configuración → Conectores → Conectores compartidos** y seleccione **Twitch**.
+</Step>
+<Step title="Abre la conexión">
+Abra la conexión que desea eliminar.
+</Step>
+<Step title="Revisar proyectos vinculados">
+Revise la sección **Proyectos vinculados**.
+</Step>
+<Step title="Eliminar">
+En **Eliminar esta conexión**, haz clic en **Eliminar** y confirma.
+</Step>
+</Steps>

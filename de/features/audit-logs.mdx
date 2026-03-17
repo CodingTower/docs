@@ -1,0 +1,92 @@
+---
+title: "Audit-Protokolle"
+description: "Überwachen Sie die Workspace-Aktivität mit Enterprise-Audit-Protokollen. Filtern Sie nach Aktion, Mitglied oder Zeitbereich, um Ereignisse wie Mitgliedschaftsänderungen, Projektaktionen, Authentifizierungsereignisse und Workspace-Einstellungen oder Konfigurationsänderungen zu überprüfen."
+---
+Audit-Protokolle bieten einen durchsuchbaren Audit-Trail der Aktivitäten in Ihrem Workspace. Sie zeigen, wer eine Aktion ausgeführt hat, wann sie stattgefunden hat, was sich geändert hat und welche Ressource betroffen war.
+
+Verwenden Sie Audit-Protokolle, um Workspace-Einstellungen und Konfigurationsänderungen zu überprüfen, Zugriffsaktualisierungen zu verfolgen und unerwartetes Verhalten zu untersuchen. Audit-Protokolle können bei Bedarf auch Sicherheits- und Compliance-Workflows unterstützen.
+
+- **Verfügbar für:** Enterprise-Pläne
+- **Zugriff:** Workspace Administratoren und Eigentümer
+- **Speicherort:** Einstellungen → Workspace → Überwachungsprotokolle
+
+## Audit-Log-Ereignisse
+
+Workspace-Überwachungsprotokolle umfassen Ereignisse in verschiedenen Kategorien wie:
+
+| Kategorie | Beispielveranstaltungen |
+| --- | --- |
+| Workspace Mitgliedschaft | Mitglied hinzugefügt, entfernt oder Rolle aktualisiert |
+| Workspace Verwaltung | Workspace-Einstellungen aktualisiert Workspace gelöscht |
+| Workspace Gruppen | Gruppe erstellt, aktualisiert oder gelöscht. Gruppenmitglieder hinzugefügt oder entfernt |
+| Identität und Zugang | Verifizierte Domäne hinzugefügt oder entfernt SSO-Anbieter hinzugefügt, aktualisiert oder entfernt SCIM-Bereitstellungsaktionen |
+| Geheimnisse und Integrationen | GitHub- oder Slack-App auf Workspace installiert oder entfernt. Benutzerdefinierter MCP-Server erstellt oder gelöscht. Secrets geändert |
+| Projekte | Projekt erstellt, gelöscht, nicht veröffentlicht oder verschoben. Mitarbeiter hinzugefügt, beigetreten, entfernt oder ihre Rolle aktualisiert. Benutzerdefinierte Domänen erstellt oder gelöscht. Supabase-Projekt oder Shopify-Shop verbunden oder getrennt. Eingabeaufforderung gesendet |
+| Authentifizierung | SSO Workspace Zugriff |
+
+## Audit-Log-Tabelle
+
+Standardmäßig werden auf der Seite Protokolle für **Alle Aktionen**, **Alle Mitglieder** und **Alle Zeiten** angezeigt. Die Gesamtzahl der übereinstimmenden Protokolle wird oben rechts in der Tabelle angezeigt.
+
+Die Tabelle ist in vier Spalten gegliedert:
+
+| Spalte | Beschreibung |
+| --- | --- |
+| Zeitstempel | Wann das Ereignis aufgetreten ist, beispielsweise vor 4 Minuten oder vor etwa 11 Stunden. Bewegen Sie den Mauszeiger, um das genaue Datum und die genaue Uhrzeit anzuzeigen. |
+| Schauspieler | Das Mitglied, das die Aktion ausgeführt hat. Wenn Sie auf den Namen des Mitglieds klicken, wird ein Popover mit seiner Benutzer-ID, IP-Adresse und seinem Benutzeragenten geöffnet. Von diesem Popover aus können Sie diese Details kopieren oder die Tabelle nach diesem Benutzer filtern. |
+| Aktion | Die Art der Aktivität, angezeigt als Bezeichnung, z. B. „Eingabeaufforderung gesendet“, „Workspace aktualisiert“, „Mitglied hinzugefügt“ oder „Projekt erstellt“. |
+| Ressource | Das betroffene Objekt, z. B. ein Projekt, Workspace oder ein Benutzer. Einige Ressourcen sind anklickbar. Wenn Sie beispielsweise auf einen Projektnamen klicken, wird dieses Projekt geöffnet. |
+
+Klicken Sie auf eine beliebige Zeile, um sie zu erweitern und strukturierte JSON-Details anzuzeigen, die das Ereignis beschreiben. Dazu gehören die mit dieser Aktion verknüpften Metadaten, z. B. Nachrichten-IDs für Eingabeaufforderungsaktivitäten oder bestimmte Felder, die in einer Workspace-Einstellung aktualisiert wurden.
+
+## Überwachungsprotokolle filtern
+
+Sie können alle drei Filter kombinieren, um sich auf eine bestimmte Aktivität zu konzentrieren:
+
+- Mit **Alle Aktionen** können Sie nach einem bestimmten Aktionstyp filtern, z. B. `Member added`, `Member removed`, `Workspace updated`, `Project created` oder `Prompt sent`.
+- Mit **Alle Mitglieder** können Sie mithilfe der durchsuchbaren Mitgliederauswahl ein Workspace-Mitglied auswählen.
+- **Zeitbereich** umfasst Voreinstellungen wie **Gesamte Zeit**, **Letzte 7 Tage**, **Letzte 30 Tage**, **Letzte 90 Tage**, **Dieser Monat** und **Letzter Monat**.
+
+## So verwenden Sie Audit-Protokolle
+
+Ein typischer Arbeitsablauf:
+
+1. Legen Sie einen relevanten **Zeitbereich** fest.
+1. Filtern Sie nach **Mitglied**, um die Aktivität eines bestimmten Benutzers zu überprüfen.
+1. Filtern Sie nach **Aktionstyp**, um die Ergebnisse auf eine bestimmte Art von Änderung einzugrenzen.
+1. Erweitern Sie die Einträge, um die vollständigen JSON-Details zu überprüfen.
+1. Öffnen Sie betroffene Projekte oder springen Sie zu verwandten Nachrichten, um den Kontext zu überprüfen.
+1. Verwenden Sie das Mitglieder-Popover, um bei Bedarf Details wie Benutzer-ID, IP-Adresse oder Benutzeragent zu kopieren.
+
+## Aufbewahrung von Prüfprotokolldaten
+
+Protokolle werden 13 Wochen bzw. etwa 90 Tage lang aufbewahrt. Ältere Ereignisse werden automatisch entfernt.
+
+<Note>
+Protokolle vor dem 26. Februar 2026 sind möglicherweise unvollständig.
+</Note>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Wer kann auf Audit-Protokolle zugreifen?">
+Audit-Protokolle sind in Enterprise-Plänen verfügbar und für Workspace-Inhaber und -Administratoren sichtbar.
+</Accordion>
+<Accordion title="Wie lange werden Überwachungsprotokolle aufbewahrt?">
+Überwachungsprotokolle werden 13 Wochen bzw. etwa 90 Tage lang aufbewahrt. Ältere Ereignisse werden automatisch entfernt.
+</Accordion>
+<Accordion title="Kann ich Audit-Protokolle exportieren?">
+Überwachungsprotokolle können derzeit nicht per Support selbst exportiert werden.
+
+Audit-Log-Einträge können erweitert werden, um strukturierte JSON-Details anzuzeigen, die bei Bedarf kopiert werden können.
+
+Wenn Sie Prüfprotokolle in ein SIEM- oder externes Überwachungssystem integrieren müssen, wenden Sie sich an Ihr Account-Team, um Optionen für die Unternehmensintegration zu besprechen.
+</Accordion>
+<Accordion title="Warum sehe ich keine Audit-Protokolle?">
+Wenn Audit-Protokolle nicht verfügbar sind oder nicht wie erwartet angezeigt werden:
+
+- Bestätigen Sie, dass Ihr Workspace einen Enterprise-Plan hat.
+- Bestätigen Sie, dass Ihre Rolle die Berechtigung zum Anzeigen von Audit-Protokollen umfasst. Sie müssen ein Workspace-Administrator oder -Eigentümer sein.
+- Löschen Sie die Filter und probieren Sie einen größeren Zeitbereich aus.
+</Accordion>
+</AccordionGroup>

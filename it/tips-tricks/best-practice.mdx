@@ -1,0 +1,183 @@
+---
+title: "Migliori pratiche"
+description: "Utilizza i file della conoscenza, Plan mode, le modifiche visive e il controllo della versione in modo efficace per creare più velocemente ed evitare le insidie ​​comuni."
+---
+Questa guida aiuta tutti gli utenti, nuovi o esperti, ad aggiornarsi rapidamente ed evitare le insidie ​​comuni quando si sviluppa su ZenOpus.
+
+## 1. Imposta le tue basi: utilizza il file della conoscenza
+
+**Perché è importante:** Il file [Conoscenza](/it/features/knowledge) è il cervello del tuo progetto. Viene inviato con ogni richiesta e aiuta l'IA a comprendere l'intero contesto.
+
+**Cosa includere:**
+
+- La tua visione del prodotto (pensala come un PRD)
+- Percorsi e personas degli utenti
+- Caratteristiche e funzionalità principali
+- Sistemi di progettazione e guida dell'interfaccia utente
+- Comportamento specifico del ruolo (ad esempio amministratore, utente, investitore)
+
+<Tip>
+Puoi generare automaticamente un file di conoscenza tramite Plan mode:
+
+```text
+Genera conoscenza per il mio progetto a T=0 in base alle funzionalità che ho già implementato.
+```
+</Tip>
+
+## 2. Promuovere le migliori pratiche
+
+**Istruzioni chiare e dettagliate = risultati migliori.** Pensa all'intelligenza artificiale come al tuo partner tecnico: sa solo quello che le dici.
+
+**Suggerimenti:**
+
+- Sii specifico: menziona la pagina esatta (ad esempio `/dashboard`) e il comportamento previsto.
+- Usa il linguaggio naturale
+    ```text
+    Desidero che gli utenti con il ruolo Investitore accedano a questo componente, ma non gli amministratori.
+    ```
+- Aggiungi screenshot: particolarmente utile per descrivere bug o problemi UX.
+- Aggiungi guardrail: comunica all'IA cosa **non** toccare. Per esempio.
+    ```text
+    Non modificare /shared/Layout.tsx.
+    ```
+- Ripeti istruzioni importanti attraverso i prompt. La memoria dell’intelligenza artificiale può essere limitante.
+- Evita di provare a implementare 5 cose contemporaneamente. Suddividi il lavoro in parti più piccole e verificabili. Utilizza Plan mode tra ogni blocco per convalidare prima di proseguire.
+    ```text
+    **Modello di analisi delle funzionalità:**
+    Crea la nuova pagina
+    Aggiungi il layout dell'interfaccia utente
+    Collega i dati
+    Aggiungi logica + casi limite
+    Prova per ruolo
+    ```
+- Se la tua app ha più ruoli (ad esempio amministratore, investitore, avvio), definisci sempre *a quale ruolo* si applica la richiesta. Ciò aiuta a evitare bug causati da logica/componenti condivisi.
+    ```text
+    Come investitore, desidero visualizzare la dashboard aziendale, ma non dovrei essere in grado di modificarla. Isolare questa funzionalità solo al ruolo Investitore.
+    ```
+
+## 3. Usa Plan mode presto e spesso
+
+[**Plan mode**](/it/features/plan-mode) = il tuo copilota AI. Ti aiuta a eseguire il debug, il brainstorming e a pianificare le implementazioni, senza modificare il codice finché non sei pronto.
+
+**Quando passare a Plan mode:**
+
+- Dopo 2-3 tentativi falliti di "Prova a risolvere".
+- Durante il debug di problemi logici o di database complessi
+- Quando si pianificano nuove funzionalità
+    ```text
+    Suggerisci 3 modi per implementare X
+    ```
+
+<Tip>
+**Suggerimento per il flusso di lavoro:**
+
+Ad alcuni utenti piace utilizzare Plan mode per il 60-70% del tempo. Fai clic su "Implementa il piano" solo quando sei completamente soddisfatto.
+</Tip>
+
+<Tip>
+Se dimentichi di utilizzare Plan mode, questo formato migliora la coerenza dell'output e impedisce modifiche collaterali.
+
+```text
+Nella pagina /impostazioni, implementare [funzione]. Il comportamento previsto è [XYZ]. Non toccare il componente A, il layout B o la logica condivisa se non necessario. Segui le migliori pratiche di Tailwind/Supabase/X.
+```
+</Tip>
+
+<Tip>
+Per evitare l'esecuzione di codice indesiderato:
+
+```text
+Investiga ma non scrivi ancora il codice.
+```
+
+```text
+Suggerisci 3 modi per risolvere questo problema senza cambiare nulla.
+```
+
+Ciò mantiene il controllo nelle tue mani.
+</Tip>
+
+<Tip>
+Quando l'IA entra in un "loop", utilizza questa sequenza per evitare cicli infiniti di patching di codice non funzionante:
+
+1. Passa a Plan mode
+1. Incolla lo screenshot dell'errore
+1. Di':
+    ```text
+    Si prega di indagare su questo senza interrompere altre funzionalità. Se necessario, ripristina l'ultima versione funzionante e correggi da lì.
+    ```
+</Tip>
+
+## 4. Evita le insidie ​​comuni con Supabase
+
+**Avviso:** [Supabase](/it/integrations/supabase) non viene ripristinato in modo corretto. Se ripristini una versione, lo schema del database potrebbe interrompersi.
+
+**Best practice:**
+
+- Connetti Supabase **dopo** il front-end è stabile
+- Se devi ripristinare, chiedi all'IA:
+    ```text
+    Convalidare lo schema SQL su T=0 e assicurarsi che non si siano verificate modifiche sostanziali.
+    ```
+- Testare sempre le funzionalità collegate al database prima della pubblicazione
+
+## 5. Utilizzare Visual Edit per correzioni rapide dell'interfaccia utente
+
+Lo [**Strumento di modifica visiva**](/it/features/visual-edit) è gratuito e veloce. Usalo al posto dei prompt per:
+
+- Modifica di testo, colori, caratteri, modifiche al layout
+- Modifica di più piccoli elementi contemporaneamente
+- Impegni sicuri e senza credito (con possibilità di annullamento)
+
+## 6. Usa GitHub + controllo della versione con saggezza
+
+- Ogni modifica è un commit. Utilizza il **blocco** per contrassegnare le versioni stabili. Dopo ogni funzione funzionante: **Appunta**
+- Dopo ogni bug: **Confronta visivamente le versioni.** Puoi richiedere:
+    ```text
+    Confronta la versione da T–1 a T–0. Cosa è cambiato? Cosa potrebbe rompersi?
+    ```
+- Torna alla versione stabile se ritieni che l'intelligenza artificiale abbia rotto troppe cose.
+- Utilizza la **ramificazione GitHub** a tuo rischio e pericolo. Evita di eliminare i rami prima di tornare a `main` in ZenOpus per evitare problemi di sincronizzazione del progetto.
+
+## 7. Quando tutto il resto fallisce, remixa
+
+Molti utenti si rendono conto: fare tutto da capo richiede meno tempo la seconda volta.
+
+- [Remix](/it/introduction/faq#come-posso-copiare-remixare-un-progetto) crea una copia pulita del tuo progetto a T=0.
+- Ricostruisci con suggerimenti migliori e conoscenze più chiare
+- Usa il tuo vecchio progetto solo come riferimento
+
+**Casi d'uso:**
+
+- Sei bloccato in un circolo vizioso
+- Vuoi riavviare in modo pulito con la cronologia conservata
+- Devi disconnettere Supabase e provare un nuovo percorso
+
+<Tip>
+Il remix richiede prima la disconnessione di Supabase.
+</Tip>
+
+## 8. Sii paziente, mantieni la calma
+
+Non sei solo. L’intelligenza artificiale può essere magica un momento e frustrante il momento successivo. L'ultimo 5% di qualsiasi build è spesso il più lento, ma il più importante.
+
+<Tip>
+**Regola d'oro:**
+
+Prenditi il tuo tempo con le istruzioni. Ricontrolla tutto. Suddividi il lavoro in blocchi piccoli e verificabili. Più precisi saranno i tuoi input, migliori saranno i tuoi risultati.
+</Tip>
+
+## 9. Utilizza i documenti e chiedi aiuto
+
+- [Documentazione](/) contiene procedure dettagliate, modelli, suggerimenti SEO, integrazioni e altro ancora. Puoi porre domande direttamente nell'assistente Doc AI.
+- Unisciti alla [community Discord](https://discord.gg/zenopus-dev) per il peer Support.
+
+## 10. Suggerimenti bonus
+
+- Aggiungi una nota vocale utilizzando la dettatura (ad esempio, su Mac, usa il microfono per dettare istruzioni lunghe) per istruzioni lunghe. Potrai creare input migliori più velocemente, particolarmente utili quando sei frustrato o stanco.
+- Utilizza il modello di prompt "`I am frustrated…`" per focalizzare meglio l'intelligenza artificiale
+- Dopo una modifica importante, ricontrolla sempre più ruoli e il loro comportamento (soprattutto con la logica condizionale)
+- Archivia le versioni stabili come fallback per un debug rapido
+- Se noti effetti collaterali imprevisti, questo aiuta a evitare bug causati da una logica eccessivamente generica.
+    ```text
+    Crea un componente specifico per [ruolo X] e non riutilizzare i componenti condivisi a meno che non siano chiaramente definiti.
+    ```

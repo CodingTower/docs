@@ -1,0 +1,335 @@
+---
+title: "Configurar el aprovisionamiento de usuarios SCIM"
+description: "Configure el aprovisionamiento SCIM para crear, actualizar y eliminar usuarios automáticamente en ZenOpus utilizando su proveedor de identidad. Administre el acceso de los usuarios, las funciones y el ciclo de vida de forma centralizada con Okta, Microsoft Entra ID y otros proveedores de SCIM 2.0."
+---
+**SCIM (Sistema para la gestión de identidades entre dominios)** está disponible solo en el **plan Enterprise**. Permite el aprovisionamiento automatizado de usuarios y la gestión del ciclo de vida a través de su proveedor de identidad (IdP).
+
+Con SCIM, puede administrar el acceso a Workspace de forma centralizada desde su IdP. Los usuarios se agregan automáticamente cuando se asignan, se eliminan cuando se desasignan y se les asignan roles según la membresía del grupo, lo que mantiene su Workspace sincronizado sin administración manual de usuarios.
+
+## Requisitos previos
+
+Antes de configurar el aprovisionamiento SCIM, necesita:
+
+- **Acceso de administrador de IdP** (Okta, Microsoft Entra ID o cualquier otro proveedor SCIM 2.0 que esté utilizando)
+- **ZenOpus Workspace rol de propietario o administrador**
+- **Un proveedor de SSO activo configurado** (OIDC o SAML). Consulte [**Configurar el inicio de sesión único (SSO)**](/es/features/business/sso) para obtener más información.
+    - **Si aún no tienes SSO:**  
+    Normalmente creará una única aplicación en su proveedor de identidad que maneje tanto la autenticación SSO como el aprovisionamiento SCIM.
+    - **Si ya tienes SSO configurado:**  
+    Opcionalmente, puede crear una aplicación separada en su IdP específicamente para el aprovisionamiento SCIM. Esto le permite mantener su configuración de SSO existente sin cambios. ZenOpus seguirá utilizando su proveedor de SSO actual para la autenticación de usuarios, independientemente de qué aplicación de IdP maneje SCIM.
+    <Note>
+    Algunos proveedores de identidad requieren que se configure el aprovisionamiento SCIM en una aplicación SAML, incluso si la autenticación SSO utiliza OIDC. En este caso, la aplicación SAML con SCIM habilitado se usa solo para aprovisionamiento y no es necesario configurarla como proveedor de SSO en ZenOpus.
+    </Note>
+
+## Cómo funciona SCIM en ZenOpus
+
+Esta sección explica cómo ZenOpus procesa eventos SCIM de su proveedor de identidad.
+
+### Aprovisionamiento de usuarios
+
+Cuando su IdP crea o asigna un usuario a la aplicación ZenOpus:
+
+1. El IdP envía una solicitud SCIM a ZenOpus.
+1. ZenOpus verifica que el dominio de correo electrónico del usuario esté verificado para su Workspace.
+1. El usuario recibe una invitación por correo electrónico para unirse.
+1. Cuando el usuario acepta la invitación y crea una cuenta, se agrega a Workspace con el rol apropiado según la configuración de SCIM.
+
+### Baja de usuario
+
+Cuando su IdP elimina o desactiva a un usuario:
+
+1. El IdP envía una solicitud de desactivación a ZenOpus.
+1. El usuario se elimina de su Workspace.
+1. El usuario ya no puede iniciar sesión en Workspace.
+
+<Note>
+**Los propietarios de Workspace no se pueden dar de baja a través de SCIM.** Esto evita el bloqueo accidental de la administración de Workspace.
+</Note>
+
+### Actualizaciones de funciones y envío de grupos
+
+Cuando el aprovisionamiento basado en grupos está habilitado en su IdP:
+
+1. Los cambios de membresía del grupo se envían a ZenOpus.
+1. Los usuarios agregados a un grupo asignado reciben el rol correspondiente.
+1. Los usuarios eliminados de todos los grupos asignados se eliminan de Workspace.
+
+### Operaciones SCIM soportadas
+
+ZenOpus implementa la especificación SCIM 2.0 y admite las siguientes operaciones:
+
+| Recurso | Operaciones apoyadas |
+| --- | --- |
+| Usuarios | Crear, leer, actualizar, eliminar, enumerar |
+| Grupos | Crear, leer, actualizar, eliminar, enumerar, enviar miembros |
+
+## Configurar el aprovisionamiento SCIM
+
+La configuración del aprovisionamiento SCIM requiere configuración tanto en ZenOpus como en su proveedor de identidad. Comienza en ZenOpus para habilitar el aprovisionamiento SCIM y generar las credenciales requeridas, luego completa la configuración en tu IdP.
+
+### Paso 1: configurar SCIM en ZenOpus
+
+Primero, habilite el aprovisionamiento SCIM en ZenOpus y copie los valores que necesita su proveedor de identidad.
+
+<Steps>
+<Step title="Abra la configuración de identidad y habilite SCIM">
+Vaya a **Configuración → Workspace → Identidad → Aprovisionamiento SCIM** y habilite **Aprovisionamiento SCIM**.
+</Step>
+<Step title="Copiar valores de configuración SCIM">
+Cuando el aprovisionamiento SCIM está habilitado, ZenOpus genera y muestra los siguientes valores:
+
+- **Clave API:** Un token API seguro utilizado para autenticar solicitudes SCIM (se muestra solo una vez)
+- **URL base:** El punto final que utiliza su IdP para sincronizar usuarios.
+
+<Warning>
+**Guarde la clave API inmediatamente**. La clave API completa se muestra solo una vez. Si la pierdes, deberás rotar la clave para generar una nueva.
+</Warning>
+
+Necesitará estos valores al configurar SCIM en su proveedor de identidad.
+</Step>
+<Step title="Configurar el rol predeterminado">
+El **rol predeterminado** se asigna a los usuarios recién aprovisionados que no coinciden con ninguna asignación de grupo. Los roles disponibles son:
+
+- **Visor**: acceso de solo lectura
+- **Editor**: puede crear y editar proyectos
+- **Administrador**: Gestión completa de Workspace
+
+Opcionalmente, puede [configurar asignaciones de funciones de grupo](/es/features/business/scim#configurar-el-mapeo-de-roles) para asignar funciones basadas en grupos de proveedores de identidad. Si ninguna asignación de grupo coincide, se aplica la función predeterminada.
+</Step>
+</Steps>
+
+### Paso 2: Configure SCIM en su proveedor de identidad
+
+Utilice los valores generados en ZenOpus para configurar el aprovisionamiento SCIM en su proveedor de identidad.
+
+| Configuración | Valor |
+| --- | --- |
+| URL básica | https://api.zenopus.dev/scim/v2 |
+| Autenticación | Ficha al portador |
+| Clave API | &lt;your API key generated in __TERM0__&gt; |
+
+Seleccione su proveedor de identidad a continuación y siga las instrucciones para completar la configuración de SCIM. Para obtener más información, consulte la documentación oficial de su IdP.
+
+<Tabs>
+<Tab title="Okta">
+<Steps>
+<Step title="Agregue la integración de la aplicación de prueba SCIM">
+- En la Consola de administración de Okta, vaya a **Aplicaciones → Explorar catálogo de aplicaciones**.
+- Busque **Aplicación de prueba SCIM 2.0 (autenticación de encabezado)** y luego haga clic en **Agregar integración**.
+- Elija una **etiqueta de aplicación** y luego termine de crear la integración.
+</Step>
+<Step title="(Opcional) complete el mensaje SAML">
+Okta puede solicitarle que configure los ajustes de SAML/SSO mientras crea la integración.
+
+<Note>
+El aprovisionamiento SCIM no requiere SAML. Si ya tiene SSO configurado, puede omitir SAML aquí y continuar con el aprovisionamiento.
+
+Si necesita ingresar valores SAML, use los valores ZenOpus SSO (URL ACS e ID de entidad) de [Configurar inicio de sesión único (SSO)](/es/features/business/sso).
+</Note>
+</Step>
+<Step title="Habilitar la integración de API">
+- En tu aplicación Okta, ve a **Aprovisionamiento → Integración**.
+- Haga clic en **Configurar integración de API** y luego habilite **Integración de API**.
+- Introduzca:
+    - **URL base**: `https://api.zenopus.dev/scim/v2`
+    - **token API**: su clave API SCIM ZenOpus
+
+<Tip>
+Si **Probar credenciales de API** falla, intente ingresar el token como `Bearer <your_api_key>` (incluya el prefijo `Bearer` y un espacio).
+</Tip>
+
+- Si está disponible, habilite **Importar grupos** y luego haga clic en **Importar grupos**.
+- Haga clic en **Probar credenciales de API** y luego en **Guardar**.
+</Step>
+<Step title="Habilitar acciones de aprovisionamiento">
+Vaya a **Aprovisionamiento → A la aplicación** y asegúrese de que estén habilitados:
+
+- **Crear usuarios**
+- **Actualizar atributos de usuario**
+- **Desactivar usuarios**
+</Step>
+<Step title="Asignar usuarios y enviar grupos">
+- Asigne usuarios (o grupos) a la aplicación Okta.
+- Si utiliza la asignación de roles basada en grupos en ZenOpus, habilite la inserción de grupos en Okta y envíe los mismos grupos que asignó en ZenOpus.
+</Step>
+</Steps>
+</Tab>
+<Tab title="ID de Microsoft Entra (Azure AD)">
+El aprovisionamiento SCIM en Microsoft Entra ID solo se admite a través de una aplicación SAML. Si usa OIDC para SSO, deberá crear una aplicación SAML separada en Microsoft Entra ID para el aprovisionamiento SCIM.
+
+<Steps>
+<Step title="Inicie la configuración de aprovisionamiento en Microsoft Entra ID">
+- Vaya al **Centro de administración de Microsoft Entra****→****Aplicaciones empresariales.**
+- Cree una nueva aplicación SAML o seleccione su aplicación SAML ZenOpus existente.
+- Seleccione **Aprovisionamiento → Nueva configuración.**
+</Step>
+<Step title="Configurar credenciales de administrador">
+En **Credenciales de administrador**, ingrese los siguientes valores:
+
+- Método de autenticación: autenticación de portador
+- URL del inquilino: `https://api.zenopus.dev/scim/v2`
+- Token secreto: `Bearer <your ZenOpus SCIM API key>`
+</Step>
+<Step title="Pruebe la conexión">
+Haga clic en **Probar conexión** para verificar la configuración.
+</Step>
+<Step title="Crear la configuración">
+Haga clic en **Crear.**
+</Step>
+<Step title="Iniciar aprovisionamiento">
+En la página de configuración de aprovisionamiento **Descripción general (vista previa)**, haga clic en **Iniciar aprovisionamiento**.
+</Step>
+</Steps>
+</Tab>
+<Tab title="Otros proveedores de SCIM 2.0">
+Si utiliza cualquier otro proveedor de identidad que admita SCIM 2.0, siga estas instrucciones generales para configurar el aprovisionamiento.
+
+<Steps>
+<Step title="Habilite el aprovisionamiento SCIM o el aprovisionamiento automático en su IdP">
+- En la consola de administración de su IdP, busque SCIM o la configuración de aprovisionamiento para su aplicación ZenOpus.
+- Habilite el aprovisionamiento SCIM o el aprovisionamiento automático.
+</Step>
+<Step title="Configurar la conexión SCIM">
+Configure la conexión SCIM con los siguientes valores:
+
+- URL base de SCIM/URL de inquilino: `https://api.zenopus.dev/scim/v2`
+- Método de autenticación: `Bearer token (HTTP header)`
+- Token API/Token secreto: `<your ZenOpus SCIM API key>`
+- Campo de identificador único: `userName (email address)`
+</Step>
+<Step title="Habilitar acciones de aprovisionamiento">
+Habilite las acciones de aprovisionamiento que desee utilizar:
+
+- Crear usuarios
+- Actualizar atributos de usuario
+- Desactivar o eliminar usuarios
+- Enviar grupos (si se utiliza asignación de roles basada en grupos)
+</Step>
+<Step title="Pruebe la conexión">
+Pruebe la conexión utilizando la función de prueba integrada de su IdP.
+</Step>
+<Step title="Guardar la configuración">
+Guarde la configuración y habilite el aprovisionamiento.
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+Cuando el aprovisionamiento SCIM está configurado tanto en ZenOpus como en su proveedor de identidad, el aprovisionamiento y desaprovisionamiento de usuarios comenzará automáticamente según las asignaciones en su IdP.
+
+## Configurar el mapeo de roles
+
+SCIM admite la asignación automática de roles según la membresía del grupo IdP, lo que le permite controlar los permisos Workspace de forma centralizada.
+
+### Asignar grupos de IdP a roles
+
+Asigne sus grupos de IdP a roles ZenOpus Workspace para un control de acceso detallado.
+
+Para agregar una asignación de roles de grupo:
+
+1. Vaya a **Configuración → Workspace → Identidad → Aprovisionamiento SCIM.**
+1. En **Asignaciones de roles de grupo**, ingrese el **Nombre del grupo** exactamente como aparece en su IdP (por ejemplo, `engineering-admins`).
+1. Seleccione el **Rol** a asignar (espectador, editor o administrador)
+1. Haga clic en **Agregar** para guardar.
+
+<Note>
+Los nombres de los grupos no distinguen entre mayúsculas y minúsculas. Por ejemplo, `Engineering-Admins` y `engineering-admins` coinciden.
+</Note>
+
+**Asignaciones de ejemplo**
+
+| Grupo de proveedor de identidades | ZenOpus rol |
+| --- | --- |
+| adorables administradores | Administrador |
+| ingeniería | Redactor |
+| contratistas | Visor |
+
+Cuando se aprovisiona un usuario:
+
+- ZenOpus comprueba si el usuario pertenece a algún grupo asignado.
+- Si se encuentra una coincidencia, se asigna el rol correspondiente.
+- Si no se encuentra ninguna coincidencia, se asigna el **rol predeterminado**.
+
+## Administrar el aprovisionamiento SCIM
+
+Utilice la configuración de identidad para administrar el aprovisionamiento SCIM a lo largo del tiempo.
+
+### Rotar la clave API
+
+Rote la clave API si puede haber sido comprometida o necesita ser regenerada:
+
+1. Vaya a **Configuración → Workspace → Identidad → Aprovisionamiento SCIM.**
+1. Haga clic en **Rotar** junto a la clave API.
+1. Confirmar la rotación.
+1. Copie y guarde la nueva clave API inmediatamente.
+1. Actualice su IdP con la nueva clave API.
+
+<Warning>
+Rotar la clave API invalida inmediatamente la clave API anterior. Actualice la configuración de su IdP de inmediato para evitar interrupciones en el aprovisionamiento.
+</Warning>
+
+### Deshabilitar el aprovisionamiento SCIM
+
+Para detener el aprovisionamiento automático:
+
+1. Vaya a **Configuración → Workspace → Identidad → Aprovisionamiento SCIM.**
+1. Deshabilitar **aprovisionamiento SCIM.**
+
+<Note>
+Al deshabilitar SCIM se detiene el aprovisionamiento automático pero no se eliminan los miembros Workspace existentes. Los usuarios previamente aprovisionados a través de SCIM permanecerán en Workspace hasta que se eliminen manualmente.
+</Note>
+
+## Solución de problemas
+
+<AccordionGroup>
+<Accordion title="El aprovisionamiento de usuarios falla con el error &quot;dominio no verificado&quot;">
+SCIM solo aprovisiona usuarios cuyo dominio de correo electrónico esté verificado para su Workspace. Para arreglar:
+
+1. Vaya a **Configuración → Workspace → Identidad**
+1. Agregue y verifique el dominio de correo electrónico en **Dominios verificados**
+1. Vuelva a intentar el aprovisionamiento desde su IdP.
+</Accordion>
+<Accordion title="Los usuarios están aprovisionados pero no pueden iniciar sesión">
+Verifique que:
+
+- Su proveedor de SSO está configurado correctamente.
+- Los usuarios se asignan a la aplicación SSO en su IdP.
+
+Los usuarios aprovisionados mediante SCIM deben autenticarse mediante SSO.
+</Accordion>
+<Accordion title="No se están aplicando asignaciones de roles">
+Comprueba que:
+
+- Los nombres de los grupos en sus asignaciones coinciden exactamente con lo que envía su IdP (no distingue entre mayúsculas y minúsculas)
+- Su IdP está configurado para enviar datos de membresía de grupo en solicitudes SCIM
+- La inserción grupal está habilitada en su IdP
+</Accordion>
+</AccordionGroup>
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Puedo usar SCIM sin SSO?">
+No, SCIM requiere un proveedor de SSO activo. Los usuarios aprovisionados a través de SCIM se autentican utilizando su proveedor de SSO configurado.
+</Accordion>
+<Accordion title="¿Qué sucede con los usuarios existentes cuando habilito SCIM?">
+Los miembros Workspace existentes no se ven afectados cuando habilita SCIM. SCIM administra los usuarios aprovisionados a través de su IdP. Los usuarios previamente invitados continúan existiendo junto con los usuarios proporcionados por SCIM.
+</Accordion>
+<Accordion title="Perdí mi clave API. ¿Qué tengo que hacer?">
+La clave API solo se muestra una vez cuando se genera. Si lo has perdido:
+
+1. Vaya a **Configuración → Workspace → Identidad → Aprovisionamiento SCIM.**
+1. Haga clic en **Rotar** junto a la clave API y confirme la rotación.
+1. Actualice su IdP con la nueva clave API.
+</Accordion>
+<Accordion title="¿Qué sucede si un usuario pertenece a varios grupos asignados?">
+Cuando un usuario pertenece a varios grupos asignados, ZenOpus asigna el rol con mayor privilegio de esos grupos.
+</Accordion>
+<Accordion title="¿Debo utilizar SCIM o aprovisionamiento justo a tiempo (JIT)?">
+Se recomienda SCIM para entornos administrados donde el acceso y el ciclo de vida del usuario deben controlarse centralmente desde su proveedor de identidad.
+
+El aprovisionamiento justo a tiempo (JIT) se aplica solo a los usuarios que se registran a través de SSO. Cuando se crea un usuario mediante el registro de SSO, se aplica la función JIT.
+
+Cuando los usuarios se aprovisionan a través de SCIM, SCIM administra la creación de usuarios y la asignación de roles, incluidas las asignaciones de roles basadas en grupos, los metadatos de usuario o el rol SCIM predeterminado. En este caso, el aprovisionamiento SCIM y las asignaciones de roles tienen prioridad sobre JIT.
+</Accordion>
+</AccordionGroup>

@@ -1,0 +1,74 @@
+---
+title: "Verwendung benutzerdefinierter (Google-)Schriftarten"
+description: "Wenden Sie websichere Schriftarten wie Arial oder Courier New an oder importieren Sie Google Fonts nach Namen oder URL, um die Typografie Ihres Projekts anzupassen."
+---
+Derzeit führt ZenOpus keine direkten Support-Uploads von benutzerdefinierten Schriftarten durch.
+
+Es gibt jedoch mehrere einfache Möglichkeiten, websichere Schriftarten zu verwenden oder benutzerdefinierte Schriftarten in Ihre Projekte zu integrieren. Im Folgenden führen wir Sie durch die verfügbaren Methoden zur **Verwendung von websicheren** und **Google-Schriftarten**:
+
+<AccordionGroup>
+<Accordion title="Verwendung einer websicheren Schriftart">
+<Info>
+**Was sind websichere Schriftarten?**
+
+Websichere Schriftarten sind Schriftarten, die üblicherweise auf den meisten Betriebssystemen (Windows, macOS, Linux usw.) installiert werden und auf allen Geräten sichtbar sind.
+
+Diese Schriftarten stellen sicher, dass Ihr Text in verschiedenen Browsern und Plattformen konsistent aussieht, ohne dass externe Ressourcen geladen werden müssen. Einige der gängigen websicheren Schriftarten sind:
+
+- Arial/Helvetica
+- Times New Roman
+- Georgien
+- Kurier Neu
+- Verdana
+- Tahoma
+- Trebuchet MS
+- Lucida ohne Unicode
+</Info>
+
+Wenn Sie in Ihrem Projekt eine websichere Schriftart verwenden möchten, können Sie die Schriftart direkt in Ihrer Eingabeaufforderung angeben. Wenn Sie beispielsweise **Courier New** für eine Überschrift oder einen Titel im Heldenbereich verwenden möchten, verweisen Sie in Ihrer Eingabeaufforderung einfach namentlich auf die Schriftart.
+
+```text
+Verwenden Sie Courier New als Überschriftenschriftart im Heldenbereich für den Haupttitel.
+```
+
+Websichere Schriftarten wie Courier New stellen sicher, dass Ihr Projekt auf allen Plattformen eine einheitliche Typografie aufweist, ohne dass externe Ressourcen zum Laden der Schriftart erforderlich sind. Sie können jedoch Ihre Kreativität einschränken. Glücklicherweise gibt es Optionen wie die Möglichkeit, Google Fonts zu verwenden.
+</Accordion>
+<Accordion title="Verwendung von Google-Schriftarten">
+Wenn Sie benutzerdefinierte Schriftarten bevorzugen, funktioniert ZenOpus gut mit **Google Fonts**. Dadurch können Sie problemlos eine große Auswahl an Schriftarten in Ihrem Projekt verwenden. Sie können eine Google-Schriftart entweder namentlich referenzieren oder direkt auf die Schriftartenressource verlinken.
+
+### Verwendung mit Namen
+
+In Ihrer Eingabeaufforderung können Sie den Namen einer Google-Schriftart angeben, und ZenOpus wird diese in Ihr Projekt aufnehmen. Zum Beispiel:
+
+```text
+Verwenden Sie Playfair Display als erste Untertiteltitelschrift im Heldenbereich. 
+
+Stellen Sie sicher, dass Sie den useEffect React-Hook verwenden, um die Schriftart ordnungsgemäß anzuwenden.
+```
+
+### Verwendung per Link
+
+Alternativ können Sie einen direkten Link zur Google-Schriftart bereitstellen und ZenOpus verwendet diese Schriftart in Ihrem Projekt. Sie können den Link von [Google Fonts](https://fonts.google.com) erhalten, indem Sie die gewünschte Schriftart auswählen und den Link kopieren.
+
+So können Sie prompt ZenOpus eine Google-Schriftart über einen Link verwenden:
+
+```text
+Fügen Sie diesen Google-Font-Link hinzu: https://fonts.google.com/specimen/Dancing+Script 
+und verwenden Sie diese Schriftart für den dritten Untertitel.
+
+Stellen Sie sicher, dass Sie die Schriftart mit dem useEffect React-Hook laden.
+```
+
+Wenn Sie diese Methoden befolgen, können Sie die Typografie Ihres ZenOpus-Projekts anpassen, indem Sie entweder websichere Schriftarten oder Google Fonts verwenden.
+
+## Weiteres Lernen und Beispiele
+
+Um diese Methoden zur Schriftartenintegration in Aktion zu sehen, können Sie eines unserer Beispielprojekte erkunden: [ZenOpus Beispielprojekt zur Verwendung von Schriftarten](https://zenopus.dev/projects/3a826f38-d9cb-4d60-b4da-30a9b00149c8).
+
+In diesem Projekt finden Sie echte Eingabeaufforderungen, die zeigen, wie wir verschiedene Schriftarten angewendet haben, darunter websichere Schriftarten wie Courier New und benutzerdefinierte Schriftarten von Google Fonts.
+
+![Verschiedene Schriftarten, die im ZenOpus-Projekt verwendet werden](/images/zenopus/tips-tricks/custom-fonts/using-custom-fonts-example.png)
+
+Weitere technische Informationen zur Integration von Schriftarten finden Sie in diesem öffentlichen Repository: [GitHub: Adding-Fonts-Beispiel](https://github.com/viborc/adding-fonts-example). Es enthält die vollständigen Implementierungsdetails und zeigt, wie verschiedene Schriftarten im Projekt geladen und angewendet wurden.
+</Accordion>
+</AccordionGroup>

@@ -1,0 +1,416 @@
+---
+title: "ZenOpus Cloud"
+description: "ZenOpus Cloud es una plataforma de alojamiento completa con base de datos, autenticación, almacenamiento, funciones perimetrales e inteligencia artificial integradas, sin necesidad de configuración de infraestructura."
+---
+ZenOpus Cloud es una plataforma en la nube de pila completa que se encarga de cada parte de su aplicación, desde el frontend que ven sus usuarios hasta el backend que lo impulsa detrás de escena. Todo lo que debe hacer es describir lo que desea directamente en ZenOpus, y ZenOpus genera automáticamente tanto el frontend como el backend, listos para ejecutarse en la nube. En lugar de administrar hardware o infraestructura compleja, obtiene acceso bajo demanda a alojamiento, computación y almacenamiento que se escalan automáticamente a medida que crece su aplicación.
+
+ZenOpus Cloud utiliza la base de código abierto de Supabase, lo que significa que usted obtiene un entorno listo para producción desde el primer día, sin necesidad de configurar Supabase por separado. Tiene el poder de una base de datos lista para producción, actualizaciones en tiempo real, autenticación de usuario y almacenamiento, sin ninguno de los pasos de configuración manual.
+
+## Por qué elegir ZenOpus Cloud
+
+- **Escale a medida que crece**: desde su primer prototipo hasta millones de usuarios, ZenOpus se adapta perfectamente a sus necesidades.
+- **Seguro de forma predeterminada**: la autenticación de nivel empresarial, los controles de acceso detallados y las mejores prácticas de cumplimiento protegen su aplicación y sus datos.
+- **Rentable**: administre varios proyectos en un Workspace con precios basados en el uso. Cada Workspace comienza con **$25 de uso gratuito por mes**, suficiente para lanzar y ejecutar múltiples proyectos (oferta temporal hasta finales del primer trimestre de 2026, sujeta a cambios). Obtenga más información en [Precios de IA y nube basados ​​en el uso](/es/features/cloud#usage-based-cloud-and-ai-pricing).
+
+## Habilitando ZenOpus Cloud
+
+De forma predeterminada, ZenOpus Cloud está habilitado para su Workspace. Puede administrar el comportamiento de ZenOpus Cloud para sus proyectos en **Configuración → Conectores → Conectores compartidos → ZenOpus Cloud → Administrar permisos.**
+
+### Selección de región
+
+Los proyectos ZenOpus Cloud se pueden alojar en tres regiones diferentes:
+
+- Américas
+- Europa
+- Asia Pacífico
+
+Puede establecer una región predeterminada preferida para alojar nuevos proyectos en la nube en **Configuración → Conectores → Conectores compartidos → ZenOpus Cloud → Administrar permisos.**
+
+Si no se establece ninguna región preferida, ZenOpus selecciona automáticamente la región más cercana a su ubicación actual. Consulte [Configuración de herramientas ZenOpus Cloud](#configurando-herramientas-zenopus-cloud) para obtener más información.
+
+Elegir una región más cercana a sus usuarios da como resultado:
+
+- Menor latencia
+- Respuestas de base de datos más rápidas
+- Alojamiento de datos basado en regiones
+- Mejor rendimiento general del backend
+
+<Note>
+Una vez habilitada la nube, no puede cambiar la región seleccionada y no puede mover proyectos existentes entre regiones.
+</Note>
+
+### Preferencias de permiso
+
+La configuración predeterminada para la integración en la nube es **Permitir siempre**, lo que significa que ZenOpus realiza la acción automáticamente, sin solicitar revisión o aprobación. Puede cambiar su preferencia en cualquier momento desde **Configuración → Conectores → Conectores compartidos → ZenOpus Cloud → Administrar permisos.**
+
+ZenOpus le avisa cuando una función requiere funcionalidad de backend (por ejemplo, autenticación o almacenamiento de archivos). Tienes tres opciones:
+
+- **Permitir**: habilita la integración para el proyecto actual.
+- **Denegar**: rechaza la integración de esta solicitud (es posible que se te solicite nuevamente más tarde).
+- **Ajustar preferencias**: cambia el comportamiento predeterminado para proyectos futuros (no afecta el proyecto actual).
+
+### Configurando herramientas ZenOpus Cloud
+
+Las herramientas en la nube tienen tres opciones de permisos:
+
+- **Permitir siempre**: ZenOpus realiza automáticamente la acción, sin solicitar revisión o aprobación.
+- **Preguntar cada vez**: ZenOpus solicita su aprobación siempre que sea necesaria la acción.
+- **No permitir nunca**: ZenOpus bloquea la acción, le informa que se requiere acceso a la nube y le indica que habilite la nube.
+
+Puede cambiar sus preferencias de herramientas en la nube en cualquier momento desde **Configuración → Conectores → Conectores compartidos → ZenOpus Cloud → Administrar permisos.**
+
+#### Configuración y valores predeterminados de la herramienta
+
+| Configuración | Descripción | Comportamiento predeterminado |
+| --- | --- | --- |
+| Habilitar nube | Cree y conecte un proyecto en la nube para agregar funciones de backend (base de datos, autenticación, almacenamiento). Requerido para utilizar herramientas en la nube. | Permitir siempre |
+| Región de nubes | Seleccione la región predeterminada (la más cercana a mí, América, Europa o Asia Pacífico) para nuevos proyectos en la nube. Si la nube se habilita automáticamente usando Permitir siempre, esta región se usará automáticamente. | Región más cercana a tu ubicación |
+| Leer base de datos | Permita que ZenOpus lea su base de datos. | Permitir siempre |
+| Leer análisis | Consultar registros para investigar problemas y comportamientos. | Permitir siempre |
+| Ejecute controles de seguridad | Ejecute controles de seguridad automatizados en su base de datos. No es una auditoría completa. | Permitir siempre |
+| Modificar base de datos | Realice cambios de esquema y políticas a través de migraciones SQL. Actualizaciones generadas tipos. | Permitir siempre |
+| Añadir datos | Agregue datos a las tablas de su base de datos. | Permitir siempre |
+| Leer información del proyecto | Lea la configuración del proyecto y los detalles del entorno. | Permitir siempre |
+| Configurar autenticación | Permita que ZenOpus configure los ajustes de autenticación (por ejemplo, políticas de registro). | Permitir siempre |
+| Leer registros de backend | Leer registros de servicios backend. | Permitir siempre |
+
+## ZenOpus Cloud características
+
+Encontrará la **pestaña Nube** dentro de cualquier proyecto ZenOpus haciendo clic en el botón `+` junto a **Vista previa** **modo**.
+
+![ZenOpus Cloud icono](/images/zenopus/integrations/cloud/cloud-icon.png)
+
+Las siguientes funciones y configuraciones se encuentran dentro de la pestaña Nube:
+
+### Base de datos
+
+- **Genere esquemas automáticamente**: describa los datos que necesita en lenguaje sencillo y ZenOpus creará las tablas y el esquema por usted.
+- **Administrar sin SQL**: vea, edite y organice registros directamente en la interfaz de usuario. Actualice valores, inspeccione tablas y mantenga sincronizados los datos de su aplicación sin escribir consultas.
+
+### Usuarios y autenticación
+
+- **Administración de usuarios**: vea cuentas de usuarios, realice un seguimiento de la actividad y administre el control de acceso.
+- **Autenticación integrada**: ZenOpus puede generar páginas de registro/inicio de sesión para su aplicación. Admite correo electrónico, teléfono e inicio de sesión de Google.
+    - **Autenticación de Google**: ZenOpus Cloud admite **Iniciar sesión con Google** mediante OAuth 2.0. La autenticación de Google se puede habilitar en el modo **Administrado** (OAuth administrado por ZenOpus) o usando **sus propias credenciales de Google Cloud (BYOK)**. Consulte [Agregar autenticación de Google a ZenOpus Cloud aplicaciones](/es/features/google-auth) para obtener información detallada.
+- **Seguro de forma predeterminada**: la autenticación está respaldada por ZenOpus Cloud, lo que mantiene seguras las credenciales del usuario.
+
+### Almacenamiento
+
+- **Manejo de archivos sin código**: cargue, administre y proporcione archivos como fotos de perfil, documentos, videos o activos estáticos.
+- **Depósitos de almacenamiento**: los archivos se almacenan de forma segura en un depósito de proyecto, con URL o referencias que puedes usar en tu aplicación.
+- **Límites**: Admite archivos de hasta 2 GB.
+
+### Funciones de borde
+
+- **Lógica sin servidor**: ejecute código personalizado para API, flujos de trabajo o funciones avanzadas, sin aprovisionar servidores. Las funciones escalan automáticamente con el tráfico.
+
+**Casos de uso comunes:**
+
+- Funciones impulsadas por IA, como resúmenes de IA o chatbots de IA. Utilice [ZenOpus AI](/es/features/ai) integrado.
+- Envío de correos electrónicos o notificaciones push
+- Procesamiento de pagos, por ejemplo con [Stripe](/es/integrations/stripe#stripe-integration)
+- Tareas programadas
+- Cálculos pesados o llamadas API externas
+
+**Otros aspectos destacados:**
+
+- **Fácil de crear**: simplemente describe la función que necesitas en el chat ZenOpus.
+- **Depuración integrada**: cada función incluye registros de ejecuciones, resultados y errores. Si algo falla, ZenOpus muestra el error para solucionarlo rápidamente.
+
+### IA
+
+- **Funcionalidad de IA integrada**: ZenOpus Cloud viene con IA integrada para que puedas crear rápidamente funciones que hagan que tu aplicación sea más inteligente y atractiva. Para obtener más información, consulte [ZenOpus AI](/es/features/ai).
+- Algunos ejemplos de funciones impulsadas por IA incluyen:
+    - **Resúmenes de IA**: condensa automáticamente textos largos en conclusiones claras
+    - **Chatbot o agente de IA**: incorpore ayudas conversacionales en su aplicación
+    - **Detección de opiniones**: comprenda los comentarios de los usuarios a escala
+- Puede monitorear el uso y el rendimiento de la IA de ZenOpus para su proyecto desde la descripción general de la IA.
+
+### Secretos
+
+- **Variables de entorno seguras**: almacene datos confidenciales como claves API, tokens o credenciales sin exponerlos en el código.
+- **Detección automática**: cuando una función necesita un secreto, ZenOpus le solicita que lo ingrese a través de una interfaz de usuario segura.
+- **Cifrado y seguro**: los secretos se almacenan de forma segura y se inyectan automáticamente en Edge Functions u otras integraciones.
+
+**Ejemplo:** Almacene su clave secreta de Stripe una vez y ZenOpus garantiza que se incluya en las funciones de procesamiento de pagos sin que usted la codifique.
+
+<Note>
+Algunos secretos, como las claves de Supabase y la clave API ZenOpus, se agregan automáticamente y son necesarios para el funcionamiento de la plataforma ZenOpus. Estas claves no se pueden eliminar.
+</Note>
+
+### Registros
+
+- **Monitoreo en tiempo real**: observe la actividad de la aplicación a medida que ocurre.
+- **Depurar y rastrear problemas**: identifique errores, realice un seguimiento de eventos y asegúrese de que su backend esté en buen estado.
+
+### Uso
+
+La pestaña **Uso** le brinda un desglose visual de cómo su aplicación consume ZenOpus Cloud recursos durante un período de tiempo seleccionado.
+
+El período de tiempo predeterminado es **Últimos 7 días**. Puede cambiar a **Último día** desde el menú desplegable para ajustar el período mostrado. El uso de la nube se actualiza diariamente a las 10 a.m. CET.
+
+El uso se desglosa en **categorías de recursos**, se muestra como una barra segmentada y se enumera individualmente con un porcentaje:
+
+- **Servidor de base de datos**: se utiliza cuando su aplicación consulta o actualiza datos. Ajuste su [tamaño de instancia](#configuración-avanzada-actualizar-instancia) para que coincida con el tráfico de su aplicación. Las instancias más grandes proporcionan más capacidad pero aumentan los costos de la nube.
+- **Almacenamiento de base de datos**: el espacio en disco utilizado por su base de datos para almacenar los datos de su aplicación (como usuarios, pedidos y configuraciones).
+- **Calcular**: se utiliza cuando se ejecuta el código de tu aplicación.
+- **Almacenamiento**: se utiliza para almacenar archivos como imágenes, videos y cargas.
+- **Actualizaciones en vivo**: se utiliza para enviar actualizaciones en tiempo real a los usuarios (por ejemplo, notificaciones o chat).
+- **Red**: se utiliza cuando tu aplicación envía o recibe datos a través de Internet.
+
+Las categorías están ordenadas de mayor a menor. El porcentaje al lado de cada categoría muestra su participación en los costos totales de la nube para el período seleccionado. Por ejemplo, si **Computación** muestra un 29 %, entonces el 29 % de su gasto en la nube durante ese tiempo provino del uso de computación.
+
+### Configuración avanzada: actualizar instancia
+
+Utilice la configuración avanzada para ver y administrar el tamaño de su instancia actual. Una instancia más grande permite que su aplicación maneje más usuarios y tráfico. Tenga en cuenta que los costos de uso de la nube aumentarán a medida que crezca el uso de su aplicación.
+
+- **Free usuarios del plan**: actualice de **Tiny** a una instancia más grande actualizando su plan en cualquier momento
+- **Usuarios del plan pago**: elija un nuevo tamaño de instancia entre las siguientes opciones:
+    - **Tiny**: genial para probar cosas
+    - **Mini**: confiable para proyectos iniciales
+    - **Pequeño**: espacio para crecer con tu aplicación
+    - **Medio**: elección constante para uso regular
+    - **Grande**: opción segura para una mayor demanda
+
+ZenOpus **le avisa** cuando se acerca a sus límites de recursos ZenOpus Cloud. Esto le permite actualizar su instancia de manera oportuna para garantizar un rendimiento rápido y confiable.
+
+La alerta se activa cuando ocurre cualquiera de las siguientes situaciones:
+
+- Queda menos del 10% de espacio en disco
+- El presupuesto de IO es inferior al 50%
+- La carga de la CPU está por encima del 80%
+
+La alerta de actualización también incluye un desglose detallado del uso (espacio en disco, E/S de disco, CPU).
+
+![Notificación de alerta que muestra los límites de recursos de la instancia de la nube con espacio en disco, presupuesto de E/S y desglose del uso de la CPU, lo que solicita al usuario que actualice el tamaño de la instancia](/images/zenopus/integrations/cloud/cloud-instance-upgrade-alert.png)
+
+### Configuración avanzada: entornos de prueba y en vivo (Beta)
+
+<Note>
+Disponible para proyectos en la nube y gratis durante la Beta. El precio se decidirá más adelante.
+</Note>
+
+Los entornos de prueba y en vivo le permiten separar el **desarrollo** de los **datos de producción** mientras trabaja en proyectos ZenOpus Cloud. Todo el desarrollo se realiza de forma segura en Test y Live solo se actualiza cuando usted publica explícitamente.
+
+Consulte [Compilación segura con entornos de prueba y en vivo (Beta)](/es/features/environments) para obtener información detallada.
+
+## Flujo de ejemplo: solicitar a ZenOpus que cree una herramienta CRM
+
+*Constrúyame una herramienta CRM para gestionar clientes, realizar un seguimiento de ofertas, gestionar facturas y mantener notas organizadas. Mantenga el diseño simple, moderno y amigable para los negocios con una barra lateral para la navegación.*
+
+### Paso 1: Organizar los datos (Base de datos)
+
+Dígale a ZenOpus qué tipo de información debe realizar un seguimiento de la herramienta para usted. ZenOpus creará automáticamente las tablas por usted, por lo que no necesita tocar las bases de datos usted mismo.
+
+*Quiero un lugar para realizar un seguimiento de mis clientes con su nombre, correo electrónico, número de teléfono y notas. También necesito una forma de realizar un seguimiento de los acuerdos, incluido para qué cliente es, el valor, la etapa en la que se encuentran y cuándo espero que se cierren. Y necesito un apartado de facturas con el cliente al que pertenece, el importe, el estado y la fecha de vencimiento.*
+
+### Paso 2: Hazlo seguro (Usuarios y Autenticación)
+
+Agregue inicio de sesión para que los datos sean privados y los usuarios puedan iniciar sesión fácilmente.
+
+*Agregar inicio de sesión a la aplicación. Solicite iniciar sesión antes de acceder al panel de CRM. Además, agregue el botón "Iniciar sesión con Google" para que los usuarios puedan iniciar sesión con sus cuentas de Google.*
+
+### Paso 3: Manejar archivos (Almacenamiento)
+
+Puede permitir que los usuarios carguen y vean archivos directamente dentro de la aplicación. ZenOpus se encarga del almacenamiento y la vinculación, por lo que usted simplemente describe qué archivos deben ir y dónde.
+
+*Agregue un campo de carga de contrato a cada oferta. Permita que los clientes tengan imágenes de perfil y muéstrelas en la página de detalles del cliente. Cargue archivos PDF de facturas y muestre un enlace de descarga en la tabla de facturas.*
+
+### Paso 4: Automatizar los flujos de trabajo (funciones perimetrales)
+
+Configura acciones automáticas que te ahorren tiempo.
+
+*Cuando se agregue un nuevo cliente potencial a la tabla Clientes, envíeme una notificación por correo electrónico. Analice las notas de las reuniones de los clientes con ZenOpus AI y guarde una puntuación de sentimiento en la tabla Clientes. Sincroniza nuevos contactos automáticamente. Programe un trabajo diario a las 7 a. m. que me envíe por correo electrónico un resumen de los seguimientos de hoy. Cuando un pago está marcado como "pagado" en Stripe, actualiza automáticamente el estado de la factura relacionada a "Pagado".*
+
+### Paso 5: Conéctese a otras herramientas (Secretos)
+
+Cuando utilizas servicios como Stripe o Google Calendar, te darán "claves" privadas.  
+
+ ZenOpus te pedirá que los agregues de forma segura cuando sea necesario y solo tu aplicación podrá usarlos.
+
+### Paso 6: agregue superpoderes de IA (IA)
+
+Haga que la herramienta actúe como su asistente.
+
+*Resuma las notas de las reuniones de cada cliente y guárdelas en su perfil. Sugiera los próximos pasos para cada acuerdo abierto. Genere borradores de correo electrónico personalizados para realizar un seguimiento de los clientes potenciales. Clasifique los mensajes de los clientes en categorías: ventas, Support o facturación.*
+
+## Precios de nube e inteligencia artificial basados en el uso
+
+ZenOpus incluye alojamiento en la nube e inteligencia artificial integrada en todos los planes de precios, incluso el plan Free. Estos servicios se ejecutan en un **modelo de precios basado en el uso**. Esto significa que sus costos aumentan con la cantidad que usa y no están cubiertos por su suscripción.
+
+Desde tu Workspace o proyecto, ve a **Configuración → Saldo de nube e IA**. Aquí puedes:
+
+- Ver el estado del saldo Workspace
+- Recarga y agrega fondos a tu saldo Workspace (disponible solo para planes pagos)
+- Acceda a su historial de facturas y administre las preferencias de pago
+- Realice un seguimiento de los costos totales de uso de la nube y la IA en su Workspace
+- Vea los costos detallados de uso de la nube y la IA para cada proyecto
+    <Note>
+    Actualmente, la lista incluye todos los proyectos, incluso aquellos que no utilizan ZenOpus Cloud o AI. Los proyectos sin uso siempre muestran $0,00.
+    </Note>
+
+La pantalla de saldo de Nube e IA se actualiza de la siguiente manera:
+
+- El uso de la nube se actualiza diariamente a las 10 a. m. CET
+- El uso de IA se actualiza continuamente
+
+<Note>
+- Su **saldo de nube** paga por alojar aplicaciones implementadas.
+- Su **saldo de IA** paga por las funciones de IA dentro de las aplicaciones implementadas.
+- **Workspace Los créditos** están separados, solo se usan para enviar mensajes mientras se crean aplicaciones y se pueden rastrear en **Configuración → Planes y créditos**.
+</Note>
+
+### Uso gratuito incluido (todos los planes)
+
+Cada Workspace recibe uso mensual gratuito, independientemente del plan y de cuándo inicias tu plan en el mes:
+
+- **Saldo de nube de $25** para alojamiento de aplicaciones
+- **Saldo de IA de $1** para funciones de IA
+
+Estos fondos gratuitos se restablecen el primer día de cada mes a las 00:00 UTC (que se muestran en su zona horaria) y no están vinculados al ciclo de facturación de su plan de suscripción. Los fondos gratuitos no utilizados no se acumulan al mes siguiente.
+
+<Note>
+**Oferta temporal, sujeta a cambios:** Hasta finales del primer trimestre de 2026, cada Workspace obtiene $25 de nube y $1 de IA por mes, incluso para los usuarios del plan Free.
+</Note>
+
+### Agregar fondos (solo planes pagos)
+
+Agregar fondos a su saldo Workspace para ZenOpus Cloud y uso de AI está disponible solo en planes pagos. Los usuarios del plan Free deben actualizar para acceder a esta funcionalidad.
+
+Cualquier uso que exceda el monto incluido se factura por separado y no está cubierto por su suscripción.
+
+- **Uso de la nube:** depende de la actividad (número de usuarios e interacciones) y de la transferencia de datos (cargas/descargas).
+- **Uso de IA:** depende del modelo utilizado y de la complejidad de la tarea (los modelos más avanzados cuestan más). Para verificar los costos, consulte las fuentes oficiales vinculadas en nuestra lista de modelos de IA compatibles en [ZenOpus AI](/es/features/ai).
+
+Los propietarios y administradores de Workspace en planes pagos pueden recargar saldos realizando una recarga manual única o configurando recargas automáticas.
+
+Los fondos Workspace no utilizados se acumulan mes a mes pero vencen después de un año.
+
+**Recarga única**
+
+Recarga tu saldo Workspace manualmente con el monto que elijas.
+
+1. Vaya a **Configuración → Saldo de nube e IA → Recarga → Recarga única.**
+1. Ingrese un monto personalizado o elija una opción predefinida ($10 mínimo, $1000 máximo).
+1. Complete el pago de forma segura a través de Stripe.
+
+**Recarga automática**
+
+Agregue fondos automáticamente cuando su saldo caiga por debajo de $10, pero mantenga el control de sus cargos mensuales agregando un límite de cargo mensual.
+
+1. Vaya a **Configuración → Saldo de nube e IA → Recarga → Recarga automática.**
+1. Habilitar recarga automática.
+1. Ingrese un monto de recarga que se cargará automáticamente y se agregará a su saldo Workspace cuando su saldo caiga por debajo de $10 ($10 mínimo, $1000 máximo).
+1. Establezca un límite de cargo mensual para controlar cuánto se puede cobrar en total cada mes ($10 mínimo, $50,000 máximo).
+1. Haga clic en **Guardar**.   
+Su método de pago predeterminado se cargará automáticamente cuando su saldo caiga por debajo de $10, siempre que no haya alcanzado su límite de cargo mensual.
+
+Cuando configuras la recarga automática, puedes monitorear visualmente tus cargos mensuales desde la pantalla **Recarga automática**. El período de cargo mensual se restablece el primer día de cada mes a las 00:00 UTC (que se muestra en su zona horaria) y no está vinculado al ciclo de facturación de su plan de suscripción.
+
+### Alertas y notificaciones
+
+ZenOpus lo mantiene informado para evitar interrupciones inesperadas del servicio:
+
+- **Notificaciones por correo electrónico** enviadas a Workspace propietarios y administradores
+- **Alertas de uso** mostradas en la pantalla de saldo de Nube e IA y en la descripción general de la Nube
+
+Las alertas se activan cuando su Workspace:
+
+- Alcanza un cierto porcentaje de uso incluido
+- Utiliza todo el uso incluido
+- Alcanza un cierto porcentaje del saldo de la billetera
+- Utiliza todos los fondos de la billetera
+
+Si se agota su saldo de Workspace, su aplicación dejará de funcionar hasta que se agreguen fondos (o se restablezca el uso gratuito al comienzo del próximo mes).
+
+Para mantener su aplicación funcionando:
+
+- Plan **Free:** actualice a un plan pago para agregar fondos.
+- **Planes pagos:** recarga tu saldo Workspace en cualquier momento o habilita la recarga automática.
+
+### Ejemplo Workspace Costos de nube e IA (por mes)
+
+A continuación se muestran algunos ejemplos para darle una idea de cómo podrían ser los costos mensuales típicos de la nube y la IA por Workspace para diferentes tipos de aplicaciones. Estas cifras son estimaciones aproximadas, sólo para ayudar a establecer expectativas.
+
+Tenga en cuenta:
+
+- Su suscripción ZenOpus no incluye costos de nube o IA. Los cubres por separado.
+- Cada plan incluye $25/mes de uso gratuito de la nube y $1/mes de uso gratuito de IA por Workspace.
+- El costo de usar ZenOpus AI es exactamente el mismo que el de ir directamente al proveedor de LLM. Para verificar los costos, consulte las fuentes oficiales vinculadas en nuestra lista de modelos de IA compatibles en [ZenOpus AI](/es/features/ai).
+- Los costos de IA a continuación se estiman utilizando el modelo predeterminado, Gemini 3 Flash.
+
+| Tipo de aplicación | Ejemplo de uso mensual | Costo de la nube | Costo de la IA | Lo que pagas a ZenOpus |
+| --- | --- | --- | --- | --- |
+| Blog personal o portafolio | 500 visitas, un puñado de publicaciones/comentarios, algunas imágenes, servidor pequeño. La IA agrega resúmenes o títulos atractivos (2500 llamadas de IA al mes, 50 tokens de entrada + 150 tokens de salida cada uno). | $1 | $1 | Sólo suscripción. El uso gratuito incluido cubre completamente los costos de la nube y la inteligencia artificial. |
+| Sitio web para pequeñas empresas | 5.000 visitas, listados de productos, formularios/suscripciones a boletines, imágenes de productos, servidor pequeño. La IA agrega un asistente de chat simple (6500 llamadas de IA al mes, 30 tokens de entrada + 120 de salida cada uno). | $5 | $2 | Suscripción + $1 (AI) El uso gratuito incluido cubre completamente los costos de la nube y $1 de los costos de AI. |
+| Responsable de proyectos de equipo | 20 usuarios activos, 10.000 visitas, tareas y comentarios, carga de archivos, actualizaciones en vivo, servidor pequeño. La IA agrega sugerencias de tareas, recordatorios y resúmenes de comentarios (6000 llamadas de IA al mes, 200 tokens de entrada + 300 tokens de salida cada uno). | $15 | $5 | Suscripción + $4 (AI) El uso gratuito incluido cubre completamente los costos de la nube y $1 de los costos de AI. |
+| Tienda de comunicaciones electrónicas | 10.000 visitantes, 500 compras, muchas imágenes de productos, datos de clientes/pedidos, flujos de pago, servidor mediano. La IA añade descripciones de productos y un asistente de compras (20.000 llamadas de IA al mes, 40 tokens de entrada + 200 tokens de salida cada uno). | $65 | $10 | Suscripción + $49 (Nube + AI) El uso gratuito incluido cubre $25 de costos de nube y $1 de costos de IA. |
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Tengo control total sobre mis gastos mensuales?">
+Sí. Diseñamos ZenOpus Cloud para brindarle un control total:
+
+- **Opción 1: Presupuesto estricto (cero cargos)**  
+Manténgase estrictamente dentro de la asignación gratuita. Si pasa, sus proyectos se pausan automáticamente. Tu factura permanece en $0.
+- **Opción 2: Recargar manualmente (escalado controlado)**  
+Recarga tu saldo Workspace con el monto que elijas. Tus aplicaciones escalan y solo pagas por el uso que supere la asignación gratuita.   
+Si gasta su saldo de Workspace, recibirá una notificación y sus proyectos se pausarán automáticamente.
+- **Opción 3: Recargar automáticamente (escalado continuo)**  
+Agregue fondos automáticamente cuando su saldo caiga por debajo de $10, pero mantenga el control de sus cargos mensuales agregando un límite de cargo mensual. Sus aplicaciones escalan sin interrupción y solo paga por el uso que supere la asignación gratuita.  
+Si no se pueden agregar fondos automáticamente porque alcanzó su límite de cargo mensual, sus proyectos se detendrán cuando se agote el saldo restante de Workspace.
+</Accordion>
+<Accordion title="¿Se deducen mis créditos por el uso de la nube y la IA?">
+No, sus créditos Workspace están separados y solo se usan para enviar mensajes mientras se crean aplicaciones. Puede realizar un seguimiento de su uso de crédito en **Configuración → Planes y créditos**.
+
+Puede realizar un seguimiento de su uso de la nube y la IA en **Configuración → Saldo de la nube y la IA**.
+
+- Su saldo en la nube paga por alojar aplicaciones implementadas.
+- Su saldo de IA paga por las funciones de IA dentro de las aplicaciones implementadas.
+</Accordion>
+<Accordion title="¿Cuál es el costo de ZenOpus IA?">
+El costo de usar ZenOpus AI es exactamente el mismo que el de ir directamente al proveedor de LLM. No hay tarifas ocultas. Para verificar los costos, consulte las fuentes oficiales vinculadas en nuestra lista de modelos de IA compatibles en [ZenOpus AI](/es/features/ai).
+</Accordion>
+<Accordion title="Actualmente estoy usando la integración de Supabase. ¿Qué significa este cambio para mí?">
+No se preocupe, nada cambia para sus proyectos existentes. Su integración de Supabase seguirá funcionando exactamente como lo hace hoy y continuaremos Support.
+
+- Para proyectos existentes: continúe usando Supabase sin cambios.
+- Para proyectos nuevos: elija ZenOpus Cloud o Supabase.
+</Accordion>
+<Accordion title="¿Puedo cambiar de opinión después de agregar Cloud a mi proyecto?">
+No, cuando conectas tu proyecto a la Nube, no puedes revertir ese cambio ni desconectar tu proyecto de la Nube.
+</Accordion>
+<Accordion title="¿Puedo remezclar proyectos en la nube?">
+Sí, los proyectos en la nube solo se pueden remezclar en proyectos en la nube. Esto crea una copia de su proyecto que puede editar por separado en su Workspace actualmente seleccionado. La estructura de los datos relacionados con el backend, como tablas y funciones perimetrales, se copia sin ninguna información. Para cualquier clave generada automáticamente en el proyecto original, ZenOpus genera claves nuevas en el proyecto remezclado. Las claves agregadas manualmente no se copian.
+
+Al remezclar, puedes seleccionar qué región albergará el backend del nuevo proyecto (América, Europa o Asia Pacífico). ZenOpus preselecciona la región más cercana a usted según su ubicación. Una vez seleccionada, la región no se puede cambiar para ese proyecto.
+
+Tenga en cuenta que no puede volver a una versión anterior de su aplicación en el proyecto remezclado si el proyecto utiliza el backend ZenOpus. Para proyectos solo de frontend alojados en la nube, es posible realizar reversiones.
+</Accordion>
+<Accordion title="¿Puedo exportar mi proyecto Cloud a Supabase?">
+Esto es técnicamente posible ya que eres propietario del código en GitHub, pero no es sencillo. Estamos buscando hacer esto más fácil. Para obtener más información, consulte [Autohospedaje: ejecute su proyecto ZenOpus Cloud en cualquier lugar](/es/tips-tricks/self-hosting).
+</Accordion>
+<Accordion title="¿Cómo sé qué proyectos generan más uso?">
+Puedes ver el desglose del uso de la nube y la IA por proyecto en **Configuración → Saldo de la nube y la IA.**
+
+<Note>
+Actualmente, la lista incluye todos los proyectos, incluso aquellos que no utilizan ZenOpus Cloud o AI. Los proyectos sin uso siempre muestran $0,00.
+</Note>
+</Accordion>
+<Accordion title="¿Puedo migrar mi proyecto de Supabase a la Nube?">
+Por el momento, no se admite la migración de Supabase a la Nube. Si su proyecto ya está conectado a Supabase, le recomendamos continuar usándolo, ya que seguiremos apoyando a Supabase en el futuro.
+</Accordion>
+<Accordion title="Los datos de My Cloud no se cargan. ¿Qué tengo que hacer?">
+Esto puede suceder si tiene demasiados datos ejecutándose en una instancia de proyecto de nube más pequeña. Para solucionarlo, vaya a la **pestaña Nube → Descripción general → Configuración avanzada** y luego elija un tamaño de instancia mayor. Después de cambiar a una instancia más grande y darle un par de minutos para cambiar, los datos deberían cargarse y su proyecto de nube debería funcionar nuevamente. Tenga en cuenta que un tamaño de instancia mayor dará como resultado un mayor uso de la nube y mayores costos de uso de la nube.
+</Accordion>
+<Accordion title="¿Puedo cambiar la región después de habilitar la nube para un proyecto?">
+No. Una vez que se habilita la nube para un proyecto, la región seleccionada se bloquea y no se puede cambiar. Los proyectos existentes no se pueden mover entre regiones.
+</Accordion>
+<Accordion title="¿Cómo se selecciona la región cuando habilito la nube?">
+ZenOpus preselecciona automáticamente la región más cercana a su ubicación actual, pero puede cambiarla antes de confirmar.
+</Accordion>
+<Accordion title="¿Puedo establecer una región predeterminada para todos los proyectos nuevos?">
+Sí. Puede establecer una región predeterminada preferida para nuevos proyectos de nube en **Configuración → Conectores → Conectores compartidos → ZenOpus Cloud → Administrar permisos**.
+</Accordion>
+</AccordionGroup>

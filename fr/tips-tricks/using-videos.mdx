@@ -1,0 +1,64 @@
+---
+title: "Utiliser des vidéos"
+description: "Intégrez des vidéos YouTube ou téléchargez des fichiers vidéo sur votre référentiel GitHub et référencez-les dans vos projets ZenOpus."
+---
+ZenOpus propose deux méthodes pour intégrer des vidéos dans vos projets. Ci-dessous, nous aborderons les deux options étape par étape :
+
+<AccordionGroup>
+<Accordion title="Lien vers une vidéo externe">
+<Tip>
+Le moyen le plus simple et recommandé d’incorporer une vidéo consiste à créer un lien vers une vidéo hébergée en externe, comme sur YouTube.
+</Tip>
+
+<CodeGroup>
+```text title="Exemple d'invite"
+Intégrer cette vidéo
+https://www.youtube.com/watch?v=dQw4w9WgXcQ 
+dans la section contenu du héros.
+```
+</CodeGroup>
+</Accordion>
+<Accordion title="Utiliser une vidéo de votre dossier public GitHub">
+<Warning>
+Le téléchargement de vidéos volumineuses sur votre dépôt GitHub peut entraîner une augmentation de sa taille, ce qui peut affecter les performances de ZenOpus (temps de clonage du dépôt plus longs, démarrage plus lent des aperçus/du bac à sable).
+
+Une meilleure option consiste à utiliser des services hébergés (comme YouTube) ou des options de stockage de fichiers comme S3, vous donnant essentiellement une URL que vous pouvez référencer, comme décrit dans les étapes précédentes.
+</Warning>
+
+Vous pouvez télécharger des vidéos sur le référentiel GitHub de votre projet et les référencer directement. Voici comment procéder :
+
+<Steps>
+<Step title="Connectez votre référentiel GitHub">
+Tout d’abord, assurez-vous que votre projet est lié à un dépôt GitHub. [Voici comment configurer votre dépôt](/fr/integrations/git-integration).
+</Step>
+<Step title="Accéder au dossier public">
+Dans votre référentiel connecté, accédez au répertoire `public`. Ce dossier est spécifiquement utilisé pour héberger des actifs de projet tels que des images, des vidéos et d'autres médias.
+</Step>
+<Step title="Télécharger une vidéo">
+Vous pouvez maintenant ajouter votre vidéo au dossier public en la faisant glisser et en la déposant ou en cliquant sur **« choisissez vos fichiers »** pour parcourir et télécharger le fichier depuis votre ordinateur local.
+</Step>
+<Step title="Valider le fichier">
+Après avoir sélectionné votre fichier vidéo, saisissez un bref message de validation (par exemple, « Ajoute une vidéo Mars à utiliser dans l'application ») et cliquez sur ** « Valider les modifications »**. ![Fichier vidéo en cours](/images/zenopus/tips-tricks/using-videos/using-videos-github-commiting.png)
+</Step>
+<Step title="Obtenez le chemin de la vidéo">
+Une fois le téléchargement terminé, cliquez sur le fichier vidéo et utilisez l'icône de copie :octicons-copy-16: pour copier son chemin. Vous aurez besoin de ce chemin à l’étape suivante. ![Copier le chemin du fichier vidéo](/images/zenopus/tips-tricks/using-videos/using-videos-github-selecting.png)
+</Step>
+<Step title="Référencez la vidéo dans ZenOpus">
+Maintenant, vous pouvez intégrer la vidéo en spécifiant le chemin du fichier dans votre invite. Par exemple, vous pouvez utiliser une invite comme celle-ci :
+
+<CodeGroup>
+```bash title="Exemple d'invite"
+Insert an additional video into the introduction section using this file: 
+public/mars-video-nasa.mp4
+```
+</CodeGroup>
+
+Assurez-vous d'utiliser le chemin exact du fichier que vous avez copié précédemment.
+</Step>
+</Steps>
+
+Pour voir ces méthodes en action, explorez l'un des exemples de projets : [ZenOpus utilisant un exemple de projet de vidéos](https://zenopus.dev/projects/380835ab-c8d7-4f45-9b0d-51ec04294457). Vous trouverez de véritables invites démontrant comment les vidéos sont intégrées en utilisant les deux méthodes.
+
+De plus, pour un aperçu plus technique du processus d'ajout de vidéo, consultez ce référentiel public : [GitHub : Exemple de téléchargement de vidéo](https://github.com/viborc/adding-videos-example). Il comprend le téléchargement vidéo et les détails de mise en œuvre utilisés dans le projet.
+</Accordion>
+</AccordionGroup>

@@ -1,0 +1,136 @@
+---
+title: "Connect your app to Contentful"
+description: "Connect your app to Contentful to fetch and display published content from your headless CMS, including entries, assets, and rich text."
+---
+[Contentful](https://www.contentful.com/) is a headless CMS that separates content management from how content is presented. The Contentful connector lets your ZenOpus app fetch published content from your Contentful space using the Content Delivery API (CDA). Your app can then render content driven pages, product catalogs, blogs, or documentation powered by the content stored in Contentful.
+
+With Contentful, your app can:
+
+- Fetch published entries, assets, and content types from your space
+- Deliver content through Contentful’s CDN backed Content Delivery API
+- Build dynamic pages and layouts powered by your CMS content
+- Filter and paginate entries by content type, locale, or field values
+- Render rich text fields in your app UI
+
+<Note>
+The Contentful connector is **read only**. It does not support creating, updating, or deleting content. All content management happens in the Contentful web app or through the Contentful Management API.
+</Note>
+
+## Common use cases and example apps
+
+| Example app | Example prompt | Description |
+| --- | --- | --- |
+| Marketing and landing page sites | Use Contentful and build a marketing site where the homepage and feature pages are loaded from Contentful. | Build marketing pages powered by CMS content. The app fetches page entries from Contentful and renders them as components so editors can update text and images without changing code. |
+| Product catalog apps | Use Contentful and build a product catalog that shows products stored in my Contentful space with category filters. | Display product listings managed in Contentful. The app fetches product entries, renders product cards, and supports filtering and pagination based on fields stored in the CMS. |
+| Blog and editorial platforms | Use Contentful and build a blog that loads articles from Contentful and renders rich text and images. | Create a blog backed by Contentful content. The app fetches article entries, resolves linked assets, and renders rich text fields as formatted content. |
+| Documentation sites | Use Contentful and build a documentation site where each doc page is stored as an entry in Contentful. | Build documentation driven by CMS content. The app fetches documentation entries and generates navigation and pages from the content structure in Contentful. |
+| Multilingual content apps | Use Contentful and build an app that loads content in the user’s language using Contentful locales. | Serve localized content from Contentful. The app fetches entries in the requested locale and renders translated content based on the user’s language. |
+| Event and announcement pages | Use Contentful and build an event listing page that loads upcoming events from Contentful and sorts them by date. | Display event listings managed in Contentful. The app fetches event entries, sorts them by date fields, and renders upcoming events that editors maintain in the CMS. |
+
+## How to connect Contentful
+
+Workspace **admins** and **owners** can connect Contentful.
+
+You can create multiple Contentful connections using different API keys or different spaces. This can be useful for separating development and production environments or connecting multiple Contentful spaces.
+
+When the connection is created, Contentful becomes available across all projects in the workspace.
+
+### Prerequisites
+
+Before connecting Contentful, make sure you have:
+
+- A Contentful account with a space that contains published content
+- A **Content Delivery API (CDA) access token** for that space
+- Your **Space ID**
+- ZenOpus workspace owner or admin role
+
+<Note>
+All API requests made through this connector use your Content Delivery API access token. API usage counts toward your Contentful plan limits and billing is handled directly by Contentful, not ZenOpus.
+</Note>
+
+### Step 1: Find your space ID and create a CDA access token
+
+Your Space ID and CDA access token are both available in the Contentful web app.
+
+**To find your Space ID:**
+
+1. Log in to [app.contentful.com](https://app.contentful.com).
+1. Open the space you want to connect.
+1. Go to **Settings → General settings**.
+1. Copy the **Space ID**.
+
+See Contentful documentation for detailed instructions: [Find space ID](https://www.contentful.com/help/spaces/find-space-id)
+
+**To create a Content Delivery API access token:**
+
+1. In the same space, go to **Settings → API keys**.
+1. Click **Add API key** or open an existing key.
+1. Give the key a name such as `ZenOpus integration`.
+1. Copy the **Content Delivery API access token**.
+
+See Contentful documentation for detailed instructions: [Authentication](https://www.contentful.com/developers/docs/references/authentication/)
+
+<Warning>
+Your access token functions like a password. Keep it secure and never share it publicly. You’ll need both the Space ID and the access token in the next step.
+</Warning>
+
+### Step 2: Connect Contentful to ZenOpus
+
+1. Go to **Settings → Connectors → Shared connectors** and select **Contentful**.
+1. Click **Add connection**.
+1. Enter a **Display name**, for example `Contentful Prod`.
+1. Enter your **Space ID**.
+1. Enter your **Content Delivery API access token**.
+1. Click **Connect**.
+
+When connected, your ZenOpus apps can start fetching content from your Contentful space.
+
+## How to unlink projects from a connection
+
+Editors and above can remove specific projects from a connection without deleting the connection entirely. The connection will remain available for other projects.
+
+To unlink projects:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Contentful**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to manage.
+</Step>
+<Step title="Select projects">
+Under **Linked projects**, check the projects you want to unlink.
+</Step>
+<Step title="Confirm">
+Click **Unlink projects** and confirm.
+</Step>
+</Steps>
+
+When unlinked, those projects will no longer have access to **Contentful** through this connection. If a project needs **Contentful** again, you can link it to any available connection.
+
+## How to delete a connection
+
+Workspace admins and owners can delete **Contentful** connections.
+
+<Warning>
+Deleting a connection is permanent and cannot be undone. It will remove the credentials from all linked projects, and any apps using this connection will stop working until a new connection is added.
+</Warning>
+
+Before deleting, review the **Linked projects** section to see which projects are currently using the connection.
+
+To delete a connection:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Contentful**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to remove.
+</Step>
+<Step title="Review linked projects">
+Review the **Linked projects** section.
+</Step>
+<Step title="Delete">
+Under **Delete this connection**, click **Delete** and confirm.
+</Step>
+</Steps>

@@ -1,0 +1,150 @@
+---
+title: "Connect your app to Telegram"
+description: "Connect your app to Telegram to send messages, receive commands, and interact with users through Telegram bots."
+---
+[Telegram](https://telegram.org/) is a messaging platform that lets your ZenOpus app communicate with users through chats, groups, and channels. The Telegram connector enables Telegram integration for your app, allowing it to send notifications, respond to user messages, and trigger workflows directly from Telegram conversations.
+
+Telegram bots act as a chat interface for your app, letting users receive updates or interact with app features without opening the app interface.
+
+With Telegram, your app can:
+
+- Send messages, photos, documents, and other media to users or groups
+- Receive and respond to user messages and commands (via polling)
+- Create interactive buttons and custom keyboards
+- Guide users through workflows such as booking, ordering, or submitting requests
+- Deliver alerts, reports, and reminders through chat
+- Broadcast updates to Telegram groups or channels
+
+Telegram is a good fit when your app needs to notify users about events, broadcast updates, or allow users to request information directly through chat.
+
+## Common use cases and example apps
+
+| Example app | Example prompt | Description |
+| --- | --- | --- |
+| Online store with Telegram notifications and order tracking | Build an online store where customers can place orders, send our team a Telegram message whenever a new order is created, and let customers message a Telegram bot with their order number to check delivery status. | Manage store activity and customer updates through Telegram. When a customer places an order in the app, the app sends a message with the order details to a Telegram chat for the team. Customers can also message the Telegram bot with their order number, and the app returns the current delivery status. |
+| API monitoring dashboard with Telegram alerts | Build a monitoring dashboard that checks our API every minute and sends a Telegram alert if the service stops responding. | Monitor systems and send alerts through Telegram when problems occur. The app checks service health on a schedule and posts a message to a Telegram chat when downtime or errors are detected so the team can respond quickly. |
+| Customer support inbox with Telegram chat | Build a support inbox app where customers can message a Telegram bot and the conversation appears in our support dashboard. | Provide customer support through Telegram conversations. Users message the Telegram bot, the app records the request in the support system, and the team can respond through the dashboard or automated replies. |
+| Analytics dashboard with Telegram reports | Build a KPI dashboard that calculates daily metrics and posts a summary to our team Telegram group every morning. | Deliver recurring reports through Telegram. The app aggregates metrics on a schedule and sends a formatted summary message to a Telegram chat or group so teams can stay informed without opening the dashboard. |
+| Market data tracker with Telegram price alerts | Build a market data tracker that monitors cryptocurrency or stock prices and sends a Telegram message when a selected price threshold is reached. | Send alerts when tracked values change. The app monitors financial data from an API and sends a Telegram message when a price crosses a configured threshold so users can react immediately. |
+
+## How Telegram connections work
+
+Each Telegram connection uses a **bot token**, which represents a single Telegram bot created through [@BotFather](https://t.me/BotFather).
+
+Within your ZenOpus workspace:
+
+- Each connection represents **one Telegram bot**
+- You can create **multiple connections** if you want to use multiple bots
+- Multiple projects can use the **same connection**
+
+Telegram uses a **bot token authentication model**, not OAuth, so there is no authorization flow or token refresh process.
+
+Telegram uses ZenOpus’s gateway architecture for secure credential handling. See [Gateway-based connectors](/integrations/introduction#gateway-based-connectors) for details on authentication and usage limits.
+
+## How to connect Telegram
+
+Workspace **admins** and **owners** can connect Telegram.
+
+When a connection is created, Telegram becomes available across all projects in the workspace.
+
+### Prerequisites
+
+Before connecting Telegram, make sure you have:
+
+- A Telegram account
+- A Telegram bot and bot token created using [@BotFather](https://t.me/BotFather)
+- ZenOpus workspace **admin or owner** role
+
+### Step 1: Create a Telegram bot and get a bot token
+
+Telegram bots are created and managed through [@BotFather](https://t.me/BotFather), Telegram’s official bot management tool.
+
+To create a bot and obtain a token:
+
+1. Open Telegram and search for **@BotFather**, or go to [https://t.me/BotFather](https://t.me/BotFather).
+1. Send the command `/newbot`.
+1. Follow the prompts:
+    - Choose a display name for your bot
+    - Choose a username that ends in `bot` (for example, `myapp_notify_bot`)
+1. BotFather will generate a **bot token** that looks like:
+    ```text
+    123456789:ABCDefghIJKLMnopQRStuvWXYz1234567
+    ```
+1. Copy the token and store it securely.
+
+<Info>
+Your bot token functions like a password. Keep it secure and never expose it publicly. You’ll need it in the next step.
+</Info>
+
+See Telegram docs for detailed instructions: [BotFather](https://core.telegram.org/bots/features#botfather)
+
+### Step 2: Connect Telegram to ZenOpus
+
+1. Go to **Settings → Connectors → Shared connectors**.
+1. Select **Telegram**.
+1. Click **Add connection**.
+1. Fill in the connection details:
+    - **Display name**: Give the connection a descriptive name (for example, `Telegram Prod`).
+    - **Bot token**: Paste the bot token you received from @BotFather.
+1. Click **Create**.
+
+ZenOpus will verify the token and create the connection. Once connected, your ZenOpus apps can start sending and receiving Telegram messages.
+
+## Limitations
+
+The Telegram connector currently does not support:
+
+- **Webhooks** for receiving incoming messages. Use `getUpdates` (polling) to receive incoming messages instead.
+- **Per-user Telegram login** (each end user connecting their own account)
+
+To receive incoming messages, your app should periodically request updates from the Telegram Bot API.
+
+## How to unlink projects from a connection
+
+Editors and above can remove specific projects from a connection without deleting the connection entirely. The connection will remain available for other projects.
+
+To unlink projects:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Telegram**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to manage.
+</Step>
+<Step title="Select projects">
+Under **Linked projects**, check the projects you want to unlink.
+</Step>
+<Step title="Confirm">
+Click **Unlink projects** and confirm.
+</Step>
+</Steps>
+
+When unlinked, those projects will no longer have access to **Telegram** through this connection. If a project needs **Telegram** again, you can link it to any available connection.
+
+## How to delete a connection
+
+Workspace admins and owners can delete **Telegram** connections.
+
+<Warning>
+Deleting a connection is permanent and cannot be undone. It will remove the credentials from all linked projects, and any apps using this connection will stop working until a new connection is added.
+</Warning>
+
+Before deleting, review the **Linked projects** section to see which projects are currently using the connection.
+
+To delete a connection:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Telegram**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to remove.
+</Step>
+<Step title="Review linked projects">
+Review the **Linked projects** section.
+</Step>
+<Step title="Delete">
+Under **Delete this connection**, click **Delete** and confirm.
+</Step>
+</Steps>

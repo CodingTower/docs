@@ -1,0 +1,100 @@
+---
+title: "Referencia entre proyectos"
+description: "Reutilice implementaciones en todos los proyectos de su Workspace, incluido el código, los activos, los archivos y el historial de chat. Mantenga la coherencia y evite reconstruir las mismas funciones."
+---
+La referencia entre proyectos permite a ZenOpus acceder y reutilizar implementaciones de otros proyectos en su Workspace.
+
+Al hacer referencia a otros proyectos, ZenOpus puede explorar estructuras de archivos, leer el código fuente, buscar patrones relevantes, acceder al historial de chat relacionado y reutilizar o copiar activos como imágenes y fuentes. Esto le permite al agente comprender cómo se construyó algo y recrearlo o adaptarlo en su proyecto actual.
+
+Puedes hacer referencia explícita a un proyecto usando `@` menciones, o simplemente pedirle a ZenOpus que use un proyecto existente cuando sea relevante. **Los proyectos referenciados permanecen sin cambios**.
+
+## Cómo hacer referencia a otros proyectos
+
+Escribe `@` en el chat y selecciona un proyecto, por ejemplo:
+
+```text
+Utilice el logotipo y la paleta de colores de @BrandSite.
+```
+
+Pídale a ZenOpus que use un proyecto existente, por ejemplo:
+
+```text
+Cree esto usando la misma configuración de autenticación que nuestra aplicación principal existente.
+```
+
+Haga referencia a varios proyectos en el mismo mensaje. Por ejemplo:
+
+```text
+Cree este flujo de incorporación utilizando la configuración de autenticación de @MainApp
+y el patrón de validación de formulario de @ContactApp.
+```
+
+Las referencias entre proyectos funcionan cuando se solicita ZenOpus en [Agent mode](/es/features/agent-mode) y [Plan mode](/es/features/plan-mode), o cuando se responde en la **herramienta de preguntas seleccionando "Otro".**
+
+También puede agregar referencias directamente desde el cuadro emergente haciendo clic en `+` y seleccionando **@ Agregar referencia**.
+
+<Note>
+Los archivos grandes o los resultados pueden truncarse.
+</Note>
+
+## A qué puedes hacer referencia
+
+Puedes reutilizar:
+
+- Componentes y sistemas de diseño.
+- Animaciones y sistemas de estilo.
+- Flujos de autenticación e integraciones API
+- Implementaciones de funciones
+- Activos como imágenes y fuentes.
+- Historial de chat relevante para el contexto de implementación
+
+Todo el acceso es de solo lectura y está limitado a proyectos dentro de su Workspace.
+
+## Permisos y acceso
+
+Las referencias entre proyectos están restringidas por los límites Workspace y la configuración de uso compartido.
+
+- Solo se puede hacer referencia a proyectos dentro del mismo Workspace. No se admiten referencias cruzadas Workspace.
+- Cualquier miembro de Workspace, incluidos los colaboradores, puede hacer referencia a cualquier proyecto al que tenga permiso para acceder.
+- El acceso entre proyectos es de solo lectura. Los proyectos referenciados no se pueden modificar.
+
+## Deshabilitar el uso compartido entre proyectos
+
+El uso compartido entre proyectos se puede desactivar en diferentes niveles:
+
+- **Workspace nivel:**   
+
+ Los administradores y propietarios de Workspace pueden desactivar el uso compartido entre proyectos para todo el Workspace en  
+
+**Workspace configuración → Privacidad y seguridad → Compartir entre proyectos.**
+- **Nivel de proyecto:**   
+
+ Los editores de proyectos y superiores pueden desactivar el uso compartido entre proyectos para un proyecto específico en  
+
+**Configuración del proyecto → Compartir entre proyectos. **Cuando está deshabilitado a nivel de proyecto, ese proyecto no puede hacer referencia a otros proyectos, y otros proyectos no pueden hacer referencia a él.
+
+Si alguno de estos controles bloquea el acceso, la referencia fallará.
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Puedo hacer referencia a proyectos de otro Workspace?">
+No. Las referencias entre proyectos solo funcionan dentro del mismo Workspace. No se admiten referencias cruzadas Workspace.
+</Accordion>
+<Accordion title="¿Hacer referencia a un proyecto lo modificará?">
+No. Todo el acceso entre proyectos es de solo lectura. El proyecto referenciado no se puede modificar.
+</Accordion>
+<Accordion title="¿Pueden los miembros del equipo hacer referencia a mis proyectos restringidos?">
+No. Solo su propietario puede hacer referencia a los proyectos con visibilidad **restringida**. Los miembros del equipo no pueden hacer referencia a proyectos restringidos, ni siquiera dentro del mismo Workspace.
+</Accordion>
+<Accordion title="¿Por qué ZenOpus no puede acceder a otro proyecto?">
+Si ZenOpus no puede acceder a un proyecto, verifique lo siguiente:
+
+- Verifique que el uso compartido entre proyectos no se haya deshabilitado en el nivel Workspace o de proyecto.
+- Asegúrese de que ambos proyectos estén en el mismo Workspace. No se admite el acceso cruzado-Workspace.
+- Verificar la visibilidad del proyecto. Los proyectos configurados como **Restringidos** solo son accesibles para su propietario.
+- Confirme que tiene permiso para acceder al proyecto. Sólo puedes hacer referencia a proyectos a los que tienes acceso.
+
+Si alguno de estos controles bloquea el acceso, la referencia fallará.
+</Accordion>
+</AccordionGroup>

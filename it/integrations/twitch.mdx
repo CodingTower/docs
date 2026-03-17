@@ -1,0 +1,143 @@
+---
+title: "Collega la tua app a Twitch"
+description: "Collega la tua app a Twitch per creare overlay di streaming personalizzati, visualizzare dati di streaming live, monitorare l'attività del canale e creare strumenti per creatori e community direttamente dalla tua app ZenOpus."
+---
+[Twitch](https://www.twitch.tv/) è una piattaforma di live streaming incentrata su giochi, contenuti creativi e interazione con la community in tempo reale. Il connettore Twitch consente alla tua app ZenOpus di accedere all'API Helix di Twitch in modo da poter trasmettere in streaming overlay, dashboard e strumenti della community che reagiscono a ciò che accade su un canale.
+
+Con Twitch, la tua app può:
+
+- Visualizza la chat dal vivo da un canale Twitch
+- Mostra il conteggio dei follower e degli iscritti
+- Tieni traccia degli obiettivi personalizzati come i traguardi dei follower o degli abbonamenti
+- Controlla lo stato dello streaming, il numero di spettatori e i metadati del canale
+- Recupera clip, pianificazioni e informazioni sui canali
+- Invia messaggi di chat a un canale Twitch
+- Cerca canali, giochi e categorie
+
+Twitch è una buona soluzione quando la tua app convive insieme a uno streaming. Gli esempi includono overlay, strumenti di moderazione, dashboard di eventi e app di analisi dei creatori.
+
+## Casi d'uso comuni e app di esempio
+
+| Applicazione di esempio | Esempio di richiesta | Descrizione |
+| --- | --- | --- |
+| Sovrapposizione del flusso personalizzato | Crea una sovrapposizione di streaming che mostri la mia chat dal vivo, l'ultimo follower e l'attuale obiettivo secondario nei colori del mio marchio. | Sostituisci gli strumenti di overlay generici con un overlay completamente personalizzato. L'app visualizza la chat utilizzando la connessione IRC di Twitch e recupera i dati dei follower e degli abbonamenti tramite l'API Twitch per eseguire il rendering di un overlay con marchio per lo streaming che può essere aggiunto come origine del browser in software di streaming come OBS Studio (Open Broadcaster Software. |
+| Tracker degli obiettivi dell'abbonato o del follower | Crea un widget in sovrapposizione che mostri una barra di avanzamento verso il mio obiettivo di 1000 follower. | Visualizza i progressi dei traguardi in diretta sullo streaming. L'app recupera il conteggio dei follower o degli abbonati da Twitch e visualizza una barra di avanzamento che si aggiorna man mano che i numeri cambiano. |
+| Sovrapposizione della chat dal vivo | Crea una sovrapposizione di chat dal vivo che mostri i messaggi recenti dal mio canale Twitch. | Visualizza i messaggi di chat direttamente in una sovrapposizione di flusso. L'app si connette alla chat di Twitch utilizzando l'endpoint IRC WebSocket ed esegue il rendering dei messaggi in arrivo in tempo reale. |
+| Sovrapposizione trasmissione evento | Crea una sovrapposizione del torneo in cui i moderatori possono aggiornare i punteggi e le informazioni sulla partita durante la trasmissione. | Sovrapposizioni di potenza per eventi o tornei dal vivo. I moderatori aggiornano le informazioni sulla partita tramite un pannello di controllo e la sovrapposizione riflette immediatamente gli aggiornamenti per gli spettatori. |
+| Tracker di streaming multicanale | Crea una dashboard che mostri quali canali del mio elenco sono attualmente attivi. | Monitora un elenco di streamer e vedi chi è in diretta in questo momento. L'app controlla lo stato dello streaming su più canali e visualizza il numero di spettatori e i titoli degli streaming. |
+| Browser per l'individuazione delle clip | Crea un'app in cui posso cercare un canale Twitch e sfogliare le clip principali. | Esplora i momenti salienti dei canali Twitch. L'app recupera clip dall'API Twitch e li presenta in un'interfaccia ricercabile. |
+| Cruscotto del moderatore | Crea un pannello di moderazione che elenchi i follower e consenta ai moderatori di inviare annunci di chat. | Fornisci ai moderatori un'interfaccia strutturata per la gestione delle attività della community. L'app recupera i dati dei follower e consente ai moderatori di pubblicare messaggi per chattare direttamente dalla dashboard. |
+
+## Come funzionano le connessioni Twitch
+
+Twitch utilizza OAuth 2.0 per l'autenticazione. Quando colleghi Twitch, autorizzi ZenOpus ad accedere a Twitch per conto dell'account autenticato.
+
+Twitch utilizza l'architettura gateway di ZenOpus per la gestione sicura di OAuth e l'aggiornamento automatico dei token. Consulta [Connettori basati su gateway](/it/integrations/introduction#connettori-basati-su-gateway) per dettagli sull'autenticazione e sui limiti di utilizzo.
+
+Ogni connessione Twitch è legata a un account Twitch. Se necessario, puoi creare più connessioni. Ad esempio, potresti collegare account separati per sviluppo, produzione o autori diversi.
+
+## Come connettere Twitch
+
+Workspace **amministratori** e **proprietari** possono connettere Twitch.
+
+Una volta creata la connessione, Twitch diventa disponibile in tutti i progetti nel Workspace.
+
+### Prerequisiti
+
+Prima di connettere Twitch, assicurati di avere:
+
+- Un account Twitch
+- Un ruolo di amministratore o proprietario ZenOpus Workspace
+
+### Passaggio 1: scegli l'account da connettere
+
+La tua connessione utilizza direttamente un account Twitch. Non è richiesta alcuna applicazione per sviluppatori o chiave API.
+
+Assicurati che l'account connesso disponga delle autorizzazioni necessarie per il tuo caso d'uso.
+
+Ad esempio:
+
+- Per leggere i dati dei follower, l'account deve avere accesso come moderatore per il canale.
+- Per inviare messaggi di chat, l'account deve disporre dell'autorizzazione per pubblicare nel canale.
+- Per accedere ai dati di abbonamento, l'account collegato deve essere il proprietario del canale.
+
+Per la maggior parte delle configurazioni overlay, il collegamento dell'account dello streamer fornisce l'accesso più ampio.
+
+### Passaggio 2: collega Twitch a ZenOpus
+
+1. Vai su **Impostazioni → Connettori → Connettori condivisi** e seleziona **Twitch**.
+1. Fai clic su **Aggiungi connessione**.
+1. In **Nome visualizzato**, inserisci un nome per la connessione. Ad esempio `Twitch Production`.
+1. **Configura gli ambiti (facoltativo)**Espandi **Impostazioni avanzate** per configurare le autorizzazioni API Twitch necessarie per la tua app. Gli ambiti predefiniti includono: Sono disponibili ambiti aggiuntivi per funzionalità come gestione delle clip, previsioni, sondaggi, analisi e punti canale. Abilita solo gli ambiti necessari alla tua app. Puoi aggiornare gli ambiti in un secondo momento modificando la connessione e selezionando **Riconnetti**. Per l'elenco completo degli ambiti, consulta il [riferimento all'ambito Twitch OAuth](https://dev.twitch.tv/docs/authentication/scopes/).
+    - `user:read:email`: visualizza l'e-mail dell'account
+    - `channel:read:subscriptions`: visualizza i dati di iscrizione al canale
+    - `moderator:read:followers`: visualizza i dati dei follower per i canali moderati
+    - `user:write:chat`: invia messaggi alla chat di Twitch
+1. Fare clic su **Connetti**. Si aprirà una finestra di autorizzazione di Twitch. Assicurati che i popup siano consentiti.
+1. Accedi a Twitch, controlla le autorizzazioni richieste e fai clic su **Autorizza**.
+
+Una volta completata l'autorizzazione, la connessione verrà visualizzata in ZenOpus e le tue app potranno iniziare a utilizzare i dati di Twitch.
+
+## Limitazioni
+
+Il connettore Twitch attualmente non può:
+
+- **Leggi la chat di Twitch in tempo reale attraverso il gateway**  
+
+ La chat di Twitch utilizza IRC su WebSocket, che non può essere proxy tramite il gateway ZenOpus. Per leggere i messaggi di chat, la tua app deve connettersi direttamente all'endpoint della chat di Twitch: `wss://irc-ws.chat.twitch.tv`La lettura della chat pubblica non richiede l'autenticazione. L'invio di messaggi di chat tramite l'API Twitch richiede l'autenticazione.
+- **Ricevi webhook EventSub**  
+
+ Gli eventi Twitch in arrivo come le notifiche di inizio streaming o gli eventi di follow non sono attualmente supportati.
+- **Support Accesso Twitch per utente**  
+
+ Ogni connessione autentica un singolo account Twitch. Gli utenti finali della tua app non possono connettere i propri account Twitch tramite questo connettore.
+
+## Come scollegare i progetti da una connessione
+
+Gli editor e i livelli superiori possono rimuovere progetti specifici da una connessione senza eliminare completamente la connessione. La connessione rimarrà disponibile per altri progetti.
+
+Per scollegare i progetti:
+
+<Steps>
+<Step title="Passare ai connettori">
+Vai su **Impostazioni → Connettori → Connettori condivisi** e seleziona **Twitch**.
+</Step>
+<Step title="Apri la connessione">
+Apri la connessione che desideri gestire.
+</Step>
+<Step title="Seleziona progetti">
+In **Progetti collegati**, seleziona i progetti che desideri scollegare.
+</Step>
+<Step title="Conferma">
+Fai clic su **Scollega progetti** e conferma.
+</Step>
+</Steps>
+
+Una volta scollegati, tali progetti non avranno più accesso a **Twitch** tramite questa connessione. Se un progetto necessita nuovamente di **Twitch**, puoi collegarlo a qualsiasi connessione disponibile.
+
+## Come eliminare una connessione
+
+Gli amministratori e i proprietari di Workspace possono eliminare le connessioni **Twitch**.
+
+<Warning>
+L'eliminazione di una connessione è permanente e non può essere annullata. Rimuoverà le credenziali da tutti i progetti collegati e tutte le app che utilizzano questa connessione smetteranno di funzionare finché non verrà aggiunta una nuova connessione.
+</Warning>
+
+Prima dell'eliminazione, esamina la sezione **Progetti collegati** per vedere quali progetti stanno attualmente utilizzando la connessione.
+
+Per eliminare una connessione:
+
+<Steps>
+<Step title="Passare ai connettori">
+Vai su **Impostazioni → Connettori → Connettori condivisi** e seleziona **Twitch**.
+</Step>
+<Step title="Apri la connessione">
+Apri la connessione che desideri rimuovere.
+</Step>
+<Step title="Esaminare i progetti collegati">
+Consulta la sezione **Progetti collegati**.
+</Step>
+<Step title="Elimina">
+In **Elimina questa connessione**, fai clic su **Elimina** e conferma.
+</Step>
+</Steps>

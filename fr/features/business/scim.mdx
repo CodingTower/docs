@@ -1,0 +1,335 @@
+---
+title: "Configurer le provisionnement des utilisateurs SCIM"
+description: "Configurez le provisionnement SCIM pour créer, mettre à jour et supprimer automatiquement des utilisateurs dans ZenOpus à l'aide de votre fournisseur d'identité. Gérez l'accès des utilisateurs, les rôles et le cycle de vie de manière centralisée avec Okta, Microsoft Entra ID et d'autres fournisseurs SCIM 2.0."
+---
+**SCIM (System for Cross-domain Identity Management)** est disponible uniquement sur le **plan Entreprise**. Il permet le provisionnement automatisé des utilisateurs et la gestion du cycle de vie via votre fournisseur d'identité (IdP).
+
+Avec SCIM, vous pouvez gérer l'accès Workspace de manière centralisée à partir de votre IdP. Les utilisateurs sont automatiquement ajoutés lorsqu'ils sont attribués, supprimés lorsqu'ils ne sont pas attribués et des rôles attribués en fonction de l'appartenance à un groupe, gardant votre Workspace synchronisé sans gestion manuelle des utilisateurs.
+
+## Conditions préalables
+
+Avant de configurer le provisionnement SCIM, vous avez besoin de :
+
+- **Accès administrateur IdP** (Okta, Microsoft Entra ID ou tout autre fournisseur SCIM 2.0 que vous utilisez)
+- **ZenOpus Workspace rôle de propriétaire ou d'administrateur**
+- **Un fournisseur SSO actif configuré** (OIDC ou SAML). Voir [**Configurer l'authentification unique (SSO)**](/fr/features/business/sso) pour plus d'informations.
+    - **Si vous n'avez pas encore SSO :**  
+    Vous créerez généralement une application unique dans votre fournisseur d’identité qui gère à la fois l’authentification SSO et le provisionnement SCIM.
+    - **Si vous avez déjà configuré SSO :**  
+    Vous pouvez éventuellement créer une application distincte dans votre IdP spécifiquement pour le provisionnement SCIM. Cela vous permet de conserver votre configuration SSO existante inchangée. ZenOpus continuera à utiliser votre fournisseur SSO actuel pour l'authentification des utilisateurs, quelle que soit l'application IdP qui gère SCIM.
+    <Note>
+    Certains fournisseurs d'identité exigent que le provisionnement SCIM soit configuré sur une application SAML, même si l'authentification SSO utilise OIDC. Dans ce cas, l'application SAML avec SCIM activé est utilisée uniquement pour le provisionnement et n'a pas besoin d'être configurée en tant que fournisseur SSO dans ZenOpus.
+    </Note>
+
+## Comment fonctionne SCIM dans ZenOpus
+
+Cette section explique comment ZenOpus traite les événements SCIM de votre fournisseur d'identité.
+
+### Provisionnement des utilisateurs
+
+Lorsque votre fournisseur d'identité crée ou affecte un utilisateur à l'application ZenOpus :
+
+1. L'IdP envoie une requête SCIM à ZenOpus.
+1. ZenOpus vérifie que le domaine de messagerie de l'utilisateur est vérifié pour votre Workspace.
+1. L'utilisateur reçoit une invitation par e-mail à rejoindre.
+1. Lorsque l'utilisateur accepte l'invitation et crée un compte, il est ajouté au Workspace avec le rôle approprié en fonction de la configuration SCIM.
+
+### Déprovisionnement des utilisateurs
+
+Lorsque votre IdP supprime ou désactive un utilisateur :
+
+1. L'IdP envoie une demande de désactivation à ZenOpus.
+1. L'utilisateur est supprimé de votre Workspace.
+1. L'utilisateur ne peut plus se connecter au Workspace.
+
+<Note>
+**Les propriétaires de Workspace ne peuvent pas être supprimés via SCIM.** Cela évite le verrouillage accidentel de l'administration de Workspace.
+</Note>
+
+### Push de groupe et mises à jour des rôles
+
+Lorsque le provisionnement basé sur le groupe est activé dans votre IdP :
+
+1. Les modifications d’appartenance au groupe sont transmises à ZenOpus.
+1. Les utilisateurs ajoutés à un groupe mappé reçoivent le rôle correspondant.
+1. Les utilisateurs supprimés de tous les groupes mappés sont supprimés de Workspace.
+
+### Opérations SCIM prises en charge
+
+ZenOpus implémente la spécification SCIM 2.0 et prend en charge les opérations suivantes :
+
+| Ressource | Opérations prises en charge |
+| --- | --- |
+| Utilisateurs | Créer, lire, mettre à jour, supprimer, lister |
+| Groupes | Créer, lire, mettre à jour, supprimer, lister, pousser les membres |
+
+## Configurer le provisionnement SCIM
+
+La configuration du provisionnement SCIM nécessite une configuration à la fois dans ZenOpus et dans votre fournisseur d'identité. Vous commencez dans ZenOpus pour activer le provisionnement SCIM et générer les informations d'identification requises, puis terminez la configuration dans votre IdP.
+
+### Étape 1 : Configurer SCIM dans ZenOpus
+
+Tout d’abord, activez le provisionnement SCIM dans ZenOpus et copiez les valeurs requises par votre fournisseur d’identité.
+
+<Steps>
+<Step title="Ouvrez les paramètres d'identité et activez SCIM">
+Accédez à **Paramètres → Workspace → Identité → Approvisionnement SCIM** et activez **Approvisionnement SCIM**.
+</Step>
+<Step title="Copier les valeurs de configuration SCIM">
+Lorsque le provisionnement SCIM est activé, ZenOpus génère et affiche les valeurs suivantes :
+
+- **Clé API :** Un jeton API sécurisé utilisé pour authentifier les requêtes SCIM (affiché une seule fois)
+- **URL de base :** point de terminaison que votre fournisseur d'identité utilise pour synchroniser les utilisateurs.
+
+<Warning>
+**Enregistrez la clé API immédiatement**. La clé API complète n'est affichée qu'une seule fois. Si vous le perdez, vous devez faire pivoter la clé pour en générer une nouvelle.
+</Warning>
+
+Vous aurez besoin de ces valeurs lors de la configuration de SCIM dans votre fournisseur d'identité.
+</Step>
+<Step title="Configurer le rôle par défaut">
+Le **rôle par défaut** est attribué aux utilisateurs nouvellement provisionnés qui ne correspondent à aucun mappage de groupe. Les rôles disponibles sont :
+
+- **Visionneuse** : accès en lecture seule
+- **Éditeur** : peut créer et modifier des projets
+- **Admin** : gestion complète de Workspace
+
+Vous pouvez éventuellement [configurer les mappages de rôles de groupe](/fr/features/business/scim#configurer-le-mappage-des-rôles) pour attribuer des rôles en fonction des groupes de fournisseurs d'identité. Si aucun mappage de groupe ne correspond, le rôle par défaut est appliqué.
+</Step>
+</Steps>
+
+### Étape 2 : Configurez SCIM dans votre fournisseur d'identité
+
+Utilisez les valeurs générées dans ZenOpus pour configurer le provisionnement SCIM dans votre fournisseur d'identité.
+
+| Paramètre | Valeur |
+| --- | --- |
+| URL de base | https://api.zenopus.dev/scim/v2 |
+| Authentification | Jeton du porteur |
+| Clé API | &lt;your API key generated in __TERM0__&gt; |
+
+Sélectionnez votre fournisseur d'identité ci-dessous et suivez les instructions pour terminer la configuration SCIM. Pour plus d’informations, reportez-vous à la documentation officielle de votre IdP.
+
+<Tabs>
+<Tab title="Okta">
+<Steps>
+<Step title="Ajouter l'intégration de l'application de test SCIM">
+- Dans la console d'administration Okta, accédez à **Applications → Parcourir le catalogue d'applications**.
+- Recherchez **SCIM 2.0 Test App (Header Auth)**, puis cliquez sur **Ajouter une intégration**.
+- Choisissez un **libellé d'application**, puis terminez la création de l'intégration.
+</Step>
+<Step title="(Facultatif) complétez l'invite SAML">
+Okta peut vous demander de configurer les paramètres SAML/SSO lors de la création de l'intégration.
+
+<Note>
+Le provisionnement SCIM ne nécessite pas SAML. Si vous avez déjà configuré SSO, vous pouvez ignorer SAML ici et continuer le provisionnement.
+
+Si vous devez saisir des valeurs SAML, utilisez les valeurs SSO ZenOpus (URL ACS et ID d'entité) de [Configurer l'authentification unique (SSO)] (/fr/features/business/sso).
+</Note>
+</Step>
+<Step title="Activer l'intégration de l'API">
+- Dans votre application Okta, accédez à **Provisionnement → Intégration**.
+- Cliquez sur **Configurer l'intégration API**, puis activez **Intégration API**.
+- Entrez :
+    - **URL de base** : `https://api.zenopus.dev/scim/v2`
+    - **Jeton API** : votre clé API ZenOpus SCIM
+
+<Tip>
+Si le **Test des informations d'identification de l'API** échoue, essayez de saisir le jeton sous la forme `Bearer <your_api_key>` (incluez le préfixe `Bearer` et un espace).
+</Tip>
+
+- Si disponible, activez **Importer des groupes**, puis cliquez sur **Importer des groupes**.
+- Cliquez sur **Tester les informations d'identification de l'API**, puis sur **Enregistrer**.
+</Step>
+<Step title="Activer les actions de provisionnement">
+Accédez à **Provisionnement → Vers l'application** et assurez-vous que ces éléments sont activés :
+
+- **Créer des utilisateurs**
+- **Mettre à jour les attributs utilisateur**
+- **Désactiver les utilisateurs**
+</Step>
+<Step title="Attribuer des utilisateurs et des groupes de diffusion">
+- Attribuez des utilisateurs (ou des groupes) à l'application Okta.
+- Si vous utilisez le mappage de rôles basé sur les groupes dans ZenOpus, activez le push de groupe dans Okta et transférez les mêmes groupes que vous avez mappés dans ZenOpus.
+</Step>
+</Steps>
+</Tab>
+<Tab title="ID Microsoft Entra (Azure AD)">
+Le provisionnement SCIM dans Microsoft Entra ID est pris en charge uniquement via une application SAML. Si vous utilisez OIDC pour SSO, vous devrez créer une application SAML distincte dans Microsoft Entra ID pour le provisionnement SCIM.
+
+<Steps>
+<Step title="Démarrer la configuration du provisionnement dans Microsoft Entra ID">
+- Accédez au **Centre d'administration Microsoft Entra****→****Applications d'entreprise.**
+- Créez une nouvelle application SAML ou sélectionnez votre application SAML ZenOpus existante.
+- Sélectionnez **Provisionnement → Nouvelle configuration.**
+</Step>
+<Step title="Configurer les informations d'identification de l'administrateur">
+Sous **Identifiants d'administrateur**, saisissez les valeurs suivantes :
+
+- Méthode d'authentification : Authentification du porteur
+- URL du locataire : `https://api.zenopus.dev/scim/v2`
+- Jeton secret : `Bearer <your ZenOpus SCIM API key>`
+</Step>
+<Step title="Tester la connexion">
+Cliquez sur **Test de connexion** pour vérifier la configuration.
+</Step>
+<Step title="Créer la configuration">
+Cliquez sur **Créer.**
+</Step>
+<Step title="Commencer le provisionnement">
+Dans la page **Présentation (aperçu)** de la configuration du provisionnement, cliquez sur **Démarrer le provisionnement**.
+</Step>
+</Steps>
+</Tab>
+<Tab title="Autres fournisseurs SCIM 2.0">
+Si vous utilisez un autre fournisseur d'identité prenant en charge SCIM 2.0, suivez ces instructions générales pour configurer le provisionnement.
+
+<Steps>
+<Step title="Activez le provisionnement SCIM ou le provisionnement automatique dans votre IdP">
+- Dans votre console d'administration IdP, recherchez les paramètres SCIM ou de provisionnement de votre application ZenOpus.
+- Activez le provisionnement SCIM ou le provisionnement automatique.
+</Step>
+<Step title="Configurer la connexion SCIM">
+Configurez la connexion SCIM avec les valeurs suivantes :
+
+- URL de base SCIM/URL du locataire : `https://api.zenopus.dev/scim/v2`
+- Méthode d'authentification : `Bearer token (HTTP header)`
+- Jeton API/Jeton secret : `<your ZenOpus SCIM API key>`
+- Champ d'identifiant unique : `userName (email address)`
+</Step>
+<Step title="Activer les actions de provisionnement">
+Activez les actions de provisionnement que vous souhaitez utiliser :
+
+- Créer des utilisateurs
+- Mettre à jour les attributs utilisateur
+- Désactiver ou supprimer des utilisateurs
+- Groupes push (si vous utilisez le mappage de rôles basé sur les groupes)
+</Step>
+<Step title="Tester la connexion">
+Testez la connexion à l’aide de la fonction de test intégrée de votre IdP.
+</Step>
+<Step title="Enregistrez la configuration">
+Enregistrez la configuration et activez le provisionnement.
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+Lorsque le provisionnement SCIM est configuré à la fois dans ZenOpus et dans votre fournisseur d'identité, le provisionnement et le déprovisionnement des utilisateurs commenceront automatiquement en fonction des attributions de votre IdP.
+
+## Configurer le mappage des rôles
+
+SCIM prend en charge l'attribution automatique de rôles basée sur l'appartenance à un groupe IdP, vous permettant de contrôler les autorisations Workspace de manière centralisée.
+
+### Mapper les groupes IdP aux rôles
+
+Mappez vos groupes IdP aux rôles ZenOpus Workspace pour un contrôle d'accès précis.
+
+Pour ajouter un mappage de rôles de groupe :
+
+1. Accédez à **Paramètres → Workspace → Identité → Approvisionnement SCIM.**
+1. Sous **Mappages de rôles de groupe**, saisissez le **Nom du groupe** exactement tel qu'il apparaît dans votre IdP (par exemple, `engineering-admins`).
+1. Sélectionnez le **Rôle** à attribuer (lecteur, éditeur ou administrateur).
+1. Cliquez sur **Ajouter** pour enregistrer.
+
+<Note>
+Les noms de groupes ne sont pas sensibles à la casse. Par exemple, `Engineering-Admins` et `engineering-admins` correspondent tous deux.
+</Note>
+
+**Exemples de mappages**
+
+| Groupe IdP | Rôle ZenOpus |
+| --- | --- |
+| adorables-administrateurs | Administrateur |
+| ingénierie | Editeur |
+| entrepreneurs | Visionneuse |
+
+Lorsqu'un utilisateur est provisionné :
+
+- ZenOpus vérifie si l'utilisateur appartient à des groupes mappés.
+- Si une correspondance est trouvée, le rôle correspondant est attribué.
+- Si aucune correspondance n'est trouvée, le **rôle par défaut** est attribué.
+
+## Gérer le provisionnement SCIM
+
+Utilisez les paramètres d'identité pour gérer le provisionnement SCIM au fil du temps.
+
+### Faites pivoter la clé API
+
+Faites pivoter la clé API si elle a pu être compromise ou si elle doit être régénérée :
+
+1. Accédez à **Paramètres → Workspace → Identité → Approvisionnement SCIM.**
+1. Cliquez sur **Rotation** à côté de la clé API.
+1. Confirmez la rotation.
+1. Copiez et enregistrez immédiatement la nouvelle clé API.
+1. Mettez à jour votre IdP avec la nouvelle clé API.
+
+<Warning>
+La rotation de la clé API invalide immédiatement la clé API précédente. Mettez à jour votre configuration IdP immédiatement pour éviter les interruptions de provisionnement.
+</Warning>
+
+### Désactiver le provisionnement SCIM
+
+Pour arrêter le provisionnement automatique :
+
+1. Accédez à **Paramètres → Workspace → Identité → Approvisionnement SCIM.**
+1. Désactivez **le provisionnement SCIM.**
+
+<Note>
+La désactivation de SCIM arrête le provisionnement automatique mais ne supprime pas les membres Workspace existants. Les utilisateurs précédemment provisionnés via SCIM resteront dans le Workspace jusqu'à leur suppression manuelle.
+</Note>
+
+## Dépannage
+
+<AccordionGroup>
+<Accordion title="Le provisionnement des utilisateurs échoue avec l'erreur « domaine non vérifié »">
+SCIM provisionne uniquement les utilisateurs dont le domaine de messagerie est vérifié pour votre Workspace. Pour réparer :
+
+1. Accédez à **Paramètres → Workspace → Identité**
+1. Ajoutez et vérifiez le domaine de messagerie sous **Domaines vérifiés**
+1. Réessayez le provisionnement à partir de votre IdP.
+</Accordion>
+<Accordion title="Les utilisateurs sont provisionnés mais ne peuvent pas se connecter">
+Vérifiez que :
+
+- Votre fournisseur SSO est correctement configuré.
+- Les utilisateurs sont affectés à l'application SSO dans votre IdP.
+
+Les utilisateurs provisionnés via SCIM doivent s'authentifier via SSO.
+</Accordion>
+<Accordion title="Les mappages de rôles ne sont pas appliqués">
+Vérifiez que :
+
+- Les noms de groupe dans vos mappages correspondent exactement à ce que votre IdP envoie (insensible à la casse)
+- Votre IdP est configuré pour envoyer des données d'appartenance à un groupe dans les requêtes SCIM
+- Le push de groupe est activé dans votre IdP
+</Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Puis-je utiliser SCIM sans SSO ?">
+Non, SCIM nécessite un fournisseur SSO actif. Les utilisateurs provisionnés via SCIM s'authentifient à l'aide de votre fournisseur SSO configuré.
+</Accordion>
+<Accordion title="Qu'arrive-t-il aux utilisateurs existants lorsque j'active SCIM ?">
+Les membres Workspace existants ne sont pas affectés lorsque vous activez SCIM. SCIM gère les utilisateurs provisionnés via votre IdP. Les utilisateurs précédemment invités continuent d'exister aux côtés des utilisateurs provisionnés par SCIM.
+</Accordion>
+<Accordion title="J'ai perdu ma clé API. Que dois-je faire?">
+La clé API n'est affichée qu'une seule fois lorsqu'elle est générée. Si vous l'avez perdu :
+
+1. Accédez à **Paramètres → Workspace → Identité → Approvisionnement SCIM.**
+1. Cliquez sur **Rotation** à côté de la clé API et confirmez la rotation.
+1. Mettez à jour votre IdP avec la nouvelle clé API.
+</Accordion>
+<Accordion title="Que se passe-t-il si un utilisateur appartient à plusieurs groupes mappés ?">
+Lorsqu'un utilisateur appartient à plusieurs groupes mappés, ZenOpus attribue le rôle bénéficiant du privilège le plus élevé parmi ces groupes.
+</Accordion>
+<Accordion title="Dois-je utiliser le provisionnement SCIM ou juste à temps (JIT) ?">
+SCIM est recommandé pour les environnements gérés dans lesquels le cycle de vie des utilisateurs et l'accès doivent être contrôlés de manière centralisée depuis votre fournisseur d'identité.
+
+Le provisionnement juste à temps (JIT) s'applique uniquement aux utilisateurs qui s'inscrivent via SSO. Lorsqu'un utilisateur est créé via l'inscription SSO, le rôle JIT est appliqué.
+
+Lorsque les utilisateurs sont provisionnés via SCIM, la création d'utilisateurs et l'attribution de rôles sont gérées par SCIM, y compris les mappages de rôles basés sur les groupes, les métadonnées utilisateur ou le rôle SCIM par défaut. Dans ce cas, le provisionnement SCIM et les attributions de rôles sont prioritaires sur JIT.
+</Accordion>
+</AccordionGroup>

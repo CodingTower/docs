@@ -1,0 +1,431 @@
+---
+title: "Resend integration"
+description: "Send transactional emails, confirmation messages, and newsletters using Resend with Supabase Edge Functions."
+---
+## What is Resend?
+
+[Resend](https://resend.com/emails) is an email API built for developers. It focuses on high deliverability, ease of integration, and a clean developer experience for sending transactional and marketing emails.
+
+## Step-by-step tutorial
+
+<iframe src="https://www.youtube.com/embed/5ZL744_Wxjo?si=qrKlOL_1fAnz7rgc" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+This tutorial walks you through building a fully functional CRM in under an hour—complete with lead collection, email confirmation, newsletter subscription, and an internal admin dashboard. You’ll use:
+
+- **ZenOpus**: to generate the front end and backend logic.
+- **Supabase**: for secure data storage and authentication.
+- **Resend**: to automate and track transactional + marketing emails.
+
+Let’s get started.
+
+<Steps>
+<Step title="Create a Landing Page with a Contact Form">
+Use ZenOpus’s AI to quickly generate a landing page for your product or service.
+
+**Instructions:**
+
+<Steps>
+<Step title="New ZenOpus Project">
+Create a new ZenOpus project.
+</Step>
+<Step title="Prompt:">
+<Info>
+Create a SaaS landing page with a contact form collecting name, email, and message.
+</Info>
+
+![SaaS landing page with a contact form collecting name, email, and message fields](/images/zenopus/tips-tricks/resend/landing-page-zenopus-project.png)
+</Step>
+<Step title="Inspect the generated code">
+Inspect the generated code or use the select tool to tweak elements.
+</Step>
+<Step title="Add input validation">
+Add input validation and a `message` field for better user experience.
+
+![Contact form with input validation showing name, email, and message fields](/images/zenopus/tips-tricks/resend/email-resend-form.png)
+</Step>
+</Steps>
+</Step>
+<Step title="New ZenOpus Project">
+Create a new ZenOpus project.
+</Step>
+<Step title="Prompt:">
+<Info>
+Create a SaaS landing page with a contact form collecting name, email, and message.
+</Info>
+
+![SaaS landing page with a contact form collecting name, email, and message fields](/images/zenopus/tips-tricks/resend/landing-page-zenopus-project.png)
+</Step>
+<Step title="Inspect the generated code">
+Inspect the generated code or use the select tool to tweak elements.
+</Step>
+<Step title="Add input validation">
+Add input validation and a `message` field for better user experience.
+
+![Contact form with input validation showing name, email, and message fields](/images/zenopus/tips-tricks/resend/email-resend-form.png)
+</Step>
+<Step title="Store Form Submissions in Supabase">
+Supabase acts as your secure backend database.
+
+<Steps>
+<Step title="Supabase account">
+Create a free Supabase account and a new project.
+</Step>
+<Step title="API Key">
+In ZenOpus, connect your Supabase project using the API key.
+
+![Supabase connection interface in ZenOpus showing API key configuration](/images/zenopus/tips-tricks/resend/supabase-resend-email.png)
+</Step>
+<Step title="Create a `contacts` table with:">
+- `id`: UUID, primary key
+- `name`: text
+- `email`: text
+- `message`: text
+- `created_at`: timestamp
+</Step>
+<Step title="Submission logic">
+Modify the form submission logic to insert data into Supabase.
+</Step>
+<Step title="RLS">
+Apply Supabase Row-Level Security (RLS) to restrict access to only authenticated users.
+</Step>
+</Steps>
+</Step>
+<Step title="Supabase account">
+Create a free Supabase account and a new project.
+</Step>
+<Step title="API Key">
+In ZenOpus, connect your Supabase project using the API key.
+
+![Supabase connection interface in ZenOpus showing API key configuration](/images/zenopus/tips-tricks/resend/supabase-resend-email.png)
+</Step>
+<Step title="Create a `contacts` table with:">
+- `id`: UUID, primary key
+- `name`: text
+- `email`: text
+- `message`: text
+- `created_at`: timestamp
+</Step>
+<Step title="Submission logic">
+Modify the form submission logic to insert data into Supabase.
+</Step>
+<Step title="RLS">
+Apply Supabase Row-Level Security (RLS) to restrict access to only authenticated users.
+</Step>
+<Step title="Send Confirmation Emails via Resend">
+Set up Resend to send automated confirmation emails every time a lead submits the form.
+
+<Steps>
+<Step title="Sign up at Resend">
+Sign up at [Resend](https://resend.com) and verify your custom domain.
+
+- You’ll be asked to update your DNS records (TXT, MX).
+- Use subdomains like `updates.domain.com` to manage email reputation better.
+</Step>
+<Step title="API Key">
+Integrate the API key in ZenOpus via environment settings or backend function.
+</Step>
+<Step title="SDK">
+Use Resend’s SDK to send a confirmation email on form submission.
+
+![Resend SDK integration sending a confirmation email on form submission](/images/zenopus/tips-tricks/resend/confirmation-email-submission-resend.png)
+</Step>
+<Step title="Optional: React Email">
+Use [React Email](https://react.email) (also by Resend) to customize the look and feel of your emails with reusable components.
+
+![React Email template editor for customizing email design with reusable components](/images/zenopus/tips-tricks/resend/customize-email-resend.png)
+</Step>
+</Steps>
+</Step>
+<Step title="Sign up at Resend">
+Sign up at [Resend](https://resend.com) and verify your custom domain.
+
+- You’ll be asked to update your DNS records (TXT, MX).
+- Use subdomains like `updates.domain.com` to manage email reputation better.
+</Step>
+<Step title="API Key">
+Integrate the API key in ZenOpus via environment settings or backend function.
+</Step>
+<Step title="SDK">
+Use Resend’s SDK to send a confirmation email on form submission.
+
+![Resend SDK integration sending a confirmation email on form submission](/images/zenopus/tips-tricks/resend/confirmation-email-submission-resend.png)
+</Step>
+<Step title="Optional: React Email">
+Use [React Email](https://react.email) (also by Resend) to customize the look and feel of your emails with reusable components.
+
+![React Email template editor for customizing email design with reusable components](/images/zenopus/tips-tricks/resend/customize-email-resend.png)
+</Step>
+<Step title="Build a Secure Admin Dashboard">
+Allow only authenticated users to view and manage leads.
+
+<Steps>
+<Step title="Admin route">
+Create an `/admin` route in ZenOpus.
+</Step>
+<Step title="Supabase Authentication">
+Enable Supabase authentication with email/password login.
+</Step>
+<Step title="Contacts">
+Display the `contacts` table with columns:
+
+- Name
+- Email
+- Message preview
+- Submission date
+</Step>
+<Step title="Full contact detail">
+Add a detail pane (e.g., a sliding panel) showing full contact details when a row is clicked.
+
+![CRM admin dashboard showing contacts table with name, email, message preview, and submission date columns](/images/zenopus/tips-tricks/resend/crm-resend-email.png)
+</Step>
+<Step title="Redirect logic">
+Add redirect logic so unauthenticated users are routed to `/login`.
+</Step>
+</Steps>
+</Step>
+<Step title="Admin route">
+Create an `/admin` route in ZenOpus.
+</Step>
+<Step title="Supabase Authentication">
+Enable Supabase authentication with email/password login.
+</Step>
+<Step title="Contacts">
+Display the `contacts` table with columns:
+
+- Name
+- Email
+- Message preview
+- Submission date
+</Step>
+<Step title="Full contact detail">
+Add a detail pane (e.g., a sliding panel) showing full contact details when a row is clicked.
+
+![CRM admin dashboard showing contacts table with name, email, message preview, and submission date columns](/images/zenopus/tips-tricks/resend/crm-resend-email.png)
+</Step>
+<Step title="Redirect logic">
+Add redirect logic so unauthenticated users are routed to `/login`.
+</Step>
+<Step title="Enable Custom Email Replies from Admin">
+Allow your team to send personalized follow-ups.
+
+<Steps>
+<Step title="Contact detail pane">
+In the contact detail pane, add a **text field** and **predefined templates** (e.g., “Thanks for signing up!”).
+</Step>
+<Step title="Add send button">
+Add a **send button** wired to Resend.
+</Step>
+<Step title="Store sent messages">
+Store each sent message in a `sent_emails` table in Supabase:
+
+- `contact_id`
+- `subject`
+- `body`
+- `sent_at`
+
+This gives you a searchable log of all follow-ups.
+</Step>
+</Steps>
+</Step>
+<Step title="Contact detail pane">
+In the contact detail pane, add a **text field** and **predefined templates** (e.g., “Thanks for signing up!”).
+</Step>
+<Step title="Add send button">
+Add a **send button** wired to Resend.
+</Step>
+<Step title="Store sent messages">
+Store each sent message in a `sent_emails` table in Supabase:
+
+- `contact_id`
+- `subject`
+- `body`
+- `sent_at`
+
+This gives you a searchable log of all follow-ups.
+</Step>
+<Step title="Add a Newsletter Subscription Form">
+Use Resend’s **Audiences** to manage subscribers and send broadcast emails.
+
+![Newsletter subscription form on a landing page for collecting email signups](/images/zenopus/tips-tricks/resend/subscription-newsletter-resend.png)
+
+<Steps>
+<Step title="Add new form">
+Add a new form on your landing page for newsletter signup.
+</Step>
+<Step title="Resend contact">
+When submitted:
+
+- Create a Resend contact via the API
+- (Optional) Store the contact locally in Supabase as well
+</Step>
+<Step title="Design">
+Use Resend’s broadcast email UI to design and send newsletters.
+
+- Built-in unsubscribe logic
+- Performance insights (open rates, delivery status)
+</Step>
+<Step title="Compliance check!">
+For compliance (e.g. GDPR), consider implementing a **double opt-in** flow.
+</Step>
+</Steps>
+</Step>
+<Step title="Add new form">
+Add a new form on your landing page for newsletter signup.
+</Step>
+<Step title="Resend contact">
+When submitted:
+
+- Create a Resend contact via the API
+- (Optional) Store the contact locally in Supabase as well
+</Step>
+<Step title="Design">
+Use Resend’s broadcast email UI to design and send newsletters.
+
+- Built-in unsubscribe logic
+- Performance insights (open rates, delivery status)
+</Step>
+<Step title="Compliance check!">
+For compliance (e.g. GDPR), consider implementing a **double opt-in** flow.
+</Step>
+<Step title="BONUS: Connecting Resend to Supabase Auth">
+![Resend Supabase integration setup for replacing default email authentication](/images/zenopus/tips-tricks/resend/send-batch-emails-gdpr-resend.png)
+
+Want to improve Supabase’s default email auth (which limits you to 4 emails/hour)?
+
+<Steps>
+<Step title="Resend supabase">
+Go to [Resend’s Supabase integration](https://resend.com/integrations/supabase).
+</Step>
+<Step title="Authentication">
+Authenticate with your Supabase project.
+</Step>
+<Step title="Domain setup">
+Choose your domain and sender name/email.
+</Step>
+<Step title="SMTP">
+Resend automatically sets up SMTP and replaces Supabase’s default email system.
+</Step>
+<Step title="Customization">
+You can now customize auth email templates from the Supabase dashboard.
+</Step>
+</Steps>
+</Step>
+<Step title="Resend supabase">
+Go to [Resend’s Supabase integration](https://resend.com/integrations/supabase).
+</Step>
+<Step title="Authentication">
+Authenticate with your Supabase project.
+</Step>
+<Step title="Domain setup">
+Choose your domain and sender name/email.
+</Step>
+<Step title="SMTP">
+Resend automatically sets up SMTP and replaces Supabase’s default email system.
+</Step>
+<Step title="Customization">
+You can now customize auth email templates from the Supabase dashboard.
+</Step>
+<Step title="Final Touches &amp; Best Practices">
+![Resend Audiences dashboard for managing newsletter subscribers and broadcast emails](/images/zenopus/tips-tricks/resend/audience-resend.png)
+
+- **Error Handling**: ZenOpus might show build errors that are false positives. Always test your functionality live.
+- **Reverting with Supabase**: If reverting code in ZenOpus, remember to manually delete associated Supabase policies or migrations—they’re not rolled back automatically.
+- **Deliverability Tips**:
+    - Use subdomains to isolate reputation.
+    - Always include a plain text version of your email.
+    - Monitor email performance with Resend’s insights dashboard.
+</Step>
+<Step title="You're Done! 🎉">
+In less than an hour, you’ve built a modern CRM with:
+
+- A landing page and contact form
+- Database-powered lead storage
+- Automated email confirmations
+- Admin dashboard for lead management
+- Custom email replies
+- Newsletter broadcasts
+- Auth and email verification
+</Step>
+</Steps>
+
+## Want to go further?
+
+- Add support for **scheduled emails** via Supabase cron jobs
+- Build **automation flows** to trigger emails based on lead stages
+- Style your UI for better brand trust and conversion
+
+## Resend integration FAQ
+
+<AccordionGroup>
+<Accordion title="What is Resend?">
+Resend is an email API built for developers. It focuses on high deliverability, ease of integration, and a clean developer experience for sending transactional and marketing emails.
+</Accordion>
+<Accordion title="Do I need a paid Resend plan to follow this tutorial?">
+No. You can complete the entire CRM setup using **Resend’s free tier**, which supports sending emails from a verified domain and up to 3,000 contacts for marketing emails.
+</Accordion>
+<Accordion title="How do I verify a domain in Resend?">
+Go to Resend → **Domains** → Add your domain. You’ll be given DNS records (TXT, MX) to add via your DNS provider (e.g., Cloudflare, Namecheap). Once added, click **Verify**.
+
+<Tip>
+Use a subdomain like `updates.yourdomain.com` to isolate your email reputation.
+</Tip>
+</Accordion>
+<Accordion title="Why are my Resend emails going to spam?">
+There are a few common reasons:
+
+- You haven’t verified your domain
+- Your email lacks a plain-text version
+- You’re sending from a generic sender like `onboarding@resend.dev`
+- You’re not following best practices (e.g., missing unsubscribe links in marketing emails)
+
+Use Resend’s **Deliverability Insights** panel to get actionable tips.
+</Accordion>
+<Accordion title="Can I customize the design of the emails I send?">
+Yes. Use [React Email](https://react.email/)—an open-source library by the Resend team—to design styled, responsive emails with React components.
+</Accordion>
+<Accordion title="Does Resend support marketing emails or only transactional?">
+Resend supports **both**:
+
+- **Transactional emails** (confirmation, reset, notifications) using the API or SDK.
+- **Marketing emails** via the **Broadcast** feature and **Audiences**.
+
+You can create, preview, and track campaigns from the dashboard.
+</Accordion>
+<Accordion title="How do I manage newsletter subscribers in Resend?">
+Use **Audiences**:
+
+- Add contacts manually, via CSV, or programmatically using the API.
+- Each Audience has a unique ID you can use to associate subscriptions.
+- Users can unsubscribe automatically via Resend’s built-in unsubscribe link.
+</Accordion>
+<Accordion title="Can I set up double opt-in for newsletters?">
+Not by default, but you can implement it manually:
+
+1. On form submission, send an initial confirmation email.
+1. Ask users to click a link.
+1. On click, confirm their subscription and add them to your Resend audience.
+</Accordion>
+<Accordion title="Can I schedule or automate email flows in Resend?">
+Not yet. Resend doesn’t currently support drip campaigns or automated sequences.
+
+<Tip>
+Workaround:
+
+Use **Supabase Cron Jobs** to schedule tasks that trigger Resend emails at set intervals.
+</Tip>
+</Accordion>
+<Accordion title="How do I connect Resend to Supabase Auth?">
+Use the official Supabase Integration by Resend:
+
+1. Authenticate with your Supabase project.
+1. Provide a domain and sender name.
+1. Resend automatically configures your Supabase auth emails to use your Resend account.
+</Accordion>
+<Accordion title="How does Resend handle unsubscribes?">
+Resend automatically processes unsubscribes:
+
+- You must include an unsubscribe link in broadcast emails.
+- When a user unsubscribes, they are removed from the selected audience.
+- This is required for email compliance (e.g., CAN-SPAM, GDPR).
+</Accordion>
+</AccordionGroup>

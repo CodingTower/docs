@@ -1,0 +1,90 @@
+---
+title: "Troubleshooting"
+description: "Fix build errors, debug unexpected behavior, resolve preview issues, and recover from common problems step by step."
+---
+## Build errors
+
+Building with ZenOpus makes coding faster and more intuitive, but even the best AI development tools can occasionally hit a snag. Sometimes your code won’t run as expected, or you might notice unexpected behavior where the AI interprets your intent incorrectly.
+
+Here’s a step-by-step guide to help you navigate issues and get back on track:
+
+<iframe src="https://www.youtube.com/embed/0W8bsbHh2p8?si=p4kWhkdu0PEbgGXm" title="YouTube video player" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+<Steps>
+<Step title="Use the Try to Fix Button First">
+Click the **Try to Fix** button when an error shows up. ZenOpus will scan your logs, detect the issue, and attempt a quick fix. It’s your fastest first move. If that doesn’t work, it’s time to dig deeper.
+</Step>
+<Step title="Diagnose Unexpected Behavior">
+Your code may run without errors but not behave as intended. That’s **unexpected behavior**, harder to spot and harder to fix. Try this:
+
+- **Revert and re‑prompt**: Roll back to just before the issue occurred, then try a clearer, revised prompt.
+</Step>
+<Step title="Write More Effective Prompts">
+Clear, structured prompts lead to better results. Use this format:
+
+1. **Use Plan mode** and ask, “Can you outline the steps or plan for this feature?”
+1. **Review the plan** that ZenOpus suggests, ask for changes or clarifications if needed.
+1. **Prompt ZenOpus**: “Now, let’s build this step by step.”
+</Step>
+<Step title="Build in Logical Order">
+Structure matters. Follow this recommended flow:
+
+1. Create layout and pages.
+1. Connect to ZenOpus Cloud or an external Supabase connection.
+1. Set up authentication and user roles.
+1. Plan and organize feature logic.
+1. Prompt ZenOpus to implement features.
+</Step>
+</Steps>
+
+### General issues
+
+<AccordionGroup>
+<Accordion title="Need some quick help?">
+Jump into Chat-Only Mode and type: “This specific function is not working. Can you walk me through what’s happening and what you’ve tried?”
+</Accordion>
+<Accordion title="UI or Layout Problems">
+- Provide screenshots of the UI issue directly to the AI for a clearer diagnosis.
+- Use the Edit tool to select and highlight specific UI features you want to change, then describe the adjustment you want.
+- For example: “See the highlighted element? Center it vertically and increase padding.”
+</Accordion>
+<Accordion title="When completely stuck">
+- Prompt: “Take a step back. Analyze the error and suggest a different approach.”
+- Break the task into smaller parts.
+- Use the revert button if errors persist.
+</Accordion>
+<Accordion title="Not found preview or spinning up sandbox">
+Issues with the preview not found or the sandbox spinning up can be related to either the sandbox environment or your connection. Sandbox problems are often temporary, try a hard refresh first. If this continues, it may indicate a broken sync with GitHub or a connection issue. For persistent issues, review our [GitHub integration guide](/integrations/github).
+</Accordion>
+</AccordionGroup>
+
+### Core functionalities
+
+<AccordionGroup>
+<Accordion title="Preview is white">
+- These are often the result of issues in the vite.config.ts file or that security headers have been introduced into the project.
+- Build errors or syntax errors in the code
+- JavaScript runtime errors causing crashes
+- Missing dependencies or broken components
+- Authentication or routing issues blocking the page
+
+To troubleshoot: Ask ZenOpus to review the vite.config.ts file or remove security headers. Check browser console for errors, revert to an earlier version, or ask ZenOpus to investigate the blank screen issue.
+</Accordion>
+<Accordion title="Unpublish or deactivate projects">
+You can unpublish or delete your project in Project Settings.
+</Accordion>
+<Accordion title="Error with Edge Functions">
+Check the Cloud tab -&gt; Logs for specific error messages. Verify all required secrets and environment variables are properly configured. Try redeploying by making a small change to the edge function code by prompting ZenOpus. Ensure your database connection is working. Ask ZenOpus to investigate the specific error and fix any issues found in the logs.
+</Accordion>
+<Accordion title="Project not found">
+This usually means the project was deleted. If you didn’t delete it on purpose, please reach out to support for help restoring your project.
+</Accordion>
+</AccordionGroup>
+
+### Need more help?
+
+Still stuck? Try this:
+
+1. Use Plan mode for step-by-step help.
+1. If it’s an issue with the UI or a feature, revert back to a stable state.
+1. If you’re a paid customer and want to report a platform-wide issue, contact [Support](https://zenopus.dev/support).

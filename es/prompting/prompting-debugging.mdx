@@ -1,0 +1,339 @@
+---
+title: "Avisos de depuración"
+description: "Utilice Plan mode para investigar errores, ejecutar auditorías de código base, manejar actualizaciones frágiles de forma segura y resolver problemas persistentes de forma sistemática."
+---
+Construir con IA es rápido y divertido, hasta que algo sale mal. Los errores, los comportamientos inesperados o los momentos en los que “la IA hizo algo raro” son parte del proceso. Esta guía le ayudará a navegar por **flujos de trabajo de depuración basados ​​en IA en ZenOpus**. Cubriremos cómo solucionar rápidamente problemas simples, estrategias para errores más difíciles, cómo usar el chat de ZenOpus para depurar e incluso sugeriremos recetas para eliminar errores sistemáticamente. Depurar con un asistente de IA es una habilidad nueva, pero con la estructura y las indicaciones adecuadas, puede resolver problemas de manera eficiente e incluso convertirlos en oportunidades de aprendizaje.
+
+## Mensajes de depuración avanzada
+
+A veces necesitas un aviso intenso para profundizar en un problema o revisar el estado de tu proyecto. A continuación se muestran algunos ejemplos de mensajes estructurados para escenarios de optimización u depuración profunda. Estos se pueden usar en Plan mode para obtener un análisis exhaustivo sin cambiar el código inmediatamente.
+
+### Revisión completa del sistema (auditoría de base de código)
+
+Si su proyecto ha crecido mucho o sospecha que hay problemas estructurales, una solicitud de auditoría completa de la base de código puede resultar útil. Esto le pide a la IA que analice todo el proyecto en busca de limpieza, arquitectura correcta y cualquier código fuera de lugar. Es como preguntar "¿Está todo organizado como debería estar?"
+
+**Ejemplo de mensaje: auditoría de base de código:**
+
+```text
+Realice una **auditoría completa de todo el código base** para comprobar si la arquitectura está limpia, modular y optimizada:
+
+- Identifique cualquier archivo, componente o lógica que esté en el lugar incorrecto o que podría organizarse mejor. ¿Hay alguna instancia de código que no pertenezca a su archivo actual (lógica fuera de lugar)?
+- Evaluar si tenemos una separación clara de preocupaciones (por ejemplo, manejo de datos frente a interfaz de usuario frente a gestión del estado). Señale cualquier sección de código demasiado acoplada.
+- Resalte cualquier área del código que sea demasiado compleja o que no siga las mejores prácticas.
+- Proporcionar un informe con recomendaciones específicas para mejorar la estructura y la mantenibilidad, **sin realizar ningún cambio en el código todavía**. 
+
+Divida las sugerencias en una lista ordenada de pasos que podríamos seguir, desde las mejoras más críticas hasta las opcionales.
+
+*(Este es un análisis de solo lectura; no modifique el código durante esta auditoría).*
+```
+
+Este mensaje es largo, pero indica a la IA que actúe como un revisor o arquitecto de código. Le hemos pedido que encuentre código mal ubicado, verifique la modularidad e incluso priorice las correcciones. La IA podría responder con algo como:
+
+- _"1. ****Llamadas API separadas de los componentes:**** El componente _`ProjectList`* está obteniendo datos directamente. Sugerencia: mueva la recuperación de datos a un enlace o contexto dedicado para mantener los componentes con una interfaz de usuario pura.*
+
+1. **Reducir el acoplamiento en la lógica de la tarea:** La opción de finalización de la tarea actualiza tanto el estado como escribe directamente en el almacenamiento local. Esto debería refactorizarse para tener una única fuente de verdad.
+1. **Organizar funciones de utilidad:** Hay funciones de utilidad en `App.tsx` que estarían mejor ubicadas en una carpeta `utils` (por ejemplo, funciones de formato de fecha).
+1. …”*
+
+Cada punto puede venir con una explicación y tal vez con referencias a archivos específicos. Un informe de este tipo le ayuda a ver el bosque a través de los árboles. Es especialmente útil si te has centrado en una característica a la vez y no has mirado la estructura general por un tiempo.
+
+<Warning>
+Evite indicaciones genéricas y amplias
+
+```text
+¡Nada funciona, arreglalo!
+```
+</Warning>
+
+<Check>
+Haga que sus indicaciones sean más detalladas y específicas
+
+```text
+Ahora la pantalla se ha quedado en blanco y ya no puedo realizar modificaciones.
+¿Puedes comprobar qué pasó?
+```
+</Check>
+
+Después de obtener este resultado, puede decidir qué tareas de refactorización abordar (tal vez incluso pedirle a la IA que implemente algunas de esas recomendaciones una por una).
+
+### Enfoque seguro para actualizaciones frágiles
+
+Cuando sepa que el área que está cambiando es delicada (tal vez un flujo de autenticación complejo o un algoritmo central), es aconsejable anteponer una *pauta de precaución* en su mensaje. Esto no encuentra errores per se, pero ayuda a prevenirlos diciéndole a la IA que tenga mucho cuidado. Vimos un ejemplo en la sección Biblioteca de mensajes para bloquear archivos. Aquí hay un patrón similar que se centra en no romper cosas.
+
+**Ejemplo de mensaje: guía de actualización frágil:**
+
+```text
+El próximo cambio se realiza en una **parte crítica de la aplicación**, así que procede con **máxima precaución**. 
+
+- Examine cuidadosamente todo el código relacionado y las dependencias *antes* de realizar cambios.
+- **Evite modificaciones** a componentes o archivos no relacionados.
+- Si hay alguna incertidumbre, haga una pausa y explique su proceso de pensamiento antes de continuar.
+- Asegúrese de realizar pruebas exhaustivas después del cambio para confirmar que nada más se vea afectado.
+
+**Tarea:** Actualice la lógica de autenticación de usuario a Support inicio de sesión OAuth a través de Google, además del correo electrónico/contraseña existente sin interrumpir ninguno de los flujos.
+
+*(Tenga mucho cuidado y vuelva a verificar cada paso durante la implementación).*
+```
+
+Al incluir las pautas en cursiva y las advertencias en negrita, básicamente estás configurando la "mentalidad" de la IA para que sea cautelosa. La IA podría entonces adoptar un enfoque más mesurado, por ejemplo, primero explicando lo que hará, o implementando la adición de OAuth mientras señala explícitamente que dejó el correo electrónico/contraseña intacto. Este mensaje no genera una solución de inmediato; más bien, influye en *cómo* la IA realizará la tarea para minimizar la introducción de nuevos errores.
+
+Esta estrategia es útil para **secciones frágiles**: autenticación, procesamiento de pagos, migración de datos, cualquier cosa en la que un pequeño error pueda arruinar muchas cosas. Es una medida de depuración preventiva.
+
+### Comprobación de optimización del rendimiento
+
+Si su aplicación funciona correctamente pero es **lenta** o requiere muchos recursos, puede usar un mensaje para que la IA analice el rendimiento. Esto podría implicar revisar patrones de obtención de datos, observar ineficiencias en la representación o sugerir optimizaciones (almacenamiento en caché, memorización, etc.). Es como preguntar: "¿Cómo podemos hacer que esto sea más rápido y fluido?"
+
+**Ejemplo de mensaje: auditoría de desempeño:**
+
+```text
+Nuestra aplicación es funcional pero parece **lenta**. **Analice el proyecto en busca de cuellos de botella de rendimiento** y sugiera optimizaciones:
+
+- Compruebe si hay llamadas de red o bases de datos innecesarias (por ejemplo, recuperaciones duplicadas o patrones de consulta N+1).
+- Identifique los componentes que podrían volver a renderizarse con demasiada frecuencia o realizar un trabajo pesado en el hilo principal.
+- Observe nuestro uso de recursos (imágenes, scripts): ¿hay paquetes grandes o activos no optimizados que afecten el tiempo de carga?
+- Sugiera mejoras como el almacenamiento en caché de los datos de uso frecuente, el uso de notas de React o carga diferida cuando corresponda, y cualquier otra forma de acelerar la aplicación.
+
+Proporcione el análisis y las recomendaciones en una lista. No realice cambios en el código todavía; solo díganos qué mejorar para obtener un mejor rendimiento.
+```
+
+Ejecutar esto en Plan mode le dará un informe de diagnóstico. La IA podría decir, por ejemplo:
+
+- *"Obtención de datos:* El componente `ProjectList` recupera datos en cada renderizado. Esto podría mejorarse almacenando en caché o moviendo la recuperación a un contexto superior para que no se repita innecesariamente. Considere usar un estado o contexto para almacenar proyectos una vez recuperados.
+- *Se vuelve a renderizar:* El componente `TaskItem` no se memoriza y se vuelve a renderizar cada vez que cambia el estado principal. Si tenemos muchas tareas, esto puede ralentizar las interacciones. Sugerencia: use `React.memo` para `TaskItem` para evitar renderizaciones innecesarias.
+- *Activos:* Noté una imagen (logotipo) de 2 MB. Eso es bastante grande; comprimir o utilizar una resolución más pequeña para una carga más rápida.
+- *Tamaño del paquete:* Todas las páginas están en un solo paquete. Considere la posibilidad de dividir el código (`import()` dinámico para módulos grandes) para que la carga inicial sea más rápida.
+- …”*
+
+Cada sugerencia proviene de las mejores prácticas de desempeño comunes. Luego puede decidir cuáles implementar. Tal vez necesite prompt ZenOpus para aplicar uno de ellos: *“Implementar el almacenamiento en caché para los datos del proyecto usando el contexto como se sugiere”.* Al abordarlos, mejora la experiencia del usuario y posiblemente reduce los costos (menos llamadas, menos cálculos).
+
+### Manejo de errores persistentes
+
+¿Qué pasa con los errores que simplemente no desaparecen o vuelven a aparecer con ligeras variaciones? Esto puede suceder si no se aborda la causa raíz. Por ejemplo, arreglas una cosa, pero el problema subyacente aparece como un nuevo error en otra parte. Aquí hay una estrategia para eso:
+
+- **Pregúntale a la IA qué ha probado ya.** A veces, después de algunos intentos de "Intentar arreglar" o indicaciones manuales, no queda claro qué se ha cambiado. Utilice: _“¿Qué soluciones hemos probado hasta ahora para este error?”_. La IA puede enumerar los intentos, lo que le ayuda a evitar repetir las mismas correcciones.
+- **Pídale a la IA que explique el error en términos simples.***“Explique en términos simples por qué ocurre este error”.* Esto puede revelar si la IA (y usted) realmente lo entienden. Es posible que se dé cuenta de que hay una idea errónea aquí.
+- **Considere un enfoque alternativo.** Pregunte: _“Dado que este error sigue ocurriendo, ¿podemos probar un enfoque diferente para lograr el objetivo?”_. La IA podría sugerir una estrategia de implementación diferente que evite el área problemática.
+- **Revertir y reproducir.** En el peor de los casos, podrías retroceder algunos pasos. ZenOpus le permite volver a versiones anteriores e incluso editar mensajes anteriores y volver a adoptar un enfoque diferente. Luego proceda con cambios más pequeños.
+
+Finalmente, si un componente específico está "muerto" (no funciona en absoluto, pase lo que pase), aíslelo. Cree una nueva versión mínima de ese componente mediante el mensaje para ver si funciona y luego intégrelo lentamente nuevamente en su proyecto. Esto es similar a apagar y encender cosas, pero con código: a veces, comenzar de nuevo con una pieza es más fácil que intentar reparar una que está demasiado rota.
+
+Durante todo esto, mantén un diálogo con la IA. Trátelo como a un colaborador: *"Arreglamos X pero ahora Y está actuando mal. ¿Cuál es la relación entre X e Y? ¿Podría la solución haber causado el problema de Y?"* La IA podría establecer conexiones que usted no vio.
+
+## Flujos de depuración de muestra
+
+Para consolidar estas ideas, analicemos dos escenarios de depuración comunes con flujos de ejemplo:
+
+### El "bucle de error atascado".
+
+Solicitó algo complejo y ahora la aplicación no se compila y el intento de reparación falló dos veces.
+
+*Flujo:*
+
+<Steps>
+<Step title="Cambias a Plan mode.">
+</Step>
+<Step title="Usted pregunta: &quot;¿Cuál es la causa principal de este error de compilación?&quot;">
+</Step>
+<Step title="La IA explica que se trata de una discrepancia de tipos en la llamada API.">
+</Step>
+<Step title="Luego dice: &quot;Muéstreme el código relevante y los tipos esperados&quot;.">
+</Step>
+<Step title="La IA muestra que la función esperaba un número de identificación pero obtuvo un objeto.">
+</Step>
+<Step title="Ahora que lo ve, le indicará: &quot;Ajuste el código para pasar solo el ID numérico a la función, no todo el objeto&quot;.">
+</Step>
+<Step title="Cambie a Predeterminado, ejecute ese mensaje, la compilación se realizó correctamente.">
+</Step>
+<Step title="Si no fuera así, regresarías y tal vez preguntarías &quot;¿Qué más podría causar esto?&quot; etc.">
+</Step>
+</Steps>
+
+En todo momento, describiste específicamente el error y le pediste a la IA que confirmara su comprensión, en lugar de simplemente presionar ciegamente para solucionarlo repetidamente.
+
+### La "función no funciona correctamente".
+
+Agregaste una función de notificación, pero los correos electrónicos no se envían.
+
+*Flujo:*
+
+<Steps>
+<Step title="No se muestra ningún error, por lo que preguntas en el chat: &quot;La notificación por correo electrónico no funciona. Esperaba un correo electrónico cuando una tarea está vencida, pero no recibí nada. ¿Cómo podemos depurar esto?&quot;">
+</Step>
+<Step title="AI sugiere verificar si la función del servidor se activó y si la respuesta del servicio de correo electrónico tuvo un error.">
+</Step>
+<Step title="Tomas el registro del servidor (quizás de Supabase) y ves un error de permiso.">
+</Step>
+<Step title="Le muestra esto a la IA: &quot;El registro dice 'permiso denegado al intentar enviar un correo electrónico'&quot;.">
+</Step>
+<Step title="La IA descubre que tal vez la clave API para el servicio de correo electrónico no estaba configurada o el servicio la bloqueó.">
+</Step>
+<Step title="Luego, corrige la clave API en la configuración (fuera de ZenOpus) o solicita ajustar la función para usar un método diferente.">
+</Step>
+</Steps>
+
+Básicamente, al describir lo que se espera (un correo electrónico) y lo que sucedió (nada, con un fragmento de registro), la IA pudo guiar la investigación.
+
+### El "elemento de la interfaz de usuario desapareció".
+
+Refactorizó algo y ahora una sección completa de la interfaz de usuario simplemente desapareció (un "componente muerto").
+
+*Flujo:*
+
+<Steps>
+<Step title="Le dices a la IA: &quot;La sección de la lista de proyectos ya no aparece. Estaba funcionando antes de la última edición&quot;.">
+</Step>
+<Step title="La IA podría comprobar si el componente todavía se está procesando o si falta una declaración de devolución.">
+Quizás se dé cuenta de que la refactorización eliminó el `ProjectList` del JSX principal. Sugiere volver a importarlo e incluirlo. O tal vez los cambios de estado en uno de los padres signifiquen que la lista ahora se filtra sin querer.
+</Step>
+<Step title="La IA podría analizar las posibilidades: &quot;¿Aún se están recuperando los datos? ¿El componente está obteniendo los datos? Agreguemos un console.log en el renderizado para ver si está recibiendo accesorios&quot;.">
+</Step>
+<Step title="Usted hace eso (o la IA lo hace mediante un mensaje) y no ve ningún registro, lo que significa que el componente no está montado.">
+¡Ajá! Entonces le indicará: _“Restaurar el _`<ProjectList>`* en la página del Panel JSX (se eliminó accidentalmente)”.* Problema resuelto.
+</Step>
+</Steps>
+
+En este flujo, la clave era notar que el componente había desaparecido por completo y comunicarlo. La IA ayudó a identificar *por qué* (no renderizado versus renderizado, sino vacío, etc.).
+
+<Note>
+Uso de herramientas de desarrollo y registros de consola
+
+```text
+Mi aplicación ya no funciona y la pantalla está en blanco.
+Aquí está copiar y pegar desde la consola de herramientas de desarrollo, ¿puedes solucionar el problema?
+
+Se produjo un error:
+TypeError: Q9() no está definido en https://example.zenopus.app/assets/index-DWQbrtrQQj.js
+: 435 : 39117 índice-DWQbrtrQQj.js:435:35112
+error de respuesta https://example.zenopus.app/assets/index-DWQbrtrQQj.js:435
+```
+</Note>
+
+En todos estos casos, la *comunicación y los pasos incrementales* son tus amigos. Utilice la fuerza de la IA para recordar detalles (como lo hacía antes) y analizar registros o errores. Y utilice su fuerza para dirigir el proceso: comprende el objetivo de alto nivel y puede decidir cuándo probar un ángulo diferente.
+
+## Análisis de causa raíz, reversión y mejora progresiva
+
+Algunos consejos finales:
+
+### Causa raíz versus síntoma
+
+Pregunte siempre "¿por qué sucedió esto?" no simplemente “¿qué hacer ahora?”. La IA puede ayudar a encontrar la causa raíz para que, cuando arregles algo, permanezca arreglado. Por ejemplo, una solución rápida de IA podría silenciar un error pero no solucionar el error lógico subyacente. Si sospecha eso, profundice más:
+
+<Info>
+*Veo que solucionaste el error del puntero nulo agregando una marca, pero ¿por qué era nulo en primer lugar? ¿Podemos abordar esa causa?*
+</Info>
+
+Esto conduce a soluciones más sólidas.
+
+### Retroceder sabiamente:
+
+ZenOpus le permite retroceder a versiones anteriores. No dude en usarlo si el código se ha enredado demasiado debido a una serie de correcciones incorrectas. A menudo es más rápido rebobinar y probar un enfoque diferente. Si realiza una reversión, informe a la IA lo que está haciendo (para que no se confunda con un código que de repente se ve diferente). Por ejemplo:
+
+<Info>
+*Revertí el proyecto a antes de la función de notificaciones. Implementémoslo nuevamente, pero esta vez con más cuidado.*
+</Info>
+
+De esta manera, la IA tiene el contexto de que deshicimos algunos cambios y estamos tomando otra oportunidad.
+
+### Mejora progresiva:
+
+Al agregar nuevas funciones (especialmente las complejas), constrúyalas en incrementos pequeños y comprobables. Esto no es sólo un consejo: es una filosofía de desarrollo que combina bien con la IA. Si algo se rompe, sabrás exactamente qué pequeño paso lo ha causado. Pregunta por pregunta, mejoras la aplicación, lo que también significa que, pregunta por pregunta, puedes depurar de forma aislada. Si alguna vez se encuentra escribiendo un mensaje de un párrafo con varios cambios de funciones a la vez, considere dividirlo en varios mensajes. Te lo agradecerás más tarde cuando sea necesario solucionar problemas.
+
+<Note>
+1. Agregue casos de prueba fallidos.
+1. Aislar el problema y analizar las dependencias.
+1. Documente los hallazgos antes de aplicar las correcciones.
+
+```text
+Aquí está el registro de la consola fallida. Analice el caso de prueba, investigue el error en el flujo de autenticación y sugiera una solución después de comprender las dependencias.
+```
+</Note>
+
+### Documente sobre la marcha:
+
+Es útil tomar notas (o incluso pedirle a la IA que resuma lo que se hizo después de una sesión). Esto es similar al metaindicador inverso: crea un historial de correcciones. Por ejemplo, después de resolver un error difícil, es posible que se le solicite:
+
+<Info>
+*Resuma cuál fue el problema y cómo lo solucionamos.*
+</Info>
+
+El resumen de la IA se puede guardar en un `README` o registro. Esto es fantástico para que usted o cualquier otra persona en el proyecto en el futuro pueda comprender lo que sucedió.
+
+### Sepa cuándo pedir ayuda humana:
+
+A veces, a pesar de todos los esfuerzos, es posible que te topes con una pared (tal vez un verdadero error en la plataforma ZenOpus o algo fuera de tu control/AI). La comunidad ZenOpus y Support están a su disposición. No es ninguna vergüenza comunicarse con Discord o foros con una pregunta. A menudo, otros se han enfrentado a un problema similar. Utilice la IA para recopilar la mayor cantidad de información posible primero (para poder proporcionar detalles) y luego pregunte a la comunidad si es necesario.
+
+## Guía de depuración comunitaria
+
+Esta guía se compartió en nuestra comunidad Discord; podría ser útil para depurar su proyecto:
+
+<AccordionGroup>
+<Accordion title="Corrección de errores">
+Al corregir errores, céntrese exclusivamente en las secciones de código relevantes sin modificar partes funcionales no relacionadas. Analice el mensaje de error y rastree su origen. Implemente correcciones específicas que aborden el problema específico manteniendo la compatibilidad con el código base existente. Antes de confirmar cualquier solución, valide que resuelva el problema original sin introducir nuevos errores. Conserve siempre la funcionalidad funcional y evite reescribir código que no esté directamente relacionado con el error.
+</Accordion>
+<Accordion title="Enfoque de modificación de código">
+Al modificar el código existente, utilice un enfoque quirúrgico que cambie solo lo necesario para implementar la característica o solución solicitada. Conserve los nombres de las variables, los patrones de codificación y las decisiones arquitectónicas presentes en el código base. Antes de sugerir cambios, analice las dependencias para asegurarse de que las modificaciones no interrumpan la funcionalidad existente. Presente los cambios como diferencias mínimas en lugar de reescrituras completas. Cuando se identifiquen mejoras más allá de la tarea inmediata, sugiéralas por separado sin implementarlas automáticamente.
+</Accordion>
+<Accordion title="Integración de bases de datos">
+Antes de sugerir nuevas estructuras de bases de datos, examine minuciosamente el esquema existente para identificar tablas, relaciones y campos ya presentes. Aproveche las tablas existentes siempre que sea posible en lugar de duplicar modelos de datos. Cuando sean necesarias modificaciones en la base de datos, asegúrese de que sean compatibles con las consultas y los patrones de acceso a datos existentes. Considere estrategias de migración para cambios de esquema que preserven los datos existentes. Verifique siempre las relaciones de claves externas y las restricciones de integridad de los datos antes de proponer cambios.
+</Accordion>
+<Accordion title="Análisis exhaustivo de problemas">
+Aborde cada problema con un proceso de diagnóstico integral. Comience recopilando toda la información relevante mediante un examen cuidadoso de los mensajes de error, los registros y el comportamiento del sistema. Forme múltiples hipótesis sobre causas potenciales en lugar de sacar conclusiones precipitadas. Pruebe cada hipótesis metódicamente hasta identificar la causa raíz. Documente su proceso de análisis y sus hallazgos antes de proponer soluciones. Considere posibles casos extremos y cómo podrían afectar al sistema.
+</Accordion>
+<Accordion title="Verificación de la solución">
+Antes de confirmar cualquier solución, implemente un riguroso proceso de verificación. Pruebe la solución con el problema original para confirmar que resuelve el problema. Compruebe si hay efectos secundarios no deseados en la funcionalidad relacionada. Asegúrese de que el rendimiento no se vea afectado negativamente. Verificar la compatibilidad con diferentes entornos y configuraciones. Ejecute los casos extremos para garantizar la solidez. Sólo después de completar esta verificación deberá presentar la solución como confirmada.
+</Accordion>
+<Accordion title="Coherencia del código">
+Mantenga la coherencia con el código base existente en términos de estilo, patrones y enfoques. Analice el código para identificar convenciones de nomenclatura, preferencias de formato y patrones arquitectónicos. Siga estos patrones establecidos al implementar nuevas funciones o correcciones. Utilice las mismas estrategias de manejo de errores, enfoques de registro y metodologías de prueba presentes en el proyecto. Esto preserva la legibilidad y la mantenibilidad al tiempo que reduce la carga cognitiva para los desarrolladores.
+</Accordion>
+<Accordion title="Mejora progresiva">
+Al agregar nuevas funciones, aproveche la arquitectura existente en lugar de introducir paradigmas completamente nuevos. Identifique puntos de extensión en el diseño actual y aprovéchelos para obtener nuevas funciones. Implementar cambios que se alineen con los patrones y principios establecidos del código base. Céntrese en la compatibilidad con versiones anteriores para garantizar que las funciones existentes sigan funcionando como se espera. Documente cómo las nuevas incorporaciones se integran y amplían el sistema existente.
+</Accordion>
+<Accordion title="Documentación y explicación">
+Proporcione explicaciones claras y concisas para todos los cambios y recomendaciones. Explique no sólo qué cambios se están realizando, sino también por qué son necesarios y cómo funcionan. Documente cualquier suposición o dependencia involucrada en la solución. Incluya comentarios en el código al introducir lógica compleja o soluciones no obvias. Cuando sugiera cambios arquitectónicos, proporcione diagramas o explicaciones de alto nivel que ayuden a visualizar el impacto.
+</Accordion>
+<Accordion title="Conciencia de la deuda técnica">
+Reconocer cuándo las soluciones podrían generar deuda técnica y ser transparente sobre estas compensaciones. Cuando las limitaciones de tiempo requieran soluciones no ideales, identifique claramente qué aspectos se beneficiarían de una refactorización futura. Distinga entre soluciones rápidas y soluciones adecuadas, recomendando el enfoque adecuado según el contexto. Cuando la deuda técnica sea inevitable, documentarla claramente para facilitar futuras mejoras.
+</Accordion>
+<Accordion title="Aprendizaje y adaptación">
+Adaptarse continuamente a los patrones y preferencias específicos del proyecto. Preste atención a los comentarios sobre sugerencias anteriores e incorpore estos aprendizajes en recomendaciones futuras. Cree un modelo mental de la arquitectura de la aplicación que se vuelva cada vez más preciso con el tiempo. Recuerde problemas y soluciones del pasado para evitar repetir errores. Busque activamente comprender los requisitos comerciales subyacentes que impulsan las decisiones técnicas.
+</Accordion>
+<Accordion title="Prevención de componentes duplicados">
+Antes de crear nuevas páginas, componentes o flujos, realice un inventario exhaustivo de los elementos existentes en el código base. Busque funciones similares utilizando palabras clave y patrones de archivos relevantes. Identifique oportunidades para reutilizar o ampliar componentes existentes en lugar de crear duplicados. Cuando existan características similares, analícelas para comprender si se pueden parametrizar o adaptar en lugar de duplicarlas. Mantenga un modelo mental de la estructura de la aplicación para reconocer cuándo las soluciones propuestas podrían crear elementos redundantes. Cuando se necesiten páginas o flujos similares, considere la posibilidad de crear componentes abstractos que puedan reutilizarse con diferentes datos o configuraciones, promoviendo los principios DRY (No repetirse).
+</Accordion>
+<Accordion title="Eliminación de código muerto">
+Identifique y elimine activamente el código no utilizado en lugar de dejar que se acumule. Al reemplazar la funcionalidad, elimine limpiamente la implementación anterior en lugar de simplemente comentarla o dejarla junto con el código nuevo. Antes de eliminar código, verifique su uso en toda la aplicación comprobando importaciones y referencias. Utilice herramientas como el análisis de dependencia cuando estén disponibles para confirmar que el código realmente no se utiliza. Al refactorizar, realice un seguimiento de los métodos obsoletos y asegúrese de que se eliminen correctamente una vez que ya no se haga referencia a ellos. Analice periódicamente en busca de componentes huérfanos, importaciones no utilizadas, bloques comentados y condiciones inalcanzables. Cuando sugiera la eliminación de código, proporcione un razonamiento claro de por qué se considera código inactivo y confirme que no existen dependencias sutiles antes de eliminarlo. Mantenga la limpieza en el código base priorizando la eliminación de rutas de código que ya no se ejecutan.
+</Accordion>
+<Accordion title="Preservar las características de trabajo">
+Trate las funciones en funcionamiento como sistemas bloqueados que requieren permiso explícito para modificarlos. Antes de sugerir cambios a cualquier componente funcional, identifique claramente sus límites y dependencias. Nunca elimine ni altere sustancialmente funciones que estén operativas actualmente sin una dirección explícita. Cuando se produzcan errores en un área, evite realizar cambios "por si acaso" en componentes de trabajo no relacionados. Mantenga una comprensión clara de qué partes de la aplicación son estables y cuáles están en desarrollo. Utilice un enfoque centrado en funciones en el que los cambios se aíslen a conjuntos de funciones específicos sin afectar a otros. Al modificar componentes compartidos utilizados por varias funciones, asegúrese de que todas las funciones dependientes sigan funcionando como se espera. Cree salvaguardas documentando minuciosamente las dependencias entre funciones antes de realizar modificaciones que puedan afectarlas. Confirme siempre explícitamente la intención antes de sugerir cambios en partes funcionales establecidas de la aplicación.
+</Accordion>
+<Accordion title="Enfoque de resolución profunda de problemas">
+Cuando encuentre errores complejos, resista la tentación de aplicar soluciones inmediatas sin una comprensión más profunda. Dé un paso atrás deliberadamente para examinar el problema desde múltiples perspectivas antes de proponer soluciones. Considere enfoques fundamentalmente diferentes en lugar de variaciones menores de la misma estrategia. Documente al menos tres posibles soluciones con sus ventajas y desventajas antes de recomendar un enfoque específico. Cuestione las suposiciones iniciales sobre la causa de los errores, especialmente cuando las soluciones estándar no funcionan. Considere fuentes no convencionales de problemas, como configuraciones del entorno, dependencias externas o condiciones de carrera que podrían no ser inmediatamente obvias. Intente invertir su forma de pensar: en lugar de preguntar "¿por qué esto no funciona?", pregunte "¿bajo qué condiciones este comportamiento tendría realmente sentido?". Divida problemas complejos en componentes más pequeños que puedan verificarse de forma independiente. Implemente estrategias de depuración específicas, como registros, puntos de interrupción o seguimiento de estado, para recopilar más información cuando el origen de un error no esté claro. Esté dispuesto a proponer soluciones experimentales como oportunidades de aprendizaje en lugar de soluciones definitivas cuando se trate de cuestiones particularmente oscuras.
+</Accordion>
+<Accordion title="Verificación de consultas de bases de datos">
+Antes de sugerir cualquier consulta de base de datos o modificación de esquema, verifique siempre primero el estado actual de la base de datos. Examine las tablas, campos y relaciones existentes para asegurarse de no recomendar la creación de elementos que ya existen. Al sugerir consultas, primero verifique si existen consultas similares en el código base que se puedan adaptar. Revise los modelos de datos, los archivos de migración y las definiciones de esquemas existentes para lograr una comprensión precisa de la estructura de la base de datos. Para cualquier creación de tabla propuesta, confirme explícitamente que la tabla no existe ya y explique por qué es necesaria una tabla nueva en lugar de modificar una existente. Cuando sugiera agregar campos, verifique que campos similares no sirvan para el mismo propósito con nombres diferentes. Considere las implicaciones de las consultas sugeridas en el rendimiento de la base de datos y proporcione alternativas optimizadas cuando sea apropiado. Contextualice siempre las sugerencias de consultas dentro de la arquitectura de base de datos existente en lugar de tratarlas como operaciones aisladas.
+</Accordion>
+<Accordion title="Coherencia y temática de la interfaz de usuario">
+Mantener un estricto cumplimiento del sistema de diseño establecido y la paleta de colores en toda la aplicación. Antes de crear nuevos componentes de la interfaz de usuario, estudie los existentes para comprender el lenguaje visual, los patrones de espaciado, los modelos de interacción y el enfoque temático. Al implementar nuevas interfaces, reutilice los patrones de componentes existentes en lugar de crear variaciones visuales. Extraiga valores de color, tipografía, espaciado y otros tokens de diseño del código base existente en lugar de introducir nuevos valores. Garantice un manejo coherente de los estados (desplazado, activo, deshabilitado, error, etc.) en todos los componentes. Respete los patrones de comportamiento responsivos establecidos al implementar nuevos diseños. Cuando sugiera mejoras en la interfaz de usuario, asegúrese de que mejoren, en lugar de alterar, la cohesión visual de la aplicación. Mantenga los estándares de accesibilidad de manera consistente en todos los componentes, incluidas las relaciones de contraste de color, la navegación con el teclado y el lector de pantalla Support. Documente cualquier variación de los componentes y sus contextos de uso apropiados para facilitar una aplicación consistente. Al introducir nuevos elementos visuales, demuestre explícitamente cómo se integran y complementan el sistema de diseño existente en lugar de diferenciarse de él.
+</Accordion>
+<Accordion title="Enfoque de depuración sistemática">
+Cuando encuentre errores, adopte una metodología de depuración científica en lugar de realizar cambios aleatorios. Empiece por reproducir el problema exacto en un entorno controlado. Recopile datos completos, incluidos registros de la consola, solicitudes de red, estado de los componentes y mensajes de error. Formule múltiples hipótesis sobre causas potenciales y pruebe cada una de ellas sistemáticamente. Aísle el problema reduciendo los componentes afectados e identificando las condiciones desencadenantes. Documente su proceso de depuración y sus hallazgos para referencia futura. Utilice herramientas de depuración adecuadas, incluidas herramientas de desarrollo de navegadores, React DevTools y técnicas de depuración a nivel de código. Verifique siempre que su solución resuelva completamente el problema sin introducir nuevos problemas o regresiones en otras partes de la aplicación.
+</Accordion>
+<Accordion title="Tipo Seguridad y Validación de Datos">
+Antes de implementar cualquier funcionalidad, analice exhaustivamente las definiciones de tipos tanto del esquema de la base de datos como de las interfaces TypeScript. Mantenga una estricta verificación de tipos en todo el código base, evitando "cualquier" tipo como vía de escape. Cuando trabaje con transformaciones de datos, verifique la seguridad de tipos en cada paso del proceso. Preste especial atención a las discrepancias de tipos comunes, como los números de bases de datos que aparecen como cadenas, los requisitos de análisis de fechas y el manejo de campos que aceptan valores NULL. Implemente convenciones de nomenclatura coherentes entre las columnas de la base de datos y las interfaces de TypeScript. Documente relaciones de tipos complejas y requisitos de manejo especiales. Pruebe con formas de datos reales y verifique casos extremos, particularmente el manejo nulo/indefinido. Cuando se produzcan errores, rastree el proceso de transformación de datos para identificar exactamente dónde divergen los tipos y sugerir soluciones que mantengan la seguridad de los tipos.
+</Accordion>
+<Accordion title="Gestión del flujo de datos">
+Conceptualice el flujo de datos como una canalización completa desde la base de datos a través de la API y del estado a la interfaz de usuario. Al implementar funciones, realice un seguimiento cuidadoso de cómo se transforman los datos en cada etapa. Implemente patrones de invalidación de consultas adecuados para garantizar que la interfaz de usuario permanezca sincronizada con el estado de la base de datos. Agregue registros de consola estratégicos en puntos críticos para monitorear las transiciones de datos. Cree modelos mentales claros de cuándo y cómo los datos deben actualizarse en respuesta a las acciones. Preste especial atención a las estrategias de almacenamiento en caché y a los posibles problemas de datos obsoletos. Al depurar problemas de flujo, siga metódicamente el recorrido de los datos desde el origen hasta el destino. Verifique problemas de sincronización, condiciones de carrera y errores de transformación. Verifique que la forma de los datos finales que llegan a los componentes coincida con lo que esperan. Implemente límites de error sólidos y administración del estado de carga para mantener la estabilidad de la interfaz de usuario durante las interrupciones del flujo de datos.
+</Accordion>
+<Accordion title="Optimización del rendimiento">
+Supervise el rendimiento de las aplicaciones de forma proactiva en lugar de esperar a que los problemas se agraven. Revise las estrategias de almacenamiento en caché de consultas para minimizar las llamadas innecesarias a la base de datos. Verifique y elimine repeticiones innecesarias de componentes mediante la memorización adecuada y la gestión de dependencias. Analice los patrones de obtención de datos para detectar posibles problemas de consultas N+1, cascadas excesivas o solicitudes redundantes. Implemente la virtualización para listas largas y paginar grandes conjuntos de datos. Optimice el tamaño del paquete mediante la división de código y la carga diferida. Comprima y optimice activos, incluidas imágenes. Utilice herramientas de medición del rendimiento adecuadas para identificar cuellos de botella, incluidas React DevTools, la pestaña Rendimiento, el panel Red y el generador de perfiles de memoria. Centre los esfuerzos de optimización en métricas que impacten directamente en la experiencia del usuario, como los tiempos de carga, el tiempo de interacción y la capacidad de respuesta de la interfaz de usuario. Implemente mejoras de rendimiento específicas en lugar de optimización prematura.
+</Accordion>
+<Accordion title="Gestión de errores y resiliencia">
+Implemente una estrategia integral de manejo de errores que mantenga la estabilidad de la aplicación y al mismo tiempo proporcione comentarios significativos. Utilice bloques try/catch estratégicamente alrededor de secciones de código potencialmente problemáticas. Cree una jerarquía de límites de errores para contener fallas dentro de componentes específicos en lugar de bloquear toda la aplicación. Diseñe patrones de degradación elegantes donde los componentes puedan seguir funcionando con datos limitados. Proporcione mensajes de error claros y fáciles de usar que expliquen el problema sin jerga técnica. Implemente mecanismos de recuperación que incluyan lógica de reintento, respaldos y restablecimientos de estado. Mantenga un registro de errores sólido que capture suficiente contexto para la depuración respetando la privacidad. Pruebe minuciosamente los escenarios de error para garantizar que los mecanismos de recuperación funcionen según lo esperado. Al sugerir soluciones, asegúrese de que aborden la causa raíz en lugar de simplemente suprimir los síntomas, y verifique que funcionen en todos los entornos y casos extremos relevantes.
+</Accordion>
+<Accordion title="Arquitectura de componentes">
+Aborde el diseño de componentes con una comprensión clara de la jerarquía y las responsabilidades de los componentes. Visualice los componentes como un árbol genealógico con relaciones adecuadas entre padres e hijos. Minimice la perforación de puntales utilizando estratégicamente la gestión del contexto o del estado cuando corresponda. Implemente límites claros entre los componentes de contenedor (inteligentes) y de presentación (tontos). Establezca patrones consistentes para la comunicación de componentes, incluidas las interacciones entre padres e hijos y entre hermanos. Al depurar problemas de componentes, analice el árbol de componentes completo, el flujo de accesorios, la ubicación del estado y las conexiones del controlador de eventos. Diseñe componentes con responsabilidad única e interfaces claras. Documente las relaciones y dependencias de los componentes para facilitar el mantenimiento futuro. Implemente optimizaciones de rendimiento que incluyan memorización, carga diferida y división de código cuando sea beneficioso. Mantenga un equilibrio entre la reutilización de componentes y la especialización para evitar tanto la duplicación como la abstracción excesiva.
+</Accordion>
+<Accordion title="Integración de API y gestión de red">
+Acérquese a la integración de API con una estrategia integral para solicitudes, respuestas y manejo de errores. Verifique los encabezados, parámetros y formato del cuerpo de autenticación para cada solicitud. Implemente un manejo de errores adecuado para todas las operaciones de la red con capturas específicas para diferentes tipos de errores. Garantice una escritura coherente entre las cargas útiles de las solicitudes, las respuestas esperadas y el estado de la aplicación. Configure los ajustes CORS adecuados y verifique que funcionen en todos los entornos. Implemente mecanismos de reintento inteligentes para fallas transitorias con retroceso exponencial. Considere las implicaciones de limitación de velocidad e implemente la limitación adecuada. Agregue almacenamiento en caché de solicitudes estratégicas para mejorar el rendimiento y reducir la carga del servidor. Supervise el rendimiento de la red, incluidos los tiempos de solicitud y los tamaños de carga útil. Pruebe las integraciones de API frente a caminos felices y varios escenarios de error. Mantenga una documentación clara de todos los puntos finales de API, sus propósitos, parámetros esperados y formatos de respuesta para facilitar el desarrollo y la depuración futuros.
+</Accordion>
+</AccordionGroup>

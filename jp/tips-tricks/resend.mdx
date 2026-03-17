@@ -1,0 +1,431 @@
+---
+title: "再送信統合"
+description: "Resend with Supabase Edge Functions を使用して、トランザクション電子メール、確認メッセージ、ニュースレターを送信します。"
+---
+## 再送信とは何ですか?
+
+[再送信](https://resend.com/emails) は開発者向けに構築されたメール API です。これは、トランザクションおよびマーケティング電子メールを送信するための、高い配信可能性、統合の容易さ、クリーンな開発者エクスペリエンスに重点を置いています。
+
+## ステップバイステップのチュートリアル
+
+<iframe src="https://www.youtube.com/embed/5ZL744_Wxjo?si=qrKlOL_1fAnz7rgc" title="YouTubeビデオプレーヤー" width="100%" height="315" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+
+このチュートリアルでは、見込み顧客の収集、電子メールの確認、ニュースレターの購読、内部管理者ダッシュボードを備えた、完全に機能する CRM を 1 時間以内に構築する手順を説明します。使用するもの:
+
+- **ZenOpus**: フロントエンドとバックエンドのロジックを生成します。
+- **Supabase**: 安全なデータ ストレージと認証用。
+- **再送信**: トランザクションおよびマーケティング電子メールを自動化および追跡します。
+
+始めましょう。
+
+<Steps>
+<Step title="お問い合わせフォームを使用してランディング ページを作成する">
+ZenOpus の AI を使用して、製品またはサービスのランディング ページを迅速に生成します。
+
+**手順:**
+
+<Steps>
+<Step title="新しい ZenOpus プロジェクト">
+新しい ZenOpus プロジェクトを作成します。
+</Step>
+<Step title="プロンプト:">
+<Info>
+名前、電子メール、メッセージを収集する問い合わせフォームを含む SaaS ランディング ページを作成します。
+</Info>
+
+![名前、メールアドレス、メッセージフィールドを収集する問い合わせフォームを備えた SaaS ランディング ページ](/images/zenopus/tips-tricks/resend/landing-page-zenopus-project.png)
+</Step>
+<Step title="生成されたコードを検査する">
+生成されたコードを検査するか、選択ツールを使用して要素を調整します。
+</Step>
+<Step title="入力検証を追加する">
+ユーザーエクスペリエンスを向上させるために、入力検証と `message` フィールドを追加します。
+
+![名前、電子メール、メッセージフィールドを表示する入力検証のあるお問い合わせフォーム](/images/zenopus/tips-tricks/resend/email-resend-form.png)
+</Step>
+</Steps>
+</Step>
+<Step title="新しい ZenOpus プロジェクト">
+新しい ZenOpus プロジェクトを作成します。
+</Step>
+<Step title="プロンプト:">
+<Info>
+名前、電子メール、メッセージを収集する問い合わせフォームを含む SaaS ランディング ページを作成します。
+</Info>
+
+![名前、メールアドレス、メッセージフィールドを収集する問い合わせフォームを備えた SaaS ランディング ページ](/images/zenopus/tips-tricks/resend/landing-page-zenopus-project.png)
+</Step>
+<Step title="生成されたコードを検査する">
+生成されたコードを検査するか、選択ツールを使用して要素を調整します。
+</Step>
+<Step title="入力検証を追加する">
+ユーザーエクスペリエンスを向上させるために、入力検証と `message` フィールドを追加します。
+
+![名前、電子メール、メッセージフィールドを表示する入力検証のあるお問い合わせフォーム](/images/zenopus/tips-tricks/resend/email-resend-form.png)
+</Step>
+<Step title="フォームの送信を Supabase に保存する">
+Supabase は安全なバックエンド データベースとして機能します。
+
+<Steps>
+<Step title="スーパーベースアカウント">
+無料の Supabase アカウントと新しいプロジェクトを作成します。
+</Step>
+<Step title="APIキー">
+ZenOpus で、API キーを使用して Supabase プロジェクトに接続します。
+
+![API キー構成を示す ZenOpus の Supabase 接続インターフェイス](/images/zenopus/tips-tricks/resend/supabase-resend-email.png)
+</Step>
+<Step title="以下を使用して `contacts` テーブルを作成します。">
+- `id`: UUID、主キー
+- `name`: テキスト
+- `email`: テキスト
+- `message`: テキスト
+- `created_at`: タイムスタンプ
+</Step>
+<Step title="送信ロジック">
+フォーム送信ロジックを変更して、Supabase にデータを挿入します。
+</Step>
+<Step title="RLS">
+Supabase 行レベル セキュリティ (RLS) を適用して、認証されたユーザーのみにアクセスを制限します。
+</Step>
+</Steps>
+</Step>
+<Step title="スーパーベースアカウント">
+無料の Supabase アカウントと新しいプロジェクトを作成します。
+</Step>
+<Step title="APIキー">
+ZenOpus で、API キーを使用して Supabase プロジェクトに接続します。
+
+![API キー構成を示す ZenOpus の Supabase 接続インターフェイス](/images/zenopus/tips-tricks/resend/supabase-resend-email.png)
+</Step>
+<Step title="以下を使用して `contacts` テーブルを作成します。">
+- `id`: UUID、主キー
+- `name`: テキスト
+- `email`: テキスト
+- `message`: テキスト
+- `created_at`: タイムスタンプ
+</Step>
+<Step title="送信ロジック">
+フォーム送信ロジックを変更して、Supabase にデータを挿入します。
+</Step>
+<Step title="RLS">
+Supabase 行レベル セキュリティ (RLS) を適用して、認証されたユーザーのみにアクセスを制限します。
+</Step>
+<Step title="再送信による確認メールの送信">
+リードがフォームを送信するたびに自動確認メールを送信するように再送信を設定します。
+
+<Steps>
+<Step title="再送信でサインアップ">
+[再送信](https://resend.com) でサインアップし、カスタム ドメインを確認してください。
+
+- DNS レコード (TXT、MX) を更新するように求められます。
+- `updates.domain.com` のようなサブドメインを使用して、電子メールの評判をより適切に管理します。
+</Step>
+<Step title="APIキー">
+環境設定またはバックエンド関数を介して API キーを ZenOpus に統合します。
+</Step>
+<Step title="SDK">
+Resend の SDK を使用して、フォーム送信時に確認メールを送信します。
+
+![フォーム送信時に確認メールを送信する SDK 統合を再送信](/images/zenopus/tips-tricks/resend/confirmation-email-submission-resend.png)
+</Step>
+<Step title="オプション: 電子メールへの反応">
+[React Email](https://react.email) (再送信による) を使用して、再利用可能なコンポーネントを使用してメールの外観をカスタマイズします。
+
+![再利用可能なコンポーネントを使用してメール デザインをカスタマイズするための React Email テンプレート エディター](/images/zenopus/tips-tricks/resend/customize-email-resend.png)
+</Step>
+</Steps>
+</Step>
+<Step title="再送信でサインアップ">
+[再送信](https://resend.com) でサインアップし、カスタム ドメインを確認してください。
+
+- DNS レコード (TXT、MX) を更新するように求められます。
+- `updates.domain.com` のようなサブドメインを使用して、電子メールの評判をより適切に管理します。
+</Step>
+<Step title="APIキー">
+環境設定またはバックエンド関数を介して API キーを ZenOpus に統合します。
+</Step>
+<Step title="SDK">
+Resend の SDK を使用して、フォーム送信時に確認メールを送信します。
+
+![フォーム送信時に確認メールを送信する SDK 統合を再送信](/images/zenopus/tips-tricks/resend/confirmation-email-submission-resend.png)
+</Step>
+<Step title="オプション: 電子メールへの反応">
+[React Email](https://react.email) (再送信による) を使用して、再利用可能なコンポーネントを使用してメールの外観をカスタマイズします。
+
+![再利用可能なコンポーネントを使用してメール デザインをカスタマイズするための React Email テンプレート エディター](/images/zenopus/tips-tricks/resend/customize-email-resend.png)
+</Step>
+<Step title="安全な管理者ダッシュボードを構築する">
+認証されたユーザーのみにリードの表示と管理を許可します。
+
+<Steps>
+<Step title="管理ルート">
+ZenOpus で `/admin` ルートを作成します。
+</Step>
+<Step title="スーパーベース認証">
+電子メール/パスワードによるログインによる Supabase 認証を有効にします。
+</Step>
+<Step title="連絡先">
+列を含む `contacts` テーブルを表示します。
+
+- 名前
+- 電子メール
+- メッセージのプレビュー
+- 提出日
+</Step>
+<Step title="完全な連絡先詳細">
+行をクリックすると完全な連絡先の詳細を表示する詳細ペイン (スライド パネルなど) を追加します。
+
+![名前、電子メール、メッセージ プレビュー、送信日の列を含む連絡先テーブルを表示する CRM 管理ダッシュボード](/images/zenopus/tips-tricks/resend/crm-resend-email.png)
+</Step>
+<Step title="リダイレクトロジック">
+リダイレクト ロジックを追加して、認証されていないユーザーが `/login` にルーティングされるようにします。
+</Step>
+</Steps>
+</Step>
+<Step title="管理ルート">
+ZenOpus で `/admin` ルートを作成します。
+</Step>
+<Step title="スーパーベース認証">
+電子メール/パスワードによるログインによる Supabase 認証を有効にします。
+</Step>
+<Step title="連絡先">
+列を含む `contacts` テーブルを表示します。
+
+- 名前
+- 電子メール
+- メッセージのプレビュー
+- 提出日
+</Step>
+<Step title="完全な連絡先詳細">
+行をクリックすると完全な連絡先の詳細を表示する詳細ペイン (スライド パネルなど) を追加します。
+
+![名前、電子メール、メッセージ プレビュー、送信日の列を含む連絡先テーブルを表示する CRM 管理ダッシュボード](/images/zenopus/tips-tricks/resend/crm-resend-email.png)
+</Step>
+<Step title="リダイレクトロジック">
+リダイレクト ロジックを追加して、認証されていないユーザーが `/login` にルーティングされるようにします。
+</Step>
+<Step title="管理者からのカスタム電子メール返信を有効にする">
+チームがパーソナライズされたフォローアップを送信できるようにします。
+
+<Steps>
+<Step title="連絡先の詳細ペイン">
+連絡先の詳細ペインで、**テキスト フィールド** と **事前定義されたテンプレート** (例: 「サインアップしていただきありがとうございます!」) を追加します。
+</Step>
+<Step title="送信ボタンを追加">
+再送信に接続された **送信ボタン** を追加します。
+</Step>
+<Step title="送信されたメッセージを保存する">
+送信された各メッセージを Supabase の `sent_emails` テーブルに保存します。
+
+- __コード0__
+- __コード0__
+- __コード0__
+- __コード0__
+
+これにより、すべてのフォローアップの検索可能なログが得られます。
+</Step>
+</Steps>
+</Step>
+<Step title="連絡先の詳細ペイン">
+連絡先の詳細ペインで、**テキスト フィールド** と **事前定義されたテンプレート** (例: 「サインアップしていただきありがとうございます!」) を追加します。
+</Step>
+<Step title="送信ボタンを追加">
+再送信に接続された **送信ボタン** を追加します。
+</Step>
+<Step title="送信されたメッセージを保存する">
+送信された各メッセージを Supabase の `sent_emails` テーブルに保存します。
+
+- __コード0__
+- __コード0__
+- __コード0__
+- __コード0__
+
+これにより、すべてのフォローアップの検索可能なログが得られます。
+</Step>
+<Step title="ニュースレター購読フォームを追加">
+Resend の **Audiences** を使用して購読者を管理し、ブロードキャスト メールを送信します。
+
+![メール登録を集めるためのランディング ページのニュースレター購読フォーム](/images/zenopus/tips-tricks/resend/subscription-newsletter-resend.png)
+
+<Steps>
+<Step title="新しいフォームを追加">
+ランディング ページにニュースレター登録用の新しいフォームを追加します。
+</Step>
+<Step title="連絡先を再送信する">
+提出時:
+
+- API経由で再送信連絡先を作成する
+- (オプション) 連絡先をローカルの Supabase にも保存します
+</Step>
+<Step title="デザイン">
+Resend のブロードキャスト電子メール UI を使用して、ニュースレターをデザインして送信します。
+
+- 組み込みの購読解除ロジック
+- パフォーマンスに関する洞察 (開封率、配信ステータス)
+</Step>
+<Step title="コンプライアンスチェック！">
+コンプライアンス (GDPR など) のために、**ダブル オプトイン** フローの実装を検討してください。
+</Step>
+</Steps>
+</Step>
+<Step title="新しいフォームを追加">
+ランディング ページにニュースレター登録用の新しいフォームを追加します。
+</Step>
+<Step title="連絡先を再送信する">
+提出時:
+
+- API経由で再送信連絡先を作成する
+- (オプション) 連絡先をローカルの Supabase にも保存します
+</Step>
+<Step title="デザイン">
+Resend のブロードキャスト電子メール UI を使用して、ニュースレターをデザインして送信します。
+
+- 組み込みの購読解除ロジック
+- パフォーマンスに関する洞察 (開封率、配信ステータス)
+</Step>
+<Step title="コンプライアンスチェック！">
+コンプライアンス (GDPR など) のために、**ダブル オプトイン** フローの実装を検討してください。
+</Step>
+<Step title="ボーナス: Resend を Supabase Auth に接続する">
+![デフォルトの電子メール認証を置き換えるために Supabase 統合セットアップを再送信](/images/zenopus/tips-tricks/resend/send-batch-emails-gdpr-resend.png)
+
+Supabase のデフォルトの電子メール認証 (1 時間あたり 4 つの電子メールに制限される) を改善したいですか?
+
+<Steps>
+<Step title="スーパーベースを再送信する">
+[Resend の Supabase 統合](https://resend.com/integrations/supabase) に移動します。
+</Step>
+<Step title="認証">
+Supabase プロジェクトで認証します。
+</Step>
+<Step title="ドメインのセットアップ">
+ドメインと送信者の名前/電子メールを選択します。
+</Step>
+<Step title="SMTP">
+Resend は自動的に SMTP をセットアップし、Supabase のデフォルトの電子メール システムを置き換えます。
+</Step>
+<Step title="カスタマイズ">
+Supabase ダッシュボードから認証メール テンプレートをカスタマイズできるようになりました。
+</Step>
+</Steps>
+</Step>
+<Step title="スーパーベースを再送信する">
+[Resend の Supabase 統合](https://resend.com/integrations/supabase) に移動します。
+</Step>
+<Step title="認証">
+Supabase プロジェクトで認証します。
+</Step>
+<Step title="ドメインのセットアップ">
+ドメインと送信者の名前/電子メールを選択します。
+</Step>
+<Step title="SMTP">
+Resend は自動的に SMTP をセットアップし、Supabase のデフォルトの電子メール システムを置き換えます。
+</Step>
+<Step title="カスタマイズ">
+Supabase ダッシュボードから認証メール テンプレートをカスタマイズできるようになりました。
+</Step>
+<Step title="最終仕上げとベストプラクティス">
+![ニュースレター購読者とブロードキャスト電子メールを管理するための再送信視聴者ダッシュボード](/images/zenopus/tips-tricks/resend/audience-resend.png)
+
+- **エラー処理**: ZenOpus では、誤検知のビルド エラーが表示される場合があります。常に機能をライブでテストしてください。
+- **Supabase を使用した復帰**: ZenOpus のコードを復帰する場合は、関連する Supabase ポリシーまたは移行を必ず手動で削除してください。それらは自動的にはロールバックされません。
+- **到達性に関するヒント**:
+    - サブドメインを使用して評判を分離します。
+    - メールには必ずプレーン テキスト バージョンを含めてください。
+    - Resend のインサイト ダッシュボードを使用して電子メールのパフォーマンスを監視します。
+</Step>
+<Step title="これで完了です。 🎉">
+1 時間以内に、以下を備えた最新の CRM を構築できました。
+
+- ランディングページと問い合わせフォーム
+- データベースを活用したリードストレージ
+- 自動メール確認
+- リード管理のための管理者ダッシュボード
+- カスタムメール返信
+- ニュースレターの放送
+- 認証と電子メールの検証
+</Step>
+</Steps>
+
+## さらに先に進みたいですか?
+
+- Supabase cron ジョブ経由で **スケジュールされた電子メール**に Support を追加します
+- **自動化フロー**を構築して、リード段階に基づいてメールをトリガーする
+- ブランドの信頼とコンバージョンを向上させるために UI をスタイル設定する
+
+## 統合に関する FAQ を再送信する
+
+<AccordionGroup>
+<Accordion title="再送信とは何ですか?">
+Resend は、開発者向けに構築された電子メール API です。これは、トランザクションおよびマーケティング電子メールを送信するための、高い配信可能性、統合の容易さ、クリーンな開発者エクスペリエンスに重点を置いています。
+</Accordion>
+<Accordion title="このチュートリアルを実行するには、有料の再送信プランが必要ですか?">
+いいえ。**Resend の無料枠**を使用して CRM セットアップ全体を完了できます。この無料枠では、検証済みのドメインからのメールの送信と、マーケティング メール用に最大 3,000 件の連絡先へのメールの送信がサポートされます。
+</Accordion>
+<Accordion title="再送信でドメインを確認するにはどうすればよいですか?">
+[再送信] → [**ドメイン**] → [ドメインを追加] に移動します。 DNS プロバイダー (Cloudflare、Namecheap など) 経由で追加する DNS レコード (TXT、MX) が提供されます。追加したら、[**確認**] をクリックします。
+
+<Tip>
+`updates.yourdomain.com` のようなサブドメインを使用して、電子メールの評判を分離します。
+</Tip>
+</Accordion>
+<Accordion title="私の再送信メールがスパムになるのはなぜですか?">
+よくある理由がいくつかあります。
+
+- ドメインを認証していません
+- あなたのメールにはプレーンテキストバージョンがありません
+- `onboarding@resend.dev` のような一般的な送信者から送信している
+- ベストプラクティスに従っていない（マーケティングメールに登録解除リンクがないなど）
+
+Resend の **Deliverability Insights** パネルを使用して、実用的なヒントを入手してください。
+</Accordion>
+<Accordion title="送信するメールのデザインをカスタマイズできますか?">
+はい。 Resend チームによるオープンソース ライブラリである [React Email](https://react.email/) を使用して、React コンポーネントを使用してスタイル付きの応答性の高いメールをデザインします。
+</Accordion>
+<Accordion title="Support マーケティング電子メールを再送信しますか、それともトランザクションのみですか?">
+再送信は**両方**をサポートします:
+
+- API または SDK を使用した **トランザクション電子メール** (確認、リセット、通知)。
+- **ブロードキャスト**機能と**オーディエンス**を使用した**マーケティングメール**。
+
+ダッシュボードからキャンペーンを作成、プレビュー、追跡できます。
+</Accordion>
+<Accordion title="再送信でニュースレター購読者を管理するにはどうすればよいですか?">
+**対象者**を使用します:
+
+- CSV 経由、または API を使用してプログラムで連絡先を手動で追加します。
+- 各オーディエンスには、サブスクリプションを関連付けるために使用できる一意の ID があります。
+- ユーザーは、Resend に組み込まれた購読解除リンクを介して自動的に購読を中止できます。
+</Accordion>
+<Accordion title="ニュースレターにダブル オプトインを設定できますか?">
+デフォルトではありませんが、手動で実装できます。
+
+1. フォーム送信時に、最初の確認メールを送信します。
+1. ユーザーにリンクをクリックするよう依頼します。
+1. クリックすると、サブスクリプションを確認し、再送信対象ユーザーに追加します。
+</Accordion>
+<Accordion title="再送信で電子メール フローをスケジュールまたは自動化できますか?">
+まだです。現在、再送信では Support ドリップ キャンペーンや自動シーケンスは行われません。
+
+<Tip>
+回避策:
+
+**Supabase Cron ジョブ**を使用して、設定された間隔で電子メールの再送信をトリガーするタスクをスケジュールします。
+</Tip>
+</Accordion>
+<Accordion title="Resend を Supabase Auth に接続するにはどうすればよいですか?">
+Resend による公式の Supabase 統合を使用します。
+
+1. Supabase プロジェクトで認証します。
+1. ドメインと送信者名を入力します。
+1. Resend は、Resend アカウントを使用するように Supabase 認証メールを自動的に構成します。
+</Accordion>
+<Accordion title="再送信は購読解除をどのように処理しますか?">
+再送信により購読解除が自動的に処理されます。
+
+- ブロードキャストメールには購読解除リンクを含める必要があります。
+- ユーザーが購読を解除すると、選択した対象ユーザーから削除されます。
+- これは電子メールのコンプライアンス (CAN-SPAM、GDPR など) に必要です。
+</Accordion>
+</AccordionGroup>

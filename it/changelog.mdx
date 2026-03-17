@@ -1,0 +1,1216 @@
+---
+title: "ZenOpus Changelog"
+description: "ZenOpus Changelog e aggiornamenti di prodotto. Rimani aggiornato su nuove funzionalità, miglioramenti e correzioni di bug rilasciati in ZenOpus."
+---
+<Update label="16 marzo 2026">
+### Connettori: Twitch, Twilio, Lineare, Telegram e Contentful
+
+![Connettori condivisi del 16 marzo 2026](/images/zenopus/changelog/2026-mar-16-shared-connectors.png)
+
+Le tue app ora possono integrarsi con più servizi per la comunicazione, i contenuti e i flussi di lavoro degli sviluppatori. Queste integrazioni ampliano ciò che puoi creare in ZenOpus consentendo alle tue app di interagire direttamente con piattaforme esterne.
+
+[Twitch](/it/integrations/twitch) consente alla tua app di accedere all'API Twitch in modo da poter creare overlay, dashboard, strumenti di moderazione e app della community che rispondono all'attività su un canale.
+
+[Twilio](/it/integrations/twilio) consente alla tua app di raggiungere gli utenti tramite messaggistica e voce. Con Twilio, la tua app può inviare notifiche SMS, gestire flussi di lavoro basati sul telefono, messaggistica WhatsApp Support e creare funzionalità che comunicano con gli utenti al di fuori dell'interfaccia dell'app.
+
+[Linear](/it/integrations/linear) consente alla tua app di interagire con problemi, progetti, team, cicli e commenti nel tuo Linear Workspace in modo da poter automatizzare i flussi di lavoro, creare dashboard che monitorano i progressi e collegare le attività di ingegneria direttamente alla tua applicazione.
+
+[Telegram](/it/integrations/telegram) consente alla tua app di comunicare con gli utenti tramite chat, gruppi e canali utilizzando l'API Bot di Telegram. I bot di Telegram fungono da interfaccia conversazionale per la tua app in modo che gli utenti possano ricevere aggiornamenti, richiedere informazioni o attivare flussi di lavoro direttamente dalla chat.
+
+[Contentful](/it/integrations/contentful) consente alla tua app ZenOpus di recuperare i contenuti pubblicati dal tuo spazio Contentful tramite l'API Content Delivery. Ciò ti consente di creare pagine dinamiche, cataloghi di prodotti, blog e documentazione alimentati direttamente dal contenuto del tuo CMS.
+
+Gli amministratori e i proprietari di Workspace possono connettere questi servizi in *Impostazioni → Connettori → Connettori condivisi* e saranno disponibili per tutti i membri in tutti i progetti nel tuo Workspace.
+
+### Connettori personali: Polar e Sanity
+
+![2026 Mar 16 Mcp](/images/zenopus/changelog/2026-mar-16-mcp.png)
+
+Sono disponibili due nuovi server MCP come [connettori personali](/it/integrations/mcp-servers). Ciò consente a ZenOpus di interagire direttamente con servizi esterni e utilizzare i relativi dati come contesto durante la creazione di app.
+
+**Polar** collega ZenOpus alla configurazione di fatturazione Polar in modo che le tue app possano incorporare un reale contesto di abbonamento e fatturazione. ZenOpus può accedere ai tuoi prodotti, clienti, abbonamenti e prezzi in modo da poter supportare app SaaS, flussi di pagamento e funzionalità di gestione degli abbonamenti.
+
+**Sanity** collega ZenOpus al tuo CMS Sanity in modo che l'agente possa accedere ai tuoi documenti, schemi e contenuti strutturati durante la creazione di app. ZenOpus può leggere il tuo modello di contenuto e generare app, pagine di destinazione e interfacce in linea con la struttura del tuo CMS.
+
+È possibile configurare i connettori personali in *Impostazioni → Connettori → Connettori personali*.
+
+### E-mail di autenticazione
+
+Ora puoi inviare [email di autenticazione](/it/features/custom-emails) dal tuo dominio invece che dal mittente ZenOpus Cloud predefinito. Ciò migliora la consegna, protegge la reputazione del tuo dominio e mantiene l'esperienza di accesso coerente con il tuo marchio.
+
+ZenOpus gestisce automaticamente la verifica e l'autenticazione del dominio (DNS, SPF, DKIM e DMARC), quindi non è richiesta la configurazione di un provider di posta elettronica esterno. Puoi configurare il tuo dominio di invio, personalizzare branding e modelli e gestire e-mail di autenticazione come conferme di registrazione, reimpostazione della password, collegamenti magici, inviti, conferme di modifica e-mail e messaggi di riautenticazione.
+
+Disponibile su piani a pagamento per progetti ZenOpus Cloud.
+
+### Workspace conoscenza
+
+Ora puoi definire regole e convenzioni condivise una volta e applicarle automaticamente a ogni progetto nel tuo Workspace.
+
+[Workspace knowledge](/it/features/knowledge) è progettato per istruzioni che dovrebbero rimanere coerenti tra i progetti, come standard di codifica, modelli di architettura, librerie preferite o linee guida sulla voce del marchio. Ciò aiuta i team a evitare di ripetere le stesse istruzioni in ogni progetto e garantisce che i nuovi progetti seguano automaticamente le stesse convenzioni.
+
+Gli amministratori e i proprietari di Workspace possono gestire la conoscenza di Workspace da *Impostazioni → Conoscenza* o *Impostazioni progetto → Conoscenza*.
+
+### Registri di controllo
+
+Workspace [log di controllo](/it/features/audit-logs) sono ora disponibili sui piani Enterprise. I registri di controllo forniscono una cronologia ricercabile delle attività nel tuo Workspace in modo da poter esaminare le modifiche, monitorare gli accessi e indagare su comportamenti imprevisti.
+
+Gli amministratori e i proprietari di Workspace possono filtrare i log per azione, membro o intervallo di tempo per esaminare eventi come modifiche dell'appartenenza a Workspace, attività di progetto, eventi di autenticazione, modifiche di integrazione e aggiornamenti di configurazione di Workspace.
+
+Ogni voce mostra chi ha eseguito l'azione, quando si è verificata, cosa è cambiato e quale risorsa è stata interessata. È possibile espandere le voci per visualizzare i metadati dettagliati associati all'evento.
+
+I registri di controllo sono disponibili in *Impostazioni → Workspace → Registri di controllo*.
+
+### Gestione collettiva dei membri Workspace
+
+Gli amministratori e i proprietari di Workspace ora possono [gestire più membri](/it/features/workspace#gestisci-i-membri-e-gli-inviti-di-Workspace) contemporaneamente. Abilita la *Modalità di selezione* nella pagina Persone per modificare ruoli, impostare limiti di credito, rimuovere utenti o revocare inviti per più membri contemporaneamente.
+
+Ciò riduce significativamente il sovraccarico amministrativo per gli spazi di lavoro più grandi.
+
+### Workspace link di invito
+
+Gli editor e i livelli superiori ora possono invitare persone al tuo Workspace utilizzando un [link condivisibile](/it/features/workspace#invita-tramite-collegamento) invece di inserire indirizzi email individualmente. I link di invito sono disponibili sui piani Free, Pro e Business.
+
+I collegamenti di invito sono basati sul ruolo e scadono dopo 5 giorni. Può esistere un solo collegamento di invito attivo per ruolo alla volta e la creazione di un nuovo collegamento sostituisce automaticamente quello precedente.
+
+Gli amministratori e i proprietari di Workspace possono rigenerare o eliminare i collegamenti in qualsiasi momento da *Impostazioni → Persone* oppure disattivarli completamente da *Impostazioni → Privacy e sicurezza → Collegamenti di invito*.
+
+### Nano Banana 2 (immagine flash Gemini 3.1) Support
+
+[ZenOpus AI](/it/integrations/ai) ora supporta Nano Banana 2, il modello Gemini 3.1 Flash Image di Google. Questo modello specializzato fornisce generazione e modifica di immagini rapide e di alta qualità in modo da poter creare funzionalità visive più ricche direttamente all'interno dei tuoi progetti.
+
+### ZenOpus Cloud aggiornamenti
+
+[ZenOpus Cloud](/it/integrations/cloud) ora offre una migliore visibilità e flussi di lavoro più fluidi.
+
+- [Ripartizione dell'utilizzo del Cloud per progetto](/it/integrations/cloud#utilizzo) ora viene visualizzato nella scheda *Utilizzo* della sezione Cloud. Puoi visualizzare una ripartizione percentuale del modo in cui ciascun progetto consuma le risorse Cloud e di come ciò contribuisce al saldo Cloud complessivo.
+- [Gli strumenti cloud ora vengono approvati automaticamente per impostazione predefinita](/it/integrations/cloud#configurazione-degli-strumenti-zenopus-cloud), riducendo così le interruzioni durante la creazione. Puoi tornare all'approvazione manuale nelle impostazioni se preferisci rivedere le azioni dello strumento prima che vengano eseguite.
+
+### Migliore organizzazione e navigazione della dashboard
+
+Questi aggiornamenti migliorano il modo in cui organizzi e navighi tra i progetti nella dashboard.
+
+- I progetti visualizzati di recente ora si caricano molto più velocemente nella dashboard, nella barra laterale e nella ricerca.
+- Una nuova opzione di ordinamento *Ultimi visualizzati* ti aiuta a tornare rapidamente ai progetti a cui hai avuto accesso più di recente.
+- Il filtro *Creato da me* nella barra laterale della dashboard ti dà accesso immediato ai progetti di cui hai creato l'autore.
+- La ricerca delle cartelle ora include progetti all'interno di sottocartelle nidificate.
+- Ora puoi creare una cartella direttamente dalla finestra di dialogo *Sposta nella cartella* se la cartella non esiste già.
+- La modalità di ricerca *cmd+K* ora visualizza i risultati delle cartelle in modo più chiaro, migliorando la navigazione da tastiera tra progetti e cartelle.
+
+### Aggiornamenti sulla gestione del progetto
+
+Questi aggiornamenti migliorano il modo in cui gestisci i progetti negli spazi di lavoro.
+
+- Ora puoi scegliere la destinazione Workspace quando remixi un progetto.
+- Ora puoi nominare un progetto durante il flusso di remix invece di rinominarlo in seguito.
+- Ora puoi trasferire progetti direttamente dal menu a discesa della scheda progetto sulla dashboard.
+- Le schede di progetto ora includono un menu a discesa di condivisione in modo da poter copiare i collegamenti di progetto o gli URL di app pubblicate direttamente dalla dashboard.
+- Sui piani Enterprise, gli amministratori e i proprietari di Workspace possono consentire agli editor di Workspace di trasferire i progetti di loro proprietà nelle proprie aree di lavoro personali. Ciò garantisce che gli studenti e i membri dei team aziendali possano mantenere l'accesso ai propri progetti privati ​​al termine di un corso o di un programma. Lo trovi in *Impostazioni → Privacy e sicurezza → Consenti agli editor di trasferire progetti.*
+
+#### Aggiornamenti sulla generazione delle immagini
+
+- ZenOpus ora genera immagini di qualità superiore con dettagli intricati, testo accurato nell'immagine e modelli realistici dell'interfaccia utente delle app. L'agente seleziona automaticamente il modello di generazione delle immagini più adatto per ogni richiesta.
+- Ora puoi generare immagini con sfondi trasparenti direttamente dalla chat in modo che le risorse generate si fondano perfettamente nei tuoi progetti.
+
+### Miglioramenti e correzioni di bug
+
+- Tutti i progetti appena creati ora si aprono automaticamente in modalità a schermo intero. Ciò fornisce un Workspace più mirato fin dall'inizio e garantisce un'esperienza coerente nella creazione di progetti.
+- ZenOpus ora carica il codice in modo più efficiente. ZenOpus carica prima l'albero dei file e recupera il contenuto dei file su richiesta, il che migliora significativamente le prestazioni per i progetti più grandi.
+- La barra laterale dell'editor di codice ora combina la ricerca dei nomi di file e la ricerca dei contenuti in un'unica esperienza in modo che una query mostri sia i nomi di file corrispondenti sia i file contenenti il codice corrispondente.
+- L'onboarding di Shopify ora richiede meno passaggi e rileva automaticamente il tuo Paese durante la configurazione.
+- L'accesso solo SSO è ora applicato ai piani Enterprise, il che impedisce l'accesso tramite altri metodi di autenticazione.
+- I commit inviati da ZenOpus ora includono la tua identità GitHub come coautore, il che migliora la tracciabilità e la cronologia dei controlli all'interno dei repository.
+- L'interruttore *Plan mode* ora appare come un pulsante icona nella finestra di messaggio. Questo lo allinea con altri controlli del progetto.
+
+### Rimosso
+
+- I *temi* sono stati rimossi dalla visualizzazione *Design* a causa di problemi di utilizzo e prestazioni ridotti.
+</Update>
+
+<Update label="23 febbraio 2026">
+### Riferimenti tra progetti
+
+![Esempio di riferimento a un progetto nella casella di richiesta ZenOpus](/images/zenopus/changelog/2026-feb-23-cross-project.png)
+
+ZenOpus ora può accedere e riutilizzare le implementazioni di altri progetti nel tuo Workspace utilizzando [riferimenti tra progetti](/it/features/cross-project-referencing).
+
+Puoi fare riferimento esplicitamente a un progetto utilizzando le menzioni `@` nella chat o semplicemente chiedere a ZenOpus di utilizzare un progetto esistente, se pertinente. ZenOpus legge la struttura del file, il codice sorgente e la cronologia chat pertinente per capire come è stato creato qualcosa, quindi lo ricrea o lo adatta nel tuo progetto attuale. I progetti referenziati rimangono invariati.
+
+I progetti possono disattivare la funzionalità in *Impostazioni progetto → Condivisione tra progetti* e gli amministratori Workspace possono disabilitare la funzionalità in *Impostazioni → Privacy e sicurezza*.
+
+### Slack disponibile come connettore condiviso
+
+![Logo lento sullo sfondo ZenOpus](/images/zenopus/changelog/2026-feb-23-slack-connector.png)
+
+[Slack](/it/integrations/slack) porta messaggi e notifiche alle tue app. Invia aggiornamenti sul canale, pubblica avvisi strutturati e leggi i messaggi direttamente dai tuoi progetti. Perfetto per avvisi di distribuzione, aggiornamenti interni, notifiche Support o per tenere informati i team in tempo reale.
+
+Gli amministratori e i proprietari di Workspace possono connettere Slack in *Impostazioni → Connettori → Connettori condivisi* e sarà disponibile in tutti i progetti nel tuo Workspace. Puoi scegliere un bot condiviso per l'uso a livello di team o un token personale per uso individuale, con controllo granulare delle autorizzazioni.
+
+### Granola MCP disponibile come connettore personale
+
+Ora puoi [connettere ZenOpus al tuo account Granola](/it/integrations/mcp-servers) per fornire all'agente il contesto dalle note e dalle conversazioni delle riunioni, aiutandolo a generare app e funzionalità che riflettono le decisioni e le discussioni acquisite in Granola.
+
+### Ampiezza MCP disponibile come connettore personale
+
+Ora puoi [connettere ZenOpus al tuo account Amplitude](/it/integrations/mcp-servers) per consentire all'agente di accedere ai dati di analisi del prodotto, aiutandoti a creare app e funzionalità basate su informazioni e metriche sull'utilizzo reale.
+
+### Opera 4.6
+
+L'agente di ZenOpus ora incorpora Claude Opus 4.6 senza costi aggiuntivi. Per ulteriori informazioni, vedere [Opus 4.6 nell'annuncio ZenOpus](https://zenopus.dev/blog/opus-4-6-now-in-zenopus).
+
+### ZenOpus Cloud aggiornamenti
+
+Sono stati apportati numerosi miglioramenti a [ZenOpus Cloud](/it/features/cloud).
+
+- [Selezione regione Cloud](/it/integrations/cloud#selezione-della-regione)  
+
+ Ora puoi scegliere dove è ospitato il tuo progetto cloud: Americhe, Europa o Asia Pacifico. Se imposti una regione predefinita preferita nelle impostazioni del connettore Cloud, ZenOpus utilizzerà quella regione automaticamente. Altrimenti, ZenOpus seleziona la regione più vicina alla tua posizione corrente. La scelta di una regione vicina migliora la latenza e le prestazioni generali del backend. Dopo aver abilitato Cloud, non puoi modificare la regione selezionata e non puoi spostare progetti esistenti tra regioni.
+- **Distribuzioni non di codice**Le modifiche non di codice, come l'aggiunta di un segreto, la configurazione di un bucket di archiviazione o l'aggiornamento delle impostazioni dell'ambiente, ora vengono distribuite direttamente nell'ambiente live senza richiedere una modifica del codice. Ciò garantisce che gli aggiornamenti dell'ambiente vengano applicati in modo affidabile in [ambienti di test e live](/it/features/environments) senza bisogno di un commit del segnaposto.
+- **Errori delle funzioni edge del cloud ridotti**L'affidabilità del cloud è stata migliorata riducendo in modo significativo gli errori dell'agente relativi alle richieste delle funzioni edge del backend. Ciò riduce i guasti imprevisti e migliora la stabilità generale dei progetti cloud.
+- **Limiti di velocità delle email**Ora puoi configurare il numero di email che possono essere inviate ogni ora dal tuo progetto. La modifica di questo limite aiuta a controllare il ritmo di consegna e a gestire l'utilizzo del cloud.
+
+### Provisioning SCIM
+
+Gli amministratori e i proprietari di Workspace con piani Enterprise ora possono eseguire automaticamente il provisioning e il deprovisioning degli utenti da un provider di identità utilizzando il [provisioning SCIM.](/it/features/business/scim)
+
+I gruppi di provider di identità possono essere mappati su ruoli ZenOpus come visualizzatore, editor e amministratore in modo che i nuovi utenti ricevano automaticamente le autorizzazioni appropriate.
+
+### Flusso di pubblicazione guidato
+
+[Pubblicazione](/it/features/publish) ora utilizza un flusso guidato in più passaggi. Imposta l'indirizzo del tuo sito web, configura le autorizzazioni di accesso, aggiungi un titolo e una descrizione, carica una favicon e un'immagine social, controlla la sicurezza, quindi pubblica. Le favicon ora vengono ritagliate e convertite automaticamente nelle dimensioni corrette e nel formato `.ico`.
+
+### Controlli di visibilità delle cartelle
+
+Ora puoi impostare la visibilità della cartella su:
+
+- Visibilità Workspace: tutti i membri Workspace possono vedere e aggiungere progetti alla cartella.
+- Visibilità privata: solo tu puoi vedere e aggiungere progetti alla cartella.
+
+Puoi configurare la visibilità solo sulla cartella di livello superiore. Le cartelle nidificate ereditano la visibilità della cartella principale.
+
+I progetti all'interno di una cartella ereditano la visibilità di quella cartella e la loro visibilità non può più essere impostata in modo indipendente. Quando sposti un progetto, un'anteprima di accesso mostra chi otterrà o perderà l'accesso e puoi rimuovere i collaboratori ridondanti durante lo spostamento.
+
+I progetti che erano già all'interno delle cartelle non sono stati migrati al nuovo comportamento. Mantengono la visibilità corrente finché non li aggiorni manualmente in modo che corrispondano alla cartella.
+
+### Controlli di amministrazione per i connettori condivisi
+
+Gli amministratori e i proprietari di Workspace sui piani Business ed Enterprise ora possono abilitare o disabilitare specifici [connettori condivisi](/it/integrations/introduction#connettori-condivisi-aggiungi-funzionalità-alla-tua-app-pubblicata) a livello Workspace. ZenOpus Cloud non può essere disabilitato.
+
+Ciò offre ai team il controllo su quali servizi di terze parti sono disponibili nel Workspace.
+
+### Visibilità dei collaboratori esterni
+
+ZenOpus ora indica chiaramente quando qualcuno è esterno alla tua organizzazione, sia quando lo inviti sia quando visualizzi l'accesso nella finestra di dialogo "Condividi" e in altre aree pertinenti.
+
+Ciò aiuta i team a mantenere la governance e la consapevolezza quando lavorano con utenti esterni.
+
+### Trasferimento della proprietà del progetto
+
+Ora puoi trasferire la proprietà di un progetto a un altro membro Workspace direttamente da "Impostazioni progetto". Ciò garantisce che l'amministrazione del progetto rimanga fluida se il proprietario originale lascia Workspace o se la proprietà deve cambiare all'interno della tua organizzazione. Una finestra di dialogo di conferma indica chiaramente se il tuo accesso cambierà a seguito del trasferimento.
+
+### Miglioramenti
+
+- L'editor [Plan mode](/it/features/plan-mode) ora utilizza una visualizzazione rich-text renderizzata che combina le modalità di lettura e modifica in un'unica esperienza.
+- Le modifiche ai file ora persistono quando si arresta l'agente, quindi puoi riprendere il lavoro senza perdere le modifiche. L'interruzione di una richiesta interrompe immediatamente l'ulteriore elaborazione e l'utilizzo del token.
+- La generazione di diapositive è stata migliorata attraverso una migliore gestione dei file di conoscenza, producendo risultati di presentazione migliori da un unico prompt.
+- La ricerca del progetto è stata migliorata con una ricerca full-text più rapida, una migliore corrispondenza delle sottostringhe e un punteggio di pertinenza, nonché una maggiore stabilità senza ricaricamenti imprevisti o risultati che scompaiono.
+- Gli utenti senza appartenenza a Workspace ora visualizzano una finestra di dialogo per creare un nuovo Workspace gratuito o trovare quelli esistenti a cui iscriversi, assicurandosi che possano continuare a utilizzare ZenOpus anche dopo aver perso l'accesso a un Workspace.
+- Gli inviti ad aree di lavoro e progetti vengono ora accettati automaticamente per impostazione predefinita. Puoi modificare questo comportamento in *Impostazioni → Il tuo account*.
+
+### Rimosso
+
+- Il riordino tramite trascinamento degli strumenti aggiunti nella barra di navigazione del progetto è stato rimosso a causa del basso utilizzo e di problemi di prestazioni tra browser. È comunque possibile riordinare gli strumenti fissandoli nell'ordine preferito.
+- L'opzione di proxy del dominio personalizzato è stata rimossa dalle impostazioni del dominio personalizzato. L'esecuzione di un'app dietro una CDN o un proxy inverso come Cloudflare, CloudFront o Fastly ora deve essere [configurata direttamente con il tuo provider DNS o proxy](/it/features/custom-domain#come-posso-utilizzare-un-cdn-o-un-proxy-inverso-con-il-mio-dominio-personalizzato).
+</Update>
+
+<Update label="5 febbraio 2026">
+### Plan mode
+
+La modalità chat ora è [Modalità Pianifica](/it/features/plan-mode). Plan mode ti aiuta a rivedere e definire l'approccio di ZenOpus prima che inizi l'implementazione.
+
+- Esaminare e approvare un piano dettagliato prima che venga scritto qualsiasi codice
+- Modifica e perfeziona i piani in una vista dedicata prima di approvarli
+- I piani approvati vengono salvati in `.zenopus/plan.md`, quindi il contesto persiste tra i messaggi
+
+Ciò migliora l'affidabilità su richieste complesse e riduce le rilavorazioni durante l'implementazione.
+
+### Coda di prompt (con elementi ripetibili)
+
+La [coda di prompt](/it/features/agent-mode#coda-immediata) consente a ZenOpus di elaborare un prompt alla volta. Mentre ZenOpus è in funzione, puoi continuare a inviare richieste e queste verranno aggiunte a una coda visibile sopra l'input della chat.
+
+- Metti in pausa e riprendi l'intera coda secondo necessità
+- Riordina, modifica, copia o rimuovi i singoli prompt in coda
+- Ripetere un prompt in coda un numero specificato di volte (fino a 50)
+
+Ciò semplifica il lavoro in batch, la collaborazione senza attese e l'automazione dei flussi di lavoro ripetitivi.
+
+### Test del browser
+
+[Test del browser](/it/features/browser-testing) consente a ZenOpus di interagire con la tua app in un browser reale in esecuzione in un ambiente virtuale, in modo che possa testare la tua app come un utente reale.
+
+- Naviga tra le pagine e testa i flussi utente end-to-end
+- Cattura screenshot dell'app
+- Fai clic su Elementi dell'interfaccia utente e compila i moduli
+- Leggi i log della console e ispeziona le richieste di rete
+- Osserva il comportamento reale durante il debug o la verifica delle modifiche
+
+### Ambienti di test e live (Beta)
+
+I progetti ZenOpus Cloud ora Support separano [ambienti di test e live](/it/features/environments) con database isolati.**Free durante la versione Beta** .
+
+È necessario pubblicare almeno una volta per creare un database Live prima di abilitare Test.
+
+- **Test** è il tuo Workspace per costruire e sperimentare
+- **Live** è l'ambiente di produzione al servizio degli utenti reali ed è di sola lettura per ZenOpus
+
+Quando pubblichi, il codice e la struttura del database vengono inviati a Live. I dati del test rimangono in Test. I dati in tempo reale non vengono mai sovrascritti.
+
+### Autenticazione perfetta di Google e Apple
+
+Con ZenOpus ora è semplice aggiungere l'accesso a [Google](/it/features/google-auth) e Apple al tuo progetto ZenOpus Cloud.
+
+- Chiedi a ZenOpus di aggiungere l'accesso a Google o Apple e genererà il flusso di autenticazione completo per te
+- Rimuovi i problemi di registrazione con l'autenticazione basata su OAuth
+- Non è richiesta la gestione della password o la configurazione dell'autenticazione manuale
+
+### Livello di codifica di LinkedIn Vibe (Beta)
+
+Ora puoi visualizzare il tuo [ZenOpus livello di codifica delle vibrazioni](/it/tips-tricks/linkedin-certification) da L1 a L5 e aggiungerlo al tuo profilo LinkedIn.
+
+- Trova il tuo livello in *Impostazioni → Il tuo account → Livello di codifica Vibe*
+- Collega ZenOpus al tuo account LinkedIn per aggiungerlo
+- Appare pubblicamente su LinkedIn sotto **Licenze e certificazioni** e si aggiorna automaticamente quando il tuo livello cambia
+
+### Server MCP personalizzati su tutti i piani a pagamento
+
+[I server MCP personalizzati](/it/integrations/mcp-servers#server-mcp-personalizzati-piani-a-pagamento) sono ora disponibili su tutti i piani a pagamento, non solo su Business ed Enterprise. Lo trovi in *Impostazioni → Connettori → Connettori personali → Nuovo server MCP*
+
+### Nuovo agente e interfaccia utente della chat
+
+L'interfaccia dell'agente e della chat è stata aggiornata per essere più pulita e più facile da navigare.
+
+- Schede condensate che raggruppano le chiamate e le azioni degli strumenti
+- Una visualizzazione dei dettagli che mostra la sequenza temporale completa delle azioni intraprese da ZenOpus, incluse le chiamate agli strumenti e le modifiche ai file
+- Chat più pulita per una scansione rapida
+
+### Nuovi profili utente
+
+I profili utente sono stati ridisegnati per essere più espressivi e personalizzabili. I profili sono disponibili su `zenopus.dev/@yourusername` e gettano le basi per future funzionalità di community e pubblicazione.
+
+- Imposta un nome utente e aggiungi un'immagine banner del profilo personalizzata
+- I team possono richiedere un nome utente Workspace
+- I campi Bio, posizione e collegamento ti consentono di condividere di più su te stesso e sul tuo lavoro
+
+### Disconnetti i negozi Shopify
+
+Ora puoi [disconnettere un negozio Shopify](/it/integrations/shopify#disconnetti-un-negozio-shopify) da un progetto. Disconnettiti tramite il menu Shopify, le impostazioni del progetto o chiedendo all'agente.
+
+Ciò ti consente di:
+
+- Remixare il progetto (i progetti con un negozio Shopify connesso non possono essere remixati)
+- Collega un negozio diverso o creane uno nuovo senza creare un nuovo progetto
+
+### Proxy di dominio personalizzato
+
+Quando colleghi un dominio personalizzato, ora puoi abilitare [Consenti traffico tramite CDN o proxy](/it/features/custom-domain#advanced-using-a-cdn-or-reverse-proxy) per eseguire la tua app ZenOpus dietro il tuo CDN o proxy inverso, come Cloudflare, CloudFront o Fastly.
+
+### Modelli di progettazione predefiniti (Business ed Enterprise)
+
+Imposta un [modello di progettazione](/it/features/business/design-templates) predefinito per il tuo Workspace in modo che i nuovi progetti inizino con un design e una struttura coerenti.
+
+- I modelli Workspace ora possono essere contrassegnati come predefiniti in *Impostazioni → Modelli*
+- I nuovi progetti utilizzano automaticamente il modello predefinito, con la possibilità di sovrascriverlo
+
+### Miglioramenti
+
+- Tempo di elaborazione esteso per richiesta per l'agente ZenOpus, fino a 15 minuti, supportando sessioni del browser più lunghe e attività più complesse
+- Riordina le cartelle nella barra laterale del dashboard tramite trascinamento, con Support per annidare fino a 3 livelli
+- Trascina per selezionare più progetti per azioni collettive sulla dashboard, all'interno delle cartelle e nei progetti speciali
+- Fai clic con il pulsante destro del mouse su progetti e cartelle nella dashboard per aprire i relativi menu a discesa
+- Un nuovo banner che incoraggia gli utenti che utilizzano email e password ad abilitare [l'autenticazione a due fattori](/it/introduction/faq#come-posso-abilitare-lautenticazione-a-due-fattori-2fa) per una migliore sicurezza dell'account
+- Ottimizzazioni del caricamento delle icone per ridurre le dimensioni del bundle e migliorare i tempi di caricamento iniziali dell'interfaccia utente
+- [Visibilità del progetto](/it/features/project-visibility) rinominato da "Personale" a "Limitato"
+</Update>
+
+<Update label="16 gennaio 2026">
+### Costruisci ricariche di credito
+
+Ora puoi acquistare [ricariche di credito](/it/introduction/plans-and-credits#ricariche-di-credito) quando esaurisci i crediti di build, senza modificare l'abbonamento. Le ricariche vengono fatturate come pagamento una tantum e aggiunte immediatamente al tuo Workspace. Lo trovi in ​​*Impostazioni → Workspace → Piani e crediti*.
+
+- Disponibile sui piani Pro e Business
+- Acquistato in incrementi di 50 crediti
+- Valido per 12 mesi dal tuo ultimo acquisto di ricarica
+
+### GPT-5.2 e Gemini 3 Flash Support
+
+[ZenOpus AI](/it/integrations/ai) ora supporta GPT-5.2 e Gemini 3 Flash, offrendoti l'accesso ai modelli più recenti per creare e iterare più velocemente. Abilita ZenOpus Cloud e AI per utilizzare questi modelli. **Gemini 3 Flash è ora il modello predefinito**.
+
+### Autenticazione a due fattori (2FA)
+
+[Autenticazione a due fattori (2FA)](/it/introduction/faq#come-posso-abilitare-lautenticazione-a-due-fattori-2fa) aggiunge un ulteriore livello di sicurezza al tuo account ZenOpus utilizzando un'app di autenticazione (consigliata) o SMS. Questa è una forma di autenticazione a più fattori (MFA) che ti aiuta a proteggere il tuo account ZenOpus. Lo trovi in ​​*Impostazioni → Account → Il tuo account*.
+
+### ZenOpus bonus
+
+Guadagna crediti completando semplici azioni:
+
+- **Bonus giornaliero**: invia 25 messaggi per guadagnare 5 crediti (disponibile per tutti gli utenti)
+- **Bonus una tantum**: aggiungi un dominio personalizzato o invita un collaboratore a guadagnare 5 crediti (disponibile per gli utenti appena registrati dal 15 gennaio 2026)
+
+### Funzionalità dell'agente più intelligenti
+
+L'agente ZenOpus continua a diventare sempre più capace e utile:
+
+- Genera video quando richiesto
+- Suggerisce la pubblicazione al momento giusto e apre il menu di pubblicazione
+- Ripulisce le funzioni edge inutilizzate per mantenere i progetti in ordine
+- Testa le funzioni edge autenticate mentre sei connesso, migliorando l'affidabilità delle funzionalità che richiedono l'autenticazione
+- Risponde più velocemente selezionando le informazioni rilevanti in modo più efficiente durante la generazione
+- Comprende i progetti TypeScript in modo più approfondito, con intelligenza del codice a livello IDE per tipi, riferimenti e relazioni
+
+### Esperienza di pubblicazione più fluida
+
+Pubblicare la tua app ora è più semplice e chiaro:
+
+- Puoi generare loghi, favicon e immagini Open Graph richiedendo l'agente, semplificando la personalizzazione della tua app prima della pubblicazione. Queste risorse vengono quindi utilizzate automaticamente durante la pubblicazione.
+- Gli errori di pubblicazione sono ora visibili, con un'azione integrata "Prova a risolvere" per aiutarti a ripristinare.
+- I collegamenti e i reindirizzamenti per le app pubblicate sono più affidabili, con una migliore consapevolezza degli URL delle app distribuite.
+
+### Migliore organizzazione e navigazione della dashboard
+
+- Nuova sezione progetti “Recenti” nella barra laterale
+- Cartelle nidificate per una migliore organizzazione
+- Trascina e rilascia Support per progetti e cartelle
+- Selettore Workspace riprogettato, con un migliore ordinamento predefinito, la possibilità di riordinare gli spazi di lavoro, una migliore visibilità e un caricamento più rapido
+
+### Centro sicurezza (v0.1)
+
+Un nuovo centro sicurezza offre agli amministratori una panoramica Workspace dei risultati sulla sicurezza nei progetti, inclusi gli stati di analisi del codice (errori, avvisi, stato di scansione) e le vulnerabilità delle dipendenze con livelli di gravità e progetti interessati. Si trova in *Impostazioni → Workspace → Centro sicurezza*.
+
+### Pagina "Persone" ridisegnata
+
+La pagina "Persone" è stata aggiornata con una separazione più chiara tra inviti e collaboratori, ricerca e filtro migliorati e un ordinamento più affidabile.
+
+### Miglioramenti
+
+- **La scansione delle vulnerabilità delle dipendenze è ora disponibile**, con problemi nelle dipendenze del progetto segnalati come risultati di sicurezza che è possibile esaminare e risolvere come altri problemi di sicurezza e sono emersi agli amministratori Workspace nel nuovo "Centro sicurezza".
+- **ZenOpus ora offre un'esperienza mobile più nativa nell'app**, con i fogli che sostituiscono i popover per menu, navigazione e condivisione. "Posta in arrivo" e "Novità" ora si trovano nel menu avatar in alto a destra.
+- **La guida alla configurazione del dominio personalizzato è stata migliorata**, chiedendo agli utenti di aggiungere sia varianti `www` che non`www` per evitare problemi di configurazione comuni.
+- **I problemi di pagamento vengono ora evidenziati all'interno dell'app**, rendendo più semplice individuare e risolvere i pagamenti non riusciti o scaduti.
+- **Ora riceverai promemoria quando i crediti accumulati stanno per scadere**, aiutandoti a evitare di perdere crediti inutilizzati.
+- **La chat ora fornisce suggerimenti più naturali sul passaggio successivo**, aiutandoti a capire cosa fare dopo il tuo primo messaggio.
+- **Le schede del piano in modalità chat sono state standardizzate**, con un'unica azione "Implementa il piano" per semplificare il flusso.
+- **Vitest è ora incluso nel modello React**, consentendo all'agente di scrivere ed eseguire test senza configurazioni aggiuntive.
+- **La sintesi vocale è stata aggiornata** per utilizzare il nuovo modello di trascrizione Scribe V2 di ElevenLabs, migliorando la precisione, il rilevamento della lingua e la qualità della trascrizione per l'input vocale nella chat e nelle app ZenOpus che utilizzano ElevenLabs.
+- **Le pagine delle impostazioni del progetto e di Workspace sono state ridisegnate**, sostituendo le pagine modali con pagine dedicate pur mantenendo le stesse impostazioni e opzioni.
+</Update>
+
+<Update label="23 dicembre 2025">
+### Connettori: ElevenLabs, Perplexity e Firecrawl
+
+![Connettori Ai](/images/zenopus/changelog/ai-connectors.png)
+
+Le tue app ora possono parlare ad alta voce, effettuare ricerche ed estrarre dati in tempo reale da qualsiasi punto del Web. Queste potenti integrazioni espandono ciò che puoi creare in ZenOpus.
+
+[ElevenLabs](/it/integrations/eleven-labs) porta voce e audio nelle tue app. Genera discorsi dal suono naturale in decine di lingue, crea voci di personaggi per app di narrazione o aggiungi briefing audio a qualsiasi progetto.
+
+[Perplessità](/it/integrations/perplexity) aggiunge la ricerca basata sull'intelligenza artificiale alle tue app. La tua app ora può eseguire ricerche sul Web, sintetizzare informazioni e fornire risposte supportate da fonti verificabili. Perfetto per creare strumenti di preparazione alle vendite, monitoraggio della concorrenza o app di verifica dei fatti.
+
+[Firecrawl](/it/integrations/firecrawl) trasforma i siti web in dati strutturati. Crea bacheche di lavoro che aggregano da più fonti, rilevatori di prezzi che monitorano i concorrenti o strumenti che mantengono aggiornati automaticamente i dati del sito web. Free per gli utenti ZenOpus fino ad aprile 2026 quando si scelgono credenziali gestite.
+
+Gli amministratori di Workspace possono connettere questi servizi in *Impostazioni → Connettori → Connettori condivisi* e saranno disponibili per tutti i membri in tutti i progetti nel tuo Workspace.
+
+[Ulteriori informazioni sui connettori](/it/integrations/introduction).
+
+### ZenOpus Applicazione ChatGPT
+
+![ZenOpus Applicazione Chatgpt](/images/zenopus/changelog/zenopus-chatgpt-app.png)
+
+Pianifica le tue idee in ChatGPT, quindi realizzale immediatamente in ZenOpus. La nuova app ZenOpus ChatGPT ti consente di trasformare le conversazioni in app funzionanti senza uscire dalla chat. Tagga semplicemente @ZenOpus in qualsiasi conversazione ChatGPT per iniziare a creare, quindi passa a ZenOpus per continuare a modificare, iterare e spedire il tuo progetto.
+
+[Ulteriori informazioni sull'app ZenOpus ChatGPT](https://zenopus.dev/chatgpt-app).
+
+### ZenOpus buoni regalo
+
+Regala il dono di costruire. Sono ora disponibili le carte regalo ZenOpus, che consentono di regalare facilmente ZenOpus ad amici, compagni di squadra o clienti, giusto in tempo per le vacanze. Li trovi in ​​*Impostazioni → Piani e crediti*.
+
+### Compiti
+
+L'agente ora crea attività visibili mentre lavora, offrendoti maggiore controllo e trasparenza su ciò che sta accadendo. Ciò rende più semplice seguire i progressi e guidare build più lunghe o complesse. È un passo verso agenti di lunga durata e una pianificazione più sofisticata.
+
+### Menziona i file di codice nella chat
+
+Fai riferimento a file specifici direttamente nella chat digitando `@` o facendo clic sul pulsante di riferimento nell'editor del codice. Ciò rende le modifiche mirate e le discussioni su file specifici più veloci e chiare.
+
+### Utilizzo del credito del progetto (solo nuovi progetti)
+
+Le impostazioni del progetto ora mostrano i crediti totali utilizzati per ciascun progetto, offrendoti una migliore visibilità sull'utilizzo effettivo. I totali dei crediti di progetto sono disponibili solo per i nuovi progetti.
+
+### Rilevamento Workspace dominio verificato
+
+Business e gli utenti aziendali possono ora scoprire e richiedere di partecipare ad aree di lavoro basate su domini di posta elettronica verificati, semplificando la ricerca e la collaborazione con il team giusto.
+
+### Controlli del collegamento di anteprima pubblica
+
+I piani aziendali ora hanno la possibilità di disabilitare la creazione di collegamenti di anteprima pubblici per i membri Workspace, offrendo agli amministratori un maggiore controllo sul modo in cui i progetti vengono condivisi esternamente. Puoi trovare questa impostazione in *Impostazioni → Privacy e sicurezza.*
+
+### Configurazione SSO SAML semplificata
+
+Business e i piani aziendali ora possono configurare SSO più facilmente importando la configurazione SAML direttamente da un URL di metadati, compilando automaticamente tutti i campi obbligatori invece di inserire manualmente ciascun valore.
+
+[Ulteriori informazioni sull'SSO.](/it/features/business/sso)
+
+### Correzioni di bug e miglioramenti
+
+- Risolto il problema per cui i collegamenti nella chat non si aprivano sempre in nuove schede.
+- Aggiornata la modalità [pubblica](/it/features/publish) per spiegare meglio cosa succede quando pubblichi un'app, chiarendo che la pubblicazione **non** espone il tuo codice sorgente né rende l'app automaticamente remixabile.
+</Update>
+
+<Update label="10 dicembre 2025">
+### Una dashboard più ZenOpus
+
+![Screenshot del dashboard ZenOpus riprogettato che mostra l'organizzazione del progetto con cartelle, filtri e visualizzazione griglia](/images/zenopus/changelog/2025-dec-10-new-dashborad.png)
+
+Abbiamo lanciato una dashboard completamente ridisegnata con importanti miglioramenti alla navigazione e all'organizzazione del progetto.
+
+- Aggiungi a Speciali i tuoi progetti preferiti per un accesso rapido
+- Rimani organizzato con le cartelle
+- Trova progetti più velocemente con i nuovi filtri e la ricerca globale
+- Scopri le app della community
+- Passa dalla visualizzazione griglia a quella elenco
+- Seleziona nuovi temi della dashboard (Impostazioni utente → Aspetto)
+- Utilizza azioni collettive: elimina, sposta, rimuovi dalle cartelle, trasferisci tra aree di lavoro
+
+### Chatta prima di costruire
+
+![Interfaccia che mostra la nuova opzione della modalità Chat per avviare progetti con una conversazione prima di generare il codice](/images/zenopus/changelog/2025-dec-10-start-from-chat-mode.png)
+
+Ora puoi iniziare qualsiasi nuovo progetto in **modalità chat**. Invece di generare immediatamente un'app dal primo prompt, hai la possibilità di conversare con ZenOpus per perfezionare le tue idee prima che venga scritto qualsiasi codice.
+
+[Ulteriori informazioni sull'avvio dalla modalità chat](https://zenopus.dev/blog/chat-mode-and-questions).
+
+### Opus 4.5 come modello principale
+
+Abbiamo aggiornato l'agente di ZenOpus per incorporare **Claude Opus 4.5** per le parti principali, apportando importanti miglioramenti alla pianificazione, alla qualità del design e alla precisione. Ciò si traduce in cicli di sviluppo più fluidi, il 20% in meno di errori e un migliore successo complessivo del progetto. Disponibile automaticamente per tutti gli utenti senza costi aggiuntivi.
+
+[Ulteriori informazioni su Opus 4.5 in ZenOpus](https://zenopus.dev/blog/claude-opus-4-5-in-chat).
+
+### Nuove azioni di dominio personalizzate
+
+Sono ora disponibili nuove azioni per aiutare a risolvere i problemi di configurazione del dominio.
+
+- **Verifica stato**: utilizzare per controllare lo stato più recente e verificare i record DNS. Viene visualizzato quando lo stato del dominio è **Verifica in corso** o **Impossibile verificare**. Controlla che i tuoi record `A` e `TXT` siano aggiunti correttamente presso il tuo provider DNS, in particolare il valore TXT completo.
+- **Ripristina**: utilizzalo per rivedere i record DNS visualizzati e aggiornarli presso il tuo provider DNS per riconnettere il tuo dominio. Appare quando lo stato del dominio è **Offline**.
+- **Riconnetti**: utilizzare per connettere nuovamente il dominio. Appare quando lo stato del dominio è **Rimosso**.
+
+[Ulteriori informazioni sui domini personalizzati](/it/features/custom-domain).
+
+### Avvisi di aggiornamento dell'istanza cloud
+
+Ora ricevi avvisi quando ti avvicini ai limiti delle risorse ZenOpus Cloud. Ciò ti consente di aggiornare la tua istanza in modo tempestivo per garantire prestazioni veloci e affidabili. L'avviso di aggiornamento in Cloud → Impostazioni avanzate include anche una ripartizione dettagliata dell'utilizzo (spazio su disco, IO disco, CPU).
+
+[Ulteriori informazioni sulle opzioni di aggiornamento dell'istanza Cloud.](/it/integrations/cloud#impostazioni-avanzate-aggiorna-istanza)
+
+### Hub connettori (precedentemente Integrazioni)
+
+La pagina Integrazioni ora si chiama **Connettori** e le informazioni sono state riorganizzate per distinguere chiaramente tra:
+
+- **Connettori condivisi**: aggiungi funzionalità alle tue app. Configurato una volta dagli amministratori, disponibile per tutti nel tuo Workspace. Ad esempio, ZenOpus Cloud, Stripe, Shopify.
+- **Connettori personali**: collega i tuoi account personali degli strumenti per fornire contesto durante la creazione. Solo tu puoi accedere alle tue connessioni. Ad esempio, Nozione, Lineare, Miro.
+
+[Ulteriori informazioni sui connettori](/it/integrations/introduction).
+
+### Miro MCP disponibile come connettore personale
+
+Ora puoi connettere ZenOpus al tuo account Miro per fornire il contesto dell'Agente dalle tue schede e diagrammi e generare app che riflettono ciò che hai mappato.
+
+[Ulteriori informazioni su Miro MCP](/it/integrations/mcp-servers).
+
+### Support per server MCP non autenticati
+
+I piani Business ed Enterprise ora possono aggiungere server MCP personalizzati che non richiedono l'autenticazione.
+
+[Ulteriori informazioni sui server MCP personalizzati](/it/integrations/mcp-servers).
+
+### Gestisci le autorizzazioni degli strumenti per i connettori personali
+
+Ora ottieni una panoramica più chiara degli strumenti per ciascun connettore personale e puoi impostare il modo in cui l'agente può utilizzarli per impostazione predefinita: consenti sempre, chiedi ogni volta o non consenti mai.
+
+### Controlla chi può pubblicare esternamente
+
+Nei piani Enterprise, gli amministratori ora possono limitare la pubblicazione esterna a:
+
+- Amministratori e proprietari
+- Solo proprietari
+
+Ciò migliora la sicurezza e supporta la governance per le organizzazioni che gestiscono dati sensibili.
+
+[Ulteriori informazioni sulla pubblicazione](/it/features/publish).
+
+### Suggerimenti di chat su cellulare
+
+I suggerimenti sensibili al contesto ora vengono visualizzati nella chat sui dispositivi mobili, aiutandoti a creare più velocemente con meno tocchi.
+
+### Correzioni di bug e miglioramenti
+
+- I progetti generati da ZenOpus sono ora più creativi e raffinati.
+- ZenOpus ora comprende e utilizza meglio i pacchetti importati, con conseguente minor numero di errori e build più fluide.
+- La visibilità predefinita del progetto è stata aggiornata a privata per tutte le aree di lavoro ZenOpus che in precedenza avevano la visibilità predefinita del progetto impostata su pubblica.
+- Il salvataggio delle modifiche visive e del codice è ora più veloce del 20% circa.
+</Update>
+
+<Update label="26 novembre 2025">
+### server MCP
+
+![Pannello di integrazione dei server MCP che mostra le connessioni ad Atlassian, Notion, Linear e n8n](/images/zenopus/changelog/2025-nov-18-connectors.png)
+
+Connetti ZenOpus ai tuoi strumenti di lavoro: Atlassian (Jira, Confluence), Notion, Linear e n8n. Inserisci PRD, ticket e wireframe direttamente nelle tue build. I flussi di lavoro n8n ti consentono l'integrazione con oltre 400 app come Salesforce, Slack e Fogli Google. I piani Business ed Enterprise possono aggiungere MCP personalizzati e controllare quali server sono disponibili.
+
+[Ulteriori informazioni sui server MCP](/it/integrations/mcp-servers).
+
+### Visualizzazione disegno
+
+![Pannello di visualizzazione progettazione che mostra le schede per modifiche visive, temi e strumenti di generazione di immagini AI](/images/zenopus/changelog/2025-nov-26-design-view.png)
+
+La nuova visualizzazione Progettazione fornisce un pannello dedicato in cui puoi passare facilmente da uno strumento di progettazione all'altro del tuo progetto. Ciò include aggiornamenti alle modifiche visive, nonché nuove funzionalità tra cui temi e generazione di immagini AI.
+
+[Ulteriori informazioni sulle funzionalità di progettazione](/it/features/design).
+
+### Temi
+
+![Pannello dei temi che mostra le opzioni di personalizzazione di colore, tipografia e spaziatura](/images/zenopus/changelog/2025-nov-18-themes.png)
+
+Stabilisci una volta gli standard del tuo marchio: colori, tipografia, spaziatura. Applicali a qualsiasi progetto. Visualizza in anteprima i temi prima di applicarli per vedere come appariranno.
+
+### Tutte le nuove modifiche visive
+
+![Interfaccia di modifica visiva che mostra la selezione degli elementi con margine, riempimento e controlli di stile](/images/zenopus/changelog/2025-nov-18-visual-edits.png)
+
+Accedi alle modifiche visive dalla vista Progettazione o utilizza il collegamento Modifiche visive nella finestra di messaggio (in precedenza Modifiche) e apporta le modifiche direttamente nel pannello di sinistra. Ora puoi modificare il testo in elementi con contenuto misto, come i pulsanti contenenti sia testo che icone. Seleziona e modifica più elementi contemporaneamente. Modifica il testo direttamente sulla pagina. Regola margini, imbottitura, bordi, ombre, colori e icone. Aggiorna le immagini o genera immagini con l'intelligenza artificiale.
+
+### Generazione di immagini basata sull'intelligenza artificiale nelle modifiche visive
+
+![Finestra di dialogo per la generazione di immagini AI con un campo di testo per la descrizione delle immagini personalizzate](/images/zenopus/changelog/2025-nov-18-AI-image-gen.png)
+
+Genera immagini personalizzate descrivendo ciò che desideri. Crea immagini originali per i tuoi progetti senza uscire da ZenOpus. La generazione di immagini AI non consuma crediti ZenOpus.
+
+### Progetti privati per tutti
+
+Tutti i piani ora includono progetti solo Workspace (abilitati per impostazione predefinita). Modifica le impostazioni predefinite in Impostazioni → Privacy e sicurezza.
+
+[Ulteriori informazioni sui progetti privati](/it/features/private-projects).
+
+### Miglioramenti all'integrazione di Shopify
+
+Ora puoi **collegare il tuo negozio Shopify esistente** a ZenOpus. Per motivi di sicurezza, l'e-mail dell'utente ZenOpus deve corrispondere all'e-mail del proprietario del negozio Shopify.
+
+Quando crei un **nuovo negozio**, ora selezioni la posizione del negozio durante la configurazione e il flusso di reclamo è stato migliorato con stati più chiari. Quando il negozio viene rivendicato, l'utente ZenOpus che lo rivendica diventa il proprietario del negozio Shopify.
+
+Aggiornamenti dell'autorizzazione
+
+- Solo l'utente che ha collegato un negozio esistente o ha richiesto un nuovo negozio ha accesso in scrittura (crea, aggiorna, elimina prodotti, varianti e codici sconto).
+- I collaboratori mantengono l'accesso di sola lettura ai dati Shopify (cercano e recuperano prodotti, varianti e codici sconto), ma possono comunque costruire completamente la vetrina.
+
+[Ulteriori informazioni sull'integrazione di Shopify](/it/integrations/shopify).
+
+### Gemini 3 Pro e generazione di immagini Support
+
+ZenOpus L'intelligenza artificiale ora supporta gli ultimi modelli di Google, tra cui Gemini 3 Pro e Nano Banana Pro. Abilita ZenOpus Cloud e AI per accedere a questi modelli nelle tue app.
+
+### Esperienza di condivisione e invito migliorata
+
+La finestra di dialogo di condivisione è stata ridisegnata per rendere più chiaro chi può fare cosa nel tuo progetto. Migliore visibilità delle autorizzazioni, anteprima della condivisione più evidente e concetti di collaborazione più chiari.
+
+### Miglioramenti dell'archiviazione nel cloud
+
+Gestisci il tuo spazio di archiviazione direttamente dalla vista Cloud. Crea bucket privati ​​o pubblici, organizza cartelle e carica, rinomina, elimina o scarica file. I file bucket privati ​​ora sono visibili anche nell'interfaccia utente.
+
+### Domande
+
+Quando la tua richiesta ha più modi per essere inoltrata, ZenOpus ora può porre domande chiarificatrici prima di creare. Scegli tra opzioni a scelta multipla o aggiungi il tuo input per aiutare ZenOpus a capire esattamente cosa stai cercando.
+
+### Polo delle integrazioni
+
+La nuova scheda Integrazioni nelle impostazioni del progetto riunisce ZenOpus Cloud, ZenOpus AI, server MCP, Supabase, Shopify e Stripe.
+
+### Suggerimenti per la chat
+
+Nella chat vengono visualizzati suggerimenti sensibili al contesto che suggeriscono cosa costruire successivamente.
+
+### Avviso di credito basso
+
+Gli utenti nelle aree di lavoro Pro e Business ora visualizzano un avviso quando rimangono meno di 5 crediti di build, insieme a una scorciatoia per aggiornare il piano per aumentare i crediti mensili. L'avviso viene visualizzato sopra la casella di richiesta e nei menu progetto e Workspace, per assicurarti di non rimanere mai senza risorse a metà della creazione.
+
+### Login didattici temporanei
+
+Gli insegnanti possono creare account studente temporanei su zenopus.dev/login/temp per l'uso in classe.
+
+### Esperienza di remix migliorata
+
+Visualizza i progressi passo passo durante il remix dei progetti. Ricevi messaggi di errore chiari che spiegano perché i progetti non possono essere remixati. Il remix viene eseguito in background con una notifica persistente, così puoi continuare a lavorare. Ora supporta il remix di progetti con segreti personalizzati.
+
+### Migliori ripristini e possibilità di modificare e ripristinare i tuoi messaggi
+
+"Ripristina" ora è "Ripristina". Torna indietro a qualsiasi punto della cronologia chat o modifica un messaggio precedente per esplorare una nuova direzione. Il tuo lavoro originale rimane nella chat e può essere riapplicato in qualsiasi momento.
+
+### URL del progetto
+
+Gli URL dei progetti non vengono più generati automaticamente al momento della creazione del progetto. Imposta l'URL del tuo progetto univoco prima della pubblicazione o chiedi a ZenOpus di generarne automaticamente uno per te.
+
+### Nome visualizzato del progetto
+
+ZenOpus ora genera automaticamente un nome visualizzato più significativo per il tuo progetto. Il nome visualizzato è visibile solo a te e ai membri del tuo Workspace, non ai visitatori della tua app pubblicata. I nomi visualizzati sono univoci solo in un Workspace, riducendo i problemi con i nomi già riservati. Puoi sempre rinominare il tuo progetto con qualcosa di più significativo andando alle impostazioni del progetto.
+
+### Meglio commettere messaggi
+
+I messaggi di commit ora descrivono cosa è effettivamente cambiato nel tuo progetto, non solo quello che hai chiesto, rendendo più semplice sfogliare la cronologia del progetto.
+
+### Aggiornamento della navigazione
+
+Le impostazioni di privacy e sicurezza sono state spostate nella propria scheda per un accesso più semplice.
+
+### Correzioni di bug
+
+- Risolti gli errori di ricarica dell'anteprima che in precedenza rimanevano bloccati su "Prova a risolvere" fino all'aggiornamento della pagina. Il sistema ora rileva gli errori temporanei e riprova automaticamente.
+- Figma Import è stato rimosso a causa di problemi di qualità. Stiamo lavorando a qualcosa di nuovo ed entusiasmante: restate sintonizzati.
+</Update>
+
+<Update label="5 novembre 2025">
+### ZenOpus × Integrazione con Shopify
+
+![ZenOpus Integrazione con Shopify che mostra uno strumento per la creazione di vetrine con gestione dei prodotti](/images/zenopus/changelog/2025-nov-5-shopifyxzenopus.png)
+
+Costruisci un negozio online chattando con l'intelligenza artificiale. ZenOpus imposta prodotti, carrello e checkout; quando sei pronto, rivendica il negozio su Shopify e pubblica. Ottimo per tutto, dai negozi di hobby ai grandi cataloghi.
+
+Bonus: prova Shopify di 30 giorni quando ti registri tramite ZenOpus.
+
+[Ulteriori informazioni sull'integrazione di Shopify](/it/integrations/shopify).
+
+### Mostra all'agente cosa intendi
+
+![Funzione di acquisizione di screenshot nella chat che mostra la possibilità di acquisire e condividere screenshot con l'agente](/images/zenopus/changelog/2025-nov-5-screenshot_capture.png)
+
+L'agente ZenOpus ora comprende meglio il tuo contesto. Sa quale scheda stai visualizzando in ZenOpus, che si tratti di Editor di codice, SEO, Analisi, Impostazioni cloud o Segreti, in modo da poterti fornire risposte più pertinenti. Puoi chiedere all'agente di eseguire uno screenshot della tua build o di acquisire screenshot da qualsiasi punto del tuo computer direttamente dall'interfaccia della chat.
+
+### Disponi sempre di fondi Cloud e AI sufficienti
+
+Ricarica automaticamente quando il tuo saldo scende al di sotto di $ 10, ma mantieni il controllo delle tue spese mensili aggiungendo un limite mensile. Ora puoi anche monitorare l'utilizzo del cloud e dell'intelligenza artificiale per ciascun progetto.
+
+[Ulteriori informazioni sull'aggiunta di fondi Cloud e AI](/it/integrations/cloud#aggiunta-di-fondi-solo-piani-a-pagamento).
+
+### Migliore gestione dei domini personalizzati
+
+Imposta un dominio principale per il tuo progetto, a cui verranno automaticamente reindirizzati altri domini personalizzati. Aggiungere un nuovo dominio ora è più semplice grazie a un flusso di lavoro più chiaro e a una guida passo passo. Abbiamo anche aggiunto la convalida del dominio per verificare la proprietà prima che il tuo dominio venga attivato.
+
+[Ulteriori informazioni sui domini personalizzati](/it/features/custom-domain).
+
+### Richiedi l'accesso a progetti privati
+
+Quando navighi verso un progetto privato, potrai richiedere l'accesso al proprietario del progetto. Mantiene sicuro il lavoro privato semplificando la collaborazione.
+
+### Pubblicazione solo Workspace (Business e piani Enterprise)
+
+I progetti pubblicati ora possono essere impostati su accesso "Workspace-only", richiedendo l'autenticazione e limitando l'accesso ai tuoi membri Workspace. Perfetto per creare strumenti e app interni.
+
+[Ulteriori informazioni sulla pubblicazione.](/it/features/publish)
+
+### Notifiche sul desktop
+
+Abilita le notifiche desktop per sapere quando terminano le build a lunga esecuzione. Non c'è bisogno di continuare a controllare per vedere se hai finito.
+
+### Disconnetti il progetto da GitHub
+
+Ora puoi disconnettere il tuo progetto da GitHub quando necessario. Utile se è necessario trasferirlo in un'altra organizzazione GitHub.
+
+[Ulteriori informazioni sull'integrazione GitHub](/it/integrations/github).
+
+### Correzioni di bug
+
+- Risolto un problema per cui le risposte dell'agente apparivano tutte insieme invece di essere digitate gradualmente.
+- Ridotto il numero di notifiche pop-up visualizzate subito dopo la registrazione.
+- I messaggi di errore ora vengono visualizzati in modo più coerente quando qualcosa va storto.
+- Risolti i problemi di spaziatura e allineamento nell'interfaccia della chat.
+</Update>
+
+<Update label="6 ottobre 2025">
+### ZenOpus Cloud
+
+![ZenOpus Cloudlogo](/images/zenopus/changelog/2025-oct-6-lvbl-cloud-logo.png)
+
+Crea app full-stack senza configurazione manuale di Supabase. ZenOpus Cloud ti offre database on-demand, autenticazione utente e spazio di archiviazione che si adattano automaticamente man mano che la tua app cresce.
+
+ZenOpus Cloud è disponibile per tutti i nuovi progetti e per tutti i progetti esistenti che non sono integrati con Supabase.
+
+[Ulteriori informazioni su ZenOpus Cloud](/it/integrations/cloud).
+
+### ZenOpus AI
+
+![ZenOpus Logo AI](/images/zenopus/changelog/2025-oct-6-lvbl-ai-logo.png)
+
+Ora puoi creare app native per l'intelligenza artificiale in ZenOpus, semplicemente tramite richiesta. Gestiamo l'accesso e le API dei fornitori in modo che tu possa concentrarti sulla creazione del tuo prodotto. Fino al 13 ottobre offriremo funzionalità AI integrate gratuite fornite da Google Gemini.
+
+Ora puoi creare cose come:
+
+- **Cloni ChatGPT per scopi speciali**: assistenti conversazionali personalizzati per Support, vendite o lavoro di conoscenza.
+- **Avatar e generatori di immagini**: consentono agli utenti di creare, modificare e personalizzare contenuti visivi.
+- **App di coaching**: guida personalizzata, coach di onboarding, creatori di abitudini e altro ancora.
+
+Ogni piano include crediti mensili gratuiti da utilizzare per la funzionalità AI incorporata. Sì, anche piani gratuiti! Il prezzo completo può essere trovato [qui](/it/features/cloud#usage-based-cloud-and-ai-pricing).
+
+[Ulteriori informazioni su ZenOpus AI](/it/integrations/ai).
+
+### Modalità vocale
+
+Ora puoi parlare con ZenOpus. Stiamo sbloccando un modo di costruire più intuitivo e colloquiale: descrivi idee e modifiche ad alta voce e ZenOpus ce la fa.
+
+### Trasforma i tuoi file in app
+
+![Illustrazione che mostra tipi di file come fogli di calcolo, curriculum e presentazioni trasformate in app](/images/zenopus/changelog/2025-oct-6-file-to-app-illustration.png)
+
+Trascina qualsiasi tipo di file in ZenOpus per trasformarlo in un'app.
+
+Ad esempio:
+
+- Fogli → dashboard interattive
+- Curriculum → portafogli
+- Presentazioni di diapositive → presentazioni personalizzate
+
+### Sonetto 4.5
+
+L'ultimo modello di Anthropic ora aiuta a potenziare le tue build su ZenOpus. Aspettatevi un ragionamento più forte, risultati più coerenti e prestazioni migliori su modifiche in più passaggi e dati strutturati.
+
+### Un'esperienza di costruzione più fluida
+
+Basarsi su ZenOpus è diventato più semplice: accesso più rapido all'editor visivo, migliore UX a lungo termine e immagine Support nell'editor di codice.
+
+### Pubblica e annulla la pubblicazione in tutta sicurezza
+
+Spedisci con fiducia. Il flusso di pubblicazione ora include la modifica dell'anteprima del collegamento prima della messa in diretta. Hai fatto un errore? Annulla la pubblicazione con un clic.
+
+### Integrazione delle strisce
+
+Abbiamo aggiornato la nostra integrazione con Stripe con flussi di fatturazione e pagamento più chiari. Configura tutta la tua logica Stripe in chat descrivendo semplicemente ciò che desideri creare: non è richiesta alcuna configurazione manuale.
+
+[Ulteriori informazioni sull'integrazione con Stripe](/it/integrations/stripe).
+
+### Risorse della comunità aggiornate
+
+Sia la nostra pagina Partner che Remix hanno ricevuto aggiornamenti in modo da poter estendere ciò che costruisci attraverso la community. Visita la pagina dei partner per trovare agenzie specializzate (o fai domanda per essere messo in evidenza) e utilizza Remix sui tuoi progetti ZenOpus Cloud preferiti per iniziare più velocemente.
+
+### Migliore gestione del Workspace
+
+Una nuova visualizzazione unificata dei membri ti consente di comprendere l'utilizzo e intraprendere azioni all'interno del tuo team. Gli amministratori possono ora impostare limiti di durata della sessione, attivare il provisioning just-in-time (SSO), disabilitare la pubblicazione e applicare le impostazioni sulla privacy del progetto.
+
+### Correzioni di bug
+
+- Risolti i problemi di dimensionamento in chat che causavano lo scorrimento orizzontale
+- Errori di creazione ridotti del 20%
+</Update>
+
+<Update label="1 settembre 2025">
+### Sconto studenti + insegnanti in tempo reale
+
+Stiamo rendendo più semplice per gli studenti e gli insegnanti iniziare a costruire. Ora, sia gli studenti che gli insegnanti possono risparmiare fino al 50% di sconto su Pro, per un massimo di un anno. Lo sconto si applica se inizi con un Workspace gratuito, così puoi sfruttare tutta la potenza di ZenOpus senza sforare il budget. [Ulteriori informazioni sull'offerta qui](https://zenopus.dev/students).
+
+### Aggiornamenti della sicurezza
+
+![Badge delle certificazioni di sicurezza che mostra la conformità SOC 2 Tipo 2 e ISO 27001:2022](/images/zenopus/changelog/2025-sep-1-security.png)
+
+La sicurezza è la nostra priorità. Abbiamo ampliato le nostre funzionalità, policy e certificazioni di sicurezza, inclusa l'aggiunta della conformità SOC 2 Tipo 2 e delle certificazioni ISO 27001:2022. Abbiamo anche assunto un incredibile CISO, Igor Andriushchenko, così puoi fidarti di noi con le tue idee, i tuoi dati e i tuoi clienti. Ulteriori informazioni sulle nostre funzionalità di sicurezza [qui](https://zenopus.dev/security).
+
+### La tua nuova casella di posta ZenOpus
+
+![ZenOpus interfaccia della posta in arrivo che mostra gli inviti ai progetti e gli aggiornamenti recenti](/images/zenopus/changelog/2025-sep-1-inbox.png)
+
+La tua nuova casella di posta personale ti aiuta a tenere traccia dei progetti e degli inviti Workspace e puoi anche controllare gli aggiornamenti che abbiamo inviato di recente, così sarai sempre aggiornato.
+
+### SEO più intelligente per le nuove app
+
+Quando crei una nuova app o pagina web, ZenOpus ora include istruzioni SEO per agenti che rispettano meglio le migliori pratiche SEO. Ciò aiuta i tuoi progetti a essere meglio indicizzati sui motori di ricerca e a raggiungere il pubblico per cui stai creando.
+
+### Ruolo visualizzatore Workspace (Pro+)
+
+Per i membri Pro+, abbiamo introdotto un nuovo ruolo di Visualizzatore. I visualizzatori possono visualizzare metadati, progetti e membri Workspace, ma non possono creare o modificare progetti né invitare altri. È il ruolo perfetto per le parti interessate che necessitano di visibilità, ma non hanno bisogno di modificare i progetti.
+
+### Gestione flessibile del piano
+
+![Interfaccia di gestione del piano che mostra le opzioni di upgrade e downgrade](/images/zenopus/changelog/2025-sep-1-plan-management.png)
+
+Ora puoi eseguire l'upgrade o il downgrade del tuo piano in pochi clic, sia che tu abbia bisogno di più crediti o che desideri passare a quello gratuito.
+
+### Feedback sugli errori più chiaro
+
+Se mai il LLM interpreta erroneamente la tua richiesta, ZenOpus ora ti consente di saperlo direttamente. Vedrai cosa è andato storto in modo da poter modificare il tuo suggerimento e andare avanti più velocemente.
+
+### Tieni traccia delle tue modifiche e serie
+
+Abbiamo aggiunto una dashboard personale in cui puoi vedere quante modifiche hai apportato in ZenOpus e tenere traccia dei tuoi successi. Un ottimo modo per rimanere motivati ​​e vedere i tuoi progressi nel tempo. Controllalo nelle Impostazioni del tuo account.
+</Update>
+
+<Update label="11 agosto 2025">
+### La modalità agente è la nuova modalità predefinita
+
+Con questo aggiornamento, ZenOpus diventa un vero partner agente: interpreta richieste, comprende la base di codice, risolve problemi, esegue complesse modifiche in più passaggi su file, si integra con strumenti esterni e riduce gli errori del 91%, così puoi creare app più ambiziose più velocemente e con meno attriti.
+
+La modalità legacy (in cui non utilizzi l'agente) verrà disattivata il 1° settembre 2025.
+
+### Analisi in tempo reale sulle tue app ZenOpus
+
+Sei curioso di sapere come si comporta la tua app in natura? Ora puoi monitorare il traffico e il coinvolgimento in tempo reale direttamente all'interno di ZenOpus, tra cui:
+
+- Visitatori: quante persone utilizzano la tua app Visualizzazioni di pagina: quali pagine ricevono maggiore attenzione
+- Durata della visita: quanto tempo rimangono gli utenti
+- Frequenza di rimbalzo: quale percentuale abbandona immediatamente
+- Visualizzazioni per visita: quanto profondamente gli utenti interagiscono
+
+I dati si aggiornano quasi in tempo reale, così puoi individuare tendenze, risolvere problemi o semplicemente festeggiare i tuoi primi utenti! Disponibile ora in Impostazioni progetto → Analisi
+
+### ZenOpus Business piano
+
+Ti presentiamo il piano ZenOpus Business, creato per i team che necessitano di maggiore controllo, privacy e flessibilità. Include tutto in Pro, oltre a potenti aggiornamenti:
+
+- SSO per un accesso sicuro a livello di organizzazione
+- Progetti limitati visibili solo a te
+- Modelli per uno stile coerente
+- Piani annuali ora disponibili
+
+Ora puoi passare a un abbonamento annuale per qualsiasi piano ZenOpus a pagamento. Ottieni una tariffa scontata, semplifica la fatturazione e preoccupati meno dei rinnovi mensili.
+
+### Modifiche visive v2
+
+Abbiamo perfezionato l'esperienza delle modifiche visive dopo tonnellate di feedback. Più reattivo, preciso e piacevole da usare. È più veloce che mai modificare l'interfaccia utente, correggere la copia o modificare il layout, senza abbandonare l'anteprima dal vivo.
+
+Puoi anche passare agli elementi selezionati nel codice quando utilizzi le modifiche visive, per restringere il circuito tra progettazione e implementazione.
+
+### Il progetto invita al flusso di lavoro
+
+Gli utenti invitati ora devono accettare o rifiutare formalmente l'accesso a un progetto, sia tramite posta elettronica che tramite collegamenti magici. Ciò evita membri "in sospeso" obsoleti e migliora il monitoraggio dei collaboratori.
+
+### Cerca tutti i file nell'editor di codice
+
+Utilizza la ricerca file all'interno dell'editor di codice per individuare rapidamente il codice e aggiungere percorsi di file direttamente nella chat.
+
+### Barra dei crediti unificata
+
+Abbiamo fornito una nuova barra dei crediti che combina tutti i tipi di credito in un'unica visualizzazione pulita e unificata, senza più passare da una visualizzazione all'altra per monitorare l'utilizzo.
+
+### Scheda Persone aggiornata
+
+La scheda Persone nelle impostazioni di Workspace è stata riprogettata. Ora include l'impaginazione (20 utenti per pagina), la ricerca e il filtraggio in base allo stato dei membri, rendendo molto più semplice la gestione di team di grandi dimensioni.
+
+### Si adatta a spazi di lavoro di grandi dimensioni
+
+Grazie ai miglioramenti del backend, ora disponiamo di Support enormi spazi di lavoro con decine di migliaia di membri senza problemi di prestazioni.
+
+### Badge del progetto pubblicato
+
+Abbiamo aggiunto un piccolo ma utile tocco: tutti i progetti pubblicati ora mostrano un badge "Pubblicato", quindi è più facile vedere cosa è in corso a colpo d'occhio.
+
+### Correzioni di bug
+
+- Risolto bug di caricamento delle immagini che causava il fallimento di oltre l'1% delle generazioni iniziali se l'utente non aveva effettuato l'accesso.
+- Impedisce aggiornamenti ridondanti quando un progetto è già aggiornato con la versione distribuita.
+- Ora puoi disconnettere un progetto dal Supabase legacy quando disconnetti l'organizzazione.
+- La riconnessione delle organizzazioni con token non validi ora è semplice.
+</Update>
+
+<Update label="26 giugno 2025">
+### Riflettori puntati
+
+Abbiamo reso la collaborazione su ZenOpus ancora più accessibile rendendola una funzionalità gratuita per tutti gli utenti.
+
+Per gli utenti Free e Pro:
+
+- La collaborazione Workspace è ora completamente gratuita: invita i tuoi compagni di squadra e inizia a costruire insieme senza costi aggiuntivi.
+- Sblocca la collaborazione Workspace per un massimo di 20 membri su entrambi i piani Free e Pro.
+- Sui piani Free, altri membri si uniscono come redattori; I piani Pro offrono ruoli e autorizzazioni Workspace granulari.
+
+Per gli utenti del piano Teams:
+
+- Abbiamo semplificato la nostra struttura dei prezzi e ti abbiamo spostato al piano Pro con risparmi significativi:
+    - Sei stato spostato automaticamente dal piano Teams al piano Pro.
+    - Ora pagherai il 20% in meno a partire dal prossimo rinnovo.
+    - Hai ancora accesso a tutte le stesse funzionalità e crediti di prima, solo a un prezzo inferiore.
+    - Tutti i tuoi progetti e le impostazioni di Workspace rimangono invariati.
+
+### Miglioramenti
+
+- Riprogettata l'esperienza mobile per creare app e siti Web direttamente dal tuo telefono.
+- È stato inviato un aggiornamento delle modifiche visive con nuovi controlli della casella combinata mobile posizionati proprio accanto agli elementi che stai modificando
+- Aggiunta funzionalità di ricerca dei progetti con corrispondenza fuzzy per nome – *suggerimento: rinomina i tuoi progetti per una migliore rilevabilità*.
+- Distribuite le generazioni iniziali full-stack a tutti gli utenti che ti consentiranno di connetterti a Supabase prima di eseguire una generazione iniziale
+- Aggiunta una barra di prompt mobile alla nostra home page che ti consente di inserire il prompt anche quando scorri verso il basso.
+- Migliorata la visualizzazione della cronologia con una sequenza temporale più pulita che dà priorità alle date, versioni ripristinate ora visibili e navigazione delle versioni semplificata.
+- Aggiornata la pagina delle carriere con le informazioni più recenti. [Dai un'occhiata qui](https://zenopus.dev/careers).
+
+### Correzioni di bug
+
+- Risolto il problema con l'accesso amministrativo alle impostazioni di integrazione per i progetti utente.
+- È stato risolto il problema per cui gli amministratori non potevano accedere correttamente alle aree di lavoro, causando problemi di visualizzazione e funzionalità dell'editor durante la visita ai progetti del team.
+- Risolto il problema di reindirizzamento iframe che causava reindirizzamenti indesiderati all'interno dell'app ZenOpus.
+</Update>
+
+<Update label="4 giugno 2025">
+### Riflettori puntati
+
+- Rilevabilità dei progetti migliorata con nuove opzioni di filtro per trovare e gestire facilmente i tuoi progetti.
+- Aggiunta la categorizzazione ai progetti della comunità per facilitare la scoperta dei progetti da parte della comunità.
+
+### Miglioramenti
+
+- La modalità chat ora esegue il rendering dei diagrammi della sirena per aiutarti a visualizzare la logica e la struttura del back-end della tua app (chiedigli di tracciare le cose per attivarlo).
+- URL di reindirizzamento a configurazione automatica per l'integrazione di Supabase Auth: non è più necessaria la configurazione manuale per una configurazione di autenticazione più semplice.
+- Aggiunto sistema di feedback nel prodotto: fai clic sul pulsante "Mi piace" quando le modifiche causano problemi per aiutarci a migliorare l'intelligenza artificiale di ZenOpus per tutti.
+- Introdotti gli smart nudge per guidarti alla modalità chat durante il debug di problemi che necessitano di aiuto conversazionale.
+- La cronologia delle modifiche ora mostra le anteprime degli screenshot al passaggio del mouse, consentendoti di vedere rapidamente l'aspetto della tua app nelle diverse fasi senza aprire ciascuna versione.
+
+### Sicurezza
+
+- Aggiunto il rilevamento della chiave API nella chat che ti avvisa prima di condividere accidentalmente informazioni sensibili come i segreti.
+- Implementata la funzionalità di "revisione della sicurezza" basata sull'intelligenza artificiale per aiutare a identificare potenziali vulnerabilità nelle tue app. Attivalo prima di pubblicare la tua app tramite la modalità di pubblicazione.
+</Update>
+
+<Update label="24 maggio 2025">
+### Riflettori puntati
+
+- Claude 4 è ora utilizzato in ZenOpus! È alla base della maggior parte delle richieste, sia per la creazione di progetti che per le modifiche su tutti i progetti (compresi i vecchi progetti). Ciò dovrebbe far sì che ZenOpus abbia il 25% di errori in meno e sia complessivamente più veloce del 40%.
+
+### Miglioramenti
+
+- Rinnovato il flusso di configurazione sia per GitHub che per Supabase, semplificando l'onboarding in più passaggi per ridurre la confusione.
+- Aggiunte etichette visive ai progetti in primo piano sulla home page per una migliore scoperta.
+- Aggiunto Support per rimuovere domini personalizzati dalla tua app ZenOpus.
+- Diversi miglioramenti nella gestione dei collaboratori:
+    - Aggiunta la convalida al modulo di invito via email nella scheda Persone
+    - Le descrizioni comandi ora spiegano le autorizzazioni per ciascun ruolo (amministratore/proprietario/editore)
+    - Ora puoi vedere il ruolo degli inviti in sospeso
+    - Messaggi di errore migliorati per casi limite come invitare qualcuno già nel Workspace
+- I messaggi di impegno ora si basano maggiormente sulla cronologia delle conversazioni per un contesto migliore.
+- Migliorata la qualità dello streaming: esperienza più fluida e niente più testo lampeggiante.
+- Gli utenti ora possono visualizzare i progetti ZenOpus pubblici senza aver effettuato l'accesso.
+- Le schede di modifica attive ora sono evidenziate, quindi è più facile vedere quale è attiva.
+- Il pulsante predefinito "Modifica codice" ora apre l'anteprima anziché il codice grezzo.
+
+### Correzioni di bug
+
+- Risolti i bug che in alcuni casi causavano la visualizzazione dell'anteprima live errata.
+- Risolto un bug per il quale l'aggiornamento dell'anteprima poteva modificare il percorso corrente.
+- Risolto un bug che causava cicli di reindirizzamento infiniti all'avvio di un'anteprima dal vivo dopo l'accesso.
+</Update>
+
+<Update label="9 maggio 2025">
+### Riflettori puntati
+
+- Abbiamo aggiunto Support per trasferire progetti tra spazi di lavoro!
+- ZenOpus ora comprende meglio le immagini: che tu stia caricando un riferimento di progettazione o una risorsa reale del sito, riconosce la differenza e la gestirà di conseguenza
+
+### Correzioni di bug
+
+- Risolti i problemi con i progetti pubblicati e i collegamenti di anteprima distribuiti che non riflettevano la versione più recente
+- Le impostazioni di visibilità del progetto sono tornate nelle aree di lavoro del team, ma per il momento saranno disabilitate
+- Risolti i problemi per cui i proprietari di Workspace non erano in grado di modificare progetti creati da non proprietari nei team Workspace
+- Risolto il problema per cui il "pulsante di downgrade" nella pagina di fatturazione si collegava alla pagina Stripe sbagliata
+- Risolto il problema per cui alcuni utenti non visualizzavano il proprio piano dopo l'aggiornamento a un piano superiore
+</Update>
+
+<Update label="2 maggio 2025">
+### Miglioramenti
+
+- Monitoraggio del credito migliorato rendendo esplicito quando hai raggiunto il limite di credito mensile di 30 ed essendo esplicito su quando verranno rinnovati sia i tuoi crediti giornalieri che quelli mensili
+- È stato possibile invitare i non utenti negli spazi di lavoro del team
+- Modalità di errore rinnovate per visualizzare messaggi più utili (ad esempio problemi con i token Supabase), non solo "Richiesta non riuscita"
+- Schede delle impostazioni aggiornate (Progetti, Conoscenza, Domini) con un nuovo design
+
+### Correzioni di bug
+
+- Risolti i problemi per cui i crediti non venivano aggiornati tranne quando si aggiornava la pagina
+- Risolto un problema per cui amabile non riusciva a recuperare i registri delle funzioni edge
+- Risolto il problema che portava al fallimento del passaggio al ramo GitHub se si aveva rinominato il repository
+- Risolto bug che impediva agli utenti di applicare alcune migrazioni SQL
+- Risolto il problema con lo stile inadeguato nella pagina dei prezzi per dispositivi mobili
+- Risolto il problema che bloccava le rinominazioni dei progetti
+- Risolti i problemi per cui il contatore dei progetti nella home page non mostrava il numero corretto
+- Risolti i problemi che portavano al ciclo di riautenticazione di Supabase
+- Risolti i problemi per cui le modifiche apportate in modalità Dev non venivano salvate
+- Risolti i problemi per cui l'indicatore "Lavoro..." non veniva visualizzato per i collaboratori
+</Update>
+
+<Update label="25 aprile 2025" description="ZenOpus 2.0">
+### ZenOpus 2.0
+
+Siamo così entusiasti di lanciare **ZenOpus 2.0**! Si tratta di collaborazione, sicurezza e maggiore controllo.
+
+![ZenOpus Banner di annuncio 2.0 con il nuovo logo e marchio](/images/zenopus/changelog/zenopus-two-point-zero.png)
+
+- Abbiamo cambiato marchio! Nuovo logo, colori più brillanti e un'interfaccia utente molto più pulita. Vai a dare un'occhiata qui sotto: speriamo che sembri un bagliore.
+- [Teams](/it/user-guides/teams): La collaborazione in tempo reale è finalmente arrivata! Invita altri a modificare insieme le app o a creare spazi di lavoro condivisi per il team.
+- [**Prezzi semplificati**](/it/user-guides/messaging-limits#free-vs-paid-plans-comparison) con due opzioni pulite: Pro inizia da $ 25/mese e Teams inizia da $ 30/mese.
+- **Scansione di sicurezza:** ZenOpus ora controlla le vulnerabilità quando pubblichi (se sei connesso a Supabase). Questo è solo l'inizio del nostro lavoro per rendere la codifica delle vibrazioni più sicura per impostazione predefinita.
+- Quando provi a ripristinare una modifica precedente dopo la quale hai eseguito una migrazione, ZenOpus ti dirà che non stiamo ripristinando il database.
+- Hai chiesto, abbiamo ascoltato. La [modalità chat](/it/features/plan-mode) ora è *molto* più intelligente e **qui per restare** per tutti. Non apporta modifiche, ma *può* aiutarti a ragionare sui problemi, pianificare funzionalità, ispezionare registri, interrogare database e altro ancora. Consideralo come il tuo compagno di programmazione intelligente e senza mani.
+
+Questo è un grande passo avanti e siamo appena all’inizio.
+
+Grazie mille per aver intrapreso questo viaggio con noi
+</Update>
+
+<Update label="17 aprile 2025">
+- Miglioramenti dell'affidabilità di GitHub spediti. Ora dovremmo essere in grado di sincronizzarci con GitHub anche quando il token utente si è rotto.
+- Sono state spedite alcune correzioni obsolete in anteprima.
+- Durante il trasferimento dei repository, le organizzazioni/gli utenti sospesi verranno contrassegnati in questo modo. Se si fa clic si andrà alla pagina per annullare la sospensione.
+</Update>
+
+<Update label="11 aprile 2025">
+- Ora puoi acquistare un dominio direttamente dalle impostazioni del tuo progetto: basta fare clic su "Acquista un dominio", cercare ciò che desideri e completare il pagamento in pochi clic. Abbiamo collaborato con IONOS per renderlo possibile. Ulteriori informazioni [qui](http://email.zenopus.dev/e/c/eyJlbWFpbF9pZCI6ImRnVG1qZ29EQUotUVZKNlFWQUdXRzVfR2VPdTVlSEVGMnU1Wk5hbz0iLCJocmVmIjoiaHR0cHM6Ly94LmNvbS9sb3ZhYmxlX2Rldi9zdGF0dXMvMTkwOTYzMzY1NjQ0MTc4NjYwOCIsImludGVybmFsIjoiZTY4ZTBhMmRhZWRkMDE5ZjkwNTQiLCJsaW5rX2lkIjoyMDk2fQ/de4d0c380fdfac4a4accea202b7884c14b49d33fc1c0ca808b5a4ebc9e6540fe).
+- L'aggiornamento delle favicon ora è più semplice da configurare direttamente da ZenOpus.
+- Il caricamento di progetti più grandi ora dovrebbe essere molto più veloce poiché non tutti i messaggi vengono caricati all'apertura del progetto. I messaggi aggiuntivi vengono caricati solo quando un utente scorre verso l'alto.
+- Facendo clic sul pulsante Supabase (mostrato nella prima generazione) ora si apre il riquadro delle impostazioni. Aggiunto anche un piccolo Cos'è Supabase? callout per gli utenti alle prime armi che collega anche ai nostri documenti e tutorial.
+</Update>
+
+<Update label="4 aprile 2025">
+- **Nuova interfaccia utente:** aggiornato il design della barra di navigazione dell'editor, che sposta il menu a discesa delle pagine e i relativi pulsanti dall'intestazione del pannello di anteprima alla barra di navigazione.
+- Refactor della creazione di differenze che gestisce più modifiche allo stesso file.
+- Aggiornata l'[integrazione con Stripe](/it/integrations/stripe).
+- Nuovo scorrimento della chat: scorre i nuovi messaggi utente nella parte superiore della finestra invece di scorrere automaticamente mentre viene generato il testo.
+- ZenOpus ora ha una modalità sviluppatore. L'abilitazione della modalità sviluppatore ti consente non solo di leggere il codice del tuo progetto, ma anche di modificarlo direttamente all'interno di ZenOpus. Leggi ulteriori informazioni a riguardo [qui](http://email.zenopus.dev/e/c/eyJlbWFpbF9pZCI6ImRnVG1qZ29EQUotUVZKNlFWQUdXRzVfR2VPdTVlSEVGMnU1Wk5hbz0iLCJocmVmIjoiaHR0cHM6Ly94LmNvbS9sb3ZhYmxlX2Rldi9zdGF0dXMvMTkwNzgxNjU2Nzk0NzA5NjM0MSIsImludGVybmFsIjoiZTY4ZTBhMmRhZWRkMDE5ZjkwNTQiLCJsaW5rX2lkIjoyMDk1fQ/c876becf4f48a97a1c3fd592a50e2bb9bcb03651afcb81988c68b031dc617425).
+- Risolta l'integrazione di Supabase in cui l'IA creava il file `config.toml` nelle cartelle errate.
+- Risolto il problema in modo da poter chiudere nuovamente le modifiche visive con il pulsante `x` e il tasto di scelta rapida `alt+s` funziona di nuovo nell'anteprima.
+</Update>
+
+<Update label="28 marzo 2025">
+- Trasforma il tuo profilo LinkedIn in un sito web personalizzato.
+- Ti chiedi se c'è qualcosa che non va? Ora puoi controllare la nostra pagina di stato per aggiornamenti in tempo reale. Dai un'occhiata [qui](https://status.zenopus.dev/).
+- Spedito che il tentativo di correzione viene visualizzato quando lo schermo diventa vuoto.
+- Risolto bug per cui veniva recuperato solo il primo log della funzione edge.
+- Risolto bug che causava richieste infinite quando si accedeva alla pagina del profilo.
+- Risolto il problema del panico causato dalle scritture simultanee della mappa nel servizio esperimenti.
+- Ridotto di 4 volte le occorrenze dei messaggi in cui mescoliamo `lov-sql` e `lov-code`.
+- Risolto un bug per cui le impostazioni dei laboratori non venivano salvate ora.
+- Le anteprime sono tornate online. Fateci sapere se i vostri domini non funzionano.
+- Risolto bug per cui veniva recuperato solo il primo log della funzione edge.
+- Abbiamo apportato alcuni importanti miglioramenti/correzioni a Supabase, in particolare su come richiamare le funzioni edge.
+- Le funzioni Supabase ora vengono distribuite quando aggiornate nell'editor di codice. Inoltre, le funzioni di Supabase vengono aggiornate in tempo reale nell'editor di codice quando vengono modificate dall'intelligenza artificiale.
+</Update>
+
+<Update label="21 marzo 2025">
+Abbiamo ascoltato i problemi che hai condiviso con noi e stiamo lavorando duramente per risolverli tutti. Questo è ciò che abbiamo comunicato questa settimana sull'affidabilità del prodotto:
+
+- Risolto bug in cui l'IA creava nuove funzioni edge invece di correggere quelle esistenti.
+- Le impostazioni di [Funzioni Labs](/it/features/labs) ora vengono salvate nel tuo account utente anziché nell'archivio locale, garantendo che persistano su tutti i dispositivi.
+- Il contatore dei crediti mensili è ora nel menu delle impostazioni per un accesso rapido.
+- Risolto un bug che causava la non sincronizzazione della finestra di anteprima dal vivo dopo le modifiche dell'IA.
+- Risolti i problemi di persistenza della sessione di autenticazione di Supabase.
+- Una riscrittura completa dei backend dei domini personalizzati. Ora il sistema dovrebbe essere più stabile, più veloce, con autoriparazione e domini Unicode Support.
+- *Connetti dominio personalizzato* come azione nella finestra di dialogo di pubblicazione per gli utenti che non hanno ancora collegato alcun dominio al proprio progetto.
+- La modalità chat è più veloce che mai, risolvendo il bug dove a volte si fermava.
+- Aggiunta un'icona supabase per i progetti collegati nella scheda progetto, cliccabile per i tuoi progetti per portarti alla dashboard di supabase.
+- Support completo per immagini SEO e Open Graph in modo che i collegamenti (ad esempio su X) ora mostrino le anteprime delle carte corrette.
+- Aggiornamento dell'interfaccia utente per chiarire che le connessioni Supabase avvengono a livello di organizzazione.
+- Correzioni di perdite di memoria fornite per prevenire arresti anomali del backend durante le richieste degli utenti, comprese le lunghe esecuzioni iniziali.
+- Spedizioni di estensioni di blocco progetto continue e ping sandbox a richieste Support a lunga esecuzione senza terminazione anticipata.
+</Update>
+
+<Update label="14 marzo 2025">
+- Abbiamo apportato alcuni miglioramenti al layout delle impostazioni del progetto di ZenOpus per un'esperienza più intuitiva. Ora puoi trovare le Impostazioni progetto nell'angolo in alto a sinistra della pagina del progetto per un accesso più rapido e una migliore navigazione. [Ecco le novità](https://discord.com/channels/1119885301872070706/1120705825317593149/1350101727768084491).
+- Presentazione di [domini personalizzati](/it/features/custom-domain) in ZenOpus.
+- Annuncio del [concorso di costruzione di ZenOpus](https://build-launch-win.zenopus.app/) da $ 10.000 con ZenOpus, Anthropic, Supabase e Sentri.
+- Miglior design del sito web, vincitore di $ 3K in contanti. [Twitta qui](https://x.com/zenopus_dev/status/1900574280011731167).
+</Update>
+
+<Update label="7 marzo 2025">
+- [Introduzione alla versione 2.0](https://x.com/zenopus_dev/status/1896637541618778574) che consente l'aggiunta di segnalibri, ripristini più semplici e una visualizzazione della cronologia migliorata.
+- [Modalità sviluppatore:](https://x.com/zenopus_dev/status/1897693825767768542) Modifica facilmente qualsiasi codice del tuo progetto direttamente in ZenOpus. Tutti gli utenti a pagamento possono abilitare la modalità sviluppatore nelle impostazioni.
+- Risolto un **bug dello streaming in modalità chat.**
+- Risolti **errori interni del server** in modalità predefinita.
+- Affrontate le **regressioni principali** introdotte con [Sonetto 3.7](https://zenopus.dev/blog/anthropic-sonnet-3-7-zenopus-diff-viewer).
+- Risolti **errori di sintassi SQL.**
+- Risolti **problemi relativi alla combinazione di migrazioni e gestione dei segreti** in un'unica modifica.
+</Update>
+
+<Update label="28 febbraio 2025" description="Visualizzatore di codici">
+- Tutti gli utenti di ZenOpus ora utilizzano Sonnet 3.7 per il flusso di lavoro principale, il che significa che ZenOpus ora è più intelligente che mai.
+- [Presentazione del Visualizzatore di codice a ZenOpus](https://x.com/zenopus_dev/status/1895500151889768596): ora puoi visualizzare il codice del tuo adorabile progetto. Come prima, puoi anche apportare modifiche al codice a progetti adorabili tramite Github.
+- Niente più richieste a Support che chiedono "*Perché il mio progetto non funziona*". Ora mostriamo i messaggi di errore effettivi nella finestra di dialogo degli errori che dovrebbero aiutarti a correggere l'errore da solo.
+- Correzione di bug relativi agli utenti che segnalavano il ripristino della versione del progetto a causa della connessione Supabase.
+- La modalità "*Modifica*" si chiude automaticamente dopo aver modificato un elemento.
+</Update>
+
+<Update label="21 febbraio 2025">
+- [Miglioramenti alle modifiche visive](https://x.com/zenopus_dev/status/1892249059718484100) che includono la modifica dello spessore dei caratteri, l'allineamento e il ridimensionamento delle immagini.
+- Risolti i problemi di sintassi di Supabase per un'integrazione più fluida e meno errori durante la distribuzione.
+- Risolto un problema per cui alcuni utenti venivano reindirizzati inaspettatamente alla home page.
+- La connessione ad API e origini dati esterne può essere complicata. Lo abbiamo reso più semplice. ZenOpus ora legge direttamente i log di rete, utilizzandoli come contesto per eseguire il debug e implementare integrazioni di terze parti in modo più efficace. Niente più fastidiosi popup di errore: ZenOpus ora utilizza approfondimenti di rete in tempo reale per aiutarti a risolvere i problemi più velocemente e continuare a costruire.
+- Risolti i problemi con gli ultimi commit di recupero, garantendo una sincronizzazione del progetto accurata e aggiornata.
+- Non più bloccato su `saving changes...`  per i messaggi che producono codice e non comportano un commit (ad esempio l'IA tenta di modificare un file senza autorizzazione o non sono state apportate modifiche)
+</Update>
+
+<Update label="12 febbraio 2025" description="Modifiche visive">
+- [Presentazione delle modifiche visive.](https://zenopus.dev/blog/introducing-visual-edits)
+- [Integrazione Supabase 2.0.](https://zenopus.dev/blog/zenopus-supabase-integration-second-version)
+- Il Changelog è ora pubblicato qui nella documentazione anziché in luoghi sparsi.
+- Documentazione migliorata con nuove integrazioni, guida rapida e guide per l'utente.
+- Hackathon mondiale ZenOpus. [Candidati qui](https://lu.ma/1dl5m906).
+- Maggiore capacità per le chiamate LLM, riducendo il rischio di limiti di velocità a metà processo.
+- Anteprima delle distribuzioni e distribuzioni di produzione delle app che funzionano di nuovo.
+- È stato risolto il problema per cui gli utenti venivano reindirizzati alla home page dopo aver inserito un progetto.
+- Risolta l'incoerenza nel recupero dell'ultimo commit a causa di repository configurati in modo errato utilizzando sia S3 che GitHub.
+- Risolto errore nei remix e nei trasferimenti per progetti con un override personalizzato del ramo principale.
+- Risolto un conflitto di nomi di registrazione Python che occasionalmente causava errori.
+- Risolto il problema per cui mancava lo strumento di selezione e modifica per i nuovi progetti.
+- Bellissimi pulsanti di ripristino
+</Update>
+
+<Update label="7 febbraio 2025" description="Vai alla migrazione">
+- La modalità chat sta diventando più intelligente e ora inizierà a contare per il limite dei messaggi.
+- Ti presentiamo [Assumi un partner ZenOpus](https://zenopus.dev/blog/introducing-hire-a-zenopus-partner).
+- [Da Python a Go](https://zenopus.dev/blog/from-python-to-go) per stabilità, piattaforma reattiva e rilasci di funzionalità più rapidi.
+- Introduzione di [ZenOpus Lanciato](https://zenopus.dev/blog/2025-01-30-how-to-launch-and-get-traffic-to-an-app-built-with-zenopus) in cui puoi pubblicare la tua app per farti notare dagli utenti.
+- [Cloudflare R2](https://www.cloudflarestatus.com/) non è disponibile. È tornato di nuovo a correre.
+- [ZenOpus Support 2.0](https://zenopus.dev/support) è attivo e funzionante.
+</Update>
+
+<Update label="28 gennaio 2025" description="Figma a ZenOpus">
+- Figma to ZenOpus: trasforma i progetti in codice con Builder.io.
+- Visibilità migliorata dei ripristini.
+- Support per Replica è stato migliorato.
+- Support per Resend è stato migliorato con la transizione all'SDK di Node.
+- Durante la creazione di flussi di registrazione e accesso, ZenOpus crea interfacce utente di autenticazione personalizzate su misura per adattarsi alla tua app.
+- La gestione dei ruoli in un'applicazione basata su Supabase è ora più affidabile.
+- ZenOpus ora supporta la creazione su Realtime OpenAI utilizzando RTC.
+</Update>
+
+<Update label="18 gennaio 2025">
+- Problemi DNS di zenopus.app risolti.
+- I problemi relativi al sandbox sono stati risolti e il servizio è nuovamente pienamente operativo.
+- Risolto il problema di connessione di Supabase, è sufficiente premere "Aggiungi un'altra organizzazione".
+</Update>
+
+<Update label="6 gennaio 2025">
+- [Interruzione dell'integrazione GitHub](https://zenopus.dev/news/github-incident-2025-01-02).
+- Nuova sezione Labs, accessibile tramite Impostazioni -> Impostazioni account -> Labs.
+- Visita [la nostra pagina Support](https://zenopus.dev/support) per ricevere assistenza, segnalare problemi o saperne di più sull'utilizzo di ZenOpus.
+- Migliore Support per lo scraping e i grafici dei nodi con Firecrawl e React Flow.
+- Badge "Modifica con ZenOpus" abilitato per tutti gli utenti.
+- Seleziona per modificare ora si trova direttamente nel compositore della chat.
+- Prossime serie live in 5 parti per creare e lanciare un tutor di spagnolo basato sull'intelligenza artificiale.
+- Fine settimana illimitato!
+</Update>
+
+<Update label="11 dicembre 2024">
+- Limiti di messaggistica personalizzabili per il piano Scale.
+- "Chiedi all'IA di risolvere il problema" non verrà conteggiato ai fini dei limiti di utilizzo.
+- Metti in mostra le tue creazioni nella Hall of Fame.
+- Integra Stripe, Three.js, p5.js, Resend e Fabric.js.
+- [Christmas Hackathon](https://hackathon.zenopus.app/submit) per vincere più di $ 3.000 in premi.
+- I problemi con il nostro provider cloud sono stati risolti.
+</Update>
+
+<Update label="3 dicembre 2024" description="ZenOpus 1.0">
+- **Modelli**: crea più velocemente con progetti precostruiti.
+- Presentazione di feedback.zenopus.dev per richieste di funzionalità e integrazione.
+- Aggiunta la barra laterale shadcn e Support per le app 3D con three.js.
+- Ora puoi tenere traccia dei messaggi rimanenti visitando la tua [pagina delle impostazioni](https://zenopus.dev/settings).
+- ZenOpus non introdurrà più i refactoring automaticamente.
+- Aggiunto Support per il nuovo [componente shadcn della barra laterale](https://ui.shadcn.com/docs/components/sidebar).
+- Migliorata la stabilità del menu a discesa della pagina.
+- Aggiunte una nuova [FAQ](/it/introduction/faq) e un [tutorial E2E](/it/introduction/getting-started) per guidare gli utenti.
+- I problemi con il nostro provider cloud sono stati risolti.
+- Quando invii una richiesta di chat, ci assicuriamo di verificare che tutte le fasi del progetto siano aggiornate.
+</Update>

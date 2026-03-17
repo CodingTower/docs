@@ -1,0 +1,161 @@
+---
+title: "Test and verify your app"
+description: "ZenOpus provides browser testing, frontend tests, and edge function verification to help understand system behavior, validate user workflows, and ensure backend logic works as expected."
+---
+ZenOpus gives you several ways to check that your application behaves as expected. These tools help you reproduce issues, confirm fixes, and avoid regressions across frontend and backend behavior.
+
+<Tip>
+**Choose the right test**
+
+If you are not sure which testing tool to use, start with the kind of behavior you want to verify.
+
+- If the issue is visible to users, use browser testing.
+- If UI behavior should stay correct over time, use frontend tests.
+- If the issue is in backend logic, call the edge function directly, then add an edge test.
+</Tip>
+
+## What ZenOpus can observe during verification
+
+ZenOpus collects information when the agent runs verification tools. This information is gathered automatically as part of those tools and is used to understand what is happening in your app.
+
+ZenOpus can capture:
+
+- browser console logs during browser testing
+- network requests made during browser testing
+- test failures and build errors from test runs
+- request and response data when calling backend functions directly
+
+These signals are available whenever the relevant tools are used and are often enough to diagnose issues without additional manual debugging.
+
+ZenOpus supports several testing approaches, each designed for a different kind of verification. Most tests fall into one of two categories:
+
+- checking complete user flows
+- checking specific rules or behaviors in isolation
+
+## Browser testing
+
+[Browser testing](/features/browser-testing) checks real user behavior by interacting with your app in a browser. The agent can navigate pages, click buttons, fill forms, and submit requests. While doing so, it can capture screenshots, inspect UI elements, and observe console and network activity.
+
+Use browser testing when:
+
+- someone reports broken or unexpected UI behavior
+- you need to check a multi-step flow such as onboarding or checkout
+- the issue may depend on routing, authentication, timing, or state
+- you want to confirm changes from a user’s point of view
+
+Browser testing is slower than other methods, but it gives the clearest picture of what a user actually experiences.
+
+Browser testing may be started by the agent during investigation. You can also request it explicitly.
+
+**Example**
+
+```text
+Use browser testing to verify the checkout flow.
+```
+
+## Frontend tests
+
+Frontend tests verify UI behavior in isolation using clear assertions. They are useful for ensuring that specific UI logic continues to work as expected over time.
+
+Frontend tests run in a simulated browser environment, run quickly and give consistent results, and usually live next to components as `.test.tsx` files.
+
+**Test stack**
+
+- Vitest
+- React Testing Library
+- jsdom
+
+Use frontend tests when:
+
+- the issue can be described as a clear rule or expectation
+- you are fixing a UI regression and want to prevent it from coming back
+- you are working with conditional rendering or complex state such as forms, tables, and filters
+- you want fast feedback without running the full app
+
+Frontend tests run only when requested.
+
+**Example**
+
+```text
+Write and run frontend tests for the login form.
+```
+
+## Backend verification with edge functions
+
+ZenOpus provides two complementary ways to verify backend behavior in edge functions: direct calls and automated tests. These approaches are often used together.
+
+### Direct edge function calls
+
+Direct calls let the agent run an edge function with specific inputs and inspect the result immediately. This avoids UI-related complexity and is useful for quick isolation. If you are logged in, authenticated calls can use your current session.
+
+Use direct calls when:
+
+- you suspect a backend issue and want to separate it from the UI
+- you need to check specific parameters or inputs
+- you want to compare behavior before and after a change
+- you are debugging authenticated behavior
+
+Direct edge function calls run only when requested.
+
+**Example**
+
+```text
+Call the signup edge function directly with an invalid email.
+```
+
+### Edge tests
+
+Edge tests are automated tests that check backend rules over time. They help ensure that important logic does not break silently.
+
+**Test stack**
+
+- Deno built-in test runner
+- Native TypeScript support
+
+Use edge tests when:
+
+- you change an edge function and want regression protection
+- you are validating business rules or permissions
+- the issue is subtle and hard to verify manually
+
+Edge tests run only when requested.
+
+**Example**
+
+```text
+Write edge tests for the payment processing function.
+```
+
+### How backend verification tools work together
+
+Direct calls and edge tests are often used together when debugging backend behavior.
+
+A common sequence looks like this:
+
+1. Call the edge function directly to reproduce the issue with a specific input.
+1. Apply the fix once the behavior is understood.
+1. Call the function again with the same input to confirm the change.
+1. Add an edge test to ensure the behavior does not regress over time.
+
+This approach keeps iteration fast while still providing long-term verification.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Do I need to run all tests for every change?">
+No. Most issues can be understood and verified using a single tool. Browser testing is useful for user-visible problems, frontend tests help lock down specific UI behavior, and backend verification is best for business logic. Choose the tool that matches the type of issue you are investigating.
+</Accordion>
+<Accordion title="What should I do if an issue does not resolve after a few attempts?">
+When an issue does not resolve after a few attempts, you can ask ZenOpus to use multiple verification tools. ZenOpus runs these tools and uses their output to guide the next step.
+
+- Reviewing logs or test failures from earlier runs often helps narrow down the cause.
+- Backend issues are usually easiest to isolate by calling the edge function directly.
+- User-facing issues are best explored with browser testing.
+- Once the behavior is understood, adding automated tests helps keep it stable over time.
+
+If the issue still does not resolve, revert to the latest stable version.
+</Accordion>
+<Accordion title="Does ZenOpus run verification tools automatically?">
+Most verification tools run only when you ask for them. In some cases, the agent may suggest or initiate a tool during investigation, but verification does not run silently in the background.
+</Accordion>
+</AccordionGroup>

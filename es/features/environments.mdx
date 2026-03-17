@@ -1,0 +1,98 @@
+---
+title: "Construya de forma segura con entornos de prueba y en vivo (Beta)"
+description: "Separe de forma segura los entornos de prueba y producción en ZenOpus Cloud. Cree pruebas, publique intencionalmente en Live y evite cambios accidentales en los datos de producción."
+---
+<Note>
+Disponible para proyectos en la nube y **gratis durante la Beta**. El precio se decidirá más adelante.
+</Note>
+
+Los entornos de prueba y en vivo le permiten separar **desarrollo** de **datos de producción** mientras trabaja en proyectos [ZenOpus Cloud](/es/integrations/cloud).
+
+- **Prueba**: Su entorno de desarrollo. ZenOpus siempre se construye en Prueba cuando los entornos de Prueba y Vivo están habilitados.
+- **En vivo**: Su entorno de producción. Esto es con lo que interactúan los usuarios reales. Solo se actualiza cuando publica explícitamente.
+
+Esto le brinda una manera segura de:
+
+- Experimente con nuevas funciones y cambios de esquema
+- Pruebe integraciones, flujos de trabajo y funciones perimetrales
+- Evite cambios no deseados en los datos de producción
+
+Al aislar el trabajo de desarrollo en Prueba y publicarlo intencionalmente, mantiene Live estable mientras continúa iterando rápidamente.
+
+## Requisitos previos
+
+- El proyecto debe utilizar **ZenOpus Cloud**.
+- Debe **publicar al menos una vez** para crear una **base de datos activa** antes de habilitar la prueba.
+
+## como funciona
+
+Cuando habilita los entornos de prueba y en vivo, ZenOpus crea una **base de datos de prueba** junto con su **base de datos en vivo (producción)**.
+
+Lo siguiente se **copia de Live to Test solo una vez, en la configuración**:
+
+- Esquema de base de datos
+- Datos de la base de datos
+- Configuración de la nube
+
+Esta es la única vez que se copian los datos o la configuración de la nube entre entornos.
+
+Después de eso:
+
+- ZenOpus **siempre se construye en Prueba, nunca en Vivo**
+- Mientras construye la prueba, ZenOpus puede hacer referencia al contexto de Live para ayudar a depurar problemas, pero nunca modifica los datos de Live.
+- Los entornos de prueba y en vivo evolucionan de forma independiente
+- El código de la aplicación y el esquema de la base de datos se sincronizan mediante la publicación.
+- Los datos de la base de datos y la configuración de la nube nunca se comparten, restablecen ni sobrescriben
+- La publicación sincroniza la estructura, no el contenido
+
+**Publicando actualizaciones sobre cómo funciona tu aplicación**. Cuando publica, ZenOpus sincroniza el código de su aplicación y la estructura de la base de datos desde Test to Live (nunca al revés) para que su aplicación de producción se comporte de la misma manera.
+
+<Note>
+Antes de cada publicación, ZenOpus crea automáticamente una copia de seguridad de su **base de datos en vivo**. Esto garantiza que pueda recuperar los datos de producción si ocurre algo inesperado durante o después de la publicación. Comuníquese con Support si necesita ayuda para restaurar una copia de seguridad.
+</Note>
+
+**La publicación no cambia los datos que existen ni cómo está configurada su instancia de nube**. Cada entorno posee permanentemente sus propios datos y configuraciones.
+
+| Componente de aplicación | Descripción | ¿Sincronizado al publicar y compartido entre entornos? |
+| --- | --- | --- |
+| Código de aplicación | La lógica de su aplicación (frontend, backend, funciones perimetrales), que define cómo funciona su aplicación. Prueba integrada | Sí |
+| Esquema de base de datos | La estructura de su base de datos (tablas, columnas, índices, migraciones). Prueba integrada | Sí* |
+| Datos de la base de datos | El contenido de su base de datos (filas, usuarios, registros, cargas). Específico del entorno | No |
+| Configuración de la nube | Configuraciones de entorno como autenticación, secretos, variables de entorno, integraciones y funciones. Específico del entorno | No |
+
+***Las migraciones de esquemas seguros** que no deberían causar pérdida de datos (por ejemplo, agregar tablas o columnas) se **aplican a Live automáticamente al publicar**.
+
+**Las migraciones de datos** (mover o transformar datos existentes) **no se ejecutan automáticamente**. Si un cambio podría **arriesgar la pérdida de datos**, ZenOpus:
+
+- Explica la situación
+- Proporciona una consulta SQL
+- Le pide que lo ejecute manualmente en el editor SQL.
+
+## Habilitar entornos de prueba y en vivo
+
+Para habilitar los entornos de prueba y en vivo, siga los pasos a continuación:
+
+1. Vaya a **Vista en la nube → Configuración avanzada**.
+1. Seleccione la opción **Habilitar entornos de prueba y en vivo**.
+1. Complete el flujo de incorporación.
+1. Haga clic en el botón **Habilitar entornos de prueba y en vivo**.
+
+### Vista de prueba y nube en vivo
+
+Cuando habilita los entornos de prueba y en vivo, puede cambiar entre **Prueba** y **En vivo** en la vista de la nube para inspeccionar datos y configuraciones. Este selector solo controla **lo que estás viendo**, no **dónde se construye ZenOpus**.
+
+<Warning>
+La edición de datos de Live o la configuración de Live Cloud (autenticación, secretos, integraciones) afecta su aplicación de producción **inmediatamente**.
+</Warning>
+
+## Eliminar la base de datos de prueba
+
+Puede eliminar la base de datos de prueba desde **Nube → Configuración avanzada → Zona de peligro**.
+
+Esta acción:
+
+- Elimina todos los datos de la prueba
+- Desactiva la función de entornos de prueba y en vivo.
+- No afecta los datos en vivo
+
+Puede volver a habilitar los entornos Test y Live más adelante si es necesario. Esto creará una nueva base de datos de prueba a partir del estado actual en vivo.

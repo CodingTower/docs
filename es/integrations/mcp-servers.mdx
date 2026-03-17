@@ -1,0 +1,99 @@
+---
+title: "Integre con sus herramientas mediante conectores personales (servidores MCP)"
+description: "Conecte ZenOpus a sus cuentas de herramientas personales utilizando servidores MCP como conectores personales. Incorpora contexto real de herramientas como Notion, Linear, Jira o Miro directamente a tus compilaciones, pasando de la idea a la validación y a la aplicación en vivo más rápido que nunca."
+---
+**MCP (Protocolo de contexto modelo)** es un estándar abierto que conecta sistemas de inteligencia artificial, como ZenOpus, con herramientas, servicios y fuentes de datos externos. En ZenOpus, los servidores MCP se utilizan como **conectores personales**.
+
+Al conectar ZenOpus a herramientas como Notion, Atlassian o Linear, el agente ZenOpus puede utilizar el contexto real del equipo para generar código, prototipos y documentación más precisos.
+
+Cuando está conectado, ZenOpus puede leer datos estructurados (como texto de documentos, problemas o diagramas) y, cuando sea compatible, realizar acciones limitadas, como crear o actualizar elementos.
+
+ZenOpus incluye varios conectores personales prediseñados en todos los planes, con Support para servidores MCP personalizados en todos los planes pagos.
+
+## ¿Por qué utilizar conectores personales?
+
+Los conectores personales desbloquean dos capacidades clave:
+
+- **Incorpore su contexto existente a ZenOpus.**  
+El agente ZenOpus puede leer la documentación, los tickets y los archivos de diseño de su equipo para crear prototipos y flujos alineados con sus estándares.
+- **Conecte sus aplicaciones ZenOpus a sus flujos de trabajo.**  
+El agente ZenOpus puede realizar acciones de seguimiento en sus herramientas conectadas, como actualizar los estados de los tickets, agregar enlaces prototipo como comentarios o crear nuevos elementos cuando sea compatible.
+
+ZenOpus se vuelve más poderoso cuando comprende el mundo de su equipo, eliminando conjeturas, acelerando la iteración y ayudándolo a pasar de **idea a aplicación en vivo más rápido que nunca.**
+
+## Conectores personales prediseñados
+
+| Herramienta | Descripción | Capacidades de ejemplo |
+| --- | --- | --- |
+| Amplitud | Acceda a los análisis y comentarios de sus productos Amplitude. | Convierta el comportamiento del usuario en mejores decisiones sobre productos. Incorpore información sobre productos, embudos de usuario y comentarios a ZenOpus para que pueda iterar flujos, optimizar diseños y ejecutar experimentos con un simple mensaje. |
+| Atlassiano | Accede a tus incidencias de Jira y a tus páginas de Confluence. | Convierta la documentación del producto en prototipos funcionales. ZenOpus puede leer la documentación del producto y vincular las epopeyas de Jira (PRD, especificaciones, documentos de arquitectura) para generar prototipos que coincidan con los estándares de su equipo. Incorpore los prototipos generados nuevamente en Confluence para recibir comentarios. |
+| Granola | Acceda a las notas, decisiones y elementos de acción de su reunión de Granola. | Convierta el contexto de la reunión en especificaciones y tickets. ZenOpus puede buscar en reuniones pasadas, extraer decisiones y elementos de acción, y utilizar lo acordado para generar PRD, historias de usuarios o tareas de seguimiento, sin tener que buscar en notas. |
+| Lineal | Acceda a sus problemas lineales y datos de proyectos. | Prototipo a partir de emisiones y tickets reales. ZenOpus puede leer problemas lineales, incluidas descripciones y criterios de aceptación, para generar prototipos funcionales. Adjunte las aplicaciones resultantes a Linear para su revisión. |
+| Miró | Accede a tus tableros y diagramas de Miro. | Da vida a tus tablas. ZenOpus puede convertir flujos de usuarios, estructuras alámbricas o arquitectura de información de sus tableros en prototipos interactivos que puede probar y exportar para recibir comentarios. |
+| Noción | Acceda a sus páginas y bases de datos de Notion. | Construya directamente desde el Notion Workspace de su equipo. ZenOpus puede leer PRD, especificaciones de diseño o resúmenes de marketing y convertirlos en aplicaciones, páginas de destino o prototipos funcionales. Incruste aplicaciones ZenOpus generadas nuevamente en Notion para una colaboración perfecta. |
+| n8n | Acceda y potencie sus aplicaciones con sus flujos de trabajo n8n. | Cree aplicaciones ricas en flujos de trabajo con datos en vivo. Conecte sus automatizaciones n8n a ZenOpus para extraer datos de herramientas como HubSpot, Google Sheets o Slack, y cree aplicaciones orientadas al usuario impulsadas por automatizaciones existentes. |
+| polares | Accede a tu facturación, productos, clientes y suscripciones de Polar. | Cree aplicaciones habilitadas para suscripción con un contexto de facturación real. ZenOpus puede utilizar su configuración Polar como contexto al crear aplicaciones SaaS, flujos de pago, páginas de precios, gestión de suscripciones y experiencias de facturación de clientes. |
+| Cordura | Acceda a su contenido y esquemas de Sanity CMS. | Cree aplicaciones basadas en contenido con sus datos de CMS. ZenOpus puede leer sus documentos, esquemas y contenido estructurado de Sanity para generar aplicaciones, páginas de destino e interfaces de administración de contenido alineadas con su modelo de contenido. |
+
+### Cómo agregar un conector personal prediseñado
+
+Para utilizar integraciones prediseñadas con aplicaciones y servicios populares de terceros:
+
+1. Vaya a **Configuración → Conectores → Conectores personales**.
+1. **Seleccione un conector personal** (por ejemplo, Notion o Linear).
+1. Haga clic en **Conectar**. Inicie sesión y otorgue acceso a ZenOpus a su cuenta.
+
+### Configuración adicional para conectores personales específicos
+
+[n8n](https://docs.n8n.io/advanced-ai/accessing-n8n-mcp-server)
+
+Además de estos pasos, debes hacer lo siguiente en n8n:
+
+- Vaya a **Configuración → Acceso MCP** y active **Habilitar acceso MCP** (requiere permisos de administrador o propietario de la instancia)
+- Para cada flujo de trabajo que desee exponer, vaya a **Configuración** en el editor de flujo de trabajo y active **Disponible en MCP.**
+
+[Amplitud](https://amplitude.com/)
+
+Si planea analizar su aplicación creada por ZenOpus, asegúrese de que ya esté enviando datos a Amplitude antes de usar el conector MCP. Consulte la [Guía de inicio rápido de amplitud](https://amplitude.com/docs/get-started/amplitude-quickstart) para obtener instrucciones de configuración.
+
+## Servidores MCP personalizados (planes pagos)
+
+Para lograr una flexibilidad total, puede conectar **servidores MCP personalizados** como conectores personales para incorporar sistemas internos o de terceros a ZenOpus. Esto es perfecto para API privadas, CRM internos o fuentes de datos personalizadas.
+
+Explore [servidores MCP remotos](https://mcpservers.org/remote-mcp-servers), una lista seleccionada de servidores MCP remotos de alta calidad compatibles con ZenOpus.
+
+### Cómo conectar un servidor MCP personalizado
+
+Para conectar un servidor MCP interno o personalizado:
+
+1. Vaya a **Configuración → Conectores → Conectores personales.**
+1. Haga clic en **Nuevo servidor MCP**.
+1. **Nombre del servidor**: ingrese un nombre claro para su servidor (por ejemplo, *CRM interno* o *API de análisis*).
+1. **URL del servidor**: ingrese la dirección donde ZenOpus puede comunicarse con su servidor MCP.
+1. **Autenticación:**
+    - **OAuth (predeterminado):** ZenOpus usa OAuth de forma predeterminada. Después de hacer clic en **Agregar y autorizar**, se le pedirá que autorice.
+    - **Token de portador o clave API:** Para servidores que no tienen Support OAuth, puede autenticarse utilizando un token de portador o una clave API.
+    - **Sin autenticación**: conéctese sin credenciales si el servidor no requiere autenticación.
+1. **Agregar servidor**. El servidor MCP personalizado ahora aparece en su lista de conectores personales y puede proporcionar datos contextuales para las compilaciones.
+
+## Ejemplos prácticos
+
+Cada aplicación conectada queda disponible instantáneamente como contexto para el Agente ZenOpus. Puede interactuar con herramientas conectadas mediante indicaciones naturales.
+
+| Escenario | Mensaje de ejemplo | Resultado de ejemplo |
+| --- | --- | --- |
+| Un gerente de producto conecta Linear o Jira | Generar un prototipo basado en tickets en el sprint actual. | ZenOpus lee descripciones de problemas y criterios de aceptación para crear una interfaz de usuario alineada y comprobable. |
+| Un especialista en marketing vincula Noción o Confluencia | Convierta nuestro resumen de campaña del cuarto trimestre en una página de destino. | ZenOpus utiliza el documento como contexto para generar una página editable de marca. |
+| Un diseñador conecta a Miró | Haga un prototipo del flujo de registro desde nuestra pizarra. | ZenOpus lee diagramas de flujo para estructurar la navegación de la interfaz de usuario y los convierte en un prototipo interactivo que su equipo puede probar. |
+| Un ingeniero vincula n8n o MCP interno | Cree una interfaz de usuario de flujo de trabajo que enumere los usuarios y permita eliminarlos. | ZenOpus crea una aplicación que utiliza flujos de trabajo y datos en vivo. |
+
+## Seguridad y permisos
+
+Los conectores personales (conexiones de servidor MCP) son **conexiones por usuario**. Puedes revisarlos o revocarlos en cualquier momento en **Configuración → Conectores**.
+
+Para acceder rápidamente a un proyecto, haga clic en `+` en el cuadro emergente y vaya a **Conectores**.
+
+En los planes **Business** y **Enterprise**, Workspace **los administradores y propietarios** pueden administrar qué servidores están disponibles como conectores personales para todos los usuarios:
+
+- Vaya a **Configuración → Privacidad y seguridad** para habilitar o deshabilitar todo el **acceso al servidor MCP** durante todo el Workspace.
+- Vaya a **Configuración → Conectores → Conectores personales → Configuración de administrador** para habilitar o deshabilitar servidores MCP individuales como conectores personales.

@@ -1,0 +1,202 @@
+---
+title: "Best Practices für die Sicherheit für ZenOpus-Apps"
+description: "Best Practices für sichere Codierung für ZenOpus-Apps, einschließlich Frontend-Sicherheit, Edge-Funktionen, Sicherheit auf Zeilenebene (RLS), Authentifizierung und Workspace-Schutz."
+---
+Auf dieser Seite geht es darum, **sicheren Code für ZenOpus-Apps zu schreiben** und häufige Sicherheitsfehler während der Entwicklung zu vermeiden.
+
+Einzelheiten zum Sicherheitsmodell, den Sicherheitsscans und den Ergebnissen von ZenOpus finden Sie unter [Sicherheitsübersicht](/de/features/security), [Projektsicherheitsansicht](/de/features/security-view) und im [Workspace Sicherheitscenter](/de/features/security-center).
+
+## Wie ZenOpus-Apps strukturiert sind
+
+ZenOpus Apps werden mit einer klaren Aufgabentrennung erstellt:
+
+- **Frontend** läuft im Browser des Benutzers, ist immer öffentlich und darf niemals vertrauenswürdig sein
+- **Edge-Funktionen** werden serverseitig ausgeführt und übernehmen die Validierung, Authentifizierung und Geschäftslogik
+- **Datenbank** verwendet PostgreSQL mit Sicherheit auf Zeilenebene (RLS), um den Datenzugriff zu erzwingen
+
+Diese Trennung ist die Grundlage des Sicherheitsmodells von ZenOpus. Die folgenden Abschnitte folgen dieser Struktur und beleuchten häufige Sicherheitsfehler auf jeder Ebene und wie man sie vermeidet.
+
+## Grundlagen der Frontend-Sicherheit
+
+Der gesamte Frontend-Code läuft im Browser des Benutzers und kann überprüft, geändert oder umgangen werden. Frontend-Code sollte niemals Sicherheitsentscheidungen treffen.
+
+### Speichern Sie keine Geheimnisse im Frontend-Code
+
+Im Frontend-Code gespeicherte Geheimnisse sind für Benutzer sichtbar und sollten als kompromittiert betrachtet werden.
+
+```typescript
+// ❌ Wrong: secrets exposed to anyone
+const API_KEY = "sk-1234567890abcdef";
+const STRIPE_SECRET = "sk_live_...";
+```
+
+**Stattdessen**: Bitten Sie ZenOpus, Geheimnisse sicher hinzuzufügen. Geheimnisse werden in der Backend-Infrastruktur gespeichert und nur über Edge-Funktionen abgerufen.
+
+**Beispielaufforderungen**
+
+```text
+Fügen Sie einen API-Schlüssel für Stripe-Zahlungen sicher hinzu, ohne ihn im Frontend-Code offenzulegen
+```
+
+```text
+Überprüfen Sie den Frontend-Code auf offengelegte Geheimnisse, API-Schlüssel oder vertrauliche Informationen
+```
+
+### Verlassen Sie sich aus Sicherheitsgründen nicht auf die Frontend-Validierung
+
+Die Frontend-Validierung verbessert die Benutzererfahrung, bietet jedoch keine Sicherheitsgarantien.
+
+```typescript
+// ❌ Wrong: client-side validation can be bypassed
+const validateUser = (userData) => userData.email.includes("@");
+```
+
+**Stattdessen**: Validieren und bereinigen Sie alle Daten in Edge Functions, bei denen Prüfungen nicht umgangen werden können.
+
+**Behandeln Sie Clienteingaben stets als nicht vertrauenswürdig.** Validieren Sie Formate, erzwingen Sie Geschäftsregeln und bereinigen Sie Eingaben in **Edge Functions**, bevor Sie Daten verarbeiten oder speichern.
+
+**Beispielaufforderungen**
+
+```text
+Verschieben Sie die Validierungslogik von React-Komponenten zu Edge-Funktionen, um die Sicherheit zu erhöhen
+```
+
+```text
+Identifizieren Sie die clientseitige Validierung, die auf Back-End-Edge-Funktionen verschoben werden sollte
+```
+
+## Backend-Sicherheit mit Edge Functions
+
+Edge Functions bilden die sichere Grenze zwischen Ihrem öffentlichen Frontend und Ihren privaten Systemen. Sie werden in einer isolierten serverseitigen Umgebung ausgeführt, in der Benutzer weder auf sensible Logik zugreifen noch diese ändern können.
+
+Jegliche Logik, die sich auf Sicherheit, Datenintegrität oder externe Dienste auswirkt, sollte in Edge Functions und nicht in Frontend-Komponenten ausgeführt werden. Durch die Zentralisierung der Validierung und Autorisierung wird sichergestellt, dass jede Anfrage konsistent ausgewertet wird und verhindert wird, dass kritische Logik den Browser erreicht.
+
+Kantenfunktionen sollten Folgendes verarbeiten:
+
+- **Authentifizierung und Autorisierung**  
+Überprüfen Sie, wer eine Anfrage stellt und ob er die Aktion ausführen darf.
+- **Datenvalidierung und -bereinigung**  
+Behandeln Sie alle Eingaben als nicht vertrauenswürdig und setzen Sie Geschäftsregeln konsequent durch.
+- **Business Logik und Arbeitsabläufe**  
+Behandeln Sie mehrstufige Prozesse wie Registrierungen, Zahlungen, Genehmigungen und Statusübergänge.
+- **Integration mit externen Diensten**  
+Rufen Sie APIs von Drittanbietern sicher auf und halten Sie Anmeldeinformationen vom Browser fern.
+- **Sensible Datenverarbeitung**  
+Verarbeiten Sie persönliche oder finanzielle Daten sicher, vermeiden Sie eine unbeabsichtigte Offenlegung und protokollieren Sie wichtige Sicherheitsereignisse.
+
+Durch die serverseitige Beibehaltung dieser Logik wird sichergestellt, dass kritisches Verhalten niemals den Browser erreicht und jede Anfrage konsistent ausgewertet wird.
+
+**Beispielaufforderungen**
+
+```text
+Erstellen Sie eine Edge-Funktion für die Benutzerregistrierung mit ordnungsgemäßer Validierung und Sicherheitsprüfungen
+```
+
+```text
+Verschieben Sie die Zahlungsabwicklungslogik vom Frontend in eine sichere Edge-Funktion
+```
+
+```text
+Erstellen Sie eine Edge-Funktion für Datei-Uploads mit Typ- und Größenvalidierung
+```
+
+## Datenbanksicherheit mit RLS
+
+Die Sicherheit auf Zeilenebene (RLS) steuert, wer einzelne Zeilen in Ihrer Datenbank lesen oder ändern kann. Es fungiert als letzte Schutzebene und setzt Zugriffsregeln durch, selbst wenn die Frontend- oder Backend-Logik ausfällt.
+
+ZenOpus richtet grundlegende RLS-Richtlinien automatisch ein, Sie sollten diese jedoch frühzeitig in der Entwicklung überprüfen und anpassen. RLS lässt sich viel einfacher ändern, bevor echte Daten vorliegen, und Richtlinien sind am effektivsten, wenn sie sich auf die Zugriffskontrolle und nicht auf komplexe Geschäftslogik konzentrieren.
+
+### Häufige RLS-Muster
+
+Die meisten ZenOpus-Apps passen in eine kleine Gruppe von Zugriffsmustern:
+
+- **Persönliche Daten**: Benutzer können nur auf ihre eigenen Daten zugreifen
+- **Teambasierter Zugriff**: Teammitglieder teilen sich den Zugriff auf Teamdaten
+- **Öffentlicher Inhalt mit Eigentumsrechten**: Jeder kann lesen, nur Eigentümer können Änderungen vornehmen
+- **Organisationsbasierter Zugriff**: Benutzer greifen auf Daten innerhalb ihrer Organisation zu
+
+Gestalten Sie Ihre Tabellen und Richtlinien nach Möglichkeit nach diesen Mustern.
+
+### RLS-Prüfungen vor der Veröffentlichung
+
+Überprüfen Sie vor der Live-Schaltung Folgendes:
+
+- RLS ist für alle sensiblen Tabellen aktiviert
+- Users cannot access other users’ private data
+- Shared and public data behaves as intended
+- New tables are not missing policies
+
+Überprüfen Sie die RLS-bezogenen Ergebnisse in [Projektsicherheitsansicht](/de/features/security-view).
+
+**Beispielaufforderungen**
+
+```text
+Überprüfen Sie die RLS-Richtlinien, um sicherzustellen, dass Benutzer nur auf ihre eigenen Daten zugreifen können und gemeinsam genutzte Daten ordnungsgemäß geschützt sind
+```
+
+```text
+Fügen Sie RLS-Richtlinien zur Einstellungstabelle hinzu, damit Benutzer nur auf ihre eigenen Einstellungen zugreifen können
+```
+
+```text
+Richten Sie RLS für Teams und Projekte ein, damit Teammitglieder nur Projekte ihres Teams sehen
+```
+
+## Grundlagen der Authentifizierungssicherheit
+
+Alle Authentifizierungsentscheidungen müssen serverseitig und nicht im Browser erfolgen. Clientseitige Authentifizierungsprüfungen können von Benutzern überprüft, geändert oder umgangen werden und sollten niemals zur Zugriffskontrolle herangezogen werden.
+
+Die Authentifizierung sollte in **Edge Functions** erzwungen werden, wo Sitzungen und Token sicher und konsistent überprüft werden können.
+
+```typescript
+// ❌ Wrong: client-side authentication checks
+const isAuthenticated = localStorage.getItem("authToken") !== null;
+if (isAuthenticated) showAdminPanel();
+```
+
+```typescript
+// ✅ Correct: server-side validation in an Edge Function
+const { user } = await supabase.auth.getUser();
+if (!user) {
+  return new Response("Unauthorized", { status: 401 });
+}
+```
+
+**Best Practices für die Authentifizierung**
+
+- Validieren Sie Authentifizierungs- und Sitzungstokens in Edge Functions
+- Überprüfen Sie serverseitig Rollen und Berechtigungen
+- Nutzen Sie die integrierte Sitzungsverwaltung für eine sichere Token-Verwaltung
+- Leiten Sie Benutzer zur Anmeldung um, wenn Sitzungen ablaufen, aber validieren Sie immer zuerst auf dem Server
+- Verwenden Sie den Frontend-Authentifizierungsstatus nur zur Steuerung der Benutzeroberfläche und niemals zur Erzwingung des Zugriffs
+
+## Workspace Sicherheit
+
+Für Anwendungen, die nicht öffentlich zugänglich sein sollen:
+
+- Setzen Sie [Projektsichtbarkeit](/de/features/project-visibility) auf **Workspace**
+- Stellen Sie sicher, dass die App nicht öffentlich [veröffentlicht](/de/features/publish) ist
+- Erfordern eine Authentifizierung auch für interne Tools
+- Überprüfen Sie regelmäßig, wer Zugriff hat
+
+Für die Workspace-weite Überwachung verwenden Sie das [Sicherheitscenter](/de/features/security-center).
+
+## Sicherheitscheckliste vor der Veröffentlichung
+
+Bestätigen Sie vor der Veröffentlichung Ihrer App Folgendes:
+
+- Im Frontend-Code sind keine Geheimnisse vorhanden
+- Die gesamte Validierung und kritische Logik wird in Edge Functions ausgeführt
+- RLS-Richtlinien (Row-Level Security) werden konfiguriert und getestet
+- Die Authentifizierung wird serverseitig erzwungen
+- Interne Apps haben Workspace Sichtbarkeit
+- Alle kritischen Ergebnisse in der [Sicherheitsansicht](/de/features/security-view) werden berücksichtigt
+- Externe API-Aufrufe erfolgen serverseitig
+
+<Tip>
+**Sicherheit ist ein fortlaufender Prozess**.
+
+Überprüfen Sie diese Praktiken, wenn Sie Funktionen hinzufügen, die Authentifizierung ändern, den Datenzugriff ändern oder neue externe Integrationen einführen.
+
+Die regelmäßige Überprüfung von Edge-Funktionen, Sicherheitsrichtlinien auf Zeilenebene und Authentifizierungsabläufen trägt dazu bei, Regressionen im Laufe der Zeit zu verhindern.
+</Tip>

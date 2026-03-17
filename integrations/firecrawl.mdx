@@ -1,0 +1,153 @@
+---
+title: "Connect your app to Firecrawl"
+description: "Connect your app to Firecrawl, an AI-powered scraper and crawler, to extract structured data from websites."
+---
+[Firecrawl](https://www.firecrawl.dev/) is a web scraping and crawling platform that lets your ZenOpus app work with **live website data**. It’s designed for apps that need to continuously fetch, update, and structure information from websites, rather than relying on one-time imports or static datasets.
+
+With Firecrawl, your app can:
+
+- Scrape URLs into structured JSON
+- Crawl entire websites, including sitemaps, subpages, and navigation
+- Extract clean text, metadata, product details, tables, and more
+- Handle JavaScript-heavy sites, lazy loading, and cookie modals
+- Re-fetch live data on a schedule to keep results up to date
+
+Firecrawl is a good fit when your app depends on **real-time or frequently changing website content**.
+
+## Common use cases and example apps
+
+| Example app | Example prompt | Description |
+| --- | --- | --- |
+| Competitor trackers | Build a competitor tracker. Users add competitor URLs. Scrape each URL with Firecrawl, store snapshots, re-check on a schedule, and show what changed. | Monitor and analyze competitors in your space by tracking changes on their websites. User adds competitor URLs to track, and the app re-scrapes those URLs over time to highlight what changed, such as pricing pages, product updates, documentation revisions, or feature announcements. |
+| Jobs aggregators | Build a jobs aggregator. Users pick companies from a preset list. Use Firecrawl to pull listings from each company’s careers page, structure the results, keep them updated, and highlight new roles. | Pull job listings from multiple sources (for example, Greenhouse, Lever, or Workday) and present them in one unified interface. User selects companies from a preset list, and the app scrapes listings into structured results and keeps the feed updated as new roles appear. |
+| Lead enrichment tools | Build a lead enrichment tool. Users enter company domains. Crawl key pages with Firecrawl (about, team, careers, contact) and extract publicly available company details into a structured profile. | Enrich company profiles using publicly available information from company websites. User pastes a company domain (or uploads a list), and the app scans key pages to extract people and company information, tech stack signals, locations, careers, and contact details, saving the extracted fields for each company. |
+| E-commerce price monitors | Build a price monitor. Users save product URLs. Use Firecrawl to extract price and availability, check on a schedule, store history, and alert on changes. | Track product availability and pricing across e-commerce sites. User saves product URLs, and the app checks them on a schedule, records snapshots, flags changes, and alerts users when prices drop or products come back in stock. |
+| Brand asset extractors | Build a brand kit extractor. Users enter a website URL. Use Firecrawl to extract colors, fonts, and logos, and output a simple brand kit. | Generate lightweight brand kits from any website. User enters a company URL, and the app scrapes brand-related pages to extract fonts, colors, logos, and style tokens. |
+| Knowledge extractors | Build a knowledge extractor. Users paste a URL. Use Firecrawl to return clean markdown + metadata, save it, and allow re-sync. | Turn any webpage into clean, reusable content . User pastes a URL, and the app converts the page into clean markdown, structured metadata, readable text, and useful structured elements like tables, making it ready for search, summarization, or reuse. |
+
+## How to connect Firecrawl
+
+Workspace **admins** and **owners** can connect Firecrawl. When adding a connection, you can choose between:
+
+- **Managed by ZenOpus** (no Firecrawl account or API key required)
+    <Tip>
+    Firecrawl is free to use through ZenOpus until April 30, 2026 when you choose Managed by ZenOpus.
+    </Tip>
+- **Your own credentials** (bring your own Firecrawl API key)
+
+When the connection is created, Firecrawl becomes available across all projects in the workspace.
+
+Follow the setup steps below based on how you want to connect Firecrawl.
+
+<Tabs>
+<Tab title="Managed by ZenOpus">
+Choose this option if you want the fastest setup. You don’t need to create a Firecrawl account or API key. ZenOpus provides and manages the credentials for you.
+
+To connect Firecrawl:
+
+1. Go to **Settings → Connectors → Shared connectors** and select **Firecrawl**.
+1. Click **Add connection**.
+1. **Display name**: name the connection, for example, `Firecrawl Prod`.
+1. Under **Authentication**, select **Managed by ZenOpus**.
+1. Click **Create**.
+
+When connected, your ZenOpus apps can start using Firecrawl to scrape, crawl, and keep website data up to date.
+</Tab>
+<Tab title="Your own credentials">
+Bring your own credentials if you want to use your own Firecrawl account, manage billing directly, or control rate limits and environments with your own API keys.
+
+<Note>
+All scraping and crawling performed through this connector consumes your Firecrawl usage, and billing is handled directly by Firecrawl, not ZenOpus.
+</Note>
+
+You can create multiple Firecrawl connections using different API keys, which is useful for separating environments (for example, development and production) or managing rate limits.
+
+### Prerequisites
+
+Before connecting Firecrawl, make sure you have:
+
+- A Firecrawl account and API key
+- ZenOpus workspace owner or admin role
+
+### Step 1: Create a Firecrawl account and API key
+
+You can create multiple API keys in Firecrawl. This is useful for different environments or rate limits.
+
+To create a Firecrawl API key:
+
+1. Go to [Firecrawl](https://www.firecrawl.dev/) and set up your account.
+1. Go to your Firecrawl dashboard and navigate to the [API Keys page](https://www.firecrawl.dev/app/api-keys).
+1. Click **Create**.
+1. Give your key a descriptive name, for example, `ZenOpus integration`.
+1. Copy the generated API key and store it securely.
+    <Info>
+    Your API key functions like a password. Keep it secure and never share it publicly. You’ll need it in the next step.
+    </Info>
+
+Firecrawl provides free credits when you sign up, which is enough to test your connection and complete this setup.
+
+### Step 2: Connect Firecrawl to ZenOpus
+
+You can create multiple connections using different API keys.
+
+To connect Firecrawl:
+
+1. Go to **Settings → Connectors → Shared connectors** and select **Firecrawl**.
+1. Click **Add connection**.
+1. **Display name**: name the connection, for example `Firecrawl Prod`.
+1. Under **Authentication**, select **Your own credentials** and use your own Firecrawl API key (`fc-xxxxxxxx…`).
+1. Click **Create**.
+
+When connected, your ZenOpus apps can start using Firecrawl to scrape, crawl, and keep website data up to date.
+</Tab>
+</Tabs>
+
+## How to unlink projects from a connection
+
+Editors and above can remove specific projects from a connection without deleting the connection entirely. The connection will remain available for other projects.
+
+To unlink projects:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Firecrawl**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to manage.
+</Step>
+<Step title="Select projects">
+Under **Linked projects**, check the projects you want to unlink.
+</Step>
+<Step title="Confirm">
+Click **Unlink projects** and confirm.
+</Step>
+</Steps>
+
+When unlinked, those projects will no longer have access to **Firecrawl** through this connection. If a project needs **Firecrawl** again, you can link it to any available connection.
+
+## How to delete a connection
+
+Workspace admins and owners can delete **Firecrawl** connections.
+
+<Warning>
+Deleting a connection is permanent and cannot be undone. It will remove the credentials from all linked projects, and any apps using this connection will stop working until a new connection is added.
+</Warning>
+
+Before deleting, review the **Linked projects** section to see which projects are currently using the connection.
+
+To delete a connection:
+
+<Steps>
+<Step title="Navigate to connectors">
+Go to **Settings → Connectors → Shared connectors** and select **Firecrawl**.
+</Step>
+<Step title="Open the connection">
+Open the connection you want to remove.
+</Step>
+<Step title="Review linked projects">
+Review the **Linked projects** section.
+</Step>
+<Step title="Delete">
+Under **Delete this connection**, click **Delete** and confirm.
+</Step>
+</Steps>

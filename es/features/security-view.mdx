@@ -1,0 +1,181 @@
+---
+title: "Vista de seguridad del proyecto"
+description: "Revise los hallazgos de seguridad, corrija vulnerabilidades y administre los riesgos de dependencia para un solo proyecto antes de publicarlo."
+---
+## ¿Qué es la vista de seguridad?
+
+La vista Seguridad muestra los hallazgos de seguridad para un solo proyecto. Reúne los resultados de **cuatro escáneres de seguridad automatizados** que analizan diferentes partes de su aplicación:
+
+- [Análisis RLS](/es/features/security#proteger-el-acceso-a-los-datos-con-seguridad-a-nivel-de-fila-rls): revisa las políticas de seguridad a nivel de fila en las tablas de la base de datos
+- [Comprobación de seguridad de la base de datos](/es/features/security#identificación-de-riesgos-de-seguridad-de-la-base-de-datos): revisa el esquema de la base de datos y la configuración de RLS para detectar patrones no seguros
+- [Revisión de seguridad del código](/es/features/security#identificar-vulnerabilidades-en-el-código-de-la-aplicación): analiza el código de la aplicación en busca de vulnerabilidades comunes
+- [Auditoría de dependencia](/es/features/security#identificar-vulnerabilidades-en-dependencias): analiza las dependencias `npm` en busca de vulnerabilidades de seguridad conocidas
+
+Los resultados de estos escáneres se presentan juntos en la vista Seguridad para que pueda comprender los riesgos, tomar medidas y verificar que su proyecto esté listo para publicarse.
+
+Para obtener detalles sobre cómo funciona cada escáner y cuándo se ejecutan los análisis, consulte [Descripción general de seguridad](/es/features/security).
+
+Encontrará la **pestaña Seguridad** dentro de cualquier proyecto ZenOpus haciendo clic en el botón `+` junto a **Vista previa**.
+
+<Tip>
+La vista Seguridad se centra en un solo proyecto.
+
+- Para monitorear los hallazgos de seguridad y los riesgos de dependencia en múltiples proyectos, use el [Centro de seguridad](/es/features/security-center).
+- Para obtener orientación práctica sobre cómo escribir código seguro y evitar errores de seguridad comunes, consulte [Prácticas recomendadas de seguridad para aplicaciones ZenOpus](/es/tips-tricks/security-best-practices).
+</Tip>
+
+## ¿Por qué utilizar la vista Seguridad?
+
+- **Detectar problemas con antelación**  
+Los problemas de seguridad son más fáciles de solucionar durante el desarrollo que después de la implementación. La vista Seguridad ayuda a identificar problemas comunes, como acceso a bases de datos mal configurado, patrones de código inseguros o dependencias vulnerables antes de que su aplicación entre en funcionamiento.
+- **Céntrate en lo que importa**  
+No todos los hallazgos de seguridad conllevan el mismo riesgo. Los hallazgos se clasifican por gravedad para que pueda priorizar los problemas críticos primero y revisar las recomendaciones de menor riesgo más adelante.
+- **Ahorre tiempo con correcciones guiadas**  
+Muchos hallazgos incluyen opciones de remediación automatizadas o pautas claras. Puede pedirle a ZenOpus que solucione problemas específicos directamente y revise los cambios resultantes.
+- **Realice un seguimiento de la seguridad a medida que evoluciona su proyecto**  
+A medida que su proyecto cambia, los resultados de escaneos anteriores pueden quedar obsoletos. La vista Seguridad muestra claramente cuándo es necesario actualizar los análisis para que siempre sepa el estado de seguridad actual de su proyecto.
+
+## Mejorar la precisión del escaneo con contexto
+
+Haga clic en **Agregar contexto** para describir el contexto de seguridad de su proyecto. Esto ayuda a los escáneres de IA a adaptar las recomendaciones y reducir los falsos positivos.
+
+El contexto útil incluye:
+
+- El propósito del proyecto.
+- ¿Quién usa la aplicación?
+- Si los datos son confidenciales
+- Ya sea que el entorno sea desarrollo, puesta en escena o producción.
+
+El contexto se almacena en el [Conocimiento](/es/features/knowledge) de su proyecto y se aplica a análisis futuros. El contexto de seguridad debe describir hechos sobre su proyecto, no justificar que se ignoren riesgos legítimos.
+
+## Comprender el estado del escaneo
+
+El estado del análisis en la parte superior de la vista Seguridad muestra si los resultados de seguridad reflejan los últimos cambios.
+
+- **Actualizado**: Todos los escáneres reflejan la versión actual de su proyecto.
+- **Desactualizado**: Uno o más analizadores no se han ejecutado desde que cambió el proyecto.
+- **Escaneo**: los escaneos se están ejecutando actualmente.
+
+Los resultados del escaneo están vinculados a una versión específica de su código. Cuando su proyecto cambia, es posible que los resultados anteriores ya no sean precisos y se marquen como obsoletos.
+
+## Actualizando escaneos
+
+Haga clic en **Actualizar** para actualizar todos los escáneres obsoletos. Esta acción es **gratuita y no consume créditos**. Sólo se ejecutarán los escáneres que necesiten actualización.
+
+<Note>
+El escáner de revisión de seguridad del código solo se ejecuta cuando hace clic en Actualizar y no se ejecuta automáticamente.
+</Note>
+
+Deberías actualizar los escaneos:
+
+- Antes de publicar
+- Después de cambios importantes en el código o la base de datos
+- Al agregar o actualizar dependencias
+- Periódicamente para aplicaciones de producción.
+
+## Abordar los hallazgos de seguridad
+
+Todos los hallazgos aparecen en **Problemas detectados** y están agrupados por **nivel de gravedad**. Si existe algún error, la vista predeterminada lo muestra primero.
+
+- **Error**: Problemas críticos que requieren atención inmediata
+- **Advertencia**: Problemas que debes revisar y solucionar si es necesario
+- **Información**: Sugerencias para considerar implementar
+
+Haga clic en un hallazgo para expandirlo y revisar todos los detalles, que incluyen:
+
+- ¿Qué escáner produjo el hallazgo?
+- Una explicación detallada del problema.
+- Por qué el tema es importante para la seguridad
+- Pasos de solución sugeridos
+
+Puede abordar los hallazgos de varias maneras:
+
+- **Corregir un hallazgo específico**  
+Utilice el chat en línea dentro de un hallazgo para pedirle a ZenOpus que analice o solucione ese problema. Esta acción es gratuita y no consume créditos.
+- **Corregir múltiples hallazgos a la vez**  
+Utilice **Intentar arreglar todo** para intentar la corrección automática de todos los hallazgos en el filtro actual. Esta acción es gratuita y no consume créditos. Las correcciones automáticas requieren que el análisis de **Revisión de seguridad del código** esté actualizado. Revise siempre los cambios que realiza ZenOpus y pruébelos minuciosamente.
+
+Si un hallazgo no se aplica a su caso de uso, puede **ignorarlo** proporcionando un motivo. Los hallazgos ignorados permanecen visibles, se marcan con una etiqueta de ignorado y se pueden restaurar en cualquier momento.
+
+Ignorar los hallazgos debería ser una decisión deliberada. Si no está seguro de si se aplica un hallazgo, solicite una aclaración a ZenOpus antes de ignorarlo.
+
+Todas las acciones dentro de la vista Seguridad son gratuitas. Las revisiones de seguridad conversacionales en el chat consumen créditos. Consulte [Descripción general de seguridad](/es/features/security) para obtener más detalles.
+
+## Funciones avanzadas
+
+Cuando la **Vista avanzada** está habilitada, la vista de Seguridad expone herramientas y detalles adicionales para una inspección y control más profundos.
+
+### Estado por escáner
+
+Active **Vista avanzada** y haga clic en el distintivo de estado del escaneo para ver información detallada sobre cada escáner, que incluye:
+
+- Cuándo se ejecutó cada escáner por última vez
+- Si los resultados están actualizados
+- ¿Qué escáneres están actualmente desactualizados?
+
+Esto le ayuda a comprender exactamente qué se ha comprobado, qué puede estar obsoleto y si es necesario actualizar los análisis.
+
+### Gestionar dependencias
+
+Con la **Vista avanzada** habilitada, la vista Seguridad muestra una sección **Dependencias del proyecto** que enumera todas las dependencias de producción `npm` y las vulnerabilidades conocidas.
+
+Para cada dependencia, puede ver:
+
+- Nombre y versión del paquete
+- La vulnerabilidad cuenta por gravedad, incluida crítica, alta y media
+- Una acción **Reparar aquí** para paquetes vulnerables
+
+También puedes:
+
+- Filtrar para mostrar solo paquetes vulnerables
+- Activar una nueva auditoría de dependencia
+- Descargue un informe JSON de todas las dependencias y vulnerabilidades para auditorías o revisiones de cumplimiento
+
+Mantener las dependencias actualizadas es una de las formas más efectivas de reducir el riesgo de seguridad con el tiempo, especialmente a medida que se revelan nuevas vulnerabilidades.
+
+## Mejores prácticas para utilizar la vista Seguridad
+
+La vista Seguridad está diseñada para un uso continuo durante todo el desarrollo, no solo una verificación final antes de la publicación. Las siguientes mejores prácticas reflejan cómo los constructores las utilizan habitualmente.
+
+- **Mantenga los hallazgos de seguridad actualizados**  
+Revise los resultados periódicamente y actualice los análisis cuando los resultados queden obsoletos, especialmente después de agregar funciones, cambiar el acceso a la base de datos o actualizar dependencias.
+- **Priorizar problemas críticos**  
+Aborde los hallazgos a nivel de error antes que las advertencias o los elementos informativos. Los hallazgos críticos a menudo representan vulnerabilidades explotables.
+- **Utilice ambos enfoques de escaneo**  
+Utilice análisis automatizados en la vista Seguridad para realizar comprobaciones estructuradas y correcciones específicas. Complételos pidiéndoles periódicamente a ZenOpus que "revise la seguridad de mi aplicación" en el chat para realizar un análisis narrativo que pueda detectar problemas que los escáneres automatizados pasan por alto.
+- **Gestione el riesgo de dependencia de forma proactiva**  
+Revise periódicamente la sección de dependencia y aborde las vulnerabilidades de alta gravedad con prontitud.
+- **Revisar y verificar correcciones**  
+Las correcciones automáticas pueden ahorrar tiempo, pero siempre revise los cambios y pruebe su aplicación antes de continuar con el desarrollo.
+- **Sea deliberado al ignorar los hallazgos**  
+Ignore los hallazgos sólo cuando claramente no sean aplicables. Revise los hallazgos ignorados a medida que evoluciona su proyecto.
+- **Continuar monitoreando después de la publicación**  
+La publicación no es el final del trabajo de seguridad. Supervise los nuevos hallazgos a medida que su aplicación cambie con el tiempo.
+
+<Warning>
+Los análisis automatizados ayudan a detectar problemas comunes, pero no pueden garantizar una seguridad completa. Para aplicaciones que manejan datos confidenciales o funcionalidades críticas, considere una revisión de seguridad profesional adicional.
+</Warning>
+
+## Preguntas frecuentes
+
+<AccordionGroup>
+<Accordion title="¿Cómo accedo a la vista de Seguridad?">
+Encontrará la **pestaña Seguridad** dentro de cualquier proyecto ZenOpus haciendo clic en el botón `+` junto a **Vista previa**.
+</Accordion>
+<Accordion title="¿Qué significa obsoleto?">
+Los resultados de un escáner están desactualizados cuando su proyecto ha cambiado desde el último escaneo. Haga clic en **Actualizar** para actualizar los resultados. Las acciones sobre hallazgos obsoletos están deshabilitadas para evitar actuar sobre información obsoleta.
+</Accordion>
+<Accordion title="¿Cuál es la diferencia entre Actualizar y pedirle a ZenOpus que revise la seguridad?">
+**Actualizar** actualiza los escáneres de seguridad automatizados y actualiza los resultados que se muestran en la vista Seguridad. Esta acción es gratuita y no consume créditos.
+
+**Pedirle a ZenOpus que revise la seguridad de tu aplicación** en el chat activa una revisión separada impulsada por IA que proporciona un informe narrativo y recomendaciones. No actualiza los resultados del escáner ni el estado del escaneo. Las revisiones de seguridad conversacionales en el chat consumen créditos.
+
+Ambos enfoques son complementarios.
+</Accordion>
+<Accordion title="¿Puedo utilizar la vista Seguridad para proyectos publicados?">
+Sí. Continúe monitoreando la seguridad después de la publicación, especialmente al agregar funciones o actualizar dependencias.
+</Accordion>
+<Accordion title="¿Qué sucede si publico con hallazgos críticos?">
+ZenOpus le advierte antes de publicar si existen problemas críticos. Puede optar por publicar de todos modos, pero se desaconseja enfáticamente ya que los hallazgos críticos generalmente representan vulnerabilidades explotables.
+</Accordion>
+</AccordionGroup>

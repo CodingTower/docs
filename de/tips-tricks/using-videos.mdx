@@ -1,0 +1,64 @@
+---
+title: "Verwendung von Videos"
+description: "Betten Sie YouTube-Videos ein oder laden Sie Videodateien in Ihr GitHub-Repository hoch und verweisen Sie in Ihren ZenOpus-Projekten darauf."
+---
+ZenOpus bietet zwei Methoden zum Einbetten von Videos in Ihre Projekte. Im Folgenden gehen wir Schritt für Schritt auf beide Optionen ein:
+
+<AccordionGroup>
+<Accordion title="Verlinkung zu einem externen Video">
+<Tip>
+Der einfachste und empfehlenswerteste Weg, ein Video einzubinden, ist die Verlinkung zu einem extern gehosteten Video, beispielsweise auf YouTube.
+</Tip>
+
+<CodeGroup>
+```text title="Beispielaufforderung"
+Betten Sie dieses Video ein
+https://www.youtube.com/watch?v=dQw4w9WgXcQ 
+im Heldeninhaltsbereich.
+```
+</CodeGroup>
+</Accordion>
+<Accordion title="Verwenden eines Videos aus Ihrem öffentlichen GitHub-Ordner">
+<Warning>
+Das Hochladen großer Videos in Ihr GitHub-Repo kann dazu führen, dass es größer wird, was sich auf die Leistung auswirken kann (längere Repo-Klonzeiten, langsamerer Start von Vorschauen/Sandbox).
+
+Eine bessere Option ist die Nutzung gehosteter Dienste (wie YouTube) oder Dateispeicheroptionen wie S3, wodurch Sie im Wesentlichen eine URL erhalten, auf die Sie verweisen können, wie in den vorherigen Schritten beschrieben.
+</Warning>
+
+Sie können Videos in das GitHub-Repository Ihres Projekts hochladen und direkt darauf verweisen. So geht's:
+
+<Steps>
+<Step title="Verbinden Sie Ihr GitHub-Repository">
+Stellen Sie zunächst sicher, dass Ihr Projekt mit einem GitHub-Repo verknüpft ist. [So richten Sie Ihr Repo ein](/de/integrations/git-integration).
+</Step>
+<Step title="Greifen Sie auf den öffentlichen Ordner zu">
+Navigieren Sie in Ihrem verbundenen Repository zum Verzeichnis `public`. Dieser Ordner wird speziell zum Hosten von Projektressourcen wie Bildern, Videos und anderen Medien verwendet.
+</Step>
+<Step title="Laden Sie ein Video hoch">
+Sie können Ihr Video jetzt zum öffentlichen Ordner hinzufügen, indem Sie es entweder per Drag & Drop verschieben oder auf **„Dateien auswählen“** klicken, um die Datei zu durchsuchen und von Ihrem lokalen Computer hochzuladen.
+</Step>
+<Step title="Übertragen Sie die Datei">
+Nachdem Sie Ihre Videodatei ausgewählt haben, geben Sie eine kurze Commit-Nachricht ein (z. B. „Fügt ein Mars-Video zur Verwendung in der App hinzu“) und klicken Sie auf **„Änderungen übernehmen“**. ![Videodatei wird übertragen](/images/zenopus/tips-tricks/using-videos/using-videos-github-commiting.png)
+</Step>
+<Step title="Holen Sie sich den Videopfad">
+Sobald der Upload abgeschlossen ist, klicken Sie auf die Videodatei und verwenden Sie das Kopiersymbol :octicons-copy-16:, um ihren Pfad zu kopieren. Sie benötigen diesen Pfad im nächsten Schritt. ![Videodateipfad kopieren](/images/zenopus/tips-tricks/using-videos/using-videos-github-selecting.png)
+</Step>
+<Step title="Verweisen Sie auf das Video in ZenOpus">
+Jetzt können Sie das Video einbetten, indem Sie den Dateipfad in Ihrer Eingabeaufforderung angeben. Sie können beispielsweise eine Eingabeaufforderung wie diese verwenden:
+
+<CodeGroup>
+```bash title="Beispielaufforderung"
+Insert an additional video into the introduction section using this file: 
+public/mars-video-nasa.mp4
+```
+</CodeGroup>
+
+Stellen Sie sicher, dass Sie den genauen Dateipfad verwenden, den Sie zuvor kopiert haben.
+</Step>
+</Steps>
+
+Um diese Methoden in Aktion zu sehen, erkunden Sie eines der Beispielprojekte: [ZenOpus Beispielprojekt mit Videos](https://zenopus.dev/projects/380835ab-c8d7-4f45-9b0d-51ec04294457). Sie finden echte Eingabeaufforderungen, die zeigen, wie Videos mit beiden Methoden integriert werden.
+
+Weitere technische Informationen zum Video-Hinzufügen finden Sie in diesem öffentlichen Repository: [GitHub: Video-Upload-Beispiel](https://github.com/viborc/adding-videos-example). Es umfasst den Video-Upload und die im Projekt verwendeten Implementierungsdetails.
+</Accordion>
+</AccordionGroup>

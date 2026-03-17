@@ -1,0 +1,143 @@
+---
+title: "Verbinden Sie Ihr Projekt mit GitHub"
+description: "Erfahren Sie, wie Sie Ihr ZenOpus-Projekt zur Codesicherung, Zusammenarbeit und Bereitstellung mit GitHub verbinden, synchronisieren und trennen."
+---
+Wenn Sie mit ZenOpus erstellen, befindet sich Ihr Code auf der ZenOpus-Plattform – perfekt für die meisten Entwickler.
+
+Wenn Sie eine eigene Kopie benötigen, mit Entwicklern zusammenarbeiten möchten oder Ihr Projekt an einen anderen Ort verschieben möchten, können Sie alles mit nur wenigen Klicks exportieren und mit GitHub synchronisieren.
+
+## Über GitHub
+
+GitHub ist eine cloudbasierte Plattform zum Speichern, Verwalten und Teilen von Code. Es verfolgt jede Änderung, unterstützt die Zusammenarbeit und lässt sich in beliebte Bereitstellungstools wie Vercel und Netlify integrieren. Betrachten Sie es als **Google Drive für Code**, das für Entwickler entwickelt wurde.
+
+## Warum ZenOpus mit GitHub verbinden?
+
+Wenn Sie Ihr ZenOpus-Projekt mit GitHub verbinden, können Sie:
+
+- **Sichern Sie Ihren Code:** Speichern Sie Ihr Projekt sicher außerhalb von ZenOpus.
+- **Einfache Zusammenarbeit:** Laden Sie Entwickler ein, nutzen Sie Pull Requests, Branches und Codeüberprüfungen.
+- **Automatisch synchronisieren:** Änderungen in ZenOpus werden in GitHub angezeigt und Änderungen in GitHub werden wieder im Standardzweig (`main`) synchronisiert.
+- **Lokal arbeiten:** Klonen, bearbeiten und committen Sie in Ihrer IDE, während Ihr Projekt synchronisiert bleibt.
+- **Überall bereitstellen:** Selbsthosting oder Bereitstellung auf alternativen Plattformen, siehe [Selbsthosting: Führen Sie Ihr ZenOpus Cloud-Projekt überall aus](/de/tips-tricks/self-hosting).
+- **Sicher testen:** Aktivieren Sie die experimentelle **GitHub-Zweigumschaltung** in **Einstellungen → Konto → Labs**, um Funktionen zu entwickeln, bevor Sie Änderungen an Ihrem Live-Projekt zusammenführen. Weitere Informationen finden Sie unter [Labs](/de/features/labs).
+
+<Note>
+Sie benötigen GitHub nicht, um ZenOpus zu verwenden – viele Benutzer erstellen und starten vollständig innerhalb von ZenOpus.
+</Note>
+
+## Bevor Sie eine Verbindung herstellen
+
+Stellen Sie sicher, dass Sie verstehen, wie die Integration funktioniert:
+
+- **GitHub-Konto erforderlich:** Erstellen Sie kostenlos eines unter [github.com](http://github.com).
+- **Single Source of Truth:** Wenn Sie verbunden sind, befindet sich Ihr Code in GitHub und nicht separat in ZenOpus.
+- **Zwei-Wege-Synchronisierung:** Änderungen in ZenOpus werden in GitHub angezeigt und umgekehrt.
+- **Stabiler Repo-Pfad:** Die Verbindung hängt vom genauen Namen, Standort, der Organisation und dem Konto des GitHub-Repositorys ab.
+
+<Warning>
+Benennen Sie Ihr GitHub-Repository nach dem Herstellen der Verbindung nicht um, verschieben oder löschen Sie es nicht. Dadurch wird die Synchronisierung unterbrochen und ZenOpus kann Ihr Projekt nicht aktualisieren.
+</Warning>
+
+## Richten Sie die GitHub-Integration ein
+
+Nur Workspace **Administratoren und Besitzer** können die GitHub-Integration verwalten, einschließlich des Hinzufügens von Konten und Organisationen sowie des Verbindens oder Trennens von Projekten.
+
+Die Anbindung von GitHub erfolgt in drei Schritten:
+
+1. **Verknüpfen Sie Ihr GitHub-Konto** (OAuth-Autorisierung)
+1. **Installieren Sie die GitHub-App ZenOpus** auf einem Konto oder einer Organisation
+1. **Verbinden Sie einzelne Projekte** mit Repositorys
+
+### Schritt 1: Verbinden Sie Ihr GitHub-Konto
+
+Dieser Schritt verknüpft Ihre GitHub-Identität über die OAuth-Autorisierung mit ZenOpus.
+
+1. Gehen Sie zu **Einstellungen → Konnektoren → GitHub.**
+1. Klicken Sie auf **GitHub verbinden**.
+1. Melden Sie sich bei Ihrem GitHub-Konto an oder **autorisieren Sie zenopus.dev**, um Ihre GitHub-Identität zu überprüfen.  
+Sie sehen dann eine Option zum Verbinden eines Projekts.
+
+### Schritt 2: Installieren Sie die GitHub-App ZenOpus
+
+Dieser Schritt installiert die **ZenOpus GitHub-App** auf Ihrem GitHub-Konto oder Ihrer GitHub-Organisation und erteilt ZenOpus die Berechtigung, dort Repositorys zu erstellen und zu aktualisieren.
+
+Sie können die App unter Ihrem persönlichen GitHub-Konto oder einer beliebigen Organisation installieren, bei der Sie Administratorzugriff haben.
+
+1. Gehen Sie zu **Einstellungen → Konnektoren → GitHub.**
+1. Klicken Sie auf **Projekt verbinden.**
+1. Klicken Sie auf **Organisationen hinzufügen** und wählen Sie aus, wo zenopus.dev **installiert und autorisiert werden soll** – Ihr persönliches Konto oder eine Ihrer Organisationen.
+1. Wählen Sie aus, ob Sie Zugriff auf **alle Repositorys** oder **nur ausgewählte** gewähren möchten.
+1. Klicken Sie auf **Installieren und autorisieren**, um ZenOpus die Berechtigung zum Erstellen und Aktualisieren von Repositorys in Ihrem ausgewählten Konto oder Ihrer ausgewählten Organisation zu erteilen.
+
+### Schritt 3: Verbinden Sie ein Projekt mit GitHub
+
+Dieser Schritt verknüpft ein bestimmtes ZenOpus-Projekt mit einem GitHub-Repository. Jedes ZenOpus-Projekt kann **ein verknüpftes Repository** haben.
+
+1. Gehen Sie zu **Einstellungen → Connectors → GitHub** und klicken Sie auf **Projekt verbinden**, oder klicken Sie auf das GitHub-Symbol in der oberen rechten Ecke Ihres Projekts und dann auf **GitHub verbinden**.
+1. Wählen Sie die GitHub-Organisation oder das GitHub-Konto aus, in der Ihr Code gespeichert werden soll.
+1. Klicken Sie auf **Trotzdem übertragen**, um die Übertragung zu bestätigen und eine bidirektionale Synchronisierung einzurichten.  
+Für Ihr Projekt wird ein neues GitHub-Repository erstellt und die Synchronisierung beginnt automatisch.
+
+## Trennen Sie Ihr Projekt von GitHub
+
+Workspace-Administratoren und -Eigentümer können Projekte jederzeit in den GitHub-Einstellungen des Projekts von GitHub trennen.
+
+Wenn Sie die Verbindung trennen:
+
+- **Synchronisierung stoppt:** Die bidirektionale Verbindung zwischen ZenOpus und GitHub wird beendet.
+- **Ihr Repository bleibt auf GitHub:** Es bleibt mit dem gesamten Verlauf und den Dateien intakt.
+- **Ihr Code bleibt in ZenOpus:** Zukünftige Änderungen werden nur in ZenOpus gespeichert.
+
+Wenn Sie die Verbindung später erneut herstellen:
+
+- Ein **neues GitHub-Repository** wird mit Ihrem neuesten ZenOpus-Code erstellt.
+- Ihr **ursprüngliches Repository** bleibt auf GitHub, ist aber nicht mehr mit ZenOpus verknüpft.
+
+<Note>
+Sie können ein Projekt nicht trennen, wenn ZenOpus das GitHub-Repository nicht erreichen kann (z. B. wenn es umbenannt, verschoben oder gelöscht wurde).
+</Note>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Muss ich GitHub kennen, um diese Funktion nutzen zu können?">
+Nein. Einfach verbinden und autorisieren, GitHub speichert Ihren Code sicher.
+
+Sie müssen die Funktionen von GitHub nur dann erlernen, wenn Sie fortgeschrittenere Dinge wie Verzweigungen oder die Zusammenarbeit mit anderen Entwicklern durchführen möchten.
+</Accordion>
+<Accordion title="Das Klicken auf „GitHub verbinden“ bewirkt nichts – was ist los?">
+Ihr Browser hat wahrscheinlich das GitHub-Anmelde-Popup blockiert. Erlauben Sie Popups für ZenOpus und versuchen Sie es dann erneut.
+</Accordion>
+<Accordion title="Was passiert, wenn ich mein GitHub-Repository umbenenne, verschiebe oder lösche?">
+Die Verbindung wird unterbrochen. Die Synchronisierung Ihres Projekts wird beendet und Sie können es in ZenOpus nicht mehr bearbeiten.
+
+Um dieses Problem zu beheben, stellen Sie das Repository an seinem ursprünglichen Speicherort mit dem ursprünglichen Namen wieder her. Wenn es gelöscht wurde, können Sie es [auf GitHub wiederherstellen](https://docs.github.com/en/repositories/creating-and-managing-repositories/restoring-a-deleted-repository).
+</Accordion>
+<Accordion title="Was passiert, wenn ich meinen GitHub-Benutzernamen oder meine GitHub-Organisation umbenenne?">
+Die Verbindung wird unterbrochen. Die Synchronisierung Ihres Projekts wird beendet und Sie können es in ZenOpus nicht mehr bearbeiten.
+
+Um dies zu beheben, kehren Sie zum ursprünglichen GitHub-Benutzer- oder Organisationsnamen zurück.
+</Accordion>
+<Accordion title="Wie kann ich zu einem anderen GitHub-Konto wechseln?">
+Sie können das verknüpfte GitHub-Konto nach der Verbindung nicht mehr ändern.
+</Accordion>
+<Accordion title="Das Repo ist in der falschen Organisation gelandet – kann ich es verschieben?">
+Nicht direkt. Versuchen Sie diese Problemumgehung:
+
+1. **Remixen Sie Ihr Projekt**, um eine neue Kopie zu erstellen.
+1. **Verbinden Sie das neue Projekt** mit GitHub.
+1. Wählen Sie während der Einrichtung die richtige Organisation aus.
+</Accordion>
+<Accordion title="ZenOpus kann nicht auf mein Repository zugreifen – was soll ich tun?">
+Sie haben das Repo wahrscheinlich umbenannt, verschoben oder gelöscht. Stellen Sie alle Änderungen am Namen, Pfad oder Eigentümer des Repositorys wieder her oder machen Sie sie rückgängig, oder stellen Sie das Repository wieder her (https://docs.github.com/en/repositories/creating-and-managing-repositories/restoring-a-deleted-repository), wenn es gelöscht wurde und das Projekt wieder funktionieren sollte.
+</Accordion>
+<Accordion title="Kann ich die Verbindung zu GitHub trennen?">
+Ja. Administratoren und Eigentümer können Projekte jederzeit in den GitHub-Einstellungen Ihres Projekts von GitHub trennen. Ihr Repository bleibt auf GitHub, die Synchronisierung wird jedoch gestoppt. Wenn Sie die Verbindung später erneut herstellen, wird ein neues Repository erstellt.
+</Accordion>
+<Accordion title="Kann ich ein vorhandenes GitHub-Repo in ZenOpus importieren?">
+Nein. Sie können nur von ZenOpus nach GitHub exportieren, nicht umgekehrt.
+</Accordion>
+<Accordion title="Warum erscheinen meine Commits nicht in ZenOpus?">
+ZenOpus synchronisiert nur den **Standardzweig** (normalerweise `main`). Führen Sie Ihren Zweig in `main` zusammen oder [Zweige wechseln](/de/features/labs) innerhalb von ZenOpus.
+</Accordion>
+</AccordionGroup>

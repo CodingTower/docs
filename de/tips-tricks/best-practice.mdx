@@ -1,0 +1,183 @@
+---
+title: "Best Practices"
+description: "Nutzen Sie Wissensdateien, Plan mode, visuelle Bearbeitungen und Versionskontrolle effektiv, um schneller zu erstellen und häufige Fallstricke zu vermeiden."
+---
+Dieser Leitfaden hilft allen Benutzern – ob neu oder erfahren –, sich schnell einzuarbeiten und häufige Fallstricke beim Aufbau auf ZenOpus zu vermeiden.
+
+## 1. Legen Sie Ihre Grundlage fest: Nutzen Sie die Wissensdatei
+
+**Warum es wichtig ist:** Die Datei [Knowledge](/de/features/knowledge) ist das Gehirn Ihres Projekts. Es wird bei jeder Eingabeaufforderung gesendet und hilft der KI, den gesamten Kontext zu verstehen.
+
+**Was enthalten sein sollte:**
+
+- Ihre Produktvision (stellen Sie sich das wie ein PRD vor)
+- Benutzerreisen und Personas
+- Hauptmerkmale und Funktionalität
+- Designsysteme und UI-Anleitung
+- Rollenspezifisches Verhalten (z. B. Admin, Benutzer, Investor)
+
+<Tip>
+Sie können eine Knowledge-Datei automatisch über Plan mode generieren:
+
+```text
+Generiere Wissen für mein Projekt bei T=0 basierend auf den Funktionen, die ich bereits implementiert habe.
+```
+</Tip>
+
+## 2. Aufforderung zu Best Practices
+
+**Klare, ausführliche Eingabeaufforderungen = bessere Ausgabe.** Stellen Sie sich die KI wie Ihren technischen Partner vor – sie weiß nur, was Sie ihr sagen.
+
+**Prompt-Tipps:**
+
+- Seien Sie konkret: Geben Sie die genaue Seite (z. B. `/dashboard`) und das erwartete Verhalten an.
+- Verwenden Sie natürliche Sprache
+    ```text
+    Ich möchte, dass Benutzer mit der Rolle Investor auf diese Komponente zugreifen, nicht jedoch Administratoren.
+    ```
+- Screenshots hinzufügen: Besonders nützlich zur Beschreibung von Fehlern oder UX-Problemen.
+- Leitplanken hinzufügen: Sagen Sie der KI, was sie **nicht** berühren soll. Z.B.
+    ```text
+    Bearbeiten Sie /shared/Layout.tsx nicht.
+    ```
+- Wiederholen Sie wichtige Anweisungen bei allen Eingabeaufforderungen. Der Speicher der KI kann einschränkend sein.
+- Versuchen Sie nicht, fünf Dinge gleichzeitig umzusetzen. Teilen Sie die Arbeit in kleinere, testbare Teile auf. Verwenden Sie Plan mode zwischen den einzelnen Blöcken zur Validierung, bevor Sie fortfahren.
+    ```text
+    **Feature-Aufschlüsselungsvorlage:**
+    Erstellen Sie die neue Seite
+    Fügen Sie ein UI-Layout hinzu
+    Verbinden Sie die Daten
+    Fügen Sie Logik + Randfälle hinzu
+    Testen Sie pro Rolle
+    ```
+- Wenn Ihre App mehrere Rollen hat (z. B. Administrator, Investor, Startup), definieren Sie immer, *für welche Rolle* sich die Eingabeaufforderung bezieht. Dies hilft, Fehler zu vermeiden, die durch gemeinsam genutzte Logik/Komponenten verursacht werden.
+    ```text
+    Als Investor möchte ich das Unternehmens-Dashboard anzeigen, sollte es aber nicht bearbeiten können. Bitte beschränken Sie diese Funktion nur auf die Rolle „Investor“.
+    ```
+
+## 3. Verwenden Sie Plan mode früh und oft
+
+[**Plan mode**](/de/features/plan-mode) = Ihr KI-Copilot. Es hilft Ihnen beim Debuggen, Brainstorming und Planen von Implementierungen – ohne Ihren Code bearbeiten zu müssen, bis Sie bereit sind.
+
+**Wann sollte auf Plan mode umgestellt werden:**
+
+- Nach 2–3 fehlgeschlagenen „Try to Fix“-Versuchen
+- Beim Debuggen komplexer Logik- oder Datenbankprobleme
+- Bei der Planung neuer Funktionen
+    ```text
+    Schlagen Sie drei Möglichkeiten zur Implementierung von X vor
+    ```
+
+<Tip>
+**Workflow-Tipp:**
+
+Einige Benutzer verwenden Plan mode gerne 60–70 % Ihrer Zeit. Klicken Sie erst dann auf „Plan umsetzen“, wenn Sie vollständig zufrieden sind.
+</Tip>
+
+<Tip>
+Wenn Sie vergessen, Plan mode zu verwenden, verbessert dieses Format die Ausgabekonsistenz und verhindert zusätzliche Änderungen.
+
+```text
+Implementieren Sie auf der Seite /settings [Feature]. Das erwartete Verhalten ist [XYZ]. Bitte berühren Sie Komponente A, Layout B oder gemeinsame Logik nicht, es sei denn, dies ist erforderlich. Befolgen Sie die Best Practices von Tailwind / Supabase / X.
+```
+</Tip>
+
+<Tip>
+So vermeiden Sie unerwünschte Codeausführung:
+
+```text
+Untersuchen Sie, aber schreiben Sie noch keinen Code.
+```
+
+```text
+Schlagen Sie drei Möglichkeiten vor, dieses Problem zu lösen, ohne etwas zu ändern.
+```
+
+So bleibt die Kontrolle in Ihren Händen.
+</Tip>
+
+<Tip>
+Wenn die KI in eine „Schleife“ eintritt, verwenden Sie diese Reihenfolge, um endlose Zyklen des Patchens von fehlerhaftem Code zu vermeiden:
+
+1. Wechseln Sie zu Plan mode
+1. Fügen Sie den Fehler-Screenshot ein
+1. Sagen Sie:
+    ```text
+    Bitte untersuchen Sie dies, ohne andere Funktionen zu beeinträchtigen. Wenn nötig, kehren Sie zur letzten funktionierenden Version zurück und beheben Sie das Problem von dort aus.
+    ```
+</Tip>
+
+## 4. Vermeiden Sie mit Supabase häufige Fallstricke
+
+**Hinweis:** [Supabase](/de/integrations/supabase) wird nicht sauber wiederhergestellt. Wenn Sie eine Version zurücksetzen, kann Ihr Datenbankschema kaputt gehen.
+
+**Best Practices:**
+
+- Verbinden Sie Supabase **nachdem** das Frontend stabil ist
+- Wenn Sie zurückkehren müssen, fordern Sie die KI auf:
+    ```text
+    Bitte validieren Sie das SQL-Schema bei T=0 und stellen Sie sicher, dass keine wichtigen Änderungen aufgetreten sind.
+    ```
+- Testen Sie datenbankverknüpfte Funktionen immer vor der Veröffentlichung
+
+## 5. Verwenden Sie Visual Edit für schnelle Korrekturen an der Benutzeroberfläche
+
+Das [**Visual Edit-Tool**](/de/features/visual-edit) ist kostenlos und schnell. Verwenden Sie es anstelle von Eingabeaufforderungen für:
+
+- Ändern von Text, Farben, Schriftarten und Layout-Optimierungen
+- Mehrere kleine Elemente gleichzeitig bearbeiten
+- Sichere, kreditfreie Commits (mit Rückgängig-Möglichkeit)
+
+## 6. Setzen Sie die Versionskontrolle von GitHub + mit Bedacht ein
+
+- Jede Bearbeitung ist ein Commit. Verwenden Sie **Pinning**, um stabile Versionen zu markieren. Nach jedem funktionierenden Feature: **Pin it**
+- Nach jedem Fehler: **Versionen visuell vergleichen.** Sie können Folgendes auffordern:
+    ```text
+    Vergleichen Sie die Version bei T–1 mit T–0. Was hat sich geändert? Was könnte kaputt gehen?
+    ```
+- Kehren Sie zu einer stabilen Version zurück, wenn Sie das Gefühl haben, dass die KI zu viele Dinge kaputt gemacht hat.
+- Die Verwendung von **GitHub Branching** erfolgt auf eigene Gefahr. Vermeiden Sie das Löschen von Zweigen, bevor Sie in ZenOpus zu `main` zurückkehren, um Probleme bei der Projektsynchronisierung zu vermeiden.
+
+## 7. Wenn alles andere fehlschlägt, mischen Sie neu
+
+Viele Anwender merken: Es dauert beim zweiten Mal weniger Zeit, alles noch einmal zu machen.
+
+- [Remix](/de/introduction/faq#wie-kopiere-remixe-ich-ein-projekt) erstellt eine saubere Kopie Ihres Projekts bei T=0.
+- Wiederaufbau mit besserer Anleitung und klarerem Wissen
+- Verwenden Sie Ihr altes Projekt nur als Referenz
+
+**Anwendungsfälle:**
+
+- Sie stecken in einer fehlerhaften Schleife fest
+- Sie möchten einen sauberen Neustart mit beibehaltenem Verlauf durchführen
+- Sie müssen Supabase trennen und einen neuen Pfad ausprobieren
+
+<Tip>
+Für das Remixen muss zunächst die Verbindung zu Supabase getrennt werden.
+</Tip>
+
+## 8. Bleiben Sie geduldig, bleiben Sie ruhig
+
+Du bist nicht allein. KI kann in einem Moment magisch und im nächsten frustrierend sein. Die letzten 5 % eines Builds sind oft die langsamsten, aber auch die wichtigsten.
+
+<Tip>
+**Goldene Regel:**
+
+Nehmen Sie sich Zeit mit Aufforderungen. Überprüfen Sie alles noch einmal. Teilen Sie die Arbeit in kleine, testbare Blöcke auf. Je präziser Ihre Eingaben, desto besser Ihre Ergebnisse.
+</Tip>
+
+## 9. Nutzen Sie die Dokumente und bitten Sie um Hilfe
+
+- [Dokumentation](/) enthält Komplettlösungen, Vorlagen, SEO-Tipps, Integrationen und mehr. Fragen können Sie direkt im doc AI Assistant stellen.
+- Treten Sie der [Discord-Community](https://discord.gg/zenopus-dev) für Peer Support bei.
+
+## 10. Bonus-Tipps
+
+- Fügen Sie für lange Ansagen eine Sprachnotiz-Ansage per Diktat hinzu (z. B. verwenden Sie auf dem Mac das Mikrofon, um lange Ansagen zu diktieren). Sie erstellen schneller bessere Eingaben – besonders nützlich, wenn Sie frustriert oder müde sind.
+- Verwenden Sie das Eingabeaufforderungsmuster „`I am frustrated…`“, um einen besseren KI-Fokus zu erreichen
+- Überprüfen Sie nach einer größeren Bearbeitung immer mehrere Rollen und ihr Verhalten erneut (insbesondere bei bedingter Logik).
+- Speichern Sie stabile Versionen als Fallback für schnelles Debuggen
+- Wenn Sie unerwartete Nebenwirkungen bemerken, können Sie so Fehler vermeiden, die durch zu generische Logik verursacht werden.
+    ```text
+    Erstellen Sie eine Komponente speziell für [Rolle
+    ```

@@ -1,0 +1,118 @@
+---
+title: "Workspace security center"
+description: "A centralized workspace security dashboard for monitoring security findings, scan coverage, and dependency risks across all projects."
+---
+The **Security center** helps teams identify risks, prioritize fixes, and track security coverage across projects at scale.
+
+- **Available on:** Business and Enterprise plans
+- **Access:** Workspace admins and owners
+- **Location:** Settings → Workspace → Security center
+
+<Tip>
+The Security center provides a **workspace-wide view of security status across all projects**.
+
+- To review, fix, or update findings for an individual project, open the [Project security view](/features/security-view).
+- For an overview of ZenOpus’s security model and scanning approach, see the [Security overview](/features/security).
+- For practical guidance on writing secure code and avoiding common security mistakes, see [Security best practices for ZenOpus apps](/tips-tricks/security-best-practices).
+</Tip>
+
+## What the Security center shows
+
+The Security center is organized into two main sections, each focused on a different aspect of workspace security. It combines code analysis and supply chain security into a single workspace-level view.
+
+### Code analysis
+
+Review security findings from **automated security scanning** across all projects in your workspace. Summary cards provide an at-a-glance view of total projects, projects with findings, and scan coverage.
+
+- **Errors**: Critical security issues that require immediate attention
+- **Warnings**: Important security concerns that should be reviewed
+- **Info**: Informational findings that provide additional context
+- **Scan status**: When projects were last scanned, including live scanning indicators
+- **Visibility**: The project’s publish status, whether it is draft (not published), workspace (published internally to the workspace), or public (published publicly)
+
+You can search, filter, and sort projects by security status, visibility (publish status), scan state, or name to quickly focus on what matters most.
+
+### Supply chain security
+
+Monitor dependency vulnerabilities across your entire workspace. Summary cards highlight vulnerability counts by severity and overall scan coverage.
+
+- **Two views**: Review vulnerabilities **by project** or **by vulnerability**
+- **Vulnerabilities by severity**: Categorized as critical, high, or medium
+- **Affected projects**: Which projects use vulnerable dependencies
+- **Vulnerable packages**: Package names, affected versions, and fixed versions when available
+- **CSV export**: Export a workspace-wide dependencies list as a CSV file for audits or reporting (available from the **projects view** in Supply chain security)
+
+You can filter and search vulnerabilities by severity, visibility (publish status), CVE, package name, or vulnerability title.
+
+## Why use the Security center
+
+The Security center helps teams stay on top of security issues by making risks visible, comparable, and actionable across projects.
+
+- **Centralized oversight**  
+Review security findings across your entire workspace without opening projects individually.
+- **Clear prioritization**  
+Focus on projects with critical errors, high-severity vulnerabilities, or outdated scans.
+- **Visibility into scan coverage**  
+See which projects are up to date and which may need security reviews.
+- **Dependency risk awareness**  
+Understand how vulnerable dependencies affect multiple projects and coordinate updates efficiently.
+
+## Common use cases
+
+The Security center supports both routine reviews and time-sensitive security work, including:
+
+- **Release readiness and audits**  
+Confirm projects meet security standards before shipping or compliance reviews.
+- **Project onboarding and handoffs**  
+Ensure inherited or transferred projects have been scanned and don’t introduce security risks.
+- **Critical vulnerability response**  
+Quickly identify affected projects when new dependency issues are announced.
+- **Ongoing monitoring**  
+Regularly review findings and address new issues as part of a weekly or monthly cadence.
+
+## Best practices for using the Security center
+
+The Security center is designed for ongoing review rather than a fixed workflow. The following best practices reflect how teams commonly use it.
+
+- **Start with the workspace overview**  
+Review overall security status to understand how many projects have errors, warnings, or outdated scans.
+- **Prioritize projects that need attention**  
+Use filters to focus on projects with critical errors, high-severity vulnerabilities, or recent warnings.
+- **Check scan freshness**  
+Identify projects that haven’t been scanned recently and may need updated security reviews.
+- **Review dependency vulnerabilities**  
+Inspect vulnerable packages by severity to see which issues affect multiple projects and require coordinated updates.
+- **Take action within individual projects**  
+Use the **View** action on a project to open its security details, run new scans, update dependencies, and resolve findings in the [Project security view](/features/security-view).
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Who can access the Security center?">
+Workspace admins and owners on Business and Enterprise plans can access the Security center at **Settings → Workspace → Security center**.
+</Accordion>
+<Accordion title="Does the Security center run scans automatically?">
+No. It displays the most recent scan results for each project. To update what you see, run a new security scan in the project.
+</Accordion>
+<Accordion title="What’s the difference between errors, warnings, and info?">
+- **Errors** are critical security issues that should be resolved before publishing.
+- **Warnings** are important concerns that may not be critical but should be reviewed.
+- **Info** findings provide additional context to help teams better understand their security posture.
+</Accordion>
+<Accordion title="What does &quot;visibility&quot; mean?">
+Visibility reflects a project’s **publish status**:
+
+- **Draft**: Not published
+- **Workspace**: Published internally and accessible by workspace members only
+- **Public**: Published publicly and accessible by anyone with the link
+</Accordion>
+<Accordion title="Why do some projects show as never scanned?">
+Projects appear as never scanned if a security scan has not yet been run for them. Run a security scan in the project to generate results.
+</Accordion>
+<Accordion title="Does the Security center show historical data?">
+No. At the moment, the Security center shows only the latest scan results for each project.
+</Accordion>
+<Accordion title="Can I export security data?">
+Yes. You can export a workspace-wide dependencies list as a CSV file from the Supply chain security section (projects view).
+</Accordion>
+</AccordionGroup>

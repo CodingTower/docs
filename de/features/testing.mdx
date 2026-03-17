@@ -1,0 +1,161 @@
+---
+title: "Testen und verifizieren Sie Ihre App"
+description: "ZenOpus bietet Browsertests, Frontend-Tests und Edge-Funktionsüberprüfung, um das Systemverhalten zu verstehen, Benutzerworkflows zu validieren und sicherzustellen, dass die Backend-Logik wie erwartet funktioniert."
+---
+ZenOpus bietet Ihnen mehrere Möglichkeiten, zu überprüfen, ob sich Ihre Anwendung wie erwartet verhält. Diese Tools helfen Ihnen, Probleme zu reproduzieren, Korrekturen zu bestätigen und Regressionen im Frontend- und Backend-Verhalten zu vermeiden.
+
+<Tip>
+**Wählen Sie den richtigen Test**
+
+Wenn Sie nicht sicher sind, welches Testtool Sie verwenden sollen, beginnen Sie mit der Art von Verhalten, die Sie überprüfen möchten.
+
+- Wenn das Problem für Benutzer sichtbar ist, verwenden Sie Browsertests.
+- Wenn das UI-Verhalten im Laufe der Zeit korrekt bleiben soll, verwenden Sie Frontend-Tests.
+- Wenn das Problem in der Backend-Logik liegt, rufen Sie die Edge-Funktion direkt auf und fügen Sie dann einen Edge-Test hinzu.
+</Tip>
+
+## Was ZenOpus bei der Verifizierung beobachten kann
+
+ZenOpus sammelt Informationen, wenn der Agent Verifizierungstools ausführt. Diese Informationen werden im Rahmen dieser Tools automatisch erfasst und verwendet, um zu verstehen, was in Ihrer App passiert.
+
+ZenOpus kann Folgendes erfassen:
+
+- Protokolle der Browserkonsole während des Browsertests
+- Netzwerkanfragen, die während des Browsertests gestellt wurden
+- Testfehler und Buildfehler aus Testläufen
+- Anfrage- und Antwortdaten beim direkten Aufruf von Backend-Funktionen
+
+Diese Signale sind immer dann verfügbar, wenn die entsprechenden Tools verwendet werden, und reichen oft aus, um Probleme ohne zusätzliche manuelle Fehlerbehebung zu diagnostizieren.
+
+ZenOpus unterstützt mehrere Testansätze, die jeweils für eine andere Art der Verifizierung konzipiert sind. Die meisten Tests fallen in eine von zwei Kategorien:
+
+- Überprüfung vollständiger Benutzerströme
+- Überprüfen spezifischer Regeln oder Verhaltensweisen isoliert
+
+## Browsertests
+
+[Browsertests](/de/features/browser-testing) überprüft das tatsächliche Benutzerverhalten, indem es mit Ihrer App in einem Browser interagiert. Der Agent kann durch Seiten navigieren, auf Schaltflächen klicken, Formulare ausfüllen und Anfragen senden. Dabei können Screenshots aufgenommen, UI-Elemente überprüft und Konsolen- und Netzwerkaktivitäten beobachtet werden.
+
+Verwenden Sie Browsertests, wenn:
+
+- Jemand meldet fehlerhaftes oder unerwartetes Verhalten der Benutzeroberfläche
+- Sie müssen einen mehrstufigen Ablauf wie Onboarding oder Checkout überprüfen
+- Das Problem kann vom Routing, der Authentifizierung, dem Timing oder dem Status abhängen
+- Sie möchten Änderungen aus Benutzersicht bestätigen
+
+Browsertests sind langsamer als andere Methoden, liefern aber das klarste Bild davon, was ein Benutzer tatsächlich erlebt.
+
+Während der Untersuchung kann der Agent Browsertests starten. Sie können dies auch explizit anfordern.
+
+**Beispiel**
+
+```text
+Verwenden Sie Browsertests, um den Checkout-Ablauf zu überprüfen.
+```
+
+## Frontend-Tests
+
+Frontend-Tests überprüfen das UI-Verhalten isoliert anhand klarer Aussagen. Sie sind nützlich, um sicherzustellen, dass eine bestimmte UI-Logik im Laufe der Zeit weiterhin wie erwartet funktioniert.
+
+Frontend-Tests werden in einer simulierten Browserumgebung ausgeführt, laufen schnell und liefern konsistente Ergebnisse und befinden sich normalerweise neben den Komponenten als `.test.tsx`-Dateien.
+
+**Teststapel**
+
+- Vitest
+- React Testing-Bibliothek
+- jsdom
+
+Verwenden Sie Frontend-Tests, wenn:
+
+- Das Problem kann als klare Regel oder Erwartung beschrieben werden
+- Sie beheben eine UI-Regression und möchten verhindern, dass sie erneut auftritt
+- Sie arbeiten mit bedingtem Rendering oder komplexen Zuständen wie Formularen, Tabellen und Filtern
+- Sie möchten schnelles Feedback, ohne die vollständige App ausführen zu müssen
+
+Frontend-Tests werden nur auf Anfrage ausgeführt.
+
+**Beispiel**
+
+```text
+Schreiben Sie Frontend-Tests für das Anmeldeformular und führen Sie diese aus.
+```
+
+## Backend-Verifizierung mit Edge-Funktionen
+
+ZenOpus bietet zwei komplementäre Möglichkeiten zur Überprüfung des Backend-Verhaltens in Edge-Funktionen: direkte Aufrufe und automatisierte Tests. Diese Ansätze werden oft zusammen verwendet.
+
+### Direkte Kantenfunktionsaufrufe
+
+Durch direkte Aufrufe kann der Agent eine Kantenfunktion mit bestimmten Eingaben ausführen und das Ergebnis sofort überprüfen. Dies vermeidet Komplexität im Zusammenhang mit der Benutzeroberfläche und ist nützlich für eine schnelle Isolierung. Wenn Sie angemeldet sind, können authentifizierte Anrufe Ihre aktuelle Sitzung verwenden.
+
+Verwenden Sie Direktanrufe, wenn:
+
+- Sie vermuten ein Backend-Problem und möchten es von der Benutzeroberfläche trennen
+- Sie müssen bestimmte Parameter oder Eingaben überprüfen
+- Sie möchten das Verhalten vor und nach einer Änderung vergleichen
+- Sie debuggen authentifiziertes Verhalten
+
+Direkte Edge-Funktionsaufrufe werden nur auf Anfrage ausgeführt.
+
+**Beispiel**
+
+```text
+Rufen Sie die Signup-Edge-Funktion direkt mit einer ungültigen E-Mail auf.
+```
+
+### Kantentests
+
+Edge-Tests sind automatisierte Tests, die Backend-Regeln im Laufe der Zeit überprüfen. Sie tragen dazu bei, dass wichtige Logik nicht stillschweigend kaputtgeht.
+
+**Teststapel**
+
+- Deno eingebauter Testläufer
+- Natives TypeScript Support
+
+Verwenden Sie Kantentests, wenn:
+
+- Sie ändern eine Kantenfunktion und möchten einen Regressionsschutz
+- Sie validieren Geschäftsregeln oder Berechtigungen
+- Das Problem ist subtil und manuell schwer zu überprüfen
+
+Edge-Tests werden nur auf Anfrage ausgeführt.
+
+**Beispiel**
+
+```text
+Schreiben Sie Edge-Tests für die Zahlungsabwicklungsfunktion.
+```
+
+### Wie Backend-Verifizierungstools zusammenarbeiten
+
+Direktaufrufe und Edge-Tests werden beim Debuggen des Backend-Verhaltens häufig zusammen verwendet.
+
+Eine übliche Sequenz sieht so aus:
+
+1. Rufen Sie die Kantenfunktion direkt auf, um das Problem mit einer bestimmten Eingabe zu reproduzieren.
+1. Wenden Sie den Fix an, sobald Sie das Verhalten verstanden haben.
+1. Rufen Sie die Funktion erneut mit derselben Eingabe auf, um die Änderung zu bestätigen.
+1. Fügen Sie einen Kantentest hinzu, um sicherzustellen, dass sich das Verhalten mit der Zeit nicht verschlechtert.
+
+Dieser Ansatz sorgt für eine schnelle Iteration und bietet dennoch eine langfristige Überprüfung.
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Muss ich bei jeder Änderung alle Tests durchführen?">
+Nein. Die meisten Probleme können mit einem einzigen Tool verstanden und überprüft werden. Browsertests sind nützlich für vom Benutzer sichtbare Probleme, Frontend-Tests helfen dabei, bestimmtes UI-Verhalten zu sperren, und Backend-Verifizierung eignet sich am besten für die Geschäftslogik. Wählen Sie das Tool aus, das der Art des Problems entspricht, das Sie untersuchen.
+</Accordion>
+<Accordion title="Was soll ich tun, wenn sich ein Problem auch nach einigen Versuchen nicht löst?">
+Wenn sich ein Problem nach einigen Versuchen nicht löst, können Sie ZenOpus bitten, mehrere Überprüfungstools zu verwenden. ZenOpus führt diese Tools aus und verwendet ihre Ausgabe als Leitfaden für den nächsten Schritt.
+
+- Die Überprüfung von Protokollen oder Testfehlern früherer Läufe hilft oft dabei, die Ursache einzugrenzen.
+- Backend-Probleme lassen sich normalerweise am einfachsten isolieren, indem man die Edge-Funktion direkt aufruft.
+- Benutzerbezogene Probleme lassen sich am besten durch Browsertests untersuchen.
+- Sobald das Verhalten verstanden ist, hilft das Hinzufügen automatisierter Tests, es über einen längeren Zeitraum stabil zu halten.
+
+Wenn das Problem weiterhin besteht, kehren Sie zur neuesten stabilen Version zurück.
+</Accordion>
+<Accordion title="Führt ZenOpus automatisch Verifizierungstools aus?">
+Die meisten Verifizierungstools werden nur ausgeführt, wenn Sie danach fragen. In manchen Fällen kann der Agent während der Untersuchung ein Tool vorschlagen oder initiieren, die Überprüfung läuft jedoch nicht unbemerkt im Hintergrund ab.
+</Accordion>
+</AccordionGroup>

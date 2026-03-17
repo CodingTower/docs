@@ -1,0 +1,143 @@
+---
+title: "Verbinde deine App mit Twitch"
+description: "Verbinden Sie Ihre App mit Twitch, um benutzerdefinierte Stream-Overlays zu erstellen, Live-Stream-Daten anzuzeigen, Kanalaktivitäten zu verfolgen und Tools für YouTuber und Communities direkt aus Ihrer ZenOpus-App zu erstellen."
+---
+[Twitch](https://www.twitch.tv/) ist eine Live-Streaming-Plattform, die sich auf Spiele, kreative Inhalte und Echtzeit-Community-Interaktion konzentriert. Mit dem Twitch-Connector kann Ihre ZenOpus-App auf die Helix-API von Twitch zugreifen, sodass Sie Stream-Overlays, Dashboards und Community-Tools betreiben können, die auf das Geschehen auf einem Kanal reagieren.
+
+Mit Twitch kann Ihre App:
+
+- Live-Chat von einem Twitch-Kanal anzeigen
+- Zeigen Sie die Anzahl der Follower und Abonnenten an
+- Verfolgen Sie benutzerdefinierte Ziele wie Follower- oder Abonnementmeilensteine
+- Sehen Sie sich den Stream-Status, die Zuschauerzahlen und die Kanalmetadaten an
+- Rufen Sie Clips, Zeitpläne und Kanalinformationen ab
+- Senden Sie Chatnachrichten an einen Twitch-Kanal
+- Durchsuchen Sie Kanäle, Spiele und Kategorien
+
+Twitch eignet sich gut, wenn Ihre App neben einem Stream läuft. Beispiele hierfür sind Overlays, Moderationstools, Event-Dashboards und Apps zur Erstelleranalyse.
+
+## Häufige Anwendungsfälle und Beispiel-Apps
+
+| Beispiel-App | Beispielaufforderung | Beschreibung |
+| --- | --- | --- |
+| Benutzerdefiniertes Stream-Overlay | Erstellen Sie ein Stream-Overlay, das meinen Live-Chat, meinen neuesten Follower und mein aktuelles Unterziel in meinen Markenfarben anzeigt. | Ersetzen Sie generische Overlay-Tools durch ein vollständig benutzerdefiniertes Overlay. Die App zeigt den Chat über die IRC-Verbindung von Twitch an und ruft Follower- und Abonnementdaten über die Twitch-API ab, um ein gebrandetes Overlay für den Stream zu erstellen, das als Browserquelle in Streaming-Software wie OBS Studio (Open Broadcaster Software) hinzugefügt werden kann. |
+| Abonnenten- oder Follower-Ziel-Tracker | Erstellen Sie ein Overlay-Widget, das einen Fortschrittsbalken für mein 1000-Follower-Ziel anzeigt. | Zeigen Sie den Meilensteinfortschritt live im Stream an. Die App ruft die Anzahl der Follower oder Abonnenten von Twitch ab und stellt einen Fortschrittsbalken dar, der aktualisiert wird, wenn sich die Zahlen ändern. |
+| Live-Chat-Overlay | Erstellen Sie ein Live-Chat-Overlay, das die neuesten Nachrichten von meinem Twitch-Kanal anzeigt. | Zeigen Sie Chat-Nachrichten direkt in einem Stream-Overlay an. Die App stellt über den IRC-WebSocket-Endpunkt eine Verbindung zum Twitch-Chat her und rendert eingehende Nachrichten in Echtzeit. |
+| Event-Broadcast-Overlay | Erstellen Sie ein Turnier-Overlay, über das Moderatoren während der Übertragung Spielstände und Spielinformationen aktualisieren können. | Power-Overlays für Live-Events oder Turniere. Moderatoren aktualisieren Spielinformationen über ein Kontrollfeld und das Overlay spiegelt die Aktualisierungen sofort für die Zuschauer wider. |
+| Mehrkanal-Stream-Tracker | Erstellen Sie ein Dashboard, das anzeigt, welche Kanäle aus meiner Liste derzeit live sind. | Überwachen Sie eine Liste von Streamern und sehen Sie, wer gerade live ist. Die App prüft den Stream-Status über mehrere Kanäle hinweg und zeigt Zuschauerzahlen und Stream-Titel an. |
+| Clip-Erkennungsbrowser | Erstellen Sie eine App, mit der ich nach einem Twitch-Kanal suchen und deren Top-Clips durchsuchen kann. | Entdecken Sie Highlights von Twitch-Kanälen. Die App ruft Clips von der Twitch-API ab und präsentiert sie in einer durchsuchbaren Oberfläche. |
+| Moderator-Dashboard | Erstellen Sie ein Moderationspanel, das Follower auflistet und es Moderatoren ermöglicht, Chat-Ankündigungen zu senden. | Geben Sie Moderatoren eine strukturierte Oberfläche zur Verwaltung der Community-Aktivitäten. Die App ruft Follower-Daten ab und ermöglicht Moderatoren das Posten von Nachrichten zum Chatten direkt über das Dashboard. |
+
+## So funktionieren Twitch-Verbindungen
+
+Twitch verwendet OAuth 2.0 zur Authentifizierung. Wenn Sie Twitch verbinden, autorisieren Sie ZenOpus, im Namen des authentifizierten Kontos auf Twitch zuzugreifen.
+
+Twitch nutzt die Gateway-Architektur von ZenOpus für sichere OAuth-Verarbeitung und automatische Token-Aktualisierung. Weitere Informationen zu Authentifizierungs- und Nutzungsbeschränkungen finden Sie unter [Gateway-basierte Connectors](/de/integrations/introduction#gateway-basierte-konnektoren).
+
+Jede Twitch-Verbindung ist an ein Twitch-Konto gebunden. Bei Bedarf können Sie mehrere Verbindungen erstellen. Sie können beispielsweise separate Konten für Entwicklung, Produktion oder verschiedene Ersteller verbinden.
+
+## So verbinden Sie Twitch
+
+Workspace **Administratoren** und **Besitzer** können Twitch verbinden.
+
+Wenn die Verbindung hergestellt ist, wird Twitch für alle Projekte im Workspace verfügbar.
+
+### Voraussetzungen
+
+Bevor Sie Twitch verbinden, stellen Sie sicher, dass Sie Folgendes haben:
+
+- Ein Twitch-Konto
+- Eine ZenOpus Workspace Administrator- oder Besitzerrolle
+
+### Schritt 1: Wählen Sie das Konto aus, mit dem Sie eine Verbindung herstellen möchten
+
+Ihre Verbindung verwendet direkt ein Twitch-Konto. Es ist keine Entwickleranwendung oder API-Schlüssel erforderlich.
+
+Stellen Sie sicher, dass das verbundene Konto über die für Ihren Anwendungsfall erforderlichen Berechtigungen verfügt.
+
+Zum Beispiel:
+
+- Um Follower-Daten lesen zu können, muss das Konto über Moderatorzugriff für den Kanal verfügen.
+- Um Chatnachrichten zu senden, muss das Konto über die Berechtigung zum Posten im Kanal verfügen.
+- Um auf Abonnementdaten zugreifen zu können, muss das verbundene Konto der Kanaleigentümer sein.
+
+Bei den meisten Overlay-Setups bietet die Verbindung mit dem eigenen Konto des Streamers den umfassendsten Zugriff.
+
+### Schritt 2: Twitch mit ZenOpus verbinden
+
+1. Gehen Sie zu **Einstellungen → Connectors → Gemeinsame Connectors** und wählen Sie **Twitch**.
+1. Klicken Sie auf **Verbindung hinzufügen**.
+1. Geben Sie unter **Anzeigename** einen Namen für die Verbindung ein. Zum Beispiel `Twitch Production`.
+1. **Bereiche konfigurieren (optional)**Erweitern Sie **Erweiterte Einstellungen**, um die Twitch-API-Berechtigungen zu konfigurieren, die Ihre App benötigt. Zu den Standardbereichen gehören:Zusätzliche Bereiche sind für Funktionen wie Clip-Verwaltung, Vorhersagen, Umfragen, Analysen und Kanalpunkte verfügbar. Aktivieren Sie nur die Bereiche, die Ihre App benötigt. Sie können Bereiche später aktualisieren, indem Sie die Verbindung bearbeiten und **Erneut verbinden** auswählen. Die vollständige Liste der Bereiche finden Sie in der [Twitch OAuth-Bereichsreferenz](https://dev.twitch.tv/docs/authentication/scopes/).
+    - `user:read:email` – Sehen Sie sich die E-Mail-Adresse des Kontos an
+    - `channel:read:subscriptions` – Kanalabonnementdaten anzeigen
+    - `moderator:read:followers` – Follower-Daten für moderierte Kanäle anzeigen
+    - `user:write:chat` – Senden Sie Nachrichten an den Twitch-Chat
+1. Klicken Sie auf **Verbinden**. Es öffnet sich ein Twitch-Autorisierungsfenster. Stellen Sie sicher, dass Pop-ups erlaubt sind.
+1. Melden Sie sich bei Twitch an, überprüfen Sie die angeforderten Berechtigungen und klicken Sie auf **Autorisieren**.
+
+Sobald die Autorisierung abgeschlossen ist, wird die Verbindung in ZenOpus angezeigt und Ihre Apps können mit der Nutzung von Twitch-Daten beginnen.
+
+## Einschränkungen
+
+Der Twitch-Connector kann derzeit nicht:
+
+- **Lesen Sie den Twitch-Chat in Echtzeit über das Gateway**  
+
+ Der Twitch-Chat verwendet IRC über WebSocket, das nicht über das ZenOpus-Gateway weitergeleitet werden kann. Um Chat-Nachrichten zu lesen, muss Ihre App eine direkte Verbindung zum Chat-Endpunkt von Twitch herstellen: `wss://irc-ws.chat.twitch.tv`Für das Lesen des öffentlichen Chats ist keine Authentifizierung erforderlich. Das Senden von Chatnachrichten über die Twitch-API erfordert eine Authentifizierung.
+- **Empfangen Sie EventSub-Webhooks**  
+
+ Eingehende Twitch-Events wie Stream-Startbenachrichtigungen oder Follow-Events werden derzeit nicht unterstützt.
+- **Support Twitch-Login pro Benutzer**  
+
+ Jede Verbindung authentifiziert ein einzelnes Twitch-Konto. Endbenutzer Ihrer App können über diesen Connector keine eigenen Twitch-Konten verbinden.
+
+## So entkoppeln Sie Projekte von einer Verbindung
+
+Redakteure und höher können bestimmte Projekte aus einer Verbindung entfernen, ohne die Verbindung vollständig zu löschen. Für andere Projekte bleibt die Verbindung weiterhin verfügbar.
+
+Um die Verknüpfung von Projekten aufzuheben:
+
+<Steps>
+<Step title="Navigieren Sie zu Anschlüssen">
+Gehen Sie zu **Einstellungen → Connectors → Gemeinsame Connectors** und wählen Sie **Twitch**.
+</Step>
+<Step title="Öffnen Sie die Verbindung">
+Öffnen Sie die Verbindung, die Sie verwalten möchten.
+</Step>
+<Step title="Wählen Sie Projekte aus">
+Markieren Sie unter **Verknüpfte Projekte** die Projekte, deren Verknüpfung Sie aufheben möchten.
+</Step>
+<Step title="Bestätigen">
+Klicken Sie auf **Projekte verknüpfen** und bestätigen Sie.
+</Step>
+</Steps>
+
+Wenn die Verknüpfung aufgehoben wird, haben diese Projekte über diese Verbindung keinen Zugriff mehr auf **Twitch**. Wenn ein Projekt erneut **Twitch** benötigt, können Sie es mit jeder verfügbaren Verbindung verknüpfen.
+
+## So löschen Sie eine Verbindung
+
+Workspace-Administratoren und -Besitzer können **Twitch**-Verbindungen löschen.
+
+<Warning>
+Das Löschen einer Verbindung ist dauerhaft und kann nicht rückgängig gemacht werden. Dadurch werden die Anmeldeinformationen aus allen verknüpften Projekten entfernt und alle Apps, die diese Verbindung verwenden, funktionieren nicht mehr, bis eine neue Verbindung hinzugefügt wird.
+</Warning>
+
+Überprüfen Sie vor dem Löschen den Abschnitt **Verknüpfte Projekte**, um zu sehen, welche Projekte derzeit die Verbindung verwenden.
+
+So löschen Sie eine Verbindung:
+
+<Steps>
+<Step title="Navigieren Sie zu Anschlüssen">
+Gehen Sie zu **Einstellungen → Connectors → Gemeinsame Connectors** und wählen Sie **Twitch**.
+</Step>
+<Step title="Öffnen Sie die Verbindung">
+Öffnen Sie die Verbindung, die Sie entfernen möchten.
+</Step>
+<Step title="Überprüfen Sie verknüpfte Projekte">
+Sehen Sie sich den Abschnitt **Verknüpfte Projekte** an.
+</Step>
+<Step title="Löschen">
+Klicken Sie unter **Diese Verbindung löschen** auf **Löschen** und bestätigen Sie.
+</Step>
+</Steps>
